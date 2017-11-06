@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=WebRoot/assets/js,WebRoot/JSP/HT/js,WebRoot/assets/login_js,WebRoot/JSP/HT/assets,src/com/config/springmvc.xml
+validator.Unchecked=
