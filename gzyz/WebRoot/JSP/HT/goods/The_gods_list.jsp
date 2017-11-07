@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 
-<link rel="icon" type="assets/i/favicon.png">
+<link rel="icon" type="${pageContext.request.contextPath }/JSP/HT/assets/i/favicon.png">
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/JSP/HT/assets/css/amazeui.min.css"/>
@@ -208,7 +208,7 @@ function updategood(id){
      for(i;i<=allpage;i++){
       page_id="AllPage";
       page_id=page_id+i;
-      $("#pageUl").append("<li id='"+page_id+"'><a id='tri' href='javascript:qureyAllGoodLimt("+i+")'>"+i+"</a></li>");
+      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:qureyAllGoodLimt("+i+")'>"+i+"</a></li>");
      }
      $("#pageUl").append("<li><a onclick='javascript:qureyAllGoodLimt("+allpage+")'>»</a></li>");
      page_id="AllPage"+nowpage;
@@ -222,11 +222,11 @@ function updategood(id){
      var page_id="AllPage"+1;
      $("#pageUl").empty();
      $("#pageUl").append("<li><a href='javascript:aqureyByCatrgoryAndKeywordsLimit(1)'>«</a></li>");
-     $("#pageUl").append("<li class='am-active'><a href='javascript:aqureyByCatrgoryAndKeywordsLimit(1)'>1</a></li>");
+     $("#pageUl").append("<li id='"+page_id+"' class='am-active'><a href='javascript:aqureyByCatrgoryAndKeywordsLimit(1)'>1</a></li>");
      for(i;i<=allpage;i++){
       page_id="AllPage";
       page_id=page_id+i;
-      $("#pageUl").append("<li><a href='javascript:aqureyByCatrgoryAndKeywordsLimit("+i+")'>"+i+"</a></li>");
+      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:aqureyByCatrgoryAndKeywordsLimit("+i+")'>"+i+"</a></li>");
      }
      $("#pageUl").append("<li><a onclick='javascript:aqureyByCatrgoryAndKeywordsLimit("+allpage+")'>»</a></li>");
      page_id="AllPage"+nowpage;
@@ -234,7 +234,20 @@ function updategood(id){
      $("ul.am-pagination li").removeClass("am-active");
      $(id).addClass("am-active");
      };
-     //window.onload = setpage;
+     
+     window.onload =function setSpage(){
+      var i=2;
+     var page_id="AllPage"+1;
+     $("#pageUl").empty();
+     $("#pageUl").append("<li><a href='javascript:qureyAllGoodLimt(1)'>«</a></li>");
+     $("#pageUl").append("<li class='am-active'><a href='javascript:qureyAllGoodLimt(1)'>1</a></li>");
+      for(i;i<=${AllPage};i++){
+      page_id="AllPage";
+      page_id=page_id+i;
+      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:qureyAllGoodLimt("+i+")'>"+i+"</a></li>");
+     } 
+     $("#pageUl").append("<li><a onclick='javascript:qureyAllGoodLimt("+${AllPage}+")'>»</a></li>");
+     };
 </script>
 </head>
 <body>
@@ -301,7 +314,7 @@ function updategood(id){
     <div class="sideMenu">
       <h3 class="am-icon-flag"><em></em> <a href="#">商品管理</a></h3>
       <ul>
-        <li><a href="javascript:qureyAllGoodLimt(1)">商品列表</a></li>
+        <li><a href="${pageContext.request.contextPath }/good/squreyGoodsLimit.action?nowpage=1">商品列表</a></li>
         <li><a href="#">添加新商品</a></li>
 		  <li><a href="Classfiy_goods.html">商品分类</a></li>
         <li>商品回收站</li>
@@ -624,15 +637,15 @@ function updategood(id){
            
           
               <ul id="pageUl"class="am-pagination am-fr">
-                <!-- <li><a href="http//www.baidu.com">«</a></li>
+                <li><a href="http//www.baidu.com">«</a></li>
                 <li class="am-active"><a href="#" onclick="javascript:qureyAllGoodLimt(1)">1</a></li>
                 <li><a id="tri" href="#" onclick="javascript:qureyAllGoodLimt(2)">2</a></li>
                 <li><a id="tri" onclick="javascript:qureyAllGoodLimt(3)">3</a></li>
                 <li><a id="tri" onclick="javascript:qureyAllGoodLimt(4)">4</a></li>
                 <li><a id="tri" onclick="javascript:qureyAllGoodLimt(5)">5</a></li>
-                <li><a id="tri" onclick="javascript:qureyAllGoodLimt(6)">»</a></li> -->
+                <li><a id="tri" onclick="javascript:qureyAllGoodLimt(6)">»</a></li>
               </ul>
-          
+              
           
           
       
