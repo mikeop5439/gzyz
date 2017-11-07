@@ -6,7 +6,7 @@ public class manger {
 	private String manger_id;
 	private String manger_name;
 	private String manger_password;
-	private String manger_sex;
+	private int manger_sex;
 	private String manger_tele;
 	private int manger_age;
 	public String getManger_id() {
@@ -27,10 +27,10 @@ public class manger {
 	public void setManger_password(String manger_password) {
 		this.manger_password = manger_password;
 	}
-	public String getManger_sex() {
+	public int getManger_sex() {
 		return manger_sex;
 	}
-	public void setManger_sex(String manger_sex) {
+	public void setManger_sex(int manger_sex) {
 		this.manger_sex = manger_sex;
 	}
 	public String getManger_tele() {
@@ -52,6 +52,8 @@ public class manger {
 				+ ", manger_sex=" + manger_sex + ", manger_tele=" + manger_tele
 				+ ", manger_age=" + manger_age + "]";
 	}
+	
+	
 	
 
 	
