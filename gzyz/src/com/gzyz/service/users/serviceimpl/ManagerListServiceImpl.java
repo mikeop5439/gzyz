@@ -89,6 +89,12 @@ public class ManagerListServiceImpl implements ManagerListService {
 		managerListMapper.insertLog(manager_log);
 	}
 
+	@Override
+	public List<Manager_log> queryLogLimit(int startindex) {
+		// TODO Auto-generated method stub
+		return managerListMapper.queryLogLimit(startindex);
+	}
+
 	
 
 }

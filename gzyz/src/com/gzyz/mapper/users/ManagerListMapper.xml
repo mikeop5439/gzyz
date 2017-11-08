@@ -100,4 +100,8 @@ into
 manager_log(manager_id,log_method,log_time,log_origin) 
 values(#{manager_id},#{log_method},#{log_time},#{log_origin})
 </insert>
+<!-- 日志记录 -->
+<select id="queryLogLimit" parameterType="int" resultType="manager_log">
+select * from manager_log limit #{startindex},12
+</select>
 </mapper>

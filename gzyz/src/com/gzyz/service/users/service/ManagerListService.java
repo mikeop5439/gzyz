@@ -32,4 +32,6 @@ public interface ManagerListService {
 		public void updateManagerNoneRole(int manage_role_id);
 		//记录日志
 		public void insertLog(Manager_log manager_log);
+		//分页查询日志
+		public List<Manager_log> queryLogLimit(int startindex);
 }

@@ -273,42 +273,25 @@ function deleteRole(manage_role_id){
           <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped">
             <thead >
               <tr class="am-success">
-               
-                <th class="table-id">ID</th>
-                <th class="table-name" >用户名</th>
-                <th class="table-main">电话</th>
-                <th class="table-main">角色</th>
+                <th class="table-id">日志ID</th>
+                <th class="table-name" >操作者ID</th>
+                <th class="table-main">日志源地点</th>
+                <th class="table-main">行为</th>
+                <th  class="table-main">日期</th>
                 <th  class="table-main">操作</th>
               </tr>
             </thead>
             <tbody>
-             <c:forEach items="${Role }" var="role">
+             <c:forEach items="${Logs}" var="log">
               <tr>
-                
-                <td>${role.manger_id}</td>
-                <td>${role.manger_name}</td>
-                <td>${role.manger_tele}</td>
-                <td>
-                <c:if test="${role.manage_role.manage_role_type==0}">
-                      <a class="am-badge am-badge-danger am-round am-text-sm"><i class=" am-primary  am-icon-user-times"></i>&nbsp&nbsp无角色</a>
-                </c:if>
-                <c:if test="${role.manage_role.manage_role_type==1}">
-                  <a  class="am-badge am-badge-warning am-round am-text-sm"><i class=" am-primary  am-icon-whatsapp"></i>&nbsp&nbsp客服(编辑)</a>
-                </c:if>
-                <c:if test="${role.manage_role.manage_role_type==2}">
-                      <a class="am-badge am-badge-success am-round am-text-sm"><i class=" am-primary  am-icon-gift"></i>&nbsp&nbsp商品管理员</a>
-                </c:if>
-                <c:if test="${role.manage_role.manage_role_type==3}">
-                      <a class="am-badge am-badge-secondary am-round am-text-sm"><i class=" am-primary  am-icon-suitcase"></i>&nbsp&nbspCEO管理员</a>
-                </c:if>
-                <c:if test="${role.manage_role.manage_role_type==4}">
-                     <a class="am-badge am-badge-primary am-round am-text-sm"><i class=" am-primary  am-icon-gears"></i>&nbsp&nbsp超级管理员</a>
-                </c:if>                
-                </td>
+                <td>${log.manager_log_id}</td>
+                <td>${log.manager_id}</td>
+                <td>${log.log_origin}</td>
+                <td>${log.log_method}</td>
+                <td>${log.log_time}</td>
                 <td><div class="am-btn-toolbar">
                  <div class="am-btn-group am-btn-group-xs"  >
-                 <button type="button" style="width:200px;" class="am-btn am-btn-primary am-round am-btn-xl am-icon-refresh" data-am-modal="{target: '#my-popups'}" onclick="javascript:queryManager(${role.manger_id})">&nbsp变更角色</button>
-                 <button type="button" style="width:200px;"  class="am-btn am-btn-danger am-round am-btn-xl am-icon-trash-o" data-am-modal="{target: '#my-confirm'}" onclick="javascript:deleteRole(${role.manger_id})">&nbsp删除角色</button> 
+                 <button type="button" style="width:200px;"  class="am-btn am-btn-danger am-round am-btn-xl am-icon-trash-o" data-am-modal="{target: '#my-confirm'}" onclick="javascript:deleteRole(${role.manger_id})">&nbsp删除日志</button> 
                   </div>
                 </div></td>
               </tr>

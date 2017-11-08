@@ -347,8 +347,8 @@ function updategood(id){
       <h3 class="am-icon-lock"><em></em> 权限管理</h3>
       <ul>
         <li><a href="${pageContext.request.contextPath }/manager/queryAllManager.action">管理员列表</a></li>
-        <li>管理员日志</li>
-        <li>角色管理</li>
+        <li><a href="${pageContext.request.contextPath }/manager/queryLogLimit.action?nowpage=1">管理员日志</a></li>
+        <li><a href="${pageContext.request.contextPath }/manager/queryManagerAndRole.action">角色管理</a></li>
       </ul>
       <h3 class="am-icon-gears"><em></em> <a href="#">系统设置</a></h3>
       <ul>

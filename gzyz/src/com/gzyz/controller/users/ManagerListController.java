@@ -136,4 +136,12 @@ public class ManagerListController {
 			managerListService.updateManagerNoneRole(manage_role_id);
 			return "forward:/manager/queryManagerAndRole.action";
 		}
+	//分页查询日志
+		@RequestMapping("queryLogLimit.action")
+		public String queryLogLimit(Model model,int nowpage){
+			int startindex=12*(nowpage-1);
+			List<Manager_log> manager_logs= managerListService.queryLogLimit(startindex);
+			model.addAttribute("Logs", manager_logs);
+			return "forward:/JSP/HT/manager/manager_log.jsp";
+		}
 }
