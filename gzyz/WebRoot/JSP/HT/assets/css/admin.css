@@ -2,6 +2,28 @@
 .am-table{
 	width: 100%;
 }
+.am-form-group .userName{ 
+    width:200px; 
+    height:40px; 
+    line-height:40px; 
+    border:1px solid #CCC; 
+    }  
+  .am-form-group .default{ 
+    width:200px; 
+    height:32px; 
+    line-height:32px; 
+    color:#999; 
+    } 
+  .am-form-group .error{ 
+    height:32px; 
+    line-height:32px; 
+    color:#F00; 
+    }
+.am-form-group .success{ 
+    height:32px; 
+    line-height:32px; 
+    color:#096; 
+    }  
 .admin-header{font-size: 1.4rem;margin-bottom: 0;width: 100%; background-color: #fff;}
 .admin-header-list a:hover :after{content: none}
 .admin-header-list{  float: right;}

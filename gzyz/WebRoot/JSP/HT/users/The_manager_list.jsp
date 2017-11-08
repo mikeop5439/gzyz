@@ -165,7 +165,7 @@ var url="deleteManager.action?manger_id="+manger_id;
       <h3 class="am-icon-lock"><em></em> 权限管理</h3>
       <ul>
         
-        <li>管理员列表</li>
+        <li><a href="${pageContext.request.contextPath }/manager/queryAllManager.action">管理员列表</a></li>
         <li>管理员日志</li>
         <li>角色管理</li>
       </ul>
@@ -486,7 +486,11 @@ var url="deleteManager.action?manger_id="+manger_id;
 <!--[if (gte IE 9)|!(IE)]><!-->  
 <script type="text/javascript"> 
  function checkajax(){
- return $("#insertflag").val();
+ if($("#insertflag").val()=="true"){
+   return true;
+ }else{
+   return false;
+ }
  }
  function checkForm(){ 
   queryCheck();
