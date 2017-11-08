@@ -30,12 +30,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${pageContext.request.contextPath}/JSP/HT/assets/js/jquery.validate.extend.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/JSP/HT/assets/js/addgoods.js" ></script>
 <script>
-function changepage(page){
-	var url="userlist/queruserlistpage.action";
+function changecartpage(page){
+	var url="userlist/querycartListpage.action";
 	var args={"page":page,"time":new Date()};
-	$.getJSON(url,args,function(date){
-		$("tbody").html(date);
-	});
+	$.post(url,args);
 };
 
 function snewpage(){
@@ -286,7 +284,7 @@ function sogo(){
 <div class="admin-biaogelist">
 	
     <div class="listbiaoti am-cf">
-      <ul class="am-icon-user on"> 用户列表</ul>
+      <ul class="am-icon-user on">购物车列表</ul>
       
       <dl class="am-icon-home" style="float: right;"> 当前位置： 用户列表 > <a href="index.html">首页</a></dl>
       
@@ -295,11 +293,13 @@ function sogo(){
     </div>
 	
 <div class="am-btn-toolbars am-btn-toolbar am-kg am-cf">
+ <form action="${pageContext.request.contextPath }/userlist/sogocart.action" method="post">
   <ul>
   <li></li>
   <li><input name="sogo" type="text" class="am-form-field am-input-sm am-input-xm" style="margin-top: -0.5px;height: 28px;margin-top: 3px;width:200px; "  placeholder="输入用户ID/用户名查找" /></li>
-  <li><button type="button" class="am-btn am-radius am-btn-xs am-btn-success" style="margin-top: 1px;" onclick="sogo()">搜索</button></li>
+  <li><button type="submit" class="am-btn am-radius am-btn-xs am-btn-success" style="margin-top: 1px;">搜索</button></li>
   </ul>
+  </form>
 </div>
 
 
@@ -307,39 +307,30 @@ function sogo(){
           <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped">
             <thead>
               <tr class="am-success">
-                <th class="table-id">用户ID</th>
+                <th class="table-id">用户ID</th><!--购物车ID  -->
                 <th class="table-name">用户名</th>
-                <th class="table-name">密码</th>
-                <th class="table-name">性别</th>
-                <th class="table-name">电话</th>
-                <th class="table-name">年龄</th>
-                <th class="table-name">生日</th>
-                <th class="table-name">创建时间</th>
-                <th width="163px" class="table-set">操作</th>
+                <th class="table-name">商品名</th>
+                <th class="table-name">货号</th>
+                <th class="table-name">价格</th>
+                <th class="table-name">数量</th>
               </tr>
             </thead>
             <tbody id="tbody">
-             <c:forEach items="${users }" var="u">
+             <c:forEach items="${userscart }" var="u">
               <tr>
-                <td id="userid">
-                	${u.getUser_id()}
-                	<input name="newpage" type="hidden" value="1"/>
+                <td align="center" valign="middle" rowspan="${u.getCart().size()+1 }">${u.getUser_id()}</td>
+                <td valign="middle" rowspan="${u.getCart().size()+1 }">
+                	<a>${u.getUser_name()}</a>
                 </td>
-                <td id="username"><a>${u.getUser_name()}</a></td>
-                <td id="password">${u.getUser_password()}</td>
-                <td id="sex">${u.getUser_sex()}</td>
-                <td id="tele">${u.getUser_tele()}</td>
-                <td id="age">${u.getUser_age()}</td>
-                <td id="birthday">${u.getUser_birthday_string()} </td>
-                <td id="register">${u.getUser_register_string()}</td>
-                <td>
-                  <div class="am-btn-toolbar">
-	                  <div class="am-btn-group am-btn-group-xs">
-	                 	<a class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-pencil-square-o" data-am-modal="{target: '#my-update'}" title="修改"></a>
-	                 	<a class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-trash-o" data-am-modal="{target: '#my-confirm'}" title="删除"></a>
-	           		</div>
-	              </div>
-                </td>
+                
+                <c:forEach items="${u.getCart()}" var="c" >
+                	<tr>
+	                <td id="3">${c.getGoods_name()}</td>
+	                <td id="4">${c.getGoods_sn()}</td>
+	                <td id="5">${c.getGoods_price()}</td>
+	                <td id="6">${c.getGoods_number()}</td>
+	                </tr>
+                </c:forEach>
               </tr>
               </c:forEach> 
             </tbody>
@@ -347,13 +338,26 @@ function sogo(){
          
           
           <ul class="am-pagination am-fr">
-                <li ><a id="a"  href="javascript: snewpage()">上一页</a></li>
-                <li ><a id="a" href="javascript:changepage(1);">1</a></li>
-                <li><a id="a" href="javascript:changepage(2);">2</a></li>
-                <li><a id="a" href="javascript:changepage(3);">3</a></li>
-                <li><a id="a" href="javascript: xnewpage()">下一页</a></li>
-                <li><input type="text" name="pageslist" class="am-form-field am-input-sm am-input-xm" style="height:20px; width: 53px"placeholder="输入页码搜索"/></li>
-                <li><a href="javascript:querypagelist();">搜索</a></li>
+                <li ><a id="a"  href="${pageContext.request.contextPath}/userlist/querycartListpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=99999999&xia=1&shang=8">上一页</a></li>
+                <li ><a id="a" href="${pageContext.request.contextPath}/userlist/querycartListpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=1&xia=1&shang=1">1</a></li>
+                <li><a id="a" href="${pageContext.request.contextPath}/userlist/querycartListpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=2&xia=1&shang=1">2</a></li>
+                <li><a id="a" href="${pageContext.request.contextPath}/userlist/querycartListpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=3&xia=1&shang=1">3</a></li>
+                <li><a id="a" href="${pageContext.request.contextPath}/userlist/querycartListpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=9999999&xia=9&shang=1">下一页</a></li>
+                
+                <li>
+                <form action="${pageContext.request.contextPath}/userlist/querycartListpage.action" method="post">
+                <input type="hidden" name="daslkdjkadsadgfdgjkjhesakls" value="<%=new Date() %>"/>
+                <input type="hidden" name="baslkdjkadsadgfdgjkjhesakls" value="<%=new Date() %>"/>
+                <input type="text" name="page" class="am-form-field am-input-sm am-input-xm" style="height:20px; width: 53px"placeholder="输入页码搜索"/>
+                <input type="hidden" name="shang" value="1"/>
+                <input type="hidden" name="xia" value="1"/>
+                </li>
+                <li>
+                	<input type="submit" value="搜索"/>
+                </li>
+                </form>
+                
+              	
               </ul>
           
           
