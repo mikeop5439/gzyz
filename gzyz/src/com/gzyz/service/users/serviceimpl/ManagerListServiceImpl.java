@@ -44,4 +44,16 @@ public class ManagerListServiceImpl implements ManagerListService {
 		return manger;
 	}
 
+	@Override
+	public int updateCheck(String manger_name) {
+		// TODO Auto-generated method stub
+		return managerListMapper.updateCheck(manger_name);
+	}
+
+	@Override
+	public void deleteManager(int manger_id) {
+		// TODO Auto-generated method stub
+		managerListMapper.deleteManager(manger_id);
+	}
+
 }

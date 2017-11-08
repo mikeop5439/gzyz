@@ -35,25 +35,44 @@ function queryManager(id){
 	       contentType:'application/json;charset=utf-8',
 		   success:function(data){
 			   $("#manger_id").val(data.manger_id);
-			   $("#manger_name").val(data.manger_name);
+			   $("#update_manger_name").val(data.manger_name);
 			   $("#manger_password").val(data.manger_password);
 			   $("#manger_tele").val(data.manger_tele);
 			   $("#manger_age").val(data.manger_age);
 			   /* 设置性别标识 */
-			  if(data.manger_sex==1){
-			     $("#onshow").attr("checked","checked");
+			  if(data.manger_sex==0){
+			     $("#manshow").attr("checked","checked");
 			   }else{
-			     $("#undershow").attr("checked","checked");
+			     $("#womanshow").attr("checked","checked");
 			   };
 			   if(data.manger_sex==1){
-			     $("#onshelve").attr("checked","checked");
+			     $("#womanshow").attr("checked","checked");
 			   }else{
-			     $("#undershelve").attr("checked","checked");
+			     $("#manshow").attr("checked","checked");
 			   };
 		  	   
 		  }	   
        });  
      };
+function queryCheck(){
+var username=$("#insert_manger_name").val();
+
+$.ajax({  
+           type:"POST",  
+           url:"${pageContext.request.contextPath }/manager/updateCheck.action?manger_name="+username, 
+	       contentType:'application/json;charset=utf-8',
+		   success:function(data){
+		   
+		     $("#insertflag").val(ajaxCheckInsert(data));
+
+		  }	   
+       }); 
+
+}
+function deleteManager(manger_id){
+var url="deleteManager.action?manger_id="+manger_id;
+     $("#deletegood").attr("href",url); 
+}
 </script>
 </head>
 
@@ -207,18 +226,20 @@ function queryManager(id){
             class="am-close">&times;</span> </div>
       <div class="am-popup-bd">
       
-        <form class="am-form tjlanmu" action="${pageContext.request.contextPath }/manager/updateManager.action" method="POST" >
+        <form class="am-form tjlanmu" action="${pageContext.request.contextPath }/manager/updateManager.action" method="POST" onSubmit="return ucheckForm()">
           <div class="am-form-group am-cf">
          <div class="zuo"><input id="manger_id" type="hidden" name="manger_id" value=""></div>
+      
          
          
          
         </div>
       
           <div class="am-form-group">
-            <div class="zuo">管理员账号：</div>
+            <div class="zuo"></div>
             <div class="you">
-              <input id="manger_name" type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="请输入管理员账号" name="manger_name" value="">
+              <input id="update_manger_name" type="hidden" class="am-input-sm" id="doc-ipt-email-1" placeholder="请输入管理员账号" name="manger_name" value="" onBlur="uqueryCheck()" oninput="uCheckUserName()">
+               <span class="default" id="unameErr"></span>
             </div>
             <div class="clear"></div>
             
@@ -227,7 +248,7 @@ function queryManager(id){
           <div class="am-form-group">
             <div class="zuo">管理员密码：</div>
             <div class="you">
-              <input id="manger_password" type="text" class="am-input-sm"  placeholder="请输入管理员密码" name="manger_password" value="">
+              <input id="manger_password" type="password" class="am-input-sm"  placeholder="请输入管理员密码" name="manger_password" value="" >
             </div>
             <div class="clear"></div>
           </div>
@@ -242,7 +263,7 @@ function queryManager(id){
           <div class="am-form-group">
             <div class="zuo">管理员年龄：</div>
             <div class="you">
-              <input id="goods_weight" type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="请输入管理员年龄" name="goods_weight" value="">
+              <input id="manger_age" type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="请输入管理员年龄" name="manger_age" value="">
             </div>
             <div class="clear"></div>
           </div>
@@ -254,10 +275,10 @@ function queryManager(id){
             <div class="you" style="margin-top: 3px;">
  
               <label class="am-checkbox-inline">
-                <input id="onshelve" type="radio" value="1" name="is_shelves">
+                <input id="manshow" type="radio" value="0" name="manger_sex">
               男  </label>
               <label class="am-checkbox-inline">
-                <input id="undershelve" type="radio" value="0" name="is_shelves" >
+                <input id="womanshow" type="radio" value="1" name="manger_sex" >
                女 </label> 
 
             </div>
@@ -280,18 +301,20 @@ function queryManager(id){
             class="am-close">&times;</span> </div>
       <div class="am-popup-bd">
       
-        <form class="am-form tjlanmu" action="${pageContext.request.contextPath }/manager/insertManager.action" method="POST">
+        <form class="am-form tjlanmu" action="${pageContext.request.contextPath }/manager/insertManager.action" method="POST" onSubmit="return checkForm()">
           <div class="am-form-group am-cf">
          <div class="zuo"><input id="manger_id" type="hidden" name="manger_id" value=""></div>
+         <input id="insertflag" type="hidden" value="">
          
          
          
         </div>
       
-          <div class="am-form-group">
+           <div class="am-form-group">
             <div class="zuo">管理员账号：</div>
             <div class="you">
-              <input id="manger_name" type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="请输入管理员账号" name="manger_name" value="">
+              <input id="insert_manger_name" id="manger_name" type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="请输入管理员账号" name="manger_name" onBlur="queryCheck()" oninput="CheckUserName()">
+               <span class="default" id="nameErr"></span>
             </div>
             <div class="clear"></div>
             
@@ -410,7 +433,7 @@ function queryManager(id){
                  
                   <a class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-pencil-square-o" data-am-modal="{target: '#my-popup'}" title="修改" onclick="javascript:queryManager(${manager.manger_id})"></a>
            
-                  <a class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-trash-o" data-am-modal="{target: '#my-confirm'}" title="删除"></a>
+                  <a class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-trash-o" data-am-modal="{target: '#my-confirm'}" title="删除" onclick="javascript:deleteManager(${manager.manger_id});"></a>
         
                     
                   </div>
@@ -420,17 +443,6 @@ function queryManager(id){
             </tbody>
           </table>
           
-              
-          
-          <ul class="am-pagination am-fr">
-                <li ><a id="tri" href="#">«</a></li>
-                <li class="am-active"><a id="tri" href="#">1</a></li>
-                <li><a id="tri" href="#">2</a></li>
-                <li><a id="tri" href="#">3</a></li>
-                <li><a id="tri" href="#">4</a></li>
-                <li><a id="tri" href="#">5</a></li>
-                <li><a id="tri" href="#">»</a></li>
-              </ul>
           
           
           
@@ -471,19 +483,68 @@ function queryManager(id){
 <script src="assets/js/amazeui.legacy.js"></script>
 <![endif]--> 
 
-<!--[if (gte IE 9)|!(IE)]><!--> 
-<script type="text/javascript">  
+<!--[if (gte IE 9)|!(IE)]><!-->  
+<script type="text/javascript"> 
+ function checkajax(){
+ return $("#insertflag").val();
+ }
+ function checkForm(){ 
+  queryCheck();
+  var nametip = checkajax(); 
+  alert(nametip);
+  return nametip; 
+  } 
+  //验证用户名   
+  function ajaxCheckInsert(data){ 
+  var username = document.getElementById('insert_manger_name'); 
+  var errname = document.getElementById('nameErr'); 
+  var pattern = /^\w{4,8}$/;  //用户名格式正则表达式：用户名要至少三位 
+  if(username.value.length == 0){ 
+    errname.innerHTML="用户名不能为空";
+    errname.className="error";
+    return false; 
+    } 
+  if(!pattern.test(username.value)){ 
+    errname.innerHTML="用户长度至少为4，最多为8";
+    errname.className="error";
+    return false; 
+    } 
+   else{
+   if(data==0){
+     errname.innerHTML="用户名可以注册";
+     errname.className="success"; 
+     return true; 
+   }else{
+     errname.innerHTML="用户名已存在";
+     errname.className="error";
+     return false; 
+   }
+   
+     } 
   
- $(document).ready(function() {  
-    $("ul.am-pagination li").click(function() {  
-        $("ul.am-pagination li").removeClass("am-active"); //Remove any "active" class  
-        $(this).addClass("am-active"); //Add "active" class to selected tab  
-        $("#tri").tri("click");
-        return false;  
-    });  
+  } 
   
-});   
-</script>   
+function CheckUserName(){ 
+  var username = document.getElementById('insert_manger_name'); 
+  var errname = document.getElementById('nameErr'); 
+  var pattern = /^\w{4,8}$/;  //用户名格式正则表达式：用户名要至少三位 
+  if(username.value.length == 0){ 
+    errname.innerHTML="用户名不能为空";
+    errname.className="error";
+    return false; 
+    } 
+  if(!pattern.test(username.value)){ 
+    errname.innerHTML="用户长度至少为4，最多为8";
+    errname.className="error";
+    return false; 
+    }else{
+    errname.innerHTML="";
+    errname.className="error";
+    return false;
+    }
+  } 
+
+</script> 
 <!--<![endif]-->
 
 

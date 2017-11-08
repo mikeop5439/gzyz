@@ -21,7 +21,7 @@ values(#{manger_name},#{manger_password},#{manger_tele},#{manger_sex},#{manger_a
 </insert>
 <!-- 修改管理员 -->
 <update id="updateManager" parameterType="manger">
-update goods
+update manger
 <set >
       <if test="manger_name != null" >
         manger_name = #{manger_name,jdbcType=VARCHAR},
@@ -39,10 +39,18 @@ update goods
         manger_age = #{manger_age,jdbcType=INTEGER},
       </if>
     </set>
-where goods_id=#{goods_id}  
+where manger_id=#{manger_id}  
 </update>
 <!-- 修改管理员前置查询 -->
 <select id="queryBefroeUpdateManager" parameterType="int" resultType="manger">
 select * from manger where manger_id=#{manger_id}
 </select>
+<!-- 修改查重 -->
+<select id="updateCheck" parameterType="string" resultType="int">
+select count(*) from manger where manger_name=#{manger_name}
+</select>
+<!--删除管理员-->
+<delete id="deleteManager" parameterType="int">
+delete from manger where manger_id=#{manger_id}
+</delete>
 </mapper>

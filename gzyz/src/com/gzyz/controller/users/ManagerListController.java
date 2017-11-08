@@ -57,6 +57,16 @@ public class ManagerListController {
 			manger manger=managerListService.queryBefroeUpdateManager(manger_id);
 			return manger;
 		}
-	
-
+	//修改查重
+		@RequestMapping("updateCheck.action")
+		public @ResponseBody int updateCheck(Model model,String manger_name){
+			int flage=managerListService.updateCheck(manger_name);
+			return flage;
+		}
+	//删除管理员
+		@RequestMapping("deleteManager.action")
+		public String deleteManager(int manger_id){
+			managerListService.deleteManager(manger_id);
+			return "forward:/manager/queryAllManager.action";
+		}
 }
