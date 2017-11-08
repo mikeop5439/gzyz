@@ -167,7 +167,7 @@ var url="deleteManager.action?manger_id="+manger_id;
         
         <li><a href="${pageContext.request.contextPath }/manager/queryAllManager.action">管理员列表</a></li>
         <li>管理员日志</li>
-        <li>角色管理</li>
+        <li><a href="${pageContext.request.contextPath }/manager/queryManagerAndRole.action">角色管理</a></li>
       </ul>
       <h3 class="am-icon-gears"><em></em> <a href="#">系统设置</a></h3>
       <ul>
@@ -440,7 +440,7 @@ var url="deleteManager.action?manger_id="+manger_id;
                   
                 
                  
-                  <a class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-pencil-square-o" data-am-modal="{target: '#my-popup'}" title="修改" onclick="javascript:queryManager(${manager.manger_id})"></a>
+                  <a  class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-pencil-square-o" data-am-modal="{target: '#my-popup'}" title="修改" onclick="javascript:queryManager(${manager.manger_id})"></a>
            
                   <a class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-trash-o" data-am-modal="{target: '#my-confirm'}" title="删除" onclick="javascript:deleteManager(${manager.manger_id});"></a>
         
@@ -504,7 +504,6 @@ var url="deleteManager.action?manger_id="+manger_id;
  function checkForm(){ 
   queryCheck();
   var nametip = checkajax(); 
-  alert(nametip);
   return nametip; 
   } 
   //验证用户名   

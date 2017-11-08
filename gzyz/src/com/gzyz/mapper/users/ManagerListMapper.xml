@@ -53,4 +53,51 @@ select count(*) from manger where manger_name=#{manger_name}
 <delete id="deleteManager" parameterType="int">
 delete from manger where manger_id=#{manger_id}
 </delete>
+<!--组合（manger&manage_role）-->
+<resultMap type="mangerAndManageRole" id="mangerAndManage_Role">
+        <id column="manger_id" property="manger_id"/>
+		<result column="manger_name" property="manger_name"/>
+		<result column="manger_password" property="manger_password"/>
+		<result column="manger_sex" property="manger_sex"/>
+		<result column="manger_tele" property="manger_tele"/>
+		<result column="manger_age" property="manger_age"/>
+		<association property="manage_role" javaType="manage_role">
+			<id column="manage_role_id" property="manage_role_id"/>
+			<result column="manage_role_type" property="manage_role_type"/>
+		</association>
+</resultMap>
+<!--查询管理员以及角色-->
+<select id="queryManagerAndRole" resultMap="mangerAndManage_Role" >
+select m.manger_id manger_id,r.manage_role_id manage_role_id,m.manger_name manger_name,m.manger_password manger_password,m.manger_sex manger_sex,m.manger_tele manger_tele,m.manger_age manger_age,r.manage_role_type manage_role_type 
+from manger m 
+join manage_role r 
+on m.manger_id=r.manage_role_id
+</select>
+<!-- 修改角色前置查询 -->
+<select id="queryBefroeUpdateManagerRole" resultMap="mangerAndManage_Role" parameterType="int">
+select m.manger_id manger_id,r.manage_role_id manage_role_id,m.manger_name manger_name,m.manger_password manger_password,m.manger_sex manger_sex,m.manger_tele manger_tele,m.manger_age manger_age,r.manage_role_type manage_role_type 
+from manger m 
+join manage_role r 
+on m.manger_id=r.manage_role_id
+where m.manger_id=#{manger_id}
+</select>
+<!-- 修改角色类型 -->
+<update id="updateManagerRole" parameterType="manage_role">
+update manage_role 
+set manage_role_type=#{manage_role_type}
+where manage_role_id=#{manage_role_id}
+</update>
+<!-- 修改角色类型为无角色 -->
+<update id="updateManagerNoneRole" parameterType="int">
+update manage_role 
+set manage_role_type=0
+where manage_role_id=#{manage_role_id}
+</update>
+<!-- 日志记录 -->
+<insert id="insertLog" parameterType="manager_log">
+insert 
+into 
+manager_log(manager_id,log_method,log_time,log_origin) 
+values(#{manager_id},#{log_method},#{log_time},#{log_origin})
+</insert>
 </mapper>

@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gzyz.bean.users.Manager_log;
+import com.gzyz.bean.users.manage_role;
 import com.gzyz.bean.users.manger;
+import com.gzyz.bean.users.extend.MangerAndManageRole;
 import com.gzyz.mapper.users.ManagerListMapper;
 import com.gzyz.service.users.service.ManagerListService;
 @Service
@@ -55,5 +58,37 @@ public class ManagerListServiceImpl implements ManagerListService {
 		// TODO Auto-generated method stub
 		managerListMapper.deleteManager(manger_id);
 	}
+
+	@Override
+	public List<MangerAndManageRole> queryManagerAndRole() {
+		// TODO Auto-generated method stub
+		return managerListMapper.queryManagerAndRole();
+	}
+
+	@Override
+	public MangerAndManageRole queryBefroeUpdateManagerRole(int manger_id) {
+		// TODO Auto-generated method stub
+		return managerListMapper.queryBefroeUpdateManagerRole(manger_id);
+	}
+
+	@Override
+	public void updateManagerRole(manage_role manage_role) {
+		// TODO Auto-generated method stub
+		managerListMapper.updateManagerRole(manage_role);
+	}
+
+	@Override
+	public void updateManagerNoneRole(int manage_role_id) {
+		// TODO Auto-generated method stub
+		managerListMapper.updateManagerNoneRole(manage_role_id);
+	}
+
+	@Override
+	public void insertLog(Manager_log manager_log) {
+		// TODO Auto-generated method stub
+		managerListMapper.insertLog(manager_log);
+	}
+
+	
 
 }

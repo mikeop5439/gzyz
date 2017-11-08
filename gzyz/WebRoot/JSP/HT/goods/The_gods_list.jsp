@@ -95,7 +95,7 @@ function updategood(id){
 			  var showid="#goodShow"+index+"";
 			  var i;
 			  if(content.is_shelves==1){
-			  i=$("<i></i>").addClass("am-icon-check am-text-warning");
+			  i=$("<i></i>").addClass("am-icon-check am-text-success");
 			  }else{
 			  i=$("<i></i>").addClass("am-icon-close am-text-warning");
 			  }
@@ -174,7 +174,7 @@ function updategood(id){
 			  var showid="#goodShow"+index+"";
 			  var i;
 			  if(content.is_shelves==1){
-			  i=$("<i></i>").addClass("am-icon-check am-text-warning");
+			  i=$("<i ></i>").addClass("am-icon-check am-text-success");
 			  }else{
 			  i=$("<i></i>").addClass("am-icon-close am-text-warning");
 			  }
@@ -343,7 +343,10 @@ function updategood(id){
         <li>用户列表 </li>
         <li>用户购物车</li>
         <li>用户收藏夹</li>
-        <li>管理员列表</li>
+      </ul>
+      <h3 class="am-icon-lock"><em></em> 权限管理</h3>
+      <ul>
+        <li><a href="${pageContext.request.contextPath }/manager/queryAllManager.action">管理员列表</a></li>
         <li>管理员日志</li>
         <li>角色管理</li>
       </ul>
@@ -609,10 +612,10 @@ function updategood(id){
                 <td>${goods.shop_price}</td>
                 <td class="table-check">
                    <c:if test="${goods.is_shelves==1}">
-                      <i class="am-icon-check am-text-warning"></i>
+                      <i class="am-icon-check am-text-success" ></i>
                    </c:if>
                    <c:if test="${goods.is_shelves==0}">
-                      <i class="am-icon-close am-text-warning"></i>
+                      <i class="am-icon-close am-text-warning" ></i>
                    </c:if>
                 </td>
                 <td><div class="am-btn-toolbar">
