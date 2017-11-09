@@ -95,6 +95,19 @@ public class ManagerListServiceImpl implements ManagerListService {
 		return managerListMapper.queryLogLimit(startindex);
 	}
 
+	@Override
+	public int queryLogCount() {
+		// TODO Auto-generated method stub
+		return managerListMapper.queryLogCount();
+	}
+
+	@Override
+	public void deleteLog(int manager_log_id) {
+		// TODO Auto-generated method stub
+		managerListMapper.deleteLog(manager_log_id);
+	}
+	
+
 	
 
 }
