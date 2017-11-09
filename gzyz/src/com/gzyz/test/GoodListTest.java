@@ -12,10 +12,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.goods.extend.GoodsAndCategory;
+import com.gzyz.bean.order.Order_invoice;
 import com.gzyz.bean.users.Manager_log;
 import com.gzyz.bean.users.manger;
 import com.gzyz.bean.users.extend.MangerAndManageRole;
 import com.gzyz.service.goods.service.GoodsListService;
+import com.gzyz.service.order.service.OrderInvoiceAndSwapService;
 import com.gzyz.service.users.service.ManagerListService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,15 +27,11 @@ public class GoodListTest {
 	private GoodsListService goodsListService;
 	@Autowired
 	private ManagerListService managerListService;
+	@Autowired
+	private OrderInvoiceAndSwapService orderInvoiceAndSwapService;
 	@Test
 	public void test1(){
-		 /*MangerAndManageRole mangers=managerListService.queryBefroeUpdateManagerRole(34);
-		 System.out.print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa:"+mangers);*/
-		Manager_log manager_log=new Manager_log();
-		manager_log.setManager_id(1);
-		manager_log.setLog_method("test");
-		manager_log.setLog_time(new Date());
-		manager_log.setLog_origin("测试地址");
-		managerListService.insertLog(manager_log);
+		 List<Order_invoice> order_invoices=orderInvoiceAndSwapService.queryAllInvoiceLimit(0);
+		 System.out.print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa:"+order_invoices);
 	}
 }

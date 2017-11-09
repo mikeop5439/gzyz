@@ -31,28 +31,28 @@ window.onload =function setSpage(){
      var i=2;
      var page_id="AllPage"+1;
      $("#pageUl").empty();
-     $("#pageUl").append("<li><a href='javascript:qureyLogLimt(1)'>«</a></li>");
-     $("#pageUl").append("<li class='am-active'><a href='javascript:qureyLogLimt(1)'>1</a></li>");
+     $("#pageUl").append("<li><a href='javascript:qureyInvoiceLimt(1)'>«</a></li>");
+     $("#pageUl").append("<li class='am-active'><a href='javascript:qureyInvoiceLimt(1)'>1</a></li>");
       for(i;i<=${AllPage};i++){
       page_id="AllPage";
       page_id=page_id+i;
-      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:qureyLogLimt("+i+")'>"+i+"</a></li>");
+      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:qureyInvoiceLimt("+i+")'>"+i+"</a></li>");
      } 
-     $("#pageUl").append("<li><a onclick='javascript:qureyLogLimt("+${AllPage}+")'>»</a></li>");
+     $("#pageUl").append("<li><a onclick='javascript:qureyInvoiceLimt("+${AllPage}+")'>»</a></li>");
      };
      
      function setpage(allpage,nowpage){
      var i=2;
      var page_id="AllPage"+1;
      $("#pageUl").empty();
-     $("#pageUl").append("<li><a href='javascript:qureyLogLimt(1)'>«</a></li>");
-     $("#pageUl").append("<li id='"+page_id+"' class='am-active'><a href='javascript:qureyLogLimt(1)'>1</a></li>");
+     $("#pageUl").append("<li><a href='javascript:qureyInvoiceLimt(1)'>«</a></li>");
+     $("#pageUl").append("<li id='"+page_id+"' class='am-active'><a href='javascript:qureyInvoiceLimt(1)'>1</a></li>");
      for(i;i<=allpage;i++){
       page_id="AllPage";
       page_id=page_id+i;
-      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:qureyLogLimt("+i+")'>"+i+"</a></li>");
+      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:qureyInvoiceLimt("+i+")'>"+i+"</a></li>");
      }
-     $("#pageUl").append("<li><a onclick='javascript:qureyLogLimt("+allpage+")'>»</a></li>");
+     $("#pageUl").append("<li><a onclick='javascript:qureyInvoiceLimt("+allpage+")'>»</a></li>");
      page_id="AllPage"+nowpage;
      var id="#"+page_id;
      $("ul.am-pagination li").removeClass("am-active");
@@ -60,35 +60,37 @@ window.onload =function setSpage(){
      //$(id).tri("click");
      };
      
-      function qureyLogLimt(nowpage){
+      function qureyInvoiceLimt(nowpage){
       $("#logsTable").empty();
     $.ajax({  
            type:"POST",  
-           url:"${pageContext.request.contextPath }/manager/aqueryLogLimit.action?nowpage="+nowpage, 
+           url:"${pageContext.request.contextPath }/orderiands/aqueryAllInvoiceLimit.action?nowpage="+nowpage, 
 	       contentType:'application/json;charset=utf-8',
 		   success:function(data){
 		   setpage(data.allpage,nowpage);
 		   //异步添加商品入表格中
-			  $.each(data.manager_log,function(index,content){
-			  var td1=$("<td></td>").append(content.manager_log_id);
-			  var td2=$("<td></td>").append(content.manager_id);
-			  var td3=$("<td></td>").append(content.log_origin);
-			  var td4=$("<td></td>").append(content.log_method);
-			  var td5=$("<td></td>").append(ChangeDateFormat(content.log_time));
-			  var d1=$("<div></div>").addClass("am-btn-toolbar").append($("<div></div>").addClass("am-btn-group am-btn-group-xs").append($("<button></button>").addClass("am-btn am-btn-danger am-round am-btn-xl am-icon-trash-o").attr("type","button").attr("style","width:200px;").attr("data-am-modal","{target: '#my-confirm'}").attr("onclick","javascript:deleteLog("+content.manager_log_id+")").append("删除日志")));
+			  $.each(data.order_invoices,function(index,content){
+			  var i;
+			  if(content.invoice_status==0){
+				  i=$("<a></a>").addClass("am-badge am-badge-danger am-round am-text-sm").append("未同意");
+			  }else{
+				   i=$("<a></a>").addClass("am-badge am-badge-primary am-round am-text-sm").append("已同意");
+			  };
+			  var td1=$("<td></td>").append(content.invoice_id);
+			  var td2=$("<td></td>").append(content.order_id);
+			  var td3=$("<td></td>").append(content.apply_time);
+			  var td4=$("<td></td>").append(content.apply_reason);
+			  var td5=$("<td></td>").append(i);
+			  var d1=$("<div></div>").addClass("am-btn-toolbar").append($("<div></div>").addClass("am-btn-group am-btn-group-xs").append($("<button></button>").addClass("am-btn am-btn-primary am-round am-btn-xl am-icon-trash-o").attr("type","button").attr("style","width:200px;").attr("data-am-modal","{target: '#my-confirm'}").attr("onclick","javascript:agreeTheApply("+content.invoice_id+")").append("同意申请")));
 			  var td6=$("<td></td>").append(d1);
-			  //var td6=$("<td></td>").append("asdasd");
- 
 			  $("#logsTable").append($("<tr></tr>").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6));
-
 			 });
 		  } 
 		  	   
        }); 
      };
-     function deleteLog(id){
-     //var goods_id = id;
-     var url="deleteLog.action?manager_log_id="+id;
+     function agreeTheApply(id){
+     var url="agreeTheApply.action?invoice_id="+id;
      $("#deletegood").attr("href",url); 
      
      };
@@ -274,11 +276,11 @@ window.onload =function setSpage(){
   <div class="am-modal-dialog">
     <div class="am-modal-hd">你好</div>
     <div class="am-modal-bd">
-      你，确定要删除此日志吗？
+      你，确定要同意此请求吗？
     </div>
     <div class="am-modal-footer">
       <span class="am-modal-btn" data-am-modal-cancel><a>取消</a></span>
-      <a id="deletegood" href="">确定</a>
+      <a id="deletegood" href="">同意</a>
     </div>
   </div>
 </div>
@@ -306,25 +308,32 @@ window.onload =function setSpage(){
           <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped">
             <thead >
               <tr class="am-success">
-                <th class="table-id">日志ID</th>
-                <th class="table-name" >操作者ID</th>
-                <th class="table-main">日志源地点</th>
-                <th class="table-main">行为</th>
-                <th  class="table-main">日期</th>
+                <th class="table-id">ID</th>
+                <th class="table-name" >用户ID</th>
+                <th class="table-main">申请时间</th>
+                <th class="table-main">退货原因</th>
+                <th  class="table-main">目前状态</th>
                 <th  class="table-main">操作</th>
               </tr>
             </thead>
             <tbody id="logsTable">
-             <c:forEach items="${Logs}" var="log">
+             <c:forEach items="${order_invoices}" var="order_invoice">
               <tr>
-                <td>${log.manager_log_id}</td>
-                <td>${log.manager_id}</td>
-                <td>${log.log_origin}</td>
-                <td>${log.log_method}</td>
-                <td>${log.log_time}</td>
+                <td>${order_invoice.invoice_id}</td>
+                <td>${order_invoice.order_id}</td>
+                <td>${order_invoice.apply_time}</td>
+                <td>${order_invoice.apply_reason}</td>
+                <td>
+                <c:if test="${order_invoice.invoice_status==0}">
+                      <a class="am-badge am-badge-danger am-round am-text-sm">&nbsp&nbsp未同意</a>
+                </c:if>
+                <c:if test="${order_invoice.invoice_status==1}">
+                      <a class="am-badge am-badge-primary am-round am-text-sm">&nbsp&nbsp已同意</a>
+                </c:if>
+                </td>
                 <td><div class="am-btn-toolbar">
                  <div class="am-btn-group am-btn-group-xs"  >
-                 <button type="button" style="width:200px;"  class="am-btn am-btn-danger am-round am-btn-xl am-icon-trash-o" data-am-modal="{target: '#my-confirm'}" onclick="javascript:deleteLog(${log.manager_log_id})">&nbsp删除日志</button> 
+                 <button type="button" style="width:200px;"  class="am-btn am-btn-primary am-round am-btn-xl am-icon-check" data-am-modal="{target: '#my-confirm'}" onclick="javascript:agreeTheApply(${order_invoice.invoice_id})">&nbsp同意退货</button> 
                   </div>
                 </div></td>
               </tr>

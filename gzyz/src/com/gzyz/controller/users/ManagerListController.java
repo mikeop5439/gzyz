@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gzyz.bean.users.Manager_log;
 import com.gzyz.bean.users.manage_role;
 import com.gzyz.bean.users.manger;
+import com.gzyz.bean.users.extend.ManagerLogAndAllpage;
 import com.gzyz.bean.users.extend.MangerAndManageRole;
 import com.gzyz.service.users.service.ManagerListService;
 
@@ -137,11 +138,39 @@ public class ManagerListController {
 			return "forward:/manager/queryManagerAndRole.action";
 		}
 	//分页查询日志
-		@RequestMapping("queryLogLimit.action")
-		public String queryLogLimit(Model model,int nowpage){
+		@RequestMapping("squeryLogLimit.action")
+		public String squeryLogLimit(Model model,int nowpage){
 			int startindex=12*(nowpage-1);
+			double count=managerListService.queryLogCount();
+	        int allpage=(int) Math.ceil(count/12.0);
+	        model.addAttribute("AllPage", allpage);
 			List<Manager_log> manager_logs= managerListService.queryLogLimit(startindex);
 			model.addAttribute("Logs", manager_logs);
 			return "forward:/JSP/HT/manager/manager_log.jsp";
+		}
+	//异步分页查询日志
+		@RequestMapping("aqueryLogLimit.action")
+		public @ResponseBody ManagerLogAndAllpage aqueryLogLimit(Model model,int nowpage){
+			int startindex=12*(nowpage-1);
+			double count=managerListService.queryLogCount();
+	        int allpage=(int) Math.ceil(count/12.0);
+			List<Manager_log> manager_logs= managerListService.queryLogLimit(startindex);
+			ManagerLogAndAllpage managerLogAndAllpage=new ManagerLogAndAllpage();
+			managerLogAndAllpage.setManager_log(manager_logs);
+			managerLogAndAllpage.setAllpage(allpage);
+			return managerLogAndAllpage;
+		}
+	//删除日志
+		@RequestMapping("deleteLog.action")
+		public String deleteLog(int manager_log_id){
+			//添加日志
+			manager_log.setManager_id(1);
+			manager_log.setLog_time(new Date());
+			manager_log.setLog_origin("管理员日志界面");
+			manager_log.setLog_method("删除ID："+manager_log_id+"的日志记录");
+			managerListService.insertLog(manager_log);
+			//添加日志结束
+			managerListService.deleteLog(manager_log_id);
+			return "forward:/manager/squeryLogLimit.action?nowpage=1";
 		}
 }

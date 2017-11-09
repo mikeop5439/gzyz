@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzyz.mapper.order.OrderInvoiceAndSwapMapper">
+<!-- 分页查询退货表 -->
+<select id="queryAllInvoiceLimit" parameterType="int" resultType="order_invoice">
+select * 
+from order_invoice
+limit #{startindex},12
+</select>
+<!-- 查询退货换单总数总数 -->
+<select id="queryInvoiceCount" resultType="int">
+select count(*) from order_invoice 
+</select>
+<!-- 同意申请 -->
+<update id="agreeTheApply" parameterType="int">
+update order_invoice set invoice_status=1 where invoice_id=#{invoice_id}
+</update>
+</mapper>

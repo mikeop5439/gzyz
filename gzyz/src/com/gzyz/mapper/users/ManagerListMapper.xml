@@ -100,8 +100,16 @@ into
 manager_log(manager_id,log_method,log_time,log_origin) 
 values(#{manager_id},#{log_method},#{log_time},#{log_origin})
 </insert>
-<!-- 日志记录 -->
+<!-- 分页查询记录 -->
 <select id="queryLogLimit" parameterType="int" resultType="manager_log">
 select * from manager_log limit #{startindex},12
 </select>
+<!-- 查询日志总数 -->
+<select id="queryLogCount" resultType="int">
+select count(*) from manager_log 
+</select>
+<!-- 删除日志 -->
+<delete id="deleteLog" parameterType="int">
+delete from manager_log where manager_log_id=#{manager_log_id}
+</delete>
 </mapper>

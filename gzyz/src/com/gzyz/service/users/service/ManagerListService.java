@@ -8,7 +8,7 @@ import com.gzyz.bean.users.manger;
 import com.gzyz.bean.users.extend.MangerAndManageRole;
 
 public interface ManagerListService {
-	//查询所有管理员
+	    //查询所有管理员
 		public List<manger> queryAllManager();
 		//分页查询所有管理员
 		public List<manger> queryAllManagerLimit(int startindex);
@@ -34,4 +34,8 @@ public interface ManagerListService {
 		public void insertLog(Manager_log manager_log);
 		//分页查询日志
 		public List<Manager_log> queryLogLimit(int startindex);
+		//查询日志总数
+		public int queryLogCount();
+		//删除日志
+		public void deleteLog(int manager_log_id);
 }

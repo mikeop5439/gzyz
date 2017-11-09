@@ -144,7 +144,7 @@ var url="deleteManager.action?manger_id="+manger_id;
         <li><a href="query.html">订单查询</a></li>
 		<li>订单打印</li>
         <li>发货单列表</li>
-        <li>换货单列表</li>
+        <li><a href="${pageContext.request.contextPath }/orderiands/squeryAllInvoiceLimit.action?nowpage=1">退换货单列表</a></li>
       </ul>
       <h3 class="am-icon-bar-chart"><em></em> <a href="#">数据统计</a></h3>
       <ul>
@@ -166,7 +166,7 @@ var url="deleteManager.action?manger_id="+manger_id;
       <ul>
         
         <li><a href="${pageContext.request.contextPath }/manager/queryAllManager.action">管理员列表</a></li>
-        <li><a href="${pageContext.request.contextPath }/manager/queryLogLimit.action?nowpage=1">管理员日志</a></li>
+        <li><a href="${pageContext.request.contextPath }/manager/squeryLogLimit.action?nowpage=1">管理员日志</a></li>
         <li><a href="${pageContext.request.contextPath }/manager/queryManagerAndRole.action">角色管理</a></li>
       </ul>
       <h3 class="am-icon-gears"><em></em> <a href="#">系统设置</a></h3>

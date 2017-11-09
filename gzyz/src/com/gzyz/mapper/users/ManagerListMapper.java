@@ -34,4 +34,8 @@ public interface ManagerListMapper {
 		public void insertLog(Manager_log manager_log);
 		//分页查询日志
 		public List<Manager_log> queryLogLimit(int startindex);
+		//查询日志总数
+		public int queryLogCount();
+		//删除日志
+		public void deleteLog(int manager_log_id);
 }
