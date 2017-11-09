@@ -177,11 +177,11 @@ function sogo(){
       </ul>
       <h3 class="am-icon-user"><em></em> <a href="#">用户管理</a></h3>
       <ul>
-        <li><a href="${pageContext.request.contextPath }/userlist/queryuserList.action">用户列表</a> </li>
-        <li><a href="${pageContext.request.contextPath }/userlist/querycartList.action">用户购物车</a></li>
-        <li><a href="${pageContext.request.contextPath }/userlist/queryuserCollection.action">用户收藏夹</a></li>
-        <li><a href="${pageContext.request.contextPath }/userlist/queryuserlist.action">用户收货地址</a></li>
-      </ul>
+        <li><a href="${pageContext.request.contextPath }/userlist/queryuserList.action">用户列表</a></li>
+		<li><a href="${pageContext.request.contextPath }/userlist/querycartList.action">用户购物车</a></li>
+		<li><a href="${pageContext.request.contextPath }/userlist/querycollectList.action">用户收藏夹</a></li>
+		<li><a href="${pageContext.request.contextPath }/userlist/queryreceiverList.action">用户收货地址</a></li>
+		</ul>
       
       <h3 class="am-icon-user"><em></em> <a href="#">权限管理</a></h3>
       <ul>
@@ -327,7 +327,15 @@ function sogo(){
                 </td>
                 <td id="username"><a>${u.getUser_name()}</a></td>
                 <td id="password">${u.getUser_password()}</td>
-                <td id="sex">${u.getUser_sex()}</td>
+                
+                <c:if test="${u.getUser_sex()== 1}">
+                	<td id="sex"> 男</td>
+                	</c:if>
+                	<c:if test="${u.getUser_sex()== 0} ">
+                	<td id="sex"> 女</td>
+                </c:if>
+                
+                </td>
                 <td id="tele">${u.getUser_tele()}</td>
                 <td id="age">${u.getUser_age()}</td>
                 <td id="birthday">${u.getUser_birthday_string()} </td>

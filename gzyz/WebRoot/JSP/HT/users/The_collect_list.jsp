@@ -174,12 +174,12 @@ function sogo(){
         <li>访问购买率</li>
       </ul>
       <h3 class="am-icon-user"><em></em> <a href="#">用户管理</a></h3>
-       <ul>
+      <ul>
         <li><a href="${pageContext.request.contextPath }/userlist/queryuserList.action">用户列表</a></li>
 		<li><a href="${pageContext.request.contextPath }/userlist/querycartList.action">用户购物车</a></li>
 		<li><a href="${pageContext.request.contextPath }/userlist/querycollectList.action">用户收藏夹</a></li>
 		<li><a href="${pageContext.request.contextPath }/userlist/queryreceiverList.action">用户收货地址</a></li>
-	  </ul>
+	 </ul>
       
       <h3 class="am-icon-user"><em></em> <a href="#">权限管理</a></h3>
       <ul>
@@ -284,7 +284,7 @@ function sogo(){
 <div class="admin-biaogelist">
 	
     <div class="listbiaoti am-cf">
-      <ul class="am-icon-user on">购物车列表</ul>
+      <ul class="am-icon-user on">用户收藏夹列表</ul>
       
       <dl class="am-icon-home" style="float: right;"> 当前位置： 用户列表 > <a href="index.html">首页</a></dl>
       
@@ -293,10 +293,10 @@ function sogo(){
     </div>
 	
 <div class="am-btn-toolbars am-btn-toolbar am-kg am-cf">
- <form action="${pageContext.request.contextPath }/userlist/sogocart.action" method="post">
+ <form action="${pageContext.request.contextPath }/userlist/sogocollect.action" method="post">
   <ul>
   <li></li>
-  <li><input name="sogo" type="text" class="am-form-field am-input-sm am-input-xm" style="margin-top: -0.5px;height: 28px;margin-top: 3px;width:200px; "  placeholder="输入用户ID/用户名查找" /></li>
+  <li><input name="sogo" type="text" class="am-form-field am-input-sm am-input-xm" style="margin-top: -0.5px;height: 28px;margin-top: 3px;width:200px; "  placeholder="输入用户ID/用户名查找/商品名" /></li>
   <li><button type="submit" class="am-btn am-radius am-btn-xs am-btn-success" style="margin-top: 1px;">搜索</button></li>
   </ul>
   </form>
@@ -309,26 +309,32 @@ function sogo(){
               <tr class="am-success">
                 <th class="table-id">用户ID</th><!--购物车ID  -->
                 <th class="table-name">用户名</th>
+                <th class="table-name">图片</th>
                 <th class="table-name">商品名</th>
                 <th class="table-name">货号</th>
-                <th class="table-name">价格</th>
-                <th class="table-name">数量</th>
+                <th class="table-name">商品价格</th>
+                <th class="table-name">商品描述</th>
+                <th class="table-name">添加时间</th>
               </tr>
             </thead>
             <tbody id="tbody">
-             <c:forEach items="${userscart }" var="u">
+             <c:forEach items="${collects }" var="c">
               <tr>
-                <td align="center" valign="middle" rowspan="${u.getCart().size()+1 }">${u.getUser_id()}</td>
-                <td valign="middle" rowspan="${u.getCart().size()+1 }">
-                	<a>${u.getUser_name()}</a>
+                <td align="center" valign="middle" rowspan="${c.getGoodsCollect().size()+1 }">
+                	<a>${c.getUser_id()}</a>
+                </td>
+                <td valign="middle" rowspan="${c.getGoodsCollect().size()+1 }">
+                	<a>${c.getUser_name()}</a>
                 </td>
                 
-                <c:forEach items="${u.getCart()}" var="c" >
+                <c:forEach items="${c.getGoodsCollect()}" var="g" >
                 	<tr>
-	                <td id="3">${c.getGoods_name()}</td>
-	                <td id="4">${c.getGoods_sn()}</td>
-	                <td id="5">${c.getGoods_price()}</td>
-	                <td id="6">${c.getGoods_number()}</td>
+                	<td id="5" style="width:50px;"><img width="50px" height="30" src="${g.getOriginal_img()}"/></td>
+	                <td id="3">${g.getGoods_name()}</td>
+	                <td id="4">${g.getGoods_sn()}</td>
+	                <td id="6">${g.getOriginal_price()}</td>
+	                <td id="6">${g.getGoods_brief()}</td>
+	                <td id="6">${g.getAddtime()}</td>
 	                </tr>
                 </c:forEach>
               </tr>
@@ -338,14 +344,14 @@ function sogo(){
          
           
           <ul class="am-pagination am-fr">
-                <li ><a id="a"  href="${pageContext.request.contextPath}/userlist/querycartListpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=99999999&xia=1&shang=8">上一页</a></li>
-                <li ><a id="a" href="${pageContext.request.contextPath}/userlist/querycartListpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=1&xia=1&shang=1">1</a></li>
-                <li><a id="a" href="${pageContext.request.contextPath}/userlist/querycartListpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=2&xia=1&shang=1">2</a></li>
-                <li><a id="a" href="${pageContext.request.contextPath}/userlist/querycartListpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=3&xia=1&shang=1">3</a></li>
-                <li><a id="a" href="${pageContext.request.contextPath}/userlist/querycartListpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=9999999&xia=9&shang=1">下一页</a></li>
+                <li ><a id="a"  href="${pageContext.request.contextPath}/userlist/quercollectlistpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=99999999&xia=1&shang=8">上一页</a></li>
+                <li ><a id="a" href="${pageContext.request.contextPath}/userlist/quercollectlistpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=1&xia=1&shang=1">1</a></li>
+                <li><a id="a" href="${pageContext.request.contextPath}/userlist/quercollectlistpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=2&xia=1&shang=1">2</a></li>
+                <li><a id="a" href="${pageContext.request.contextPath}/userlist/quercollectlistpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=3&xia=1&shang=1">3</a></li>
+                <li><a id="a" href="${pageContext.request.contextPath}/userlist/quercollectlistpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=9999999&xia=9&shang=1">下一页</a></li>
                 
                 <li>
-                <form action="${pageContext.request.contextPath}/userlist/querycartListpage.action" method="post">
+                <form action="${pageContext.request.contextPath}/userlist/quercollectlistpage.action" method="post">
                 <input type="hidden" name="daslkdjkadsadgfdgjkjhesakls" value="<%=new Date() %>"/>
                 <input type="hidden" name="baslkdjkadsadgfdgjkjhesakls" value="<%=new Date() %>"/>
                 <input type="text" name="page" class="am-form-field am-input-sm am-input-xm" style="height:20px; width: 53px"placeholder="输入页码搜索"/>
