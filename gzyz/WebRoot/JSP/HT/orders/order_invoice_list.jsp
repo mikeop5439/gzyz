@@ -27,6 +27,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/app.js"></script>
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/amazeui.min.js"></script>
 <script type="text/javascript">
+function getDateTime(date) {
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var hh = date.getHours();
+    var mm = date.getMinutes();
+    var ss = date.getSeconds();
+    return year + "-" + month + "-" + day + " " + hh + ":" + mm + ":" + ss;
+};
+function ConvertJSONDateToJSDate(jsondate) {
+    var date = new Date(parseInt(jsondate.replace("/Date(", "").replace(")/", ""), 10));
+    return date;
+};
 window.onload =function setSpage(){
      var i=2;
      var page_id="AllPage"+1;
@@ -70,6 +83,7 @@ window.onload =function setSpage(){
 		   setpage(data.allpage,nowpage);
 		   //异步添加商品入表格中
 			  $.each(data.order_invoices,function(index,content){
+			  var date = "/Date("+content.apply_time+")/";
 			  var i;
 			  if(content.invoice_status==0){
 				  i=$("<a></a>").addClass("am-badge am-badge-danger am-round am-text-sm").append("未同意");
@@ -78,7 +92,7 @@ window.onload =function setSpage(){
 			  };
 			  var td1=$("<td></td>").append(content.invoice_id);
 			  var td2=$("<td></td>").append(content.order_id);
-			  var td3=$("<td></td>").append(content.apply_time);
+			  var td3=$("<td></td>").append(getDateTime(ConvertJSONDateToJSDate(date)));
 			  var td4=$("<td></td>").append(content.apply_reason);
 			  var td5=$("<td></td>").append(i);
 			  var d1=$("<div></div>").addClass("am-btn-toolbar").append($("<div></div>").addClass("am-btn-group am-btn-group-xs").append($("<button></button>").addClass("am-btn am-btn-primary am-round am-btn-xl am-icon-trash-o").attr("type","button").attr("style","width:200px;").attr("data-am-modal","{target: '#my-confirm'}").attr("onclick","javascript:agreeTheApply("+content.invoice_id+")").append("同意申请")));
@@ -301,7 +315,22 @@ window.onload =function setSpage(){
       
     </div>
 	
-	
+	<div class="am-btn-toolbars am-btn-toolbar am-kg am-cf">
+  <form action="${pageContext.request.contextPath }/orderiands/aqueryAllInvoiceLimitDate.action" method="get">
+  <ul>
+    <li style="margin-right: 0;">
+    	<span class="tubiao am-icon-calendar"></span>
+      <input type="text" class="am-form-field am-input-sm am-input-zm  am-icon-calendar" placeholder="开始日期" data-am-datepicker="{theme: 'success',}" name="startdate" readonly/>
+    </li>
+       <li style="margin-left: -4px;">
+    	<span class="tubiao am-icon-calendar"></span>
+      <input type="text" class="am-form-field am-input-sm am-input-zm  am-icon-calendar" placeholder="结束日期" data-am-datepicker="{theme: 'success',}" name="enddate" readonly/>
+    </li>
+
+    <li><button type="submit" class="am-btn am-radius am-btn-xs am-btn-success" style="margin-top: 1px;">搜索</button></li>
+  </ul>
+  </form>
+</div>
 
 
     <form class="am-form am-g">

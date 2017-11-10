@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gzyz.bean.order.Order_invoice;
+import com.gzyz.bean.order.extend.DateQuery;
 import com.gzyz.bean.order.extend.Order_invoiceAnadAllpage;
 import com.gzyz.bean.users.Manager_log;
 import com.gzyz.bean.users.manger;
@@ -62,5 +63,19 @@ public class OrderInvoiceAndSwapController {
 		//添加日志结束
 		orderInvoiceAndSwapService.agreeTheApply(invoice_id);
 		return "forward:/orderiands/squeryAllInvoiceLimit.action?nowpage=1";
+	}
+	//按日期查询
+	@RequestMapping("aqueryAllInvoiceLimitDate.action")
+	public @ResponseBody Order_invoiceAnadAllpage aqueryAllInvoiceLimitDate(Model model,DateQuery dateQuery){
+		int nowpage=1;
+		int startindex=12*(nowpage-1);
+		double count=orderInvoiceAndSwapService.queryInvoiceCount();
+        int allpage=(int) Math.ceil(count/12.0);
+        List<Order_invoice> order_invoices=orderInvoiceAndSwapService.queryAllInvoiceLimit(startindex);
+        Order_invoiceAnadAllpage order_invoiceAnadAllpage=new Order_invoiceAnadAllpage();
+        order_invoiceAnadAllpage.setOrder_invoices(order_invoices);
+        order_invoiceAnadAllpage.setAllpage(allpage);
+        System.out.print(dateQuery);
+		return order_invoiceAnadAllpage;
 	}
 }

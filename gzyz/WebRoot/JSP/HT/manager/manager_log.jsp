@@ -70,11 +70,12 @@ window.onload =function setSpage(){
 		   setpage(data.allpage,nowpage);
 		   //异步添加商品入表格中
 			  $.each(data.manager_log,function(index,content){
+			  var date = "/Date("+content.log_time+")/";
 			  var td1=$("<td></td>").append(content.manager_log_id);
 			  var td2=$("<td></td>").append(content.manager_id);
 			  var td3=$("<td></td>").append(content.log_origin);
 			  var td4=$("<td></td>").append(content.log_method);
-			  var td5=$("<td></td>").append(ChangeDateFormat(content.log_time));
+			  var td5=$("<td></td>").append(ConvertJSONDateToJSDate(date));
 			  var d1=$("<div></div>").addClass("am-btn-toolbar").append($("<div></div>").addClass("am-btn-group am-btn-group-xs").append($("<button></button>").addClass("am-btn am-btn-danger am-round am-btn-xl am-icon-trash-o").attr("type","button").attr("style","width:200px;").attr("data-am-modal","{target: '#my-confirm'}").attr("onclick","javascript:deleteLog("+content.manager_log_id+")").append("删除日志")));
 			  var td6=$("<td></td>").append(d1);
 			  //var td6=$("<td></td>").append("asdasd");
@@ -92,37 +93,19 @@ window.onload =function setSpage(){
      $("#deletegood").attr("href",url); 
      
      };
-     function ChangeDateFormat(d){
-	//将时间戳转为int类型，构造Date类型
-	var date = new Date(parseInt(d,10));
-	
-	//月份得+1，且只有个位数时在前面+0
-	var month = date.getMonth() + 1 < 10 ?"0" + (date.getMonth() + 1) : date.getMonth() + 1;
-	
-	//日期为个位数时在前面+0
-	var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-	
-	//getFullYear得到4位数的年份 ，返回一串字符串
-	return date.getFullYear()+"-" +month +"-" +currentDate;
-	}
-	function change(format){  
-        var o = {  
-            "M+" : this.getMonth()+1, //month  
-            "d+" : this.getDate(), //day  
-            "h+" : this.getHours(), //hour  
-            "m+" : this.getMinutes(), //minute  
-            "s+" : this.getSeconds(), //second  
-            "q+" : Math.floor((this.getMonth()+3)/3), //quarter  
-            "S" : this.getMilliseconds() //millisecond  
-        }  
-        if(/(y+)/.test(format)) format=format.replace(RegExp.$1,  
-            (this.getFullYear()+"").substr(4- RegExp.$1.length));  
-        for(var k in o)if(new RegExp("("+ k +")").test(format))  
-            format = format.replace(RegExp.$1,  
-                RegExp.$1.length==1? o[k] :  
-                    ("00"+ o[k]).substr((""+ o[k]).length));  
-        return format;  
-    }
+     function getDateTime(date) {
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var hh = date.getHours();
+    var mm = date.getMinutes();
+    var ss = date.getSeconds();
+    return year + "-" + month + "-" + day + " " + hh + ":" + mm + ":" + ss;
+};
+function ConvertJSONDateToJSDate(jsondate) {
+    var date = new Date(parseInt(jsondate.replace("/Date(", "").replace(")/", ""), 10));
+    return date;
+};
 </script>
 </head>
 
