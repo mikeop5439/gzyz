@@ -6,11 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gzyz.bean.order.Order_invoice;
 import com.gzyz.bean.order.extend.DateQuery;
+import com.gzyz.bean.order.extend.DateQueryNowpage;
 import com.gzyz.bean.order.extend.Order_invoiceAnadAllpage;
 import com.gzyz.bean.users.Manager_log;
 import com.gzyz.bean.users.manger;
@@ -28,7 +30,7 @@ public class OrderInvoiceAndSwapController {
 	private Manager_log manager_log;
 	@Autowired
 	private ManagerListService managerListService;
-	//同步分页查询所有管理员
+	//同步分页查询所有退货单
 	@RequestMapping("squeryAllInvoiceLimit.action")
 	public String squeryAllManagerLimit(Model model,int nowpage){
 		int startindex=12*(nowpage-1);
@@ -39,7 +41,7 @@ public class OrderInvoiceAndSwapController {
 		model.addAttribute("AllPage", allpage);
 		return "forward:/JSP/HT/orders/order_invoice_list.jsp";
 	}
-	//异步分页查询所有管理员
+	//异步分页查询所有退货单
 	@RequestMapping("aqueryAllInvoiceLimit.action")
 	public @ResponseBody Order_invoiceAnadAllpage aqueryAllInvoiceLimit(Model model,int nowpage){
 		int startindex=12*(nowpage-1);
@@ -64,18 +66,30 @@ public class OrderInvoiceAndSwapController {
 		orderInvoiceAndSwapService.agreeTheApply(invoice_id);
 		return "forward:/orderiands/squeryAllInvoiceLimit.action?nowpage=1";
 	}
-	//按日期查询
-	@RequestMapping("aqueryAllInvoiceLimitDate.action")
-	public @ResponseBody Order_invoiceAnadAllpage aqueryAllInvoiceLimitDate(Model model,DateQuery dateQuery){
-		int nowpage=1;
+	//按日期查询退货单
+	@RequestMapping("squeryAllInvoiceLimitDate.action")
+	public @ResponseBody Order_invoiceAnadAllpage squeryAllInvoiceLimitDate(Model model,@RequestBody DateQuery dateQuery,int nowpage){
 		int startindex=12*(nowpage-1);
-		double count=orderInvoiceAndSwapService.queryInvoiceCount();
-        int allpage=(int) Math.ceil(count/12.0);
-        List<Order_invoice> order_invoices=orderInvoiceAndSwapService.queryAllInvoiceLimit(startindex);
+        DateQueryNowpage dateQueryNowpage=new DateQueryNowpage();
+        if(dateQuery.getEnddate()!=""){
+        	dateQueryNowpage.setEnddate(dateQuery.getEnddate()+" 23:59:59'");
+        }else{
+        	dateQueryNowpage.setEnddate(dateQuery.getEnddate());
+        }
+        if(dateQuery.getStartdate()!=""){
+        	dateQueryNowpage.setStartdate(dateQuery.getStartdate()+" 00:00:00'");
+        }else{
+        	dateQueryNowpage.setStartdate(dateQuery.getStartdate());
+        }
+        dateQueryNowpage.setNowpage(startindex);
+        System.out.println("ssssssssssssssss"+dateQueryNowpage.getStartdate());
+        System.out.println("eeeeeeeeeeeeeeee"+dateQueryNowpage.getEnddate());
+        List<Order_invoice> order_invoices=orderInvoiceAndSwapService.qureyByDateLimit(dateQueryNowpage);
         Order_invoiceAnadAllpage order_invoiceAnadAllpage=new Order_invoiceAnadAllpage();
         order_invoiceAnadAllpage.setOrder_invoices(order_invoices);
+        double count=orderInvoiceAndSwapService.queryDateInvoiceCount(dateQueryNowpage);
+        int allpage=(int) Math.ceil(count/12.0);
         order_invoiceAnadAllpage.setAllpage(allpage);
-        System.out.print(dateQuery);
 		return order_invoiceAnadAllpage;
 	}
 }

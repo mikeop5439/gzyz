@@ -112,4 +112,37 @@ select count(*) from manager_log
 <delete id="deleteLog" parameterType="int">
 delete from manager_log where manager_log_id=#{manager_log_id}
 </delete>
+<!-- 按日期查询日志 -->
+<select id="qureyByDateLimit" resultType="manager_log" parameterType="dateQueryNowpage">
+SELECT *
+from manager_log 
+<if test="startdate != '' and enddate != ''">
+where log_time  between #{startdate} and #{enddate}
+</if>
+<if test="startdate == '' and enddate != ''">
+where log_time &lt;=  #{enddate}
+</if>
+<if test="startdate != '' and enddate == ''">
+where log_time &gt;= #{startdate}
+</if>
+<if test="startdate == '' and enddate == ''">
+</if>
+limit #{nowpage},12
+</select>
+<!-- 查询日志总数 -->
+<select id="queryDateLogCount" resultType="int" parameterType="dateQueryNowpage">
+SELECT count(*)
+from manager_log 
+<if test="startdate != '' and enddate != ''">
+where log_time  between #{startdate} and #{enddate}
+</if>
+<if test="startdate == '' and enddate != ''">
+where log_time &lt;=  #{enddate}
+</if>
+<if test="startdate != '' and enddate == ''">
+where log_time &gt;= #{startdate}
+</if>
+<if test="startdate == '' and enddate == ''">
+</if>
+</select>
 </mapper>

@@ -6,13 +6,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gzyz.bean.order.Order_invoice;
+import com.gzyz.bean.order.extend.DateQuery;
+import com.gzyz.bean.order.extend.DateQueryNowpage;
+import com.gzyz.bean.order.extend.Order_invoiceAnadAllpage;
 import com.gzyz.bean.users.Manager_log;
 import com.gzyz.bean.users.manage_role;
 import com.gzyz.bean.users.manger;
 import com.gzyz.bean.users.extend.ManagerLogAndAllpage;
+import com.gzyz.bean.users.extend.Manager_logAndAllpage;
 import com.gzyz.bean.users.extend.MangerAndManageRole;
 import com.gzyz.service.users.service.ManagerListService;
 
@@ -173,4 +179,29 @@ public class ManagerListController {
 			managerListService.deleteLog(manager_log_id);
 			return "forward:/manager/squeryLogLimit.action?nowpage=1";
 		}
+	//按日期查询日志
+	@RequestMapping("squeryAllLogLimitDate.action")
+	public @ResponseBody Manager_logAndAllpage squeryAllLogLimitDate(Model model,@RequestBody DateQuery dateQuery,int nowpage){
+		int startindex=12*(nowpage-1);
+        DateQueryNowpage dateQueryNowpage=new DateQueryNowpage();
+        if(dateQuery.getEnddate()!=""){
+        	dateQueryNowpage.setEnddate(dateQuery.getEnddate()+" 23:59:59'");
+        }else{
+        	dateQueryNowpage.setEnddate(dateQuery.getEnddate());
+        }
+        if(dateQuery.getStartdate()!=""){
+        	dateQueryNowpage.setStartdate(dateQuery.getStartdate()+" 00:00:00'");
+        }else{
+        	dateQueryNowpage.setStartdate(dateQuery.getStartdate());
+        }
+        
+        dateQueryNowpage.setNowpage(startindex);
+        List<Manager_log> manager_logs=managerListService.qureyByDateLimit(dateQueryNowpage);
+        Manager_logAndAllpage manager_logAndAllpage=new Manager_logAndAllpage();
+        double count=managerListService.queryDateLogCount(dateQueryNowpage);
+        int allpage=(int) Math.ceil(count/12.0);
+        manager_logAndAllpage.setAllpage(allpage);
+        manager_logAndAllpage.setManager_logs(manager_logs);
+		return manager_logAndAllpage;
+	}
 }
