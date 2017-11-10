@@ -10,13 +10,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap  type="Usercart" id="UserCarMapper">
 		<id column="user_id" property="user_id"/>
 		<result column="user_name" property="user_name"/>
-		<collection property="cart" ofType="cart">
+		<collection property="cartextend" ofType="cartextend">
 				<id column="rec_id" property="rec_id"/>
 				<result column="goods_id" property="goods_id"/>
 				<result column="goods_name" property="goods_name"/>
 				<result column="goods_price" property="goods_price"/>
 				<result column="goods_number" property="goods_number"/>
 				<result column="goods_sn" property="goods_sn"/>
+				<association property="goods" javaType="goods">
+					<result column="original_img" property="original_img"/>
+					<result column="goods_brief" property="goods_brief"/>
+				</association>
 		</collection>
 	</resultMap>
 	<resultMap  type="UserCollect" id="UserCollectMapper">
@@ -66,12 +70,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from user where user_id=#{id}
 	</select>
 	
+	
+	<!--购物车  -->
 	<select id="selectCart" resultType="com.gzyz.bean.users.cart" parameterType="int" >
 		select * from cart limit #{page},16
 	</select>
 	<select id="selectuser" resultMap="UserCarMapper" parameterType="int">
-		select u.user_id user_id,u.user_name user_name,c.rec_id rec_id, c.goods_id goods_id,c.goods_name goods_name,c.goods_sn goods_sn,c.goods_price goods_price,c.goods_number goods_number
- 		from user u JOIN cart c on u.user_id=c.user_id
+		select u.user_id user_id,u.user_name user_name,c.rec_id rec_id, c.goods_id goods_id,g.goods_brief goods_brief,g.original_img original_img,c.goods_name goods_name,c.goods_sn goods_sn,c.goods_price goods_price,c.goods_number goods_number
+ 		from user u 
+		JOIN cart c 
+		on u.user_id=c.user_id
+		LEFT JOIN goods g
+		on c.goods_id=g.goods_id
  		ORDER BY u.user_id ASC 
  		limit #{page},16
 	</select>
@@ -80,16 +90,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectcartToMh" resultMap="UserCarMapper" parameterType="String">
-		select u.user_id user_id,u.user_name user_name,c.rec_id rec_id, c.goods_id goods_id,c.goods_name goods_name,c.goods_sn goods_sn,c.goods_price goods_price,c.goods_number goods_number
- 		from user u JOIN cart c on u.user_id=c.user_id 
+		select u.user_id user_id,u.user_name user_name,c.rec_id rec_id, c.goods_id goods_id,g.goods_brief goods_brief,g.original_img original_img,c.goods_name goods_name,c.goods_sn goods_sn,c.goods_price goods_price,c.goods_number goods_number
+ 		from user u 
+		JOIN cart c 
+		on u.user_id=c.user_id
+		LEFT JOIN goods g
+		on c.goods_id=g.goods_id
  		where u.user_name like '%${value}%'
+ 		ORDER BY u.user_id ASC
 	</select>
 	<select id="selectcartByid" resultMap="UserCarMapper" parameterType="int">
-		select u.user_id user_id,u.user_name user_name,c.rec_id rec_id, c.goods_id goods_id,c.goods_name goods_name,c.goods_sn goods_sn,c.goods_price goods_price,c.goods_number goods_number
- 		from user u JOIN cart c on u.user_id=c.user_id 
+		select u.user_id user_id,u.user_name user_name,c.rec_id rec_id, c.goods_id goods_id,g.goods_brief goods_brief,g.original_img original_img,c.goods_name goods_name,c.goods_sn goods_sn,c.goods_price goods_price,c.goods_number goods_number
+ 		from user u 
+		JOIN cart c 
+		on u.user_id=c.user_id
+		LEFT JOIN goods g
+		on c.goods_id=g.goods_id
  		where u.user_id like '%${value}%'
+ 		ORDER BY u.user_id ASC
 	</select>
 	
+	<select id="selectcartSn" resultMap="UserCarMapper" parameterType="String">
+		select u.user_id user_id,u.user_name user_name,c.rec_id rec_id, c.goods_id goods_id,g.goods_brief goods_brief,g.original_img original_img,c.goods_name goods_name,c.goods_sn goods_sn,c.goods_price goods_price,c.goods_number goods_number
+ 		from user u 
+		JOIN cart c 
+		on u.user_id=c.user_id
+		LEFT JOIN goods g
+		on c.goods_id=g.goods_id
+ 		where c.goods_sn like '%${value}%' or c.goods_name like '%${value}%'
+ 		ORDER BY u.user_id ASC
+	</select>
+	
+	
+	<!--收藏夹  -->
 	<select id="selectcollect" resultMap="UserCollectMapper" parameterType="int">
 		select u.user_id user_id,u.user_name user_name,g.goods_id goods_id,g.original_img original_img,g.goods_name goods_name,g.goods_sn goods_sn,g.original_price original_price,g.goods_brief goods_brief,c.rec_id rec_id,c.add_time add_time
 		from collect_goods c 

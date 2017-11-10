@@ -361,8 +361,9 @@
 							</c:forEach>
 						</tbody>
 					</table>
-
-
+			</form>
+			
+			
 					<ul class="am-pagination am-fr">
 						<li><a id="a"
 							href="${pageContext.request.contextPath}/userlist/queryreceiverlistpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=99999999&xia=1&shang=8">上一页</a></li>
@@ -376,9 +377,7 @@
 							href="${pageContext.request.contextPath}/userlist/queryreceiverlistpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=9999999&xia=9&shang=1">下一页</a></li>
 
 						<li>
-							<form
-								action="${pageContext.request.contextPath}/userlist/queryreceiverlistpage.action"
-								method="post">
+							<form action="${pageContext.request.contextPath}/userlist/queryreceiverlistpage.action" method="post" onsubmit="return sogopages()">
 								<input type="hidden" name="daslkdjkadsadgfdgjkjhesakls"
 									value="<%=new Date()%>" /> <input type="hidden"
 									name="baslkdjkadsadgfdgjkjhesakls" value="<%=new Date()%>" />
@@ -388,18 +387,20 @@
 									type="hidden" name="shang" value="1" /> <input type="hidden"
 									name="xia" value="1" />
 						</li>
-						<li><input type="submit" value="搜索" /></li>
-				</form>
+						<li>
+						<input type="submit" value="搜索" "/>
+						</li>
+					</form>
 
 
 				</ul>
-
+			
 
 
 
 				<hr />
 				<p>注：.....</p>
-				</form>
+				
 
 
 

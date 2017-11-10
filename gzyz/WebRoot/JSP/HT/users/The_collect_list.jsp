@@ -341,7 +341,7 @@ function sogo(){
               </c:forEach> 
             </tbody>
           </table>
-         
+         </form>
           
           <ul class="am-pagination am-fr">
                 <li ><a id="a"  href="${pageContext.request.contextPath}/userlist/quercollectlistpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=99999999&xia=1&shang=8">上一页</a></li>
@@ -351,9 +351,9 @@ function sogo(){
                 <li><a id="a" href="${pageContext.request.contextPath}/userlist/quercollectlistpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=9999999&xia=9&shang=1">下一页</a></li>
                 
                 <li>
-                <form action="${pageContext.request.contextPath}/userlist/quercollectlistpage.action" method="post">
-                <input type="hidden" name="daslkdjkadsadgfdgjkjhesakls" value="<%=new Date() %>"/>
-                <input type="hidden" name="baslkdjkadsadgfdgjkjhesakls" value="<%=new Date() %>"/>
+                <form id="sogopages" action="${pageContext.request.contextPath}/userlist/quercollectlistpage.action" method="post" onsubmit="return sogopages()">
+                <input type="hidden" name="DoyourememberIlovelhmolei" value="<%=new Date() %>"/>
+                <input type="hidden" name="Remembertheoathnce" value="<%=new Date() %>"/>
                 <input type="text" name="page" class="am-form-field am-input-sm am-input-xm" style="height:20px; width: 53px"placeholder="输入页码搜索"/>
                 <input type="hidden" name="shang" value="1"/>
                 <input type="hidden" name="xia" value="1"/>
@@ -371,7 +371,7 @@ function sogo(){
       
           <hr />
           <p>注：.....</p>
-        </form>
+        
  
  
  

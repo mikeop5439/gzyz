@@ -39,4 +39,6 @@ public interface UserListMapper {
 		public List<UserReceiver> selectreceiverToMh(String sogo);
 
 		public List<UserReceiver> selectreceiverByid(String sogo);
+
+		public List<UserCart> selectcartSn(String sogo);
 }

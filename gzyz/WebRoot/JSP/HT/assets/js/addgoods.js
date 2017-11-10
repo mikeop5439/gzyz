@@ -1,3 +1,4 @@
+
 $(function() {// 验证分类表单
 	$("#addcategory").validate({
 		rules : {
@@ -340,6 +341,25 @@ function addsepc_value(){
 		return false;
 	}
 }
+
+//用户模块，验证页码搜索表单
+function sogopages(){
+	var val=$(":input[name='page']").val();
+	if(val == null || val == ""){
+		alert("请输入叶码");
+		return false;
+	}else{
+		if(isNaN(val)){
+			alert("请输入数字");
+			return false;
+		}else{
+			
+			return true;
+		}
+	}
+}
+
+
 /*//goodsphoto上传图片验证
 $(function () {
     $("#doc-ipt-file-1").change(function () {

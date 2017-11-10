@@ -6,14 +6,16 @@ import com.gzyz.bean.users.User;
 import com.gzyz.bean.users.cart;
 
 public class UserCart extends User{
-		private List<cart> cart;
+		private List<Cartextend> cartextend;
 		private int newpage;
-		public List<cart> getCart() {
-			return cart;
+		
+		
+		public List<Cartextend> getCartextend() {
+			return cartextend;
 		}
 
-		public void setCart(List<cart> cart) {
-			this.cart = cart;
+		public void setCartextend(List<Cartextend> cartextend) {
+			this.cartextend = cartextend;
 		}
 
 		public int getNewpage() {

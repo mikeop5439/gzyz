@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gzyz.bean.goods.extend.GoodsCollect;
 import com.gzyz.bean.users.Receiver;
+import com.gzyz.bean.users.extend.Cartextend;
 import com.gzyz.bean.users.extend.UserCart;
 import com.gzyz.bean.users.extend.UserCollect;
 import com.gzyz.bean.users.extend.UserReceiver;
@@ -97,6 +98,14 @@ public class UserListController {
 		public String querycartList(HttpServletRequest request,HttpSession session){
 			
 			List<UserCart>userscart=userListService.queryuser(0);
+			for(UserCart u:userscart){
+				for(Cartextend g:u.getCartextend() ){
+					if(g.getGoods().getOriginal_img() != null && g.getGoods().getOriginal_img().length() > 36){
+						String imgString=g.getGoods().getOriginal_img().substring(36);
+						g.getGoods().setOriginal_img(imgString);
+						}
+				}
+			}
 			session.setAttribute("page", 1);
 			request.setAttribute("userscart", userscart);
 			return "/JSP/HT/users/The_cart_list.jsp";
@@ -132,6 +141,14 @@ public class UserListController {
 				response.getWriter().print(result);*/
 				
 				if(userscart != null){
+					for(UserCart u:userscart){
+						for(Cartextend g:u.getCartextend() ){
+							if(g.getGoods().getOriginal_img() != null && g.getGoods().getOriginal_img().length() > 36){
+								String imgString=g.getGoods().getOriginal_img().substring(36);
+								g.getGoods().setOriginal_img(imgString);
+								}
+						}
+					}
 					request.setAttribute("userscart", userscart);
 					int p=(int)session.getAttribute("page") ;
 					if(p<=0){page=1;}
@@ -146,12 +163,20 @@ public class UserListController {
 				return result;
 		}
 		
-		//搜索查询购物车
-		@RequestMapping("sogocart")
-		public String sogocart(String sogo,HttpSession session,HttpServletResponse response,HttpServletRequest request) throws Exception{
+		//搜索查询购物车BYID
+		@RequestMapping("sogocartByid")
+		public String sogocartByid(String sogo,HttpSession session,HttpServletResponse response,HttpServletRequest request) throws Exception{
 			String result=null;
 			List<UserCart> userscart=userListService.queryCartToMh(sogo);
-			if(userscart != null){
+			if(userscart != null && userscart.size() > 0){
+				for(UserCart u:userscart){
+					for(Cartextend g:u.getCartextend() ){
+						if(g.getGoods().getOriginal_img() != null && g.getGoods().getOriginal_img().length() > 36){
+							String imgString=g.getGoods().getOriginal_img().substring(36);
+							g.getGoods().setOriginal_img(imgString);
+							}
+					}
+				}
 				request.setAttribute("userscart", userscart);
 				result= "/JSP/HT/users/The_cart_list.jsp";
 			}else {
@@ -161,6 +186,29 @@ public class UserListController {
 			
 		return result;
 		}
+		//搜索查询购物车BY货号
+		@RequestMapping("sogocartBysn")
+		public String sogocartBysn(String sogo,HttpSession session,HttpServletResponse response,HttpServletRequest request) throws Exception{
+					String result=null;
+					List<UserCart> userscart=userListService.queryCartSn(sogo);
+					if(userscart != null && userscart.size() > 0){
+						for(UserCart u:userscart){
+							for(Cartextend g:u.getCartextend() ){
+								if(g.getGoods().getOriginal_img() != null && g.getGoods().getOriginal_img().length() > 36){
+									String imgString=g.getGoods().getOriginal_img().substring(36);
+									g.getGoods().setOriginal_img(imgString);
+									}
+							}
+						}
+						request.setAttribute("userscart", userscart);
+						result= "/JSP/HT/users/The_cart_list.jsp";
+					}else {
+						int p=(int)session.getAttribute("page") ;
+						result="forward:/userlist/querycartListpage.action?page="+p+"&xia=1&shang=1";
+					}
+					
+				return result;
+				}
 	
 		//查询收藏夹
 		@RequestMapping("querycollectList")
@@ -237,7 +285,7 @@ public class UserListController {
 		public String sogocollect(String sogo,HttpSession session,HttpServletResponse response,HttpServletRequest request) throws Exception{
 				String result=null;
 				List<UserCollect> collects=userListService.queryCollectToMh(sogo);
-				if(collects != null){
+				if(collects != null && collects.size() > 0){
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					for(UserCollect u:collects){
 						for(GoodsCollect g:u.getGoodsCollect()){
@@ -251,8 +299,8 @@ public class UserListController {
 						request.setAttribute("collects", collects);
 						result= "/JSP/HT/users/The_collect_list.jsp";
 					}else {
-						int p=(int)session.getAttribute("page") ;
-						result="forward:/userlist/querycartListpage.action?page="+p+"&xia=1&shang=1";
+						int p=(int)session.getAttribute("pages") ;
+						result="forward:/userlist/quercollectlistpage.action?page="+p+"&xia=1&shang=1";
 					}
 					
 				return result;
@@ -307,16 +355,16 @@ public class UserListController {
 						}
 				return result;
 				}
-				//搜索查询收藏夹
+				//搜索查询收货地址
 				@RequestMapping("sogoreceiver")
 				public String sogoreceiver(String sogo,HttpSession session,HttpServletResponse response,HttpServletRequest request) throws Exception{
 						String result=null;
 						List<UserReceiver> receivers=userListService.queryReceiversToMh(sogo);
-						if(receivers != null){
+						if(receivers != null && receivers.size() > 0){
 								request.setAttribute("receivers", receivers);
 								result= "/JSP/HT/users/The_receiver_list.jsp";
 							}else {
-								int p=(int)session.getAttribute("page") ;
+								int p=(int)session.getAttribute("pagess") ;
 								result="forward:/userlist/queryreceiverlistpage.action?page="+p+"&xia=1&shang=1";
 							}
 							
@@ -327,11 +375,11 @@ public class UserListController {
 				public String sogoreceiverByid(String sogo,HttpSession session,HttpServletResponse response,HttpServletRequest request) throws Exception{
 						String result=null;
 						List<UserReceiver> receivers=userListService.queryReceiversByid(sogo);
-						if(receivers != null){
+						if(receivers != null && receivers.size()> 0){
 								request.setAttribute("receivers", receivers);
 								result= "/JSP/HT/users/The_receiver_list.jsp";
 							}else {
-								int p=(int)session.getAttribute("page") ;
+								int p=(int)session.getAttribute("pagess") ;
 								result="forward:/userlist/queryreceiverlistpage.action?page="+p+"&xia=1&shang=1";
 							}
 							

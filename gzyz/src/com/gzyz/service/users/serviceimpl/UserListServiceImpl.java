@@ -194,7 +194,13 @@ public class UserListServiceImpl implements UserListService {
 		}
 		return usercart;
 	}
-
+	
+	//模糊查询BY货号
+	public List<UserCart> queryCartSn(String sogo){
+		
+			return userListMapper.selectcartSn(sogo);
+		
+	}
 	@Override
 	public List<UserCollect> queryCollect(int page) {
 		//查询收藏夹分页
@@ -215,7 +221,7 @@ public class UserListServiceImpl implements UserListService {
 
 	@Override
 	public List<UserCollect> queryCollectToMh(String sogo) {
-		// 模糊搜索购物车
+		// 模糊搜索收藏夹
 		
 		return userListMapper.selectcollectToMh(sogo);
 	}

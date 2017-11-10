@@ -293,13 +293,18 @@ function sogo(){
     </div>
 	
 <div class="am-btn-toolbars am-btn-toolbar am-kg am-cf">
- <form action="${pageContext.request.contextPath }/userlist/sogocart.action" method="post">
   <ul>
-  <li></li>
-  <li><input name="sogo" type="text" class="am-form-field am-input-sm am-input-xm" style="margin-top: -0.5px;height: 28px;margin-top: 3px;width:200px; "  placeholder="输入用户ID/用户名查找" /></li>
-  <li><button type="submit" class="am-btn am-radius am-btn-xs am-btn-success" style="margin-top: 1px;">搜索</button></li>
+	  <form action="${pageContext.request.contextPath }/userlist/sogocartByid.action" method="post">
+	  <li><input name="sogo" type="text" class="am-form-field am-input-sm am-input-xm" style="margin-top: -0.5px;height: 28px;margin-top: 3px;width:200px; "  placeholder="输入用户ID/用户名查找" /></li>
+	  <li><button type="submit" class="am-btn am-radius am-btn-xs am-btn-success" style="margin-top: 1px;">搜索</button></li>
+	  </form>
   </ul>
-  </form>
+    <ul>
+	  <form action="${pageContext.request.contextPath }/userlist/sogocartBysn.action" method="post">
+	  <li><input name="sogo" type="text" class="am-form-field am-input-sm am-input-xm" style="margin-top: -0.5px;height: 28px;margin-top: 3px;width:200px; "  placeholder="输入商品名/货号查找" /></li>
+	  <li><button type="submit" class="am-btn am-radius am-btn-xs am-btn-success" style="margin-top: 1px;">搜索</button></li>
+	  </form>
+  </ul>
 </div>
 
 
@@ -309,8 +314,10 @@ function sogo(){
               <tr class="am-success">
                 <th class="table-id">用户ID</th><!--购物车ID  -->
                 <th class="table-name">用户名</th>
+                <th class="table-name">图片</th>
                 <th class="table-name">商品名</th>
                 <th class="table-name">货号</th>
+                <th class="table-name">商品描述</th>
                 <th class="table-name">价格</th>
                 <th class="table-name">数量</th>
               </tr>
@@ -318,15 +325,17 @@ function sogo(){
             <tbody id="tbody">
              <c:forEach items="${userscart }" var="u">
               <tr>
-                <td align="center" valign="middle" rowspan="${u.getCart().size()+1 }">${u.getUser_id()}</td>
-                <td valign="middle" rowspan="${u.getCart().size()+1 }">
+                <td align="center" valign="middle" rowspan="${u.getCartextend().size()+1 }">${u.getUser_id()}</td>
+                <td valign="middle" rowspan="${u.getCartextend().size()+1 }">
                 	<a>${u.getUser_name()}</a>
                 </td>
                 
-                <c:forEach items="${u.getCart()}" var="c" >
+                <c:forEach items="${u.getCartextend()}" var="c" >
                 	<tr>
+                	<td id="3"style="width:45px;"><img src="${c.getGoods().getOriginal_img()}" width="50" height="30px"/></td>
 	                <td id="3">${c.getGoods_name()}</td>
 	                <td id="4">${c.getGoods_sn()}</td>
+	                <td id="4">${c.getGoods().getGoods_brief()}</td>
 	                <td id="5">${c.getGoods_price()}</td>
 	                <td id="6">${c.getGoods_number()}</td>
 	                </tr>
@@ -335,7 +344,7 @@ function sogo(){
               </c:forEach> 
             </tbody>
           </table>
-         
+          </form>
           
           <ul class="am-pagination am-fr">
                 <li ><a id="a"  href="${pageContext.request.contextPath}/userlist/querycartListpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=99999999&xia=1&shang=8">上一页</a></li>
@@ -345,7 +354,7 @@ function sogo(){
                 <li><a id="a" href="${pageContext.request.contextPath}/userlist/querycartListpage.action?daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&daslkdjkadsadgfdgjkjhesakls=<%=new Date() %>&page=9999999&xia=9&shang=1">下一页</a></li>
                 
                 <li>
-                <form action="${pageContext.request.contextPath}/userlist/querycartListpage.action" method="post">
+                <form id="sogopages" action="${pageContext.request.contextPath}/userlist/querycartListpage.action" method="post" onsubmit="return sogopages()">
                 <input type="hidden" name="daslkdjkadsadgfdgjkjhesakls" value="<%=new Date() %>"/>
                 <input type="hidden" name="baslkdjkadsadgfdgjkjhesakls" value="<%=new Date() %>"/>
                 <input type="text" name="page" class="am-form-field am-input-sm am-input-xm" style="height:20px; width: 53px"placeholder="输入页码搜索"/>
@@ -365,7 +374,7 @@ function sogo(){
       
           <hr />
           <p>注：.....</p>
-        </form>
+       
  
  
  

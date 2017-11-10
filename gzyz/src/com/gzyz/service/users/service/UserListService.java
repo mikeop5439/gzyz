@@ -26,4 +26,5 @@ public interface UserListService {
 	public int countreceicer();
 	public List<UserReceiver> queryReceiversToMh(String sogo);
 	public List<UserReceiver> queryReceiversByid(String sogo);
+	public List<UserCart> queryCartSn(String sogo);
 }
