@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import com.gzyz.bean.users.User;
 import com.gzyz.bean.users.cart;
 import com.gzyz.bean.users.extend.UserCart;
+import com.gzyz.bean.users.extend.UserCollect;
+import com.gzyz.bean.users.extend.UserReceiver;
 import com.gzyz.bean.users.extend.Userdate;
 import com.gzyz.mapper.users.UserListMapper;
 import com.gzyz.service.users.service.UserListService;
@@ -58,11 +60,13 @@ public class UserListServiceImpl implements UserListService {
 			}
 			
 			for(Userdate u:users){
+				String sex;
+				if(u.getUser_sex()==1){sex="男";}else{sex="女";}
 				html.add("<tr>"+
 				"<td>"+"<a>"+u.getUser_id()+"</a>"+"</td>"+
 				"<td>"+"<a>"+u.getUser_name()+"</a>"+"</td>"+
 				"<td>"+u.getUser_password()+"</td>"+
-				"<td>"+u.getUser_sex()+"</td>"+
+				"<td>"+sex+"</td>"+
 				"<td>"+u.getUser_tele()+"</td>"+
 				"<td>"+u.getUser_age()+"</td>"+
 				"<td>"+u.getUser_birthday_string()+"</td>"+
@@ -102,11 +106,13 @@ public class UserListServiceImpl implements UserListService {
 		}
 		
 		for(Userdate u:users){
+			String sex;
+			if(u.getUser_sex()==1){sex="男";}else{sex="女";}
 			html.add("<tr>"+
 			"<td>"+"<a>"+u.getUser_id()+"</a>"+"</td>"+
 			"<td>"+"<a>"+u.getUser_name()+"</a>"+"</td>"+
 			"<td>"+u.getUser_password()+"</td>"+
-			"<td>"+u.getUser_sex()+"</td>"+
+			"<td>"+sex+"</td>"+
 			"<td>"+u.getUser_tele()+"</td>"+
 			"<td>"+u.getUser_age()+"</td>"+
 			"<td>"+u.getUser_birthday_string()+"</td>"+
@@ -153,7 +159,7 @@ public class UserListServiceImpl implements UserListService {
 
 	@Override
 	public List<UserCart> carttongyong(int page) {
-		// 查询购物车通用
+		// 查询购物车分页
 		int newpage=page;
 		List<UserCart> usercart = null;
 		
@@ -177,7 +183,7 @@ public class UserListServiceImpl implements UserListService {
 		return userListMapper.countusercart();
 	}
 
-	@Override
+	@Override//购物车模糊查询
 	public List<UserCart> queryCartToMh(String page) {
 		List<UserCart>usercart;
 		if(isInteger(page)){
@@ -188,7 +194,60 @@ public class UserListServiceImpl implements UserListService {
 		}
 		return usercart;
 	}
-	
-	
+
+	@Override
+	public List<UserCollect> queryCollect(int page) {
+		//查询收藏夹分页
+		if(page != 0){
+			page=16*(page-1);
+			return userListMapper.selectcollect(page);
+		}
+		return null;
+	}
+
+	@Override
+	public int countcollect() {
+		//统计有多少收藏记录
+		
+		return userListMapper.countcollect();
+		
+	}
+
+	@Override
+	public List<UserCollect> queryCollectToMh(String sogo) {
+		// 模糊搜索购物车
+		
+		return userListMapper.selectcollectToMh(sogo);
+	}
+
+	@Override
+	public List<UserReceiver> queryreceiver(int page) {
+		// 查询收货地址
+		if(page != 0){
+			page=16*(page-1);
+			return userListMapper.selectreceiver(page);
+		}
+		return null;
+		
+	}
+	public int countreceicer() {
+		//统计有多少收藏记录
+		
+		return userListMapper.countreceiver();
+		
+	}
+
+	@Override
+	public List<UserReceiver> queryReceiversToMh(String sogo) {
+		// 模糊查询收货地址
+		
+		return userListMapper.selectreceiverToMh(sogo);
+	}
+	@Override
+	public List<UserReceiver> queryReceiversByid(String sogo) {
+		// 模糊查询收货地址
+		
+		return userListMapper.selectreceiverByid(sogo);
+	}
 	
 }

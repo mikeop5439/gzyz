@@ -19,6 +19,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				<result column="goods_sn" property="goods_sn"/>
 		</collection>
 	</resultMap>
+	<resultMap  type="UserCollect" id="UserCollectMapper">
+		<id column="user_id" property="user_id"/>
+		<result column="user_name" property="user_name"/>
+		<collection property="goodsCollect" ofType="com.gzyz.bean.goods.extend.GoodsCollect">
+				<id column="goods_id" property="goods_id"/>
+				<result column="goods_name" property="goods_name"/>
+				<result column="goods_sn" property="goods_sn"/>
+				<result column="goods_brief" property="goods_brief"/>
+				<result column="original_img" property="original_img"/>
+				<result column="original_price" property="original_price"/>
+				<association property="collect_goods" javaType="collect_goods">
+					<id column="rec_id" property="rec_id"/>
+					<result column="add_time" property="add_time"/>
+				</association>		
+		</collection>
+	</resultMap>
+	<resultMap  type="UserReceiver" id="UserReceiverMapper">
+		<id column="user_id" property="user_id"/>
+		<result column="user_name" property="user_name"/>
+		<collection property="receiver" ofType="receiver">
+				<id column="receiver_id" property="receiver_id"/>
+				<result column="receiver_name" property="receiver_name"/>
+				<result column="receiver_state" property="receiver_state"/>
+				<result column="receiver_city" property="receiver_city"/>
+				<result column="receiver_district" property="receiver_district"/>
+				<result column="receiver_address" property="receiver_address"/>
+				<result column="receiver_postcode" property="receiver_postcode"/>
+				<result column="receiver_phone" property="receiver_phone"/>	
+		</collection>
+	</resultMap>
 	
 	<!--查询分页用户  -->
 	<select id="selectAllUser" resultType="com.gzyz.bean.users.extend.Userdate" parameterType="int" >
@@ -58,5 +88,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select u.user_id user_id,u.user_name user_name,c.rec_id rec_id, c.goods_id goods_id,c.goods_name goods_name,c.goods_sn goods_sn,c.goods_price goods_price,c.goods_number goods_number
  		from user u JOIN cart c on u.user_id=c.user_id 
  		where u.user_id like '%${value}%'
+	</select>
+	
+	<select id="selectcollect" resultMap="UserCollectMapper" parameterType="int">
+		select u.user_id user_id,u.user_name user_name,g.goods_id goods_id,g.original_img original_img,g.goods_name goods_name,g.goods_sn goods_sn,g.original_price original_price,g.goods_brief goods_brief,c.rec_id rec_id,c.add_time add_time
+		from collect_goods c 
+		JOIN user u on c.user_id=u.user_id 
+		LEFT JOIN goods g on c.goods_id=g.goods_id
+		ORDER BY c.user_id
+		limit #{page},16
+	</select>
+	
+	<select id="countcollect" resultType="int">
+		select count(*) from collect_goods c JOIN user u on c.user_id=u.user_id LEFT JOIN goods g on c.goods_id=g.goods_id 
+	</select>
+	
+	<select id="selectcollectToMh" resultMap="UserCollectMapper" parameterType="String">
+		select u.user_id user_id,u.user_name user_name,g.goods_id goods_id,g.original_img original_img,g.goods_name goods_name,g.goods_sn goods_sn,g.original_price original_price,g.goods_brief goods_brief,c.rec_id rec_id,c.add_time add_time
+		from collect_goods c 
+		JOIN user u on c.user_id=u.user_id 
+		LEFT JOIN goods g on c.goods_id=g.goods_id
+		where u.user_id like '%${value}%' or u.user_name like '%${value}%' or  g.goods_name like '%${value}%'
+ 		ORDER BY c.user_id
+	</select>
+	
+	<select id="selectreceiver" resultMap="UserReceiverMapper" parameterType="int">
+		select u.user_id user_id,u.user_name user_name,r.receiver_id receiver_id,r.receiver_name receiver_name,r.receiver_state receiver_state,r.receiver_city receiver_city,r.receiver_district receiver_district,r.receiver_address receiver_address,r.receiver_postcode receiver_postcode,r.receiver_phone  receiver_phone
+		from receiver r 
+		join user u
+		on u.user_id=r.user_id	
+		order by u.user_id
+		limit #{page},16
+	</select>
+	
+	<select id="countreceiver" resultType="int">
+		select count(*) from receiver r join user u on u.user_id=r.user_id	 
+	</select>
+	<select id="selectreceiverToMh" resultMap="UserReceiverMapper" parameterType="String">
+		select u.user_id user_id,u.user_name user_name,r.receiver_id receiver_id,r.receiver_name receiver_name,r.receiver_state receiver_state,r.receiver_city receiver_city,r.receiver_district receiver_district,r.receiver_address receiver_address,r.receiver_postcode receiver_postcode,r.receiver_phone  receiver_phone
+		from receiver r 
+		join user u
+		on u.user_id=r.user_id
+		where r.receiver_state like '%${value}%' or r.receiver_city like '%${value}%' or  r.receiver_district like '%${value}%' or r.receiver_address like '%${value}%'
+ 		ORDER BY u.user_id
+	</select>
+	
+	<select id="selectreceiverByid" resultMap="UserReceiverMapper" parameterType="String">
+		select u.user_id user_id,u.user_name user_name,r.receiver_id receiver_id,r.receiver_name receiver_name,r.receiver_state receiver_state,r.receiver_city receiver_city,r.receiver_district receiver_district,r.receiver_address receiver_address,r.receiver_postcode receiver_postcode,r.receiver_phone  receiver_phone
+		from receiver r 
+		join user u
+		on u.user_id=r.user_id
+		where u.user_id like '%${value}%' or u.user_name like '%${value}%' 
+ 		ORDER BY u.user_id
 	</select>
 </mapper>	

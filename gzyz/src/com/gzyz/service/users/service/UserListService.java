@@ -5,6 +5,8 @@ import java.util.List;
 import com.gzyz.bean.users.User;
 import com.gzyz.bean.users.cart;
 import com.gzyz.bean.users.extend.UserCart;
+import com.gzyz.bean.users.extend.UserCollect;
+import com.gzyz.bean.users.extend.UserReceiver;
 import com.gzyz.bean.users.extend.Userdate;
 
 public interface UserListService {
@@ -17,4 +19,11 @@ public interface UserListService {
 	public List<UserCart> carttongyong(int page);
 	public int countusercart();
 	public List<UserCart> queryCartToMh(String page);
+	public List<UserCollect> queryCollect(int page);
+	public int countcollect();
+	public List<UserCollect> queryCollectToMh(String sogo);
+	public List<UserReceiver> queryreceiver(int i);
+	public int countreceicer();
+	public List<UserReceiver> queryReceiversToMh(String sogo);
+	public List<UserReceiver> queryReceiversByid(String sogo);
 }
