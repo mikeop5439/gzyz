@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gzyz.bean.order.extend.DateQueryNowpage;
 import com.gzyz.bean.users.Manager_log;
 import com.gzyz.bean.users.manage_role;
 import com.gzyz.bean.users.manger;
@@ -105,6 +106,18 @@ public class ManagerListServiceImpl implements ManagerListService {
 	public void deleteLog(int manager_log_id) {
 		// TODO Auto-generated method stub
 		managerListMapper.deleteLog(manager_log_id);
+	}
+
+	@Override
+	public List<Manager_log> qureyByDateLimit(DateQueryNowpage dateQueryNowpage) {
+		// TODO Auto-generated method stub
+		return managerListMapper.qureyByDateLimit(dateQueryNowpage);
+	}
+
+	@Override
+	public int queryDateLogCount(DateQueryNowpage dateQueryNowpage) {
+		// TODO Auto-generated method stub
+		return managerListMapper.queryDateLogCount(dateQueryNowpage);
 	}
 	
 

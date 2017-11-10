@@ -11,8 +11,55 @@ body {
 	font-family: 'Raleway', Calibri, Arial, sans-serif;
 }
 
-
-
+ #change_margin_1  .userName{ 
+    width:200px; 
+    height:40px; 
+    line-height:40px; 
+    border:1px solid #CCC; 
+    }  
+  #change_margin_1  .default{ 
+    width:200px; 
+    height:32px; 
+    line-height:32px; 
+    color:#999; 
+    } 
+  #change_margin_1  .error{ 
+    height:32px; 
+    line-height:32px; 
+    color:#F00; 
+    }
+  #change_margin_1  .success{ 
+    height:32px; 
+    line-height:32px; 
+    color:#096; 
+    }
+ #change_margin_2  .userPasword{ 
+    width:200px; 
+    height:40px; 
+    line-height:40px; 
+    border:1px solid #CCC; 
+    }  
+  #change_margin_2  .default{ 
+    width:200px; 
+    height:32px; 
+    line-height:32px; 
+    color:#999; 
+    } 
+  #change_margin_2  .passwordErr{ 
+    height:32px; 
+    line-height:32px; 
+    color:#F00; 
+    }
+  #change_margin_2  .success{ 
+    height:32px; 
+    line-height:32px; 
+    color:#096; 
+    }
+ #change_margin_2  .error{ 
+    height:32px; 
+    line-height:32px; 
+    color:#F00; 
+    }
 a, button {
 	outline: none;
 }
@@ -34,4 +81,12 @@ section {
 p.ref {
 	text-align: center;
 	padding: 2em 1em;
+}
+#remind_1,
+#remind_2 {
+    width: 76%;
+    margin: 0 auto 2px;
+    text-align: left;
+    font-size: .2em;
+    color:firebrick;
 }

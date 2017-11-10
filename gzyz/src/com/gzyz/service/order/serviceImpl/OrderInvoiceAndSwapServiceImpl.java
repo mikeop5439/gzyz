@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gzyz.bean.order.Order_invoice;
+import com.gzyz.bean.order.extend.DateQueryNowpage;
 import com.gzyz.mapper.order.OrderInvoiceAndSwapMapper;
 import com.gzyz.service.order.service.OrderInvoiceAndSwapService;
 @Service
@@ -30,5 +31,17 @@ public class OrderInvoiceAndSwapServiceImpl implements
 	public void agreeTheApply(int invoice_id) {
 		// TODO Auto-generated method stub
 		orderInvoiceAndSwapMapper.agreeTheApply(invoice_id);
+	}
+
+	@Override
+	public List<Order_invoice> qureyByDateLimit(DateQueryNowpage dateQueryNowpage) {
+		// TODO Auto-generated method stub
+		return orderInvoiceAndSwapMapper.qureyByDateLimit(dateQueryNowpage);
+	}
+
+	@Override
+	public int queryDateInvoiceCount(DateQueryNowpage dateQueryNowpage) {
+		// TODO Auto-generated method stub
+		return orderInvoiceAndSwapMapper.queryDateInvoiceCount(dateQueryNowpage);
 	}
 }

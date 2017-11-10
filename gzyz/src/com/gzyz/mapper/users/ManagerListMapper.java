@@ -2,6 +2,7 @@ package com.gzyz.mapper.users;
 
 import java.util.List;
 
+import com.gzyz.bean.order.extend.DateQueryNowpage;
 import com.gzyz.bean.users.Manager_log;
 import com.gzyz.bean.users.manage_role;
 import com.gzyz.bean.users.manger;
@@ -38,4 +39,8 @@ public interface ManagerListMapper {
 		public int queryLogCount();
 		//删除日志
 		public void deleteLog(int manager_log_id);
+		//按日期查询日志
+		public List<Manager_log> qureyByDateLimit(DateQueryNowpage dateQueryNowpage);
+		//按日期查询日志总数
+		public int queryDateLogCount(DateQueryNowpage dateQueryNowpage);
 }

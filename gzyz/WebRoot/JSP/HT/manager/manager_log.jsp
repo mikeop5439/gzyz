@@ -40,7 +40,24 @@ window.onload =function setSpage(){
      } 
      $("#pageUl").append("<li><a onclick='javascript:qureyLogLimt("+${AllPage}+")'>»</a></li>");
      };
-     
+     function setpagedate(allpage,nowpage){
+     var i=2;
+     var page_id="AllPage"+1;
+     $("#pageUl").empty();
+     $("#pageUl").append("<li><a href='javascript:aqureyLogAndDateLimit(1)'>«</a></li>");
+     $("#pageUl").append("<li id='"+page_id+"' class='am-active'><a href='javascript:aqureyLogAndDateLimit(1)'>1</a></li>");
+     for(i;i<=allpage;i++){
+      page_id="AllPage";
+      page_id=page_id+i;
+      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:aqureyLogAndDateLimit("+i+")'>"+i+"</a></li>");
+     }
+     $("#pageUl").append("<li><a onclick='javascript:aqureyLogAndDateLimit("+allpage+")'>»</a></li>");
+     page_id="AllPage"+nowpage;
+     var id="#"+page_id;
+     $("ul.am-pagination li").removeClass("am-active");
+     $(id).addClass("am-active");
+     //$(id).tri("click");
+     };
      function setpage(allpage,nowpage){
      var i=2;
      var page_id="AllPage"+1;
@@ -59,7 +76,45 @@ window.onload =function setSpage(){
      $(id).addClass("am-active");
      //$(id).tri("click");
      };
-     
+     function aqureyLogAndDateLimit(nowpage){
+        
+        var startdate=$("#startdate").val();
+        var enddate=$("#enddate").val();
+  		var params = '{"startdate":"'+startdate+'","enddate":"'+enddate+'"}';
+  		$.ajax({
+  			
+  			url:"${pageContext.request.contextPath }/manager/squeryAllLogLimitDate.action?nowpage="+nowpage,
+  			type:"POST",
+  			//如果前台传递json数据，那么一定要加上这个字段。
+  			contentType:'application/json;charset=utf-8',
+  			//会自动把字符串数据转换为json对象数据
+  			dataType:"json",
+  			//data:"username=abc&age=1",
+  			data:params,
+  			//当服务器成功的返回数据后调用这个方法
+  			//data就是服务器返回的数据，
+  			success:function(data){
+  			setpagedate(data.allpage,nowpage);
+  			  $("#logsTable").empty();
+
+			  $.each(data.manager_logs,function(index,content){
+			  var date = "/Date("+content.log_time+")/";
+			  var td1=$("<td></td>").append(content.manager_log_id);
+			  var td2=$("<td></td>").append(content.manager_id);
+			  var td3=$("<td></td>").append(content.log_origin);
+			  var td4=$("<td></td>").append(content.log_method);
+			  var td5=$("<td></td>").append(ConvertJSONDateToJSDate(date));
+			  var d1=$("<div></div>").addClass("am-btn-toolbar").append($("<div></div>").addClass("am-btn-group am-btn-group-xs").append($("<button></button>").addClass("am-btn am-btn-danger am-round am-btn-xl am-icon-trash-o").attr("type","button").attr("style","width:200px;").attr("data-am-modal","{target: '#my-confirm'}").attr("onclick","javascript:deleteLog("+content.manager_log_id+")").append("删除日志")));
+			  var td6=$("<td></td>").append(d1);
+			  //var td6=$("<td></td>").append("asdasd");
+ 
+			  $("#logsTable").append($("<tr></tr>").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6));
+
+			 });
+  			}
+  			
+  		});
+  	};
       function qureyLogLimt(nowpage){
       $("#logsTable").empty();
     $.ajax({  
@@ -70,11 +125,12 @@ window.onload =function setSpage(){
 		   setpage(data.allpage,nowpage);
 		   //异步添加商品入表格中
 			  $.each(data.manager_log,function(index,content){
+			  var date = "/Date("+content.log_time+")/";
 			  var td1=$("<td></td>").append(content.manager_log_id);
 			  var td2=$("<td></td>").append(content.manager_id);
 			  var td3=$("<td></td>").append(content.log_origin);
 			  var td4=$("<td></td>").append(content.log_method);
-			  var td5=$("<td></td>").append(ChangeDateFormat(content.log_time));
+			  var td5=$("<td></td>").append(ConvertJSONDateToJSDate(date));
 			  var d1=$("<div></div>").addClass("am-btn-toolbar").append($("<div></div>").addClass("am-btn-group am-btn-group-xs").append($("<button></button>").addClass("am-btn am-btn-danger am-round am-btn-xl am-icon-trash-o").attr("type","button").attr("style","width:200px;").attr("data-am-modal","{target: '#my-confirm'}").attr("onclick","javascript:deleteLog("+content.manager_log_id+")").append("删除日志")));
 			  var td6=$("<td></td>").append(d1);
 			  //var td6=$("<td></td>").append("asdasd");
@@ -92,37 +148,19 @@ window.onload =function setSpage(){
      $("#deletegood").attr("href",url); 
      
      };
-     function ChangeDateFormat(d){
-	//将时间戳转为int类型，构造Date类型
-	var date = new Date(parseInt(d,10));
-	
-	//月份得+1，且只有个位数时在前面+0
-	var month = date.getMonth() + 1 < 10 ?"0" + (date.getMonth() + 1) : date.getMonth() + 1;
-	
-	//日期为个位数时在前面+0
-	var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-	
-	//getFullYear得到4位数的年份 ，返回一串字符串
-	return date.getFullYear()+"-" +month +"-" +currentDate;
-	}
-	function change(format){  
-        var o = {  
-            "M+" : this.getMonth()+1, //month  
-            "d+" : this.getDate(), //day  
-            "h+" : this.getHours(), //hour  
-            "m+" : this.getMinutes(), //minute  
-            "s+" : this.getSeconds(), //second  
-            "q+" : Math.floor((this.getMonth()+3)/3), //quarter  
-            "S" : this.getMilliseconds() //millisecond  
-        }  
-        if(/(y+)/.test(format)) format=format.replace(RegExp.$1,  
-            (this.getFullYear()+"").substr(4- RegExp.$1.length));  
-        for(var k in o)if(new RegExp("("+ k +")").test(format))  
-            format = format.replace(RegExp.$1,  
-                RegExp.$1.length==1? o[k] :  
-                    ("00"+ o[k]).substr((""+ o[k]).length));  
-        return format;  
-    }
+     function getDateTime(date) {
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var hh = date.getHours();
+    var mm = date.getMinutes();
+    var ss = date.getSeconds();
+    return year + "-" + month + "-" + day + " " + hh + ":" + mm + ":" + ss;
+};
+function ConvertJSONDateToJSDate(jsondate) {
+    var date = new Date(parseInt(jsondate.replace("/Date(", "").replace(")/", ""), 10));
+    return date;
+};
 </script>
 </head>
 
@@ -299,7 +337,20 @@ window.onload =function setSpage(){
       
     </div>
 	
-	
+<div class="am-btn-toolbars am-btn-toolbar am-kg am-cf">
+  <ul>
+    <li style="margin-right: 0;">
+    	<span class="tubiao am-icon-calendar"></span>
+      <input id="startdate" type="text" class="am-form-field am-input-sm am-input-zm  am-icon-calendar" placeholder="开始日期" data-am-datepicker="{theme: 'success',}" name="startdate" readonly/>
+    </li>
+       <li style="margin-left: -4px;">
+    	<span class="tubiao am-icon-calendar"></span>
+      <input id="enddate" type="text" class="am-form-field am-input-sm am-input-zm  am-icon-calendar" placeholder="结束日期" data-am-datepicker="{theme: 'success',}" name="enddate" readonly/>
+    </li>
+
+    <li><button type="button" class="am-btn am-radius am-btn-xs am-btn-success" onclick="javascript:aqureyLogAndDateLimit(1);" style="margin-top: 1px;">搜索</button></li>
+  </ul>
+</div>
 
 
     <form class="am-form am-g">
