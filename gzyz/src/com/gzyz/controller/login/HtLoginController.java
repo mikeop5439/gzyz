@@ -28,20 +28,9 @@ public class HtLoginController {
 		System.out.println("aaaaaaaaaaaaaa"+htLoginService.checkLogin(loginOfManager));
 		if(htLoginService.checkLogin(loginOfManager)==1){
 			session.setAttribute("username", loginOfManager.getManger_name());
-		}else {
-			    PrintWriter out = response.getWriter();
-	            out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-	            out.println("<HTML>");
-	            out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-	            out.println("  <BODY>");
-	            out.println("<script>alert('用户名或密码错误');window.location.href='login.jsp'</script>");
-	            out.println("  </BODY>");
-	            out.println("</HTML>");
-	            out.flush();
-	            out.close();
-	            
-	            return "forward:index.jsp";
+		}else { 
+			 return "forward:/JSP/HT/login.jsp";   
 		}
-		return "forward:http://localhost:8888/gzyz/";
+		return "forward:/";
 	}
 }
