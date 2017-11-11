@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gzyz.bean.order.Order_invoice;
 import com.gzyz.bean.order.extend.DateQuery;
 import com.gzyz.bean.order.extend.DateQueryNowpage;
+import com.gzyz.bean.order.extend.OrderAndUserAndOrderDetails;
+import com.gzyz.bean.order.extend.OrderDateAndUsernameAndOrderId;
 import com.gzyz.bean.order.extend.Order_invoiceAnadAllpage;
+import com.gzyz.bean.order.extend.TheOrderAndCount;
 import com.gzyz.bean.users.Manager_log;
 import com.gzyz.bean.users.manger;
 import com.gzyz.bean.users.extend.ManagerLogAndAllpage;
@@ -92,4 +95,28 @@ public class OrderInvoiceAndSwapController {
         order_invoiceAnadAllpage.setAllpage(allpage);
 		return order_invoiceAnadAllpage;
 	}
+	//按日期用户名,或ID查询订单
+		@RequestMapping("queryTheOrder.action")
+		public @ResponseBody TheOrderAndCount queryTheOrder(Model model,@RequestBody OrderDateAndUsernameAndOrderId orderDateAndUsernameAndOrderId){
+			OrderDateAndUsernameAndOrderId theorderDateAndUsernameAndOrderId=new OrderDateAndUsernameAndOrderId();
+	        if(orderDateAndUsernameAndOrderId.getEnddate()!=""){
+	        	theorderDateAndUsernameAndOrderId.setEnddate(orderDateAndUsernameAndOrderId.getEnddate()+" 23:59:59'");
+	        }else{
+	        	theorderDateAndUsernameAndOrderId.setEnddate(orderDateAndUsernameAndOrderId.getEnddate());
+	        }
+	        if(orderDateAndUsernameAndOrderId.getStartdate()!=""){
+	        	theorderDateAndUsernameAndOrderId.setStartdate(orderDateAndUsernameAndOrderId.getStartdate()+" 00:00:00'");
+	        }else{
+	        	theorderDateAndUsernameAndOrderId.setStartdate(orderDateAndUsernameAndOrderId.getStartdate());
+	        }
+	        theorderDateAndUsernameAndOrderId.setUser_name(orderDateAndUsernameAndOrderId.getUser_name());
+	        theorderDateAndUsernameAndOrderId.setOrder_id(orderDateAndUsernameAndOrderId.getOrder_id());
+	        System.out.println("aaaaaaaaaaaaaaaaaa:"+theorderDateAndUsernameAndOrderId);
+	        List<OrderAndUserAndOrderDetails> resultOrderAndUserAndOrderDetails=orderInvoiceAndSwapService.queryTheOrder(theorderDateAndUsernameAndOrderId);
+	        TheOrderAndCount theOrderAndCount=new TheOrderAndCount();
+	        theOrderAndCount.setOrderAndUserAndOrderDetails(resultOrderAndUserAndOrderDetails);
+	        int thecount = orderInvoiceAndSwapService.queryTheOrderCount(theorderDateAndUsernameAndOrderId);
+	        theOrderAndCount.setThecount(thecount);
+			return theOrderAndCount;
+		}
 }

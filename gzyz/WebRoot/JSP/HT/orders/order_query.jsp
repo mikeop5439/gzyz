@@ -27,128 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/app.js"></script>
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/amazeui.min.js"></script>
 <script type="text/javascript">
-window.onload =function setSpage(){
-     var i=2;
-     var page_id="AllPage"+1;
-     $("#pageUl").empty();
-     $("#pageUl").append("<li><a href='javascript:qureyLogLimt(1)'>«</a></li>");
-     $("#pageUl").append("<li class='am-active'><a href='javascript:qureyLogLimt(1)'>1</a></li>");
-      for(i;i<=${AllPage};i++){
-      page_id="AllPage";
-      page_id=page_id+i;
-      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:qureyLogLimt("+i+")'>"+i+"</a></li>");
-     } 
-     $("#pageUl").append("<li><a onclick='javascript:qureyLogLimt("+${AllPage}+")'>»</a></li>");
-     };
-     function setpagedate(allpage,nowpage){
-     var i=2;
-     var page_id="AllPage"+1;
-     $("#pageUl").empty();
-     $("#pageUl").append("<li><a href='javascript:aqureyLogAndDateLimit(1)'>«</a></li>");
-     $("#pageUl").append("<li id='"+page_id+"' class='am-active'><a href='javascript:aqureyLogAndDateLimit(1)'>1</a></li>");
-     for(i;i<=allpage;i++){
-      page_id="AllPage";
-      page_id=page_id+i;
-      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:aqureyLogAndDateLimit("+i+")'>"+i+"</a></li>");
-     }
-     $("#pageUl").append("<li><a onclick='javascript:aqureyLogAndDateLimit("+allpage+")'>»</a></li>");
-     page_id="AllPage"+nowpage;
-     var id="#"+page_id;
-     $("ul.am-pagination li").removeClass("am-active");
-     $(id).addClass("am-active");
-     //$(id).tri("click");
-     };
-     function setpage(allpage,nowpage){
-     var i=2;
-     var page_id="AllPage"+1;
-     $("#pageUl").empty();
-     $("#pageUl").append("<li><a href='javascript:qureyLogLimt(1)'>«</a></li>");
-     $("#pageUl").append("<li id='"+page_id+"' class='am-active'><a href='javascript:qureyLogLimt(1)'>1</a></li>");
-     for(i;i<=allpage;i++){
-      page_id="AllPage";
-      page_id=page_id+i;
-      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:qureyLogLimt("+i+")'>"+i+"</a></li>");
-     }
-     $("#pageUl").append("<li><a onclick='javascript:qureyLogLimt("+allpage+")'>»</a></li>");
-     page_id="AllPage"+nowpage;
-     var id="#"+page_id;
-     $("ul.am-pagination li").removeClass("am-active");
-     $(id).addClass("am-active");
-     //$(id).tri("click");
-     };
-     function aqureyLogAndDateLimit(nowpage){
-        
-        var startdate=$("#startdate").val();
-        var enddate=$("#enddate").val();
-  		var params = '{"startdate":"'+startdate+'","enddate":"'+enddate+'"}';
-  		$.ajax({
-  			
-  			url:"${pageContext.request.contextPath }/manager/squeryAllLogLimitDate.action?nowpage="+nowpage,
-  			type:"POST",
-  			//如果前台传递json数据，那么一定要加上这个字段。
-  			contentType:'application/json;charset=utf-8',
-  			//会自动把字符串数据转换为json对象数据
-  			dataType:"json",
-  			//data:"username=abc&age=1",
-  			data:params,
-  			//当服务器成功的返回数据后调用这个方法
-  			//data就是服务器返回的数据，
-  			success:function(data){
-  			setpagedate(data.allpage,nowpage);
-  			  $("#logsTable").empty();
-
-			  $.each(data.manager_logs,function(index,content){
-			  var date = "/Date("+content.log_time+")/";
-			  var td1=$("<td></td>").append(content.manager_log_id);
-			  var td2=$("<td></td>").append(content.manager_id);
-			  var td3=$("<td></td>").append(content.log_origin);
-			  var td4=$("<td></td>").append(content.log_method);
-			  var td5=$("<td></td>").append(ConvertJSONDateToJSDate(date));
-			  var d1=$("<div></div>").addClass("am-btn-toolbar").append($("<div></div>").addClass("am-btn-group am-btn-group-xs").append($("<button></button>").addClass("am-btn am-btn-danger am-round am-btn-xl am-icon-trash-o").attr("type","button").attr("style","width:200px;").attr("data-am-modal","{target: '#my-confirm'}").attr("onclick","javascript:deleteLog("+content.manager_log_id+")").append("删除日志")));
-			  var td6=$("<td></td>").append(d1);
-			  //var td6=$("<td></td>").append("asdasd");
- 
-			  $("#logsTable").append($("<tr></tr>").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6));
-
-			 });
-  			}
-  			
-  		});
-  	};
-      function qureyLogLimt(nowpage){
-      $("#logsTable").empty();
-    $.ajax({  
-           type:"POST",  
-           url:"${pageContext.request.contextPath }/manager/aqueryLogLimit.action?nowpage="+nowpage, 
-	       contentType:'application/json;charset=utf-8',
-		   success:function(data){
-		   setpage(data.allpage,nowpage);
-		   //异步添加商品入表格中
-			  $.each(data.manager_log,function(index,content){
-			  var date = "/Date("+content.log_time+")/";
-			  var td1=$("<td></td>").append(content.manager_log_id);
-			  var td2=$("<td></td>").append(content.manager_id);
-			  var td3=$("<td></td>").append(content.log_origin);
-			  var td4=$("<td></td>").append(content.log_method);
-			  var td5=$("<td></td>").append(ConvertJSONDateToJSDate(date));
-			  var d1=$("<div></div>").addClass("am-btn-toolbar").append($("<div></div>").addClass("am-btn-group am-btn-group-xs").append($("<button></button>").addClass("am-btn am-btn-danger am-round am-btn-xl am-icon-trash-o").attr("type","button").attr("style","width:200px;").attr("data-am-modal","{target: '#my-confirm'}").attr("onclick","javascript:deleteLog("+content.manager_log_id+")").append("删除日志")));
-			  var td6=$("<td></td>").append(d1);
-			  //var td6=$("<td></td>").append("asdasd");
- 
-			  $("#logsTable").append($("<tr></tr>").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6));
-
-			 });
-		  } 
-		  	   
-       }); 
-     };
-     function deleteLog(id){
-     //var goods_id = id;
-     var url="deleteLog.action?manager_log_id="+id;
-     $("#deletegood").attr("href",url); 
-     
-     };
-     function getDateTime(date) {
+function getDateTime(date) {
     var year = date.getFullYear();
     var month = date.getMonth() + 1;
     var day = date.getDate();
@@ -161,6 +40,99 @@ function ConvertJSONDateToJSDate(jsondate) {
     var date = new Date(parseInt(jsondate.replace("/Date(", "").replace(")/", ""), 10));
     return date;
 };
+
+     function queryTheOrder(){
+        
+        var startdate=$("#startdate").val();
+        var enddate=$("#enddate").val();
+        var user_name=$("#user_name").val();
+        var order_id=$("#order_id").val();
+  		var params = '{"startdate":"'+startdate+'","enddate":"'+enddate+'","user_name":"'+user_name+'","order_id":"'+order_id+'"}';
+  		$.ajax({
+  			
+  			url:"${pageContext.request.contextPath }/orderiands/queryTheOrder.action",
+  			type:"POST",
+  			//如果前台传递json数据，那么一定要加上这个字段。
+  			contentType:'application/json;charset=utf-8',
+  			//会自动把字符串数据转换为json对象数据
+  			dataType:"json",
+  			//data:"username=abc&age=1",
+  			data:params,
+  			//当服务器成功的返回数据后调用这个方法
+  			//data就是服务器返回的数据，
+  			success:function(data){
+  			  $("#logsTable").empty();
+			  $.each(data.orderAndUserAndOrderDetails,function(index,content){
+			  var count=content.order_details.length;
+			  var order_time = "/Date("+content.order_time+")/";
+			  var pay_time = "/Date("+content.pay_time+")/";
+			  
+			  var td1;
+			  var td2;
+			  var td3;
+			  var td4;
+			  var td5;
+			  var td6;
+			  var td7;
+			  var td8;
+			  var td9;
+			  var td10;
+			  var td11;
+			  var td12;
+			  var td13;
+			  var td14;
+			      td1=$("<td></td>").attr("rowspan",""+count+"").append(content.order_id);
+			      td2=$("<td></td>").attr("rowspan",""+count+"").append(content.user.user_id);
+			      td3=$("<td></td>").attr("rowspan",""+count+"").append(content.user.user_name);
+			      td4=$("<td></td>").attr("rowspan",""+count+"").append(getDateTime(ConvertJSONDateToJSDate(order_time)));
+			      td5=$("<td></td>").attr("rowspan",""+count+"").append(content.order_status);
+			      td6=$("<td></td>").attr("rowspan",""+count+"").append(getDateTime(ConvertJSONDateToJSDate(pay_time)));
+			      td7=$("<td></td>").attr("rowspan",""+count+"").append(content.shipping_name);
+			      td8=$("<td></td>").attr("rowspan",""+count+"").append(content.shipping_code);
+
+			   $.each(content.order_details,function(index,content){
+			      td9=$("<td></td>").append(content.order_details_id);
+			      td10=$("<td></td>").append(content.goods_id);
+			      td11=$("<td></td>").append(content.goods_name);
+			      td12=$("<td></td>").append(content.quantity);
+			      td13=$("<td></td>").append(content.shop_price);
+			      td14=$("<td></td>").append(content.total_fee);
+			      if(index==0){
+			       $("#logsTable").append($("<tr></tr>").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(td8).append(td9).append(td10).append(td11).append(td12).append(td13).append(td14));
+			      }else{
+			       $("#logsTable").append($("<tr></tr>").append(td9).append(td10).append(td11).append(td12).append(td13).append(td14));
+			      }
+			  });
+			 
+			 });
+  			}
+  			
+  		});
+  	};
+  	function checkUsernameAndDate(){
+  	var user_name=$("#user_name").val();
+  	var order_id=$("#order_id").val();
+  	var startdate=$("#startdate").val();
+  	var enddate=$("#enddate").val();
+  	if(order_id!=""){
+  	return true;
+  	}else{
+  	if(user_name!=""){
+  	return true;
+  	}else{
+  	return false;
+  	}
+  	}
+  	};
+  	function check(){
+  	if(checkUsernameAndDate()==false){
+  	$("#btnsubmit").attr("disabled",true);
+  	return false;
+  	}else{
+  	$("#btnsubmit").attr("disabled",false);
+  	return true;
+  	}
+  	}
 </script>
 </head>
 
@@ -312,11 +284,11 @@ function ConvertJSONDateToJSDate(jsondate) {
   <div class="am-modal-dialog">
     <div class="am-modal-hd">你好</div>
     <div class="am-modal-bd">
-      你，确定要删除此日志吗？
+      你，确定要同意此请求吗？
     </div>
     <div class="am-modal-footer">
       <span class="am-modal-btn" data-am-modal-cancel><a>取消</a></span>
-      <a id="deletegood" href="">确定</a>
+      <a id="deletegood" href="">同意</a>
     </div>
   </div>
 </div>
@@ -327,9 +299,9 @@ function ConvertJSONDateToJSDate(jsondate) {
 <div class="admin-biaogelist">
 	
     <div class="listbiaoti am-cf">
-      <ul class="am-icon-lock"> 管理员日志</ul>
+      <ul class="am-icon-lock">订单查询</ul>
       
-      <dl class="am-icon-lock" style="float: right;"> 当前位置： 角色管理 > <a href="index.html">首页</a></dl>
+      <dl class="am-icon-lock" style="float: right;"> 当前位置：订单查询> <a href="index.html">首页</a></dl>
       
        <dl>
          
@@ -337,61 +309,53 @@ function ConvertJSONDateToJSDate(jsondate) {
       
     </div>
 	
-<div class="am-btn-toolbars am-btn-toolbar am-kg am-cf">
+	<div class="am-btn-toolbars am-btn-toolbar am-kg am-cf">
   <ul>
+    <li>
+      <input oninput="check()" id="order_id" type="text" class="am-form-field am-input-sm am-input-xm" style="margin-top: 2.5px;height: 100%;width:100% "  placeholder="通过ID查询" name="order_id"/>
+    </li>
+    <li >
+      <input oninput="check()" id="user_name" type="text" class="am-form-field am-input-sm am-input-xm" style="margin-top: 2.5px;height: 100%;width:100% "  placeholder="通过用户名以及日期查询" name="user_name"/>
+    </li>
     <li style="margin-right: 0;">
-    	<span class="tubiao am-icon-calendar"></span>
-      <input id="startdate" type="text" class="am-form-field am-input-sm am-input-zm  am-icon-calendar" placeholder="开始日期" data-am-datepicker="{theme: 'success',}" name="startdate" readonly/>
+      <span class="tubiao am-icon-calendar"></span>
+      <input oninput="check()" id="startdate" type="text" class="am-form-field am-input-sm am-input-zm  am-icon-calendar" placeholder="开始日期" data-am-datepicker="{theme: 'success',}" name="startdate" readonly/>
     </li>
-       <li style="margin-left: -4px;">
-    	<span class="tubiao am-icon-calendar"></span>
-      <input id="enddate" type="text" class="am-form-field am-input-sm am-input-zm  am-icon-calendar" placeholder="结束日期" data-am-datepicker="{theme: 'success',}" name="enddate" readonly/>
+    <li style="margin-left: -4px;">
+      <span class="tubiao am-icon-calendar"></span>
+      <input oninput="check()" id="enddate" type="text" class="am-form-field am-input-sm am-input-zm  am-icon-calendar" placeholder="结束日期" data-am-datepicker="{theme: 'success',}" name="enddate" readonly/>
     </li>
-
-    <li><button type="button" class="am-btn am-radius am-btn-xs am-btn-success" onclick="javascript:aqureyLogAndDateLimit(1);" style="margin-top: 1px;">搜索</button></li>
-  </ul>
+    <li>
+      <button disabled="true" id="btnsubmit" type="button" class="am-btn am-radius am-btn-xs am-btn-success" onclick="javascript:queryTheOrder();" style="margin-top: 1px;">搜索</button></li>
+    </ul>
 </div>
 
 
     <form class="am-form am-g">
-          <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped">
+          <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped am-table-centered">
             <thead >
               <tr class="am-success">
-                <th class="table-id">日志ID</th>
-                <th class="table-name" >操作者ID</th>
-                <th class="table-main">日志源地点</th>
-                <th class="table-main">行为</th>
-                <th  class="table-main">日期</th>
-                <th  class="table-main">操作</th>
+                <th class="table-id">订单ID</th>
+                <th class="table-name" >用户ID</th>
+                <th class="table-main">用户名</th>
+                <th class="table-main">订单时间</th>
+                <th  class="table-main">订单状态</th>
+                <th  class="table-main">付款时间</th>
+                <th  class="table-main">快递公司</th>
+                <th  class="table-main">快递单号</th>
+                <th  class="table-main">详情ID</th>
+                <th  class="table-main">商品ID</th>
+                <th  class="table-main">商品名称</th>
+                <th  class="table-main">购买数量</th>
+                <th  class="table-main">商品单价</th>
+                <th  class="table-main">总价格</th>
               </tr>
             </thead>
             <tbody id="logsTable">
-             <c:forEach items="${Logs}" var="log">
-              <tr>
-                <td>${log.manager_log_id}</td>
-                <td>${log.manager_id}</td>
-                <td>${log.log_origin}</td>
-                <td>${log.log_method}</td>
-                <td>${log.log_time}</td>
-                <td><div class="am-btn-toolbar">
-                 <div class="am-btn-group am-btn-group-xs"  >
-                 <button type="button" style="width:200px;"  class="am-btn am-btn-danger am-round am-btn-xl am-icon-trash-o" data-am-modal="{target: '#my-confirm'}" onclick="javascript:deleteLog(${log.manager_log_id})">&nbsp删除日志</button> 
-                  </div>
-                </div></td>
-              </tr>
-              </c:forEach> 
+             
             </tbody>
           </table>
           
-          <ul id="pageUl"class="am-pagination am-fr">
-                <li><a href="http//www.baidu.com">«</a></li>
-                <li class="am-active"><a href="#" onclick="javascript:qureyAllGoodLimt(1)">1</a></li>
-                <li><a id="tri" href="#" onclick="javascript:qureyAllGoodLimt(2)">2</a></li>
-                <li><a id="tri" onclick="javascript:qureyAllGoodLimt(3)">3</a></li>
-                <li><a id="tri" onclick="javascript:qureyAllGoodLimt(4)">4</a></li>
-                <li><a id="tri" onclick="javascript:qureyAllGoodLimt(5)">5</a></li>
-                <li><a id="tri" onclick="javascript:qureyAllGoodLimt(6)">»</a></li>
-          </ul>
           
           
       

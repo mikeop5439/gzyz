@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.goods.extend.GoodsAndCategory;
 import com.gzyz.bean.order.Order_invoice;
+import com.gzyz.bean.order.extend.OrderAndUserAndOrderDetails;
 import com.gzyz.bean.users.Manager_log;
 import com.gzyz.bean.users.manger;
 import com.gzyz.bean.users.extend.MangerAndManageRole;
@@ -31,7 +32,7 @@ public class GoodListTest {
 	private OrderInvoiceAndSwapService orderInvoiceAndSwapService;
 	@Test
 	public void test1(){
-		 List<Order_invoice> order_invoices=orderInvoiceAndSwapService.queryAllInvoiceLimit(0);
-		 System.out.print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa:"+order_invoices);
+		/*List<OrderAndUserAndOrderDetails> orderAndUserAndOrderDetails=orderInvoiceAndSwapService.queryTheOrder();
+		System.out.println("aaaaaaaaaaaaaaa"+orderAndUserAndOrderDetails);*/
 	}
 }

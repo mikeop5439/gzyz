@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.gzyz.bean.order.Order_invoice;
 import com.gzyz.bean.order.extend.DateQueryNowpage;
+import com.gzyz.bean.order.extend.OrderAndUserAndOrderDetails;
+import com.gzyz.bean.order.extend.OrderDateAndUsernameAndOrderId;
 import com.gzyz.mapper.order.OrderInvoiceAndSwapMapper;
 import com.gzyz.service.order.service.OrderInvoiceAndSwapService;
 @Service
@@ -43,5 +45,18 @@ public class OrderInvoiceAndSwapServiceImpl implements
 	public int queryDateInvoiceCount(DateQueryNowpage dateQueryNowpage) {
 		// TODO Auto-generated method stub
 		return orderInvoiceAndSwapMapper.queryDateInvoiceCount(dateQueryNowpage);
+	}
+
+	@Override
+	public List<OrderAndUserAndOrderDetails> queryTheOrder(OrderDateAndUsernameAndOrderId orderDateAndUsernameAndOrderId) {
+		// TODO Auto-generated method stub
+		return orderInvoiceAndSwapMapper.queryTheOrder(orderDateAndUsernameAndOrderId);
+	}
+
+	@Override
+	public int queryTheOrderCount(
+			OrderDateAndUsernameAndOrderId orderDateAndUsernameAndOrderId) {
+		// TODO Auto-generated method stub
+		return orderInvoiceAndSwapMapper.queryTheOrderCount(orderDateAndUsernameAndOrderId);
 	}
 }

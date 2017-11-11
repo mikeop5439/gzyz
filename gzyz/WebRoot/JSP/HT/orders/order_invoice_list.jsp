@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>用户列表</title>
+<title>退货单列表</title>
 <meta name="description" content="这是一个 index 页面">
 <meta name="keywords" content="index">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -257,8 +257,8 @@ window.onload =function setSpage(){
       <h3 class="am-icon-flag"><em></em> <a href="#">商品管理</a></h3>
       <ul>
         <li><a href="${pageContext.request.contextPath }/good/squreyGoodsLimit.action?nowpage=1">商品列表</a></li>
-        <li><a href="Add_new_goods.html">添加新商品</a></li>
-		  <li><a href="Classfiy_goods.html">商品分类</a></li>
+        <li>添加新商品</li>
+		  <li>商品分类</li>
         <li>商品回收站</li>
         <li>商品自动上下架 </li>
         <li>商品评论列表</li>
@@ -266,7 +266,7 @@ window.onload =function setSpage(){
       <h3 class="am-icon-cart-plus"><em></em> <a href="#"> 订单管理</a></h3>
       <ul>
         <li>订单列表</li>
-        <li><a href="query.html">订单查询</a></li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/orders/order_query.jsp">订单查询</a></li>
 		<li>订单打印</li>
         <li>发货单列表</li>
         <li><a href="${pageContext.request.contextPath }/orderiands/squeryAllInvoiceLimit.action?nowpage=1">退换货单列表</a></li>
@@ -364,7 +364,7 @@ window.onload =function setSpage(){
 <div class="admin-biaogelist">
 	
     <div class="listbiaoti am-cf">
-      <ul class="am-icon-lock"> 角色管理</ul>
+      <ul class="am-icon-lock">退货单列表</ul>
       
       <dl class="am-icon-lock" style="float: right;"> 当前位置： 角色管理 > <a href="index.html">首页</a></dl>
       

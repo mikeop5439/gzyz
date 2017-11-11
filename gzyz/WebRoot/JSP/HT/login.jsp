@@ -32,10 +32,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<canvas id="demo-canvas"></canvas>
 					<div class="logo_box">
 						<h3 style="font-weight: 800;">后台管理系统</h3>
-						<form action="#" name="f" method="post" onSubmit="return checkForm()">
+						<form action="${pageContext.request.contextPath }/htlogin/checkLogin.action" name="f" method="post" onSubmit="return checkForm()">
 							<div id="change_margin_1" class="input_outer">
 								<span class="u_user"></span>
-								<input id="userName" value=""  class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入用户名" onBlur="checkUserName()" oninput="checkUserName()" >
+								<input id="userName" name="manger_name" value=""  class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入用户名" onBlur="checkUserName()" oninput="checkUserName()" >
 								<br>
 								<span class="default" id="nameErr" ></span>
 								
@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							
 							<div id="change_margin_2" class="input_outer">
 								<span class="us_uer"></span>
-								<input id="userPasword"  class="text" style="color: #FFFFFF !important; " value="" type="password" placeholder="请输入密码" onBlur="checkPassword()" oninput="checkPassword()">
+								<input id="userPasword" name="manger_password" class="text" style="color: #FFFFFF !important; " value="" type="password" placeholder="请输入密码" onBlur="checkPassword()" oninput="checkPassword()">
 								<br>
 								<span class="default" id="passwordErr" ></span>
 							</div>
