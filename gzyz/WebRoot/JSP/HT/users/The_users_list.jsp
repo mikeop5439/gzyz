@@ -315,7 +315,7 @@ function sogo(){
                 <th class="table-name">年龄</th>
                 <th class="table-name">生日</th>
                 <th class="table-name">创建时间</th>
-                <th width="163px" class="table-set">操作</th>
+                <!-- <th width="163px" class="table-set">操作</th> -->
               </tr>
             </thead>
             <tbody id="tbody">
@@ -340,14 +340,14 @@ function sogo(){
                 <td id="age">${u.getUser_age()}</td>
                 <td id="birthday">${u.getUser_birthday_string()} </td>
                 <td id="register">${u.getUser_register_string()}</td>
-                <td>
+                <!-- <td>
                   <div class="am-btn-toolbar">
 	                  <div class="am-btn-group am-btn-group-xs">
 	                 	<a class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-pencil-square-o" data-am-modal="{target: '#my-update'}" title="修改"></a>
 	                 	<a class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-trash-o" data-am-modal="{target: '#my-confirm'}" title="删除"></a>
 	           		</div>
 	              </div>
-                </td>
+                </td> -->
               </tr>
               </c:forEach> 
             </tbody>

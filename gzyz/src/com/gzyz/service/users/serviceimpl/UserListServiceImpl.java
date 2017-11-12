@@ -71,15 +71,15 @@ public class UserListServiceImpl implements UserListService {
 				"<td>"+u.getUser_age()+"</td>"+
 				"<td>"+u.getUser_birthday_string()+"</td>"+
 				"<td>"+u.getUser_register_string()+"</td>"+
-				"<td>"+
+				/*"<td>"+
 	            "<div class="+"am-btn-toolbar"+">"+
 	                "<div class="+"am-btn-group am-btn-group-xs"+">"+
 	               	"<a class="+"'am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-pencil-square-o'"+"data-am-modal={target:'#my-update'}"+"title="+"修改"+"></a>"+
 	               	"<a class="+"'am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-trash-o'"+"data-am-modal={target:'#my-update'}"+"title="+"删除"+"></a>"+
-	               	"<input name="+"newpage"+" type="+"hidden"+" value="+newpage+">"+
-	               	"</div>"+
+	               	*/"<input name="+"newpage"+" type="+"hidden"+" value="+newpage+">"+
+	               	/*"</div>"+
 	            " </div>"+
-	         " </td>"+
+	         " </td>"+*/
 				"</tr>");
 			}
 			
@@ -117,15 +117,15 @@ public class UserListServiceImpl implements UserListService {
 			"<td>"+u.getUser_age()+"</td>"+
 			"<td>"+u.getUser_birthday_string()+"</td>"+
 			"<td>"+u.getUser_register_string()+"</td>"+
-			"<td>"+
+			/*"<td>"+
             "<div class="+"am-btn-toolbar"+">"+
                 "<div class="+"am-btn-group am-btn-group-xs"+">"+
                	"<a class="+"'am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-pencil-square-o'"+"data-am-modal={target:'#my-update'}"+"title="+"修改"+"></a>"+
                	"<a class="+"'am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-trash-o'"+"data-am-modal={target:'#my-update'}"+"title="+"删除"+"></a>"+
-               	"<input name="+"newpage"+" type="+"hidden"+" value="+1+">"+
-               	"</div>"+
+               	*/"<input name="+"newpage"+" type="+"hidden"+" value="+1+">"+
+               	/*"</div>"+
             " </div>"+
-         " </td>"+
+         " </td>"+*/
 			"</tr>");
 		}
 		return html;
