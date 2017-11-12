@@ -16,6 +16,7 @@ public class Order {
 	private String shipping_name;
 	private String shipping_code;
 	private String order_remark;
+	private String user_name;
 	
 	public int getOrder_id() {
 		return order_id;
@@ -95,6 +96,12 @@ public class Order {
 	public void setOrder_remark(String order_remark) {
 		this.order_remark = order_remark;
 	}
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
 	
 	@Override
 	public String toString() {
@@ -104,7 +111,8 @@ public class Order {
 				+ ", creat_time=" + creat_time + ", pay_time=" + pay_time
 				+ ", consign_time=" + consign_time + ", end_time=" + end_time
 				+ ", shipping_name=" + shipping_name + ", shipping_code="
-				+ shipping_code + ", order_remark=" + order_remark + "]";
+				+ shipping_code + ", order_remark=" + order_remark
+				+ ", user_name=" + user_name + "]";
 	}
 	
 }
