@@ -14,9 +14,10 @@
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
 	
+	<!--Springmvc注解器  -->
+	<mvc:annotation-driven />
 	<!-- 指定一个扫描器 -->
-	<context:component-scan base-package="com.gzyz.controller"/>
-	
+	<context:component-scan base-package="com.gzyz"/>
 	<!-- 处理器映射器 -->
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
 	<!-- 适配器解析器 -->	

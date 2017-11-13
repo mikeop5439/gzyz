@@ -329,7 +329,7 @@ function sogo(){
                 
                 <c:forEach items="${c.getGoodsCollect()}" var="g" >
                 	<tr>
-                	<td id="5" style="width:50px;"><img width="50px" height="30" src="${g.getOriginal_img()}"/></td>
+                	<td id="5" style="width:50px;"><img width="50px" height="30" src="${pageContext.request.contextPath }/${g.getOriginal_img()}"/></td>
 	                <td id="3">${g.getGoods_name()}</td>
 	                <td id="4">${g.getGoods_sn()}</td>
 	                <td id="6">${g.getOriginal_price()}</td>

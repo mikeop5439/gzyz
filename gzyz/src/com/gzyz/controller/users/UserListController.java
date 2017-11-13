@@ -1,26 +1,22 @@
 package com.gzyz.controller.users;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gzyz.bean.goods.extend.GoodsCollect;
-import com.gzyz.bean.users.Receiver;
-import com.gzyz.bean.users.extend.Cartextend;
+
 import com.gzyz.bean.users.extend.UserCart;
 import com.gzyz.bean.users.extend.UserCollect;
 import com.gzyz.bean.users.extend.UserReceiver;
@@ -45,6 +41,7 @@ public class UserListController {
 			u.setUser_update_string(sdf.format(u.getUser_update()));
 		}
 		request.setAttribute("users", users);
+		System.out.println(users);
 		return "/JSP/HT/users/The_users_list.jsp";
 	}
 	
@@ -98,14 +95,14 @@ public class UserListController {
 		public String querycartList(HttpServletRequest request,HttpSession session){
 			
 			List<UserCart>userscart=userListService.queryuser(0);
-			for(UserCart u:userscart){
+			/*for(UserCart u:userscart){
 				for(Cartextend g:u.getCartextend() ){
 					if(g.getGoods().getOriginal_img() != null && g.getGoods().getOriginal_img().length() > 36){
 						String imgString=g.getGoods().getOriginal_img().substring(36);
-						g.getGoods().setOriginal_img(imgString);
+						g.getGoods().setOriginal_img(g.getGoods().getOriginal_img());
 						}
 				}
-			}
+			}*/
 			session.setAttribute("page", 1);
 			request.setAttribute("userscart", userscart);
 			return "/JSP/HT/users/The_cart_list.jsp";
@@ -141,14 +138,15 @@ public class UserListController {
 				response.getWriter().print(result);*/
 				
 				if(userscart != null){
-					for(UserCart u:userscart){
+					/*for(UserCart u:userscart){
 						for(Cartextend g:u.getCartextend() ){
 							if(g.getGoods().getOriginal_img() != null && g.getGoods().getOriginal_img().length() > 36){
 								String imgString=g.getGoods().getOriginal_img().substring(36);
+								
 								g.getGoods().setOriginal_img(imgString);
 								}
 						}
-					}
+					}*/
 					request.setAttribute("userscart", userscart);
 					int p=(int)session.getAttribute("page") ;
 					if(p<=0){page=1;}
@@ -169,14 +167,14 @@ public class UserListController {
 			String result=null;
 			List<UserCart> userscart=userListService.queryCartToMh(sogo);
 			if(userscart != null && userscart.size() > 0){
-				for(UserCart u:userscart){
+				/*for(UserCart u:userscart){
 					for(Cartextend g:u.getCartextend() ){
 						if(g.getGoods().getOriginal_img() != null && g.getGoods().getOriginal_img().length() > 36){
 							String imgString=g.getGoods().getOriginal_img().substring(36);
 							g.getGoods().setOriginal_img(imgString);
 							}
 					}
-				}
+				}*/
 				request.setAttribute("userscart", userscart);
 				result= "/JSP/HT/users/The_cart_list.jsp";
 			}else {
@@ -192,14 +190,14 @@ public class UserListController {
 					String result=null;
 					List<UserCart> userscart=userListService.queryCartSn(sogo);
 					if(userscart != null && userscart.size() > 0){
-						for(UserCart u:userscart){
+						/*for(UserCart u:userscart){
 							for(Cartextend g:u.getCartextend() ){
 								if(g.getGoods().getOriginal_img() != null && g.getGoods().getOriginal_img().length() > 36){
 									String imgString=g.getGoods().getOriginal_img().substring(36);
 									g.getGoods().setOriginal_img(imgString);
 									}
 							}
-						}
+						}*/
 						request.setAttribute("userscart", userscart);
 						result= "/JSP/HT/users/The_cart_list.jsp";
 					}else {
@@ -218,10 +216,10 @@ public class UserListController {
 			List<UserCollect> collects=userListService.queryCollect(1);
 			for(UserCollect u:collects){
 				for(GoodsCollect g:u.getGoodsCollect()){
-					if(g.getOriginal_img() != null && g.getOriginal_img().length() > 36){
+					/*if(g.getOriginal_img() != null && g.getOriginal_img().length() > 36){
 						String imgString=g.getOriginal_img().substring(36);
 						g.setOriginal_img(imgString);
-						}
+						}*/
 					g.setAddtime((sdf.format(g.getCollect_goods().getAdd_time())));
 				}
 			}
@@ -259,10 +257,10 @@ public class UserListController {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					for(UserCollect u:collects){
 						for(GoodsCollect g:u.getGoodsCollect()){
-							if(g.getOriginal_img() != null && g.getOriginal_img().length() > 36){
+							/*if(g.getOriginal_img() != null && g.getOriginal_img().length() > 36){
 							String imgString=g.getOriginal_img().substring(36);
 							g.setOriginal_img(imgString);
-							}
+							}*/
 							g.setAddtime((sdf.format(g.getCollect_goods().getAdd_time())));
 						}
 					}
@@ -289,10 +287,10 @@ public class UserListController {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					for(UserCollect u:collects){
 						for(GoodsCollect g:u.getGoodsCollect()){
-							if(g.getOriginal_img() != null && g.getOriginal_img().length() > 36){
+							/*if(g.getOriginal_img() != null && g.getOriginal_img().length() > 36){
 							String imgString=g.getOriginal_img().substring(36);
 							g.setOriginal_img(imgString);
-							}
+							}*/
 							g.setAddtime((sdf.format(g.getCollect_goods().getAdd_time())));
 						}
 					}

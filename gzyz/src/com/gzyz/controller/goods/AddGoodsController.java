@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.codehaus.jackson.JsonGenerationException;
+
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,10 +47,10 @@ public class AddGoodsController {
 					// 文件保存路径
 					String filePath = request.getSession().getServletContext()
 							.getRealPath("/")
-							+ "upload/" + goodsphoto.getOriginalFilename();
+							+ "upload/goodsimg/" + goodsphoto.getOriginalFilename();
 					// 保存文件
 					goodsphoto.transferTo(new File(filePath));
-					goods.setOriginal_img(filePath);
+					goods.setOriginal_img("/upload/goodsimg/"+goodsphoto.getOriginalFilename());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

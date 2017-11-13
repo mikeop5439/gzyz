@@ -332,7 +332,7 @@ function sogo(){
                 
                 <c:forEach items="${u.getCartextend()}" var="c" >
                 	<tr>
-                	<td id="3"style="width:45px;"><img src="${c.getGoods().getOriginal_img()}" width="50" height="30px"/></td>
+                	<td id="3"style="width:45px;"><img src="${pageContext.request.contextPath }/${c.getGoods().getOriginal_img()}" width="50" height="30px"/></td>
 	                <td id="3">${c.getGoods_name()}</td>
 	                <td id="4">${c.getGoods_sn()}</td>
 	                <td id="4">${c.getGoods().getGoods_brief()}</td>
