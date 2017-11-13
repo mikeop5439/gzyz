@@ -24,26 +24,112 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/app.js"></script>
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/amazeui.min.js"></script>
+<script src="${pageContext.request.contextPath }/JSP/HT/assets/echarts/echarts.js"></script>
 <script>
-window.onload =function(){
-  var number=0;
-  reminder("head","info","onmouseover","onmouseout",number);
-  function reminder (div1,div2,event1,event2,num){
-    var oHead = document.getElementsByClassName(div1)[num];
-    var oInfo = document.getElementsByClassName(div2)[num];
-    var timer = null;
-    oHead[event1] = oInfo[event1]=function(){
-     clearTimeout(timer);
-     oInfo.style.display="block";
-    };
-    oHead[event2] = oInfo[event2]=function(){
-     timer = setTimeout(function(){
-      oInfo.style.display="none";
-     },500);
-    };
-  }
+function getDateTime(date) {
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    return year + "-" + month + "-" + day;
 };
-	
+function ConvertJSONDateToJSDate(jsondate) {
+    var date = new Date(parseInt(jsondate.replace("/Date(", "").replace(")/", ""), 10));
+    return date;
+};
+window.onload =function(){
+$.ajax({		
+  			url:"${pageContext.request.contextPath }/analysisDF/dateanalysis.action",
+  			type:"POST",
+  			contentType:'application/json;charset=utf-8',
+  			dataType:"json",
+  			success:function(data){
+  			var count=[];
+            var date=[];
+  			$.each(data,function(index,content){
+  			 var time = "/Date("+content.user_accesstime+")/";
+  			 count.push(content.count);
+  			 date.push(getDateTime(ConvertJSONDateToJSDate(time)));
+  			});
+  			console.log(count);
+  			console.log(date);
+  			var mychart=echarts.init(document.getElementById('main'));
+option = {
+    tooltip: {
+        trigger: 'axis',
+        position: function (pt) {
+            return [pt[0], '10%'];
+        }
+    },
+    title: {
+        left: 'center',
+        text: '流量分析',
+    },
+    toolbox: {
+        feature: {
+            dataZoom: {
+                yAxisIndex: 'none'
+            },
+            restore: {},
+            saveAsImage: {}
+        }
+    },
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data:date
+    },
+    yAxis: {
+        type: 'value',
+        boundaryGap: [0, '100%']
+    },
+    dataZoom: [{
+        type: 'inside',
+        start: 0,
+        end: 10
+    }, {
+        start: 0,
+        end: 10,
+        handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+        handleSize: '80%',
+        handleStyle: {
+            color: '#fff',
+            shadowBlur: 3,
+            shadowColor: 'rgba(0, 0, 0, 0.6)',
+            shadowOffsetX: 2,
+            shadowOffsetY: 2
+        }
+    }],
+    series: [
+        {
+            name:'访问量',
+            type:'line',
+            smooth:true,
+            symbol: 'none',
+            sampling: 'average',
+            itemStyle: {
+                normal: {
+                    color: 'rgb(255, 70, 131)'
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(255, 158, 68)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(255, 70, 131)'
+                    }])
+                }
+            },
+            data:count
+        }
+    ]
+};
+mychart.setOption(option);
+  			}
+  		});
+};
 </script>
 </head>
 <body>
@@ -118,8 +204,8 @@ window.onload =function(){
       </ul>
       <h3 class="am-icon-bar-chart"><em></em> <a href="#">数据统计</a></h3>
       <ul>
-        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/data_traffic.jsp">流量分析（访问量）</a> </li>
-        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/costomer_analysis.jsp">客户统计 </a> </li>
+        <li>流量分析（访问量） </li>
+        <li>客户统计</li>
         <li>销售概况</li>
         <li>会员排行</li>
         <li>销售排行</li>
@@ -202,172 +288,95 @@ window.onload =function(){
 <div class="admin">
 	
  <div class="info"></div>
-	
-	
-   
-   <div class="admin-index">
-      <dl data-am-scrollspy="{animation: 'slide-right', delay: 100}">
-		  <dt class="qs"><i class="am-icon-users"></i></dt>
-        <dd>455</dd>
-        <dd class="f12">今日访客</dd>
-      </dl>
-      <dl data-am-scrollspy="{animation: 'slide-right', delay: 300}">
-        <dt class="cs"><i class="am-icon-area-chart"></i></dt>
-        <dd>455</dd>
-        <dd class="f12">今日收入</dd>
-      </dl>
-      <dl data-am-scrollspy="{animation: 'slide-right', delay: 600}">
-        <dt class="hs"><i class="am-icon-shopping-cart"></i></dt>
-        <dd>455</dd>
-        <dd class="f12">商品数量</dd>
-      </dl>
-      <dl data-am-scrollspy="{animation: 'slide-right', delay: 900}">
-        <dt class="ls"><i class="am-icon-cny"></i></dt>
-        <dd>455</dd>
-        <dd class="f12">全部收入</dd>
-      </dl>
-    </div>
-    
-    
-    
+	  
   <div class="admin-biaoge">
-      <div class="xinxitj">信息概况</div>
+      <div class="xinxitj">流量分析（访问量）</div>
     
     </div>
-    <div class="shuju">
-      <div class="shujuone">
-        <dl>
-          <dt>全盘收入：  1356666</dt>
-          <dt>全盘支出：   5646465.98</dt>
-          <dt>全盘利润：  546464</dt>
-        </dl>
-        <ul>
-          <h2>26.83%</h2>
-          <li>全盘拨出</li>
-        </ul>
-      </div>
-      <div class="shujutow">
-        <dl>
-          <dt>全盘收入：  1356666</dt>
-          <dt>全盘支出：   5646465.98</dt>
-          <dt>全盘利润：  546464</dt>
-        </dl>
-        <ul>
-          <h2>26.83%</h2>
-          <li>全盘拨出</li>
-        </ul>
-      </div>
-      <div class="slideTxtBox">
-        <div class="hd">
-          <ul>
-            <li>工作通知</li>
-            <li>工作进度表</li>
-          </ul>
-        </div>
-        <div class="bd">
-         
-          <ul>
-            <table class="am-table">
-              <tbody>
-                <tr>
-                  <td>普卡</td>
-                  <td>普卡</td>
-                  <td><a href="#">4534</a></td>
-                  <td>+20</td>
-                  <td> 4534 </td>
-                </tr>
-                <tr>
-                  <td>银卡</td>
-                  <td>银卡</td>
-                  <td>4534</td>
-                  <td>+2</td>
-                  <td> 4534 </td>
-                </tr>
-                <tr>
-                  <td>金卡</td>
-                  <td>金卡</td>
-                  <td>4534</td>
-                  <td>+10</td>
-                  <td> 4534 </td>
-                </tr>
-                <tr>
-                  <td>钻卡</td>
-                  <td>钻卡</td>
-                  <td>4534</td>
-                  <td>+50</td>
-                  <td> 4534 </td>
-                </tr>
-                <tr>
-                  <td>合计</td>
-                  <td>合计</td>
-                  <td>4534</td>
-                  <td>+50</td>
-                  <td> 4534 </td>
-                </tr>
-              </tbody>
-            </table>
-          </ul>
-          
-           <ul>
-            <table width="100%" class="am-table">
-              <tbody>
-                <tr>
-                  <td width="7%"  align="center">1 </td>
-                  <td width="83%" >工作进度名称</td>
-                  <td width="10%"  align="center"><a href="#">10%</a></td>
-                </tr>
-                <tr>
-                  <td align="center">1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                <tr>
-                  <td  align="center">1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                <tr>
-                  <td  align="center">1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                
-                <tr>
-                  <td  align="center">1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                
-                <tr>
-                  <td  align="center" >1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                
-                <tr>
-                  <td  align="center">1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                
-                
-                
-                
-                
-                
-                
-                
-              </tbody>
-            </table>
-          </ul>
-        </div>
-      </div>
-      <script type="text/javascript">jQuery(".slideTxtBox").slide();</script> 
-   
- </div>  
-   
+    <div id="main" style="width:100%; height:1000px" ></div>
+<!-- <script>
+var mychart=echarts.init(document.getElementById('main'));
+option = {
+    tooltip: {
+        trigger: 'axis',
+        position: function (pt) {
+            return [pt[0], '10%'];
+        }
+    },
+    title: {
+        left: 'center',
+        text: '流量分析',
+    },
+    toolbox: {
+        feature: {
+            dataZoom: {
+                yAxisIndex: 'none'
+            },
+            restore: {},
+            saveAsImage: {}
+        }
+    },
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data:  ["2016-11-12", "2016-11-13", "2016-11-14", "2016-11-15", "2016-11-16", "2016-11-17", "2016-11-18", "2016-11-19", "2016-11-20", "2016-11-21", "2016-11-22", "2016-11-23"]
+    },
+    yAxis: {
+        type: 'value',
+        boundaryGap: [0, '100%']
+    },
+    dataZoom: [{
+        type: 'inside',
+        start: 0,
+        end: 10
+    }, {
+        start: 0,
+        end: 10,
+        handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+        handleSize: '80%',
+        handleStyle: {
+            color: '#fff',
+            shadowBlur: 3,
+            shadowColor: 'rgba(0, 0, 0, 0.6)',
+            shadowOffsetX: 2,
+            shadowOffsetY: 2
+        }
+    }],
+    series: [
+        {
+            name:'降水量',
+            type:'line',
+            smooth:true,
+            symbol: 'none',
+            sampling: 'average',
+            itemStyle: {
+                normal: {
+                    color: 'rgb(255, 70, 131)'
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(255, 158, 68)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(255, 70, 131)'
+                    }])
+                }
+            },
+            data:  [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+        }
+    ]
+};
+mychart.setOption(option);
+</script> -->
     
-
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
     <div class="foods">
     	<ul>版权所有@2017 . 光宗耀祖</ul>
     	<dl><a href="" title="返回头部" class="am-icon-btn am-icon-arrow-up"></a></dl>
@@ -403,31 +412,7 @@ window.onload =function(){
 
 <!--<![endif]-->
 
-<script>
-	
-$(function(){
-$("[rel=drevil]").popover({
-trigger:'manual',
-placement : 'bottom', //placement of the popover. also can use top, bottom, left or right
-html: 'true', //needed to show html of course
-content : '<div id="popOverBox" style="width:130px;height:150px;">  <img src="assets/img/user05.png"  width="130" height="130" > <br> <p>超级管理员：曾盈</p> </div>', //this is the content of the html box. add the image here or anything you want really.
-animation: false
-}).on("mouseenter", function () {
-var _this = this;
-$(this).popover("show");
-$(this).siblings(".popover").on("mouseleave", function () {
-$(_this).popover('hide');
-});
-}).on("mouseleave", function () {
-var _this = this;
-setTimeout(function () {
-if (!$(".popover:hover").length) {
-$(_this).popover("hide")
-}
-}, 100);
-});
-});	
-</script>
+
 
 </body>
 </html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzyz.mapper.analysis.DateTrafficAnalysisMapper">
+<!-- 流量分析封装 -->
+<resultMap type="dateTraffice" id="dateAndCount">
+<result column="count" property="count"/>
+<result column="date" property="user_accesstime"/>
+</resultMap>
+<!-- 查询每日的访问数 -->
+<select id="queryDateTraffic" resultMap="dateAndCount">
+select count(*) count,user_accesstime date 
+FROM date_traffic 
+GROUP BY user_accesstime
+</select>
+<!-- 客户分析封装 -->
+<resultMap type="customerAnalysis" id="cityAndCount">
+<result column="city" property="city"/>
+<result column="count" property="count"/>
+</resultMap>
+<!-- 查询每个城市的购买量 -->
+<select id="queryReceiverCityCount" resultMap="cityAndCount">
+SELECT count(*) count,r.receiver_city city from `order` o JOIN  receiver r ON o.receiver_id=r.receiver_id GROUP BY r.receiver_city
+</select>
+</mapper>
