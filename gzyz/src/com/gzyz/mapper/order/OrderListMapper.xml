@@ -53,12 +53,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </resultMap>
 
 <select id="queryAllOrderList" parameterType="string" resultMap="queryAllOrderList">
-	select o.order_id oid,o.user_id uid,o.user_name uname,o.order_time otime,o.order_status ostatus,
+	select o.order_id oid,o.user_id uid,u.user_name uname,o.order_time otime,o.order_status ostatus,
 		   od.goods_id gid,od.quantity q,od.total_fee t,
 		   g.shop_price sp,g.goods_name gname
 	from `order` o
 	join order_details od on o.order_id=od.order_id
 	join goods g on od.goods_id=g.goods_id
+	join user u on u.user_id=o.user_id
 </select>
 
 <select id="queryOrderByKeywords" parameterType="OrderKeywords" resultMap="queryAllOrderList">

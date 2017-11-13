@@ -104,18 +104,16 @@ window.onload =function(){
       <h3 class="am-icon-flag"><em></em> 商品管理</h3>
       <ul>
         <li><a href="${pageContext.request.contextPath }/good/squreyGoodsLimit.action?nowpage=1">商品列表</a></li>
-        <li><a href="Add_new_goods.html">添加新商品</a></li>
-		  <li><a href="Classfiy_goods.html">商品分类</a></li>
+        <li><a href="${pageContext.request.contextPath}/JSP/HT/goods/addgoods.jsp">添加新商品</a></li>
+		  <li><a href="${pageContext.request.contextPath}/JSP/HT/goods/goodscategory.jsp">商品分类</a></li>
         <li>商品回收站</li>
-        <li>商品自动上下架 </li>
-        <li>商品评论列表</li>
+        <li><a href="${pageContext.request.contextPath }/comment/commentlist.action">商品评论列表</a></li>
       </ul>
       <h3 class="am-icon-cart-plus"><em></em> <a href="#"> 订单管理</a></h3>
       <ul>
-        <li>订单列表</li>
+        <li><a href="${pageContext.request.contextPath }/order/orderlist.action">订单列表</a></li>
         <li><a href="query.html">订单查询</a></li>
 		<li>订单打印</li>
-        <li>发货单列表</li>
         <li><a href="${pageContext.request.contextPath }/orderiands/squeryAllInvoiceLimit.action?nowpage=1">退换货单列表</a></li>
       </ul>
       <h3 class="am-icon-bar-chart"><em></em> <a href="#">数据统计</a></h3>
@@ -128,12 +126,12 @@ window.onload =function(){
         <li>访问购买率</li>
       </ul>
       <h3 class="am-icon-user"><em></em> 用户管理</h3>
-      <ul>
-        <li>用户列表 </li>
-        <li>用户购物车</li>
-        <li>用户收藏夹</li>
-       
-      </ul>
+       <ul>
+        <li><a href="${pageContext.request.contextPath }/userlist/queryuserList.action">用户列表</a></li>
+		<li><a href="${pageContext.request.contextPath }/userlist/querycartList.action">用户购物车</a></li>
+		<li><a href="${pageContext.request.contextPath }/userlist/querycollectList.action">用户收藏夹</a></li>
+		<li><a href="${pageContext.request.contextPath }/userlist/queryreceiverList.action">用户收货地址</a></li>
+		</ul>
       <h3 class="am-icon-lock"><em></em> 权限管理</h3>
       <ul>
         
@@ -143,11 +141,11 @@ window.onload =function(){
       </ul>
       <h3 class="am-icon-gears"><em></em> <a href="#">系统设置</a></h3>
       <ul>
-        <li>数据备份</li>
-        <li>支付方式</li>
-        <li>配送方式</li>
-        <li>友情链接</li>
-        <li>文章列表</li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/system/systemdata.jsp">数据备份</a></li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/system/systempay.jsp">支付方式</a></li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/system/systemsend.jsp">配送方式</a></li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/system/systemlinks.jsp">友情链接</a></li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/system/systemessay.jsp">文章列表</a></li>
      
       </ul>
      

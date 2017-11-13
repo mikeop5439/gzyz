@@ -328,14 +328,17 @@ function sogo(){
                 <td id="username"><a>${u.getUser_name()}</a></td>
                 <td id="password">${u.getUser_password()}</td>
                 
-                <c:if test="${u.getUser_sex()== 1}">
-                	<td id="sex"> 男</td>
-                	</c:if>
-                	<c:if test="${u.getUser_sex()== 0} ">
-                	<td id="sex"> 女</td>
-                </c:if>
-                
-                </td>
+               <td>
+                   <c:choose>
+                		<c:when test="${u.getUser_sex()  == 1}">
+                			<font>男</font> 
+                		</c:when>
+                		 <c:otherwise>
+       						<font>女</font> 	
+    					</c:otherwise>
+                	</c:choose>
+        		</td>
+
                 <td id="tele">${u.getUser_tele()}</td>
                 <td id="age">${u.getUser_age()}</td>
                 <td id="birthday">${u.getUser_birthday_string()} </td>
