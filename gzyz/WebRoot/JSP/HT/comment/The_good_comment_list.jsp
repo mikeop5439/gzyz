@@ -545,7 +545,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <![endif]--> 
 
 <!--[if (gte IE 9)|!(IE)]><!--> 
-<script src="assets/js/amazeui.min.js"></script> 
+<script src="<%=basePath %>/JSP/HT/assets/js/amazeui.min.js"></script> 
 <!--<![endif]-->
 
 </body>

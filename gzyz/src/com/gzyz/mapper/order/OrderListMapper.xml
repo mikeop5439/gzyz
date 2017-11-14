@@ -96,6 +96,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <resultMap type="orderinfo" id="queryOrderReceiverInfo">
 	<id column="oid" property="order_id" />
+	<result column="rid" property="receiver_id" />
 	<result column="spname" property="shipping_name" />
 	<result column="spcod" property="shipping_code" />
 	<result column="rs" property="receiver_state" />
@@ -105,13 +106,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </resultMap>
 <select id="queryOrderReceiverInfo" parameterType="int" resultMap="queryOrderReceiverInfo">
 	select o.order_id oid,o.shipping_name spname,o.shipping_code spcod,
-			 r.receiver_state rs,r.receiver_city rc,r.receiver_district rd,r.receiver_address ra
+			 r.receiver_id rid,r.receiver_state rs,r.receiver_city rc,r.receiver_district rd,r.receiver_address ra
 	from `order` o
 	join receiver r on o.receiver_id=r.receiver_id
 	where o.order_id=${order_id}
 </select>
 
-<update id="updateOrderShippingNameInfo" parameterType="int">
-	
-</update>
+<!-- <update id="updateOrderShippingNameInfo" parameterType="StatusKeywords">
+	update order set shipping_name = #{shipping_name}
+	where order_id = ${order_id}
+</update> -->
 </mapper>
