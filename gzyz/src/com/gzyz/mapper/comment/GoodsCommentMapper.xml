@@ -45,12 +45,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</association>
 </resultMap>
 	<select id="queryCommentList" parameterType="string" resultMap="queryCommentList">
-		select com.comment_id cid,com.goods_id cgid,com.user_id uid,com.user_name uname,com.content con,com.comment_rank rank,com.add_time time,com.status status,
+		select com.comment_id cid,com.goods_id cgid,com.user_id uid,u.user_name uname,com.content con,com.comment_rank rank,com.add_time time,com.status status,
 			   g.goods_id gid,g.goods_name gname	 
 		from comment com 
 		join goods g
 		on com.goods_id=g.goods_id
-		where g.goods_name like '%${goods_name}%' or com.user_name like '%${goods_name}%'
+		join user u on u.user_id=com.user_id
+		where g.goods_name like '%${goods_name}%' or u.user_name like '%${goods_name}%'
 		<!-- limit #{pn},5 -->
 	</select>
 	<!--  parameterType="string" -->
@@ -59,16 +60,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from comment com
 		join goods g
 		on com.goods_id=g.goods_id
-		where g.goods_name like '%${goods_name}%' or com.user_name like '%${goods_name}%'
+		join user u on u.user_id=com.user_id
+		where g.goods_name like '%${goods_name}%' or u.user_name like '%${goods_name}%'
 	</select>
 	
 	<select id="queryCommentByLimit" parameterType="CommentPageKeywords" resultMap="queryCommentList">
-		select com.comment_id cid,com.goods_id cgid,com.user_id uid,com.user_name uname,com.content con,com.comment_rank rank,com.add_time time,com.status status,
+		select com.comment_id cid,com.goods_id cgid,com.user_id uid,u.user_name uname,com.content con,com.comment_rank rank,com.add_time time,com.status status,
 			   g.goods_id gid,g.goods_name gname	 
 		from comment com 
 		join goods g
 		on com.goods_id=g.goods_id
-		where g.goods_name like '%${goods_name}%' or com.user_name like '%${goods_name}%'
+		join user u on u.user_id=com.user_id
+		where g.goods_name like '%${goods_name}%' or u.user_name like '%${goods_name}%'
 		limit #{nowpage},5
 	</select>
 	
