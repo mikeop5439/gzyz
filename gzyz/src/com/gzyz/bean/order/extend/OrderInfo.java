@@ -3,6 +3,7 @@ package com.gzyz.bean.order.extend;
 import com.gzyz.bean.order.Order;
 
 public class OrderInfo extends Order{
+	private int receiver_id;
 	private String receiver_state;
 	private String receiver_city;
 	private String receiver_district;
@@ -31,12 +32,18 @@ public class OrderInfo extends Order{
 	public void setReceiver_address(String receiver_address) {
 		this.receiver_address = receiver_address;
 	}
-	@Override
-	public String toString() {
-		return "OrderInfo [receiver_state=" + receiver_state
-				+ ", receiver_city=" + receiver_city + ", receiver_district="
-				+ receiver_district + ", receiver_address=" + receiver_address
-				+ "]";
+	public int getReceiver_id() {
+		return receiver_id;
+	}
+	public void setReceiver_id(int receiver_id) {
+		this.receiver_id = receiver_id;
 	}
 	
+	@Override
+	public String toString() {
+		return "OrderInfo [receiver_id=" + receiver_id + ", receiver_state="
+				+ receiver_state + ", receiver_city=" + receiver_city
+				+ ", receiver_district=" + receiver_district
+				+ ", receiver_address=" + receiver_address + "]";
+	}
 }

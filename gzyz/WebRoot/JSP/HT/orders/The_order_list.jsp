@@ -111,6 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            dataType:"json",
            
 	       success:function(data){
+	       		$("#tr1").empty();
 	       		$("#div1").empty();
 	       		$("#div2").empty();
 	       		$("#div3").empty();
@@ -118,6 +119,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       		$("#div5").empty();
 	       		$("#div6").empty();
 	       		$.each(data,function(index,content){
+	       			var tr1 = $("<td></td>").append(content.receiver_id);
+	       			$("#tr1").append(tr1);
 	       			var div1 = $("<input></input>").addClass("am-input-sm").attr("type","text").attr("id","doc-ipt-email-1").attr("value",content.shipping_name);
 	       			$("#div1").append(div1);
 	       			var div2 = $("<input></input>").addClass("am-input-sm").attr("type","text").attr("id","doc-ipt-pwd-1").attr("value",content.shipping_code);
@@ -390,6 +393,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <span data-am-modal-close class="am-close">&times;</span> </div>
         <div class="am-popup-bd">
           <form class="am-form tjlanmu">
+          <table>
+          	<thead>
+          		<tr>
+          			<th>收货信息编号</th>
+          		</tr>
+          	</thead>
+          	<tbody>
+          		<tr id="tr1">
+          			<td>*</td>
+          		</tr>
+          	</tbody>
+          </table>
             <div class="am-form-group">
               <div class="zuo">快递名称：</div>
               <div class="you" id="div1">
