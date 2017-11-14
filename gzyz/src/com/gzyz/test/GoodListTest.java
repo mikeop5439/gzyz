@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.gzyz.bean.analysis.extend.DateTraffice;
+import com.gzyz.bean.analysis.extend.GoodsNameAndSalesCount;
 import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.goods.extend.GoodsAndCategory;
 import com.gzyz.bean.order.Order_invoice;
@@ -38,7 +39,7 @@ public class GoodListTest {
 	public void test1(){
 		/*List<OrderAndUserAndOrderDetails> orderAndUserAndOrderDetails=orderInvoiceAndSwapService.queryTheOrder();
 		System.out.println("aaaaaaaaaaaaaaa"+orderAndUserAndOrderDetails);*/
-		List<DateTraffice> dateTraffices=dateTrafficAnalysisService.queryDateTraffic();
+		List<GoodsNameAndSalesCount> dateTraffices=dateTrafficAnalysisService.queryTopCategoryFree();
 		System.out.println("aaaaaaaaaaaaaaa"+dateTraffices);
 	}
 }

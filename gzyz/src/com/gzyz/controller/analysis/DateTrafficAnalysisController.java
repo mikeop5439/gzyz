@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gzyz.bean.analysis.extend.CustomerAnalysis;
 import com.gzyz.bean.analysis.extend.DateTraffice;
+import com.gzyz.bean.analysis.extend.GoodsNameAndSalesCount;
+import com.gzyz.bean.analysis.extend.SalesAbout;
 import com.gzyz.bean.order.Order_invoice;
 import com.gzyz.service.analysis.service.DateTrafficAnalysisService;
 
@@ -31,4 +33,25 @@ public class DateTrafficAnalysisController {
 		List<CustomerAnalysis> customerAnalysis=dateTrafficAnalysisService.queryReceiverCityCount();
 		return customerAnalysis;
 	}
+	//销售概况
+	@RequestMapping("queryTopGoods.action")
+	public @ResponseBody SalesAbout queryTopGoods(Model model){
+		List<GoodsNameAndSalesCount> goodsTopSales=dateTrafficAnalysisService.queryTopGoods();
+		List<GoodsNameAndSalesCount> goodsTopSalesFree=dateTrafficAnalysisService.queryTopGoodsFree();
+		List<GoodsNameAndSalesCount> categotyTopSales=dateTrafficAnalysisService.queryTopCategorySales();
+		List<GoodsNameAndSalesCount> categotyTopFree=dateTrafficAnalysisService.queryTopCategoryFree();
+		SalesAbout salesAbout=new SalesAbout();
+		salesAbout.setGoodsTopSales(goodsTopSales);
+		salesAbout.setGoodsTopSalesFree(goodsTopSalesFree);
+		salesAbout.setCategotyTopSales(categotyTopSales);
+		salesAbout.setCategotyTopFree(categotyTopFree);
+		return salesAbout;
+	}
+	//会员排行
+	@RequestMapping("queryTopConsumption.action")
+	public @ResponseBody List<GoodsNameAndSalesCount> queryTopConsumption(Model model){
+		List<GoodsNameAndSalesCount> goodsNameAndSalesCounts=dateTrafficAnalysisService.queryTopConsumption();
+		return goodsNameAndSalesCounts;
+	}
+	
 }

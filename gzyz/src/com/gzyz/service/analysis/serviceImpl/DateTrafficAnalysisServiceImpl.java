@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.gzyz.bean.analysis.extend.CustomerAnalysis;
 import com.gzyz.bean.analysis.extend.DateTraffice;
+import com.gzyz.bean.analysis.extend.GoodsNameAndSalesCount;
 import com.gzyz.mapper.analysis.DateTrafficAnalysisMapper;
 import com.gzyz.service.analysis.service.DateTrafficAnalysisService;
 @Service
@@ -24,5 +25,35 @@ public class DateTrafficAnalysisServiceImpl implements DateTrafficAnalysisServic
 	public List<CustomerAnalysis> queryReceiverCityCount() {
 		// TODO Auto-generated method stub
 		return dateTrafficAnalysisMapper.queryReceiverCityCount();
+	}
+
+	@Override
+	public List<GoodsNameAndSalesCount> queryTopGoods() {
+		// TODO Auto-generated method stub
+		return dateTrafficAnalysisMapper.queryTopGoods();
+	}
+
+	@Override
+	public List<GoodsNameAndSalesCount> queryTopCategorySales() {
+		// TODO Auto-generated method stub
+		return dateTrafficAnalysisMapper.queryTopCategorySales();
+	}
+
+	@Override
+	public List<GoodsNameAndSalesCount> queryTopCategoryFree() {
+		// TODO Auto-generated method stub
+		return dateTrafficAnalysisMapper.queryTopCategoryFree();
+	}
+
+	@Override
+	public List<GoodsNameAndSalesCount> queryTopGoodsFree() {
+		// TODO Auto-generated method stub
+		return dateTrafficAnalysisMapper.queryTopGoodsFree();
+	}
+
+	@Override
+	public List<GoodsNameAndSalesCount> queryTopConsumption() {
+		// TODO Auto-generated method stub
+		return dateTrafficAnalysisMapper.queryTopConsumption();
 	}
 }
