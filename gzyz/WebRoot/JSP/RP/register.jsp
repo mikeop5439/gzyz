@@ -17,20 +17,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-<link rel="stylesheet" href="css/animate.css">
+<link href="<%=basePath %>/JSP/RP/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="<%=basePath %>/JSP/RP/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="<%=basePath %>/JSP/RP/css/animate.css">
 <!-- font-awesome icons -->
-<link href="css/font-awesome.css" rel="stylesheet"> 
+<link href="<%=basePath %>/JSP/RP/css/font-awesome.css" rel="stylesheet"> 
 <!-- //font-awesome icons -->
 <!-- js -->
-<script src="js/jquery-1.11.1.min.js"></script>
+<script src="<%=basePath %>/JSP/RP/js/jquery-1.11.1.min.js"></script>
 <!-- //js -->
 <link href='//fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 <!-- start-smoth-scrolling -->
-<script type="text/javascript" src="js/move-top.js"></script>
-<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript" src="<%=basePath %>/JSP/RP/js/move-top.js"></script>
+<script type="text/javascript" src="<%=basePath %>/JSP/RP/js/easing.js"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){		
@@ -93,8 +93,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			       
 					<div class="forgot">
 						<a href="#">我接受所有的协议</a>
-						<a href="login.html">&nbsp;|&nbsp;已有账号</a>
-						<a href="index.html">&nbsp;|&nbsp;首页</a>
+						<a href="login.jsp">&nbsp;|&nbsp;已有账号</a>
+						<a href="index.jsp">&nbsp;|&nbsp;首页</a>
 					</div>
 					<input type="submit" value="注册" class="input_outer">
 				</form>
@@ -166,6 +166,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   var username = document.getElementById('userName'); 
   var errname = document.getElementById('nameErr'); 
   var pattern = /^[^@#]{3,16}$/;  
+  var user_name=$("#userName").val();
  
   if(!pattern.test(username.value)){ 
     errname.innerHTML="用户名为3~16个字符，且不能包含”@”和”#”字符"
@@ -175,6 +176,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    else{ 
      errname.innerHTML=""
      errname.className="success"; 
+     $.ajax({
+    	 type:"POST",
+         url:"${pageContext.request.contextPath }/user/checkUsername.action",
+         data:"user_name="+user_name,
+         dataType:"json",
+         
+         success:function(data){
+        	 if(data == 0){
+        		 errname.innerHTML="用户名可用" 
+        	 }else{
+        		 errname.innerHTML="用户名重复"
+        		 return false;
+        	 }
+         }
+     });
      return true; 
      } 
   } 

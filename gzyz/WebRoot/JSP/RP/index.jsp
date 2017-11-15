@@ -66,7 +66,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<div class="agile-login">
 				<ul>
-					<li><a href="registered.html"> 注册</a></li>
+					<li><a href="register.jsp"> 注册</a></li>
 					<li><a href="login.html">登录</a></li>
 					<li><a href="contact.html">帮助</a></li>
 					
