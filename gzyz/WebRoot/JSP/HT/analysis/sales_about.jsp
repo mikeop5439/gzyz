@@ -25,6 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/app.js"></script>
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/amazeui.min.js"></script>
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/echarts/echarts.js"></script>
+<script src="${pageContext.request.contextPath }/JSP/HT/assets/echarts/vintage.js"></script>
 <script>
 
 window.onload =function(){
@@ -89,7 +90,7 @@ $.ajax({
   			console.log(maxc);
   			console.log(maxp);
   			
-  			var mychart=echarts.init(document.getElementById('main'));
+  			var mychart=echarts.init(document.getElementById('main'),'vintage');
   			var canvas = document.createElement('canvas');
 			var ctx = canvas.getContext('2d');
 			canvas.width = canvas.height = 100;

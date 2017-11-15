@@ -24,26 +24,81 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/app.js"></script>
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/amazeui.min.js"></script>
+<script src="${pageContext.request.contextPath }/JSP/HT/assets/echarts/echarts.js"></script>
+<script src="${pageContext.request.contextPath }/JSP/HT/assets/echarts/echarts-liquidfill.js"></script>
+ <style>
+            #main {
+                padding: 20px;
+            }
+            .chart {
+                width: 60%;
+                margin: 20px auto;
+                height: 100%;
+            
+            }
+
+        </style>
 <script>
-window.onload =function(){
-  var number=0;
-  reminder("head","info","onmouseover","onmouseout",number);
-  function reminder (div1,div2,event1,event2,num){
-    var oHead = document.getElementsByClassName(div1)[num];
-    var oInfo = document.getElementsByClassName(div2)[num];
-    var timer = null;
-    oHead[event1] = oInfo[event1]=function(){
-     clearTimeout(timer);
-     oInfo.style.display="block";
-    };
-    oHead[event2] = oInfo[event2]=function(){
-     timer = setTimeout(function(){
-      oInfo.style.display="none";
-     },500);
-    };
-  }
+function getDateTime(date) {
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    return year + "-" + month + "-" + day;
 };
-	
+function ConvertJSONDateToJSDate(jsondate) {
+    var date = new Date(parseInt(jsondate.replace("/Date(", "").replace(")/", ""), 10));
+    return date;
+};
+window.onload =function(){
+$.ajax({		
+  			url:"${pageContext.request.contextPath }/analysisDF/queryBuy.action",
+  			type:"POST",
+  			contentType:'application/json;charset=utf-8',
+  			dataType:"json",
+  			success:function(data){
+  			var date=[];
+  			var i=0;
+  			for(i;i<4;i++){
+  			date.push(data.rate);
+  			}
+  			console.log(date);
+            var containers = document.getElementsByClassName('chart');
+            var options = [{
+             title: [{
+			        text: '商品购买率',
+			        subtext: 'data from 孝心坊',
+			        x: '50%',
+			        textAlign: 'center'
+			    }],
+                series: [{
+                    type: 'liquidFill',
+                    data: date,
+                    radius: '70%',
+                    outline: {
+                        show: false
+                    },
+                    backgroundStyle: {
+                        borderWidth: 2,
+                        borderColor: '#156ACF'
+                    },
+                }]
+            }];
+
+            var charts = [];
+            for (var i = 0; i < options.length; ++i) {
+                var chart = echarts.init(containers[i]);
+                chart.setOption(options[i]);
+                charts.push(chart);
+            }
+
+            window.onresize = function () {
+                for (var i = 0; i < charts.length; ++i) {
+                    charts[i].resize();
+                }
+            };
+  			}
+  		});
+};
 </script>
 </head>
 <body>
@@ -118,12 +173,12 @@ window.onload =function(){
       </ul>
       <h3 class="am-icon-bar-chart"><em></em> <a href="#">数据统计</a></h3>
       <ul>
-        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/data_traffic.jsp">流量分析（访问量）</a> </li>
-        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/costomer_analysis.jsp">客户统计 </a> </li>
-        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/sales_about.jsp">销售概况 </a></li>
-        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/top_consumption.jsp">会员排行 </a></li>
-        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/top_goods.jsp">销售排行 </a></li>
-        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/buy_analysis.jsp">访问购买率 </a></li>
+        <li>流量分析（访问量） </li>
+        <li>客户统计</li>
+        <li>销售概况</li>
+        <li>会员排行</li>
+        <li>销售排行</li>
+        <li>访问购买率</li>
       </ul>
       <h3 class="am-icon-user"><em></em> 用户管理</h3>
        <ul>
@@ -202,172 +257,21 @@ window.onload =function(){
 <div class="admin">
 	
  <div class="info"></div>
-	
-	
-   
-   <div class="admin-index">
-      <dl data-am-scrollspy="{animation: 'slide-right', delay: 100}">
-		  <dt class="qs"><i class="am-icon-users"></i></dt>
-        <dd>455</dd>
-        <dd class="f12">今日访客</dd>
-      </dl>
-      <dl data-am-scrollspy="{animation: 'slide-right', delay: 300}">
-        <dt class="cs"><i class="am-icon-area-chart"></i></dt>
-        <dd>455</dd>
-        <dd class="f12">今日收入</dd>
-      </dl>
-      <dl data-am-scrollspy="{animation: 'slide-right', delay: 600}">
-        <dt class="hs"><i class="am-icon-shopping-cart"></i></dt>
-        <dd>455</dd>
-        <dd class="f12">商品数量</dd>
-      </dl>
-      <dl data-am-scrollspy="{animation: 'slide-right', delay: 900}">
-        <dt class="ls"><i class="am-icon-cny"></i></dt>
-        <dd>455</dd>
-        <dd class="f12">全部收入</dd>
-      </dl>
-    </div>
-    
-    
-    
+	  
   <div class="admin-biaoge">
-      <div class="xinxitj">信息概况</div>
+      <div class="xinxitj">购买率</div>
     
     </div>
-    <div class="shuju">
-      <div class="shujuone">
-        <dl>
-          <dt>全盘收入：  1356666</dt>
-          <dt>全盘支出：   5646465.98</dt>
-          <dt>全盘利润：  546464</dt>
-        </dl>
-        <ul>
-          <h2>26.83%</h2>
-          <li>全盘拨出</li>
-        </ul>
-      </div>
-      <div class="shujutow">
-        <dl>
-          <dt>全盘收入：  1356666</dt>
-          <dt>全盘支出：   5646465.98</dt>
-          <dt>全盘利润：  546464</dt>
-        </dl>
-        <ul>
-          <h2>26.83%</h2>
-          <li>全盘拨出</li>
-        </ul>
-      </div>
-      <div class="slideTxtBox">
-        <div class="hd">
-          <ul>
-            <li>工作通知</li>
-            <li>工作进度表</li>
-          </ul>
-        </div>
-        <div class="bd">
-         
-          <ul>
-            <table class="am-table">
-              <tbody>
-                <tr>
-                  <td>普卡</td>
-                  <td>普卡</td>
-                  <td><a href="#">4534</a></td>
-                  <td>+20</td>
-                  <td> 4534 </td>
-                </tr>
-                <tr>
-                  <td>银卡</td>
-                  <td>银卡</td>
-                  <td>4534</td>
-                  <td>+2</td>
-                  <td> 4534 </td>
-                </tr>
-                <tr>
-                  <td>金卡</td>
-                  <td>金卡</td>
-                  <td>4534</td>
-                  <td>+10</td>
-                  <td> 4534 </td>
-                </tr>
-                <tr>
-                  <td>钻卡</td>
-                  <td>钻卡</td>
-                  <td>4534</td>
-                  <td>+50</td>
-                  <td> 4534 </td>
-                </tr>
-                <tr>
-                  <td>合计</td>
-                  <td>合计</td>
-                  <td>4534</td>
-                  <td>+50</td>
-                  <td> 4534 </td>
-                </tr>
-              </tbody>
-            </table>
-          </ul>
-          
-           <ul>
-            <table width="100%" class="am-table">
-              <tbody>
-                <tr>
-                  <td width="7%"  align="center">1 </td>
-                  <td width="83%" >工作进度名称</td>
-                  <td width="10%"  align="center"><a href="#">10%</a></td>
-                </tr>
-                <tr>
-                  <td align="center">1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                <tr>
-                  <td  align="center">1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                <tr>
-                  <td  align="center">1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                
-                <tr>
-                  <td  align="center">1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                
-                <tr>
-                  <td  align="center" >1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                
-                <tr>
-                  <td  align="center">1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                
-                
-                
-                
-                
-                
-                
-                
-              </tbody>
-            </table>
-          </ul>
-        </div>
-      </div>
-      <script type="text/javascript">jQuery(".slideTxtBox").slide();</script> 
-   
- </div>  
-   
     
+     <div id='main' style="width:100%; height:1000px">
+            <div class="chart"></div>
+        </div>
 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
     <div class="foods">
     	<ul>版权所有@2017 . 光宗耀祖</ul>
     	<dl><a href="" title="返回头部" class="am-icon-btn am-icon-arrow-up"></a></dl>
@@ -403,31 +307,7 @@ window.onload =function(){
 
 <!--<![endif]-->
 
-<script>
-	
-$(function(){
-$("[rel=drevil]").popover({
-trigger:'manual',
-placement : 'bottom', //placement of the popover. also can use top, bottom, left or right
-html: 'true', //needed to show html of course
-content : '<div id="popOverBox" style="width:130px;height:150px;">  <img src="assets/img/user05.png"  width="130" height="130" > <br> <p>超级管理员：曾盈</p> </div>', //this is the content of the html box. add the image here or anything you want really.
-animation: false
-}).on("mouseenter", function () {
-var _this = this;
-$(this).popover("show");
-$(this).siblings(".popover").on("mouseleave", function () {
-$(_this).popover('hide');
-});
-}).on("mouseleave", function () {
-var _this = this;
-setTimeout(function () {
-if (!$(".popover:hover").length) {
-$(_this).popover("hide")
-}
-}, 100);
-});
-});	
-</script>
+
 
 </body>
 </html>

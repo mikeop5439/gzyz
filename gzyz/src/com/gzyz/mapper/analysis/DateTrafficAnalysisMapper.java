@@ -21,4 +21,10 @@ public interface DateTrafficAnalysisMapper {
 	public List<GoodsNameAndSalesCount> queryTopCategoryFree();
 	//查询购买量前十的用户
 	public List<GoodsNameAndSalesCount> queryTopConsumption();
+	//查询所有商品的销量
+	public List<GoodsNameAndSalesCount> queryAllGoods();
+	//商品访问量
+	public int queryBuy();
+	//商品购买量
+	public int queryVisit();
 }

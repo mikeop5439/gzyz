@@ -56,4 +56,22 @@ public class DateTrafficAnalysisServiceImpl implements DateTrafficAnalysisServic
 		// TODO Auto-generated method stub
 		return dateTrafficAnalysisMapper.queryTopConsumption();
 	}
+
+	@Override
+	public List<GoodsNameAndSalesCount> queryAllGoods() {
+		// TODO Auto-generated method stub
+		return dateTrafficAnalysisMapper.queryAllGoods();
+	}
+
+	@Override
+	public int queryBuy() {
+		// TODO Auto-generated method stub
+		return dateTrafficAnalysisMapper.queryBuy();
+	}
+
+	@Override
+	public int queryVisit() {
+		// TODO Auto-generated method stub
+		return dateTrafficAnalysisMapper.queryVisit();
+	}
 }

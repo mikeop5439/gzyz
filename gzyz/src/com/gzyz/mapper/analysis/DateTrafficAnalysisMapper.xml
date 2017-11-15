@@ -36,6 +36,13 @@ GROUP BY goods_id
 order by sales desc
 limit 0,10
 </select>
+<!-- 查询所有商品的销量 -->
+<select id="queryAllGoods" resultMap="salesabout">
+SELECT goods_name name,sum(quantity) sales 
+FROM order_details 
+GROUP BY goods_id 
+order by sales desc
+</select>
 <!-- 查询销售额前十的商品 -->
 <select id="queryTopGoodsFree" resultMap="salesabout">
 SELECT goods_name name,sum(total_fee) sales 
@@ -79,5 +86,14 @@ ON o.user_id=u.user_id
 GROUP BY u.user_name
 ORDER BY SUM(d.total_fee) desc
 limit 0,10
+</select>
+<!-- 商品访问量 -->
+<select id="queryBuy" resultType="int">
+select count(*) from  date_product 
+</select>
+<!-- 商品购买率 -->
+<select id="queryVisit" resultType="int">
+SELECT sum(quantity) sales 
+FROM order_details 
 </select>
 </mapper>

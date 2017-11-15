@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gzyz.bean.analysis.extend.CustomerAnalysis;
 import com.gzyz.bean.analysis.extend.DateTraffice;
 import com.gzyz.bean.analysis.extend.GoodsNameAndSalesCount;
+import com.gzyz.bean.analysis.extend.RateOfBuy;
 import com.gzyz.bean.analysis.extend.SalesAbout;
+import com.gzyz.bean.analysis.extend.SalesTop;
 import com.gzyz.bean.order.Order_invoice;
 import com.gzyz.service.analysis.service.DateTrafficAnalysisService;
 
@@ -52,6 +54,29 @@ public class DateTrafficAnalysisController {
 	public @ResponseBody List<GoodsNameAndSalesCount> queryTopConsumption(Model model){
 		List<GoodsNameAndSalesCount> goodsNameAndSalesCounts=dateTrafficAnalysisService.queryTopConsumption();
 		return goodsNameAndSalesCounts;
+	}
+	//销售排行
+	@RequestMapping("queryTopSales.action")
+	public @ResponseBody SalesTop queryTopSales(Model model){
+		List<GoodsNameAndSalesCount> goodsTopSales=dateTrafficAnalysisService.queryTopGoods();
+		List<GoodsNameAndSalesCount> goodsAllSales=dateTrafficAnalysisService.queryAllGoods();
+		SalesTop salesTop=new SalesTop();
+		salesTop.setGoodsAllSales(goodsAllSales);
+		salesTop.setGoodsTopSales(goodsTopSales);
+		return salesTop;
+	}
+	//销售排行
+	@RequestMapping("queryBuy.action")
+	public @ResponseBody RateOfBuy queryBuy(Model model){
+		int buy=dateTrafficAnalysisService.queryVisit();
+		System.out.println("buy:"+buy);
+		int visit=dateTrafficAnalysisService.queryBuy();
+		System.out.println("visit:"+visit);
+		double rate=(double)buy/visit;
+		System.out.println("aaaaaaaaaaaaaaaa:"+rate);
+		RateOfBuy rateOfBuy=new RateOfBuy();
+		rateOfBuy.setRate(rate);
+		return rateOfBuy;
 	}
 	
 }

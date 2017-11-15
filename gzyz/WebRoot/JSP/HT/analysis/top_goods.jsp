@@ -24,26 +24,186 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/app.js"></script>
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/amazeui.min.js"></script>
+<script src="${pageContext.request.contextPath }/JSP/HT/assets/echarts/echarts.js"></script>
+<script src="${pageContext.request.contextPath }/JSP/HT/assets/echarts/echarts-wordcloud.js"></script>
+<script src="${pageContext.request.contextPath }/JSP/HT/assets/echarts/vintage.js"></script>
 <script>
+
 window.onload =function(){
-  var number=0;
-  reminder("head","info","onmouseover","onmouseout",number);
-  function reminder (div1,div2,event1,event2,num){
-    var oHead = document.getElementsByClassName(div1)[num];
-    var oInfo = document.getElementsByClassName(div2)[num];
-    var timer = null;
-    oHead[event1] = oInfo[event1]=function(){
-     clearTimeout(timer);
-     oInfo.style.display="block";
-    };
-    oHead[event2] = oInfo[event2]=function(){
-     timer = setTimeout(function(){
-      oInfo.style.display="none";
-     },500);
-    };
-  }
-};
-	
+
+$.ajax({		
+  			url:"${pageContext.request.contextPath }/analysisDF/queryTopSales.action",
+  			type:"POST",
+  			contentType:'application/json;charset=utf-8',
+  			dataType:"json",
+  			success:function(data){
+  			var keywords={};
+  			var builderJson={};
+  			var charts={};
+  			var all=0;
+  			var maxc=0;
+  			$.each(data.goodsTopSales,function(index,content){
+  			if(index==0){
+  			maxc=content.count;
+  			}
+  			else{
+  			if(maxc>=content.count){
+  			
+  			}else{
+  			maxc=content.count;
+  			}
+  			}
+  			all=all+content.count;
+  			eval("charts."+content.goods_name+"="+content.count);
+  			});
+  			builderJson.charts=charts;
+  			builderJson.all=all;
+  			builderJson.maxc=maxc;
+  			$.each(data.goodsAllSales,function(index,content){
+  			eval("keywords."+content.goods_name+"="+content.count);
+  			});
+  			 var chart = echarts.init(document.getElementById('main'));
+  			 var mychart=echarts.init(document.getElementById('min'),'vintage');
+            
+
+            var data = [];
+            for (var name in keywords) {
+                data.push({
+                    name: name,
+                    value: Math.sqrt(keywords[name])
+                })
+            }
+
+            var maskImage = new Image();
+
+            var option = {
+            title: [{
+			        text: '热销商品字符云',
+			        subtext: 'data from 孝心坊',
+			        x: '50%',
+			        textAlign: 'center'
+			    }],
+                series: [ {
+                    type: 'wordCloud',
+                    sizeRange: [10, 100],
+                    rotationRange: [-90, 90],
+                    rotationStep: 45,
+                    gridSize: 2,
+                    shape: 'pentagon',
+                    maskImage: maskImage,
+                    drawOutOfBound: false,
+                    textStyle: {
+                        normal: {
+                            color: function () {
+                                return 'rgb(' + [
+                                    Math.round(Math.random() * 160),
+                                    Math.round(Math.random() * 160),
+                                    Math.round(Math.random() * 160)
+                                ].join(',') + ')';
+                            }
+                        },
+                        emphasis: {
+                            color: 'red'
+                        }
+                    },
+                    data: data.sort(function (a, b) {
+                        return b.value  - a.value;
+                    })
+                } ]
+            };
+
+            maskImage.onload = function () {
+                option.series[0].maskImage
+                chart.setOption(option);
+            }
+
+            maskImage.src = '${pageContext.request.contextPath }/JSP/HT/assets/echarts/gift.png';
+
+            window.onresize = function () {
+                chart.resize();
+            }
+  			var canvas = document.createElement('canvas');
+			var ctx = canvas.getContext('2d');
+			canvas.width = canvas.height = 100;
+			ctx.textAlign = 'center';
+			ctx.textBaseline = 'middle';
+			ctx.globalAlpha = 0.08;
+			ctx.font = '20px Microsoft Yahei';
+			ctx.translate(50, 50);
+			ctx.rotate(-Math.PI / 4);
+			
+			
+			eoption = {
+			    backgroundColor: {
+			        type: 'pattern',
+			        image: canvas,
+			        repeat: 'repeat'
+			    },
+			    tooltip: {},
+			    title: [{
+			        text: '商品销量排行Top10',
+			        subtext: '总计销量： ' + builderJson.all+'（件）',
+			        x: '50%',
+			        textAlign: 'center'
+			    }],
+			    grid: [{
+			        top: 50,
+			        width: '50%',
+			        bottom: '45%',
+			        left: 10,
+			        containLabel: true
+			    }],
+			    xAxis: [{
+			        type: 'value',
+			        max: builderJson.maxc,
+			        splitLine: {
+			            show: false
+			        }
+			    }],
+			    yAxis: [{
+			        type: 'category',
+			        data: Object.keys(builderJson.charts),
+			        axisLabel: {
+			            interval: 0,
+			            rotate: 30
+			        },
+			        splitLine: {
+			            show: false
+			        }
+			    }],
+			    series: [{
+			        type: 'bar',
+			        stack: 'chart',
+			        z: 3,
+			        label: {
+			            normal: {
+			                position: 'right',
+			                show: true
+			            }
+			        },
+			        data: Object.keys(builderJson.charts).map(function (key) {
+			            return builderJson.charts[key];
+			        })
+			    }, {
+			        type: 'bar',
+			        stack: 'chart',
+			        silent: true,
+			        itemStyle: {
+			            normal: {
+			                color: '#eee'
+			            }
+			        },
+			        data: Object.keys(builderJson.charts).map(function (key) {
+			            return builderJson.maxc - builderJson.charts[key];
+			        })
+			    }]
+			}
+			mychart.setOption(eoption);
+						
+					            
+						  			}
+						  		});
+						};
 </script>
 </head>
 <body>
@@ -118,12 +278,12 @@ window.onload =function(){
       </ul>
       <h3 class="am-icon-bar-chart"><em></em> <a href="#">数据统计</a></h3>
       <ul>
-        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/data_traffic.jsp">流量分析（访问量）</a> </li>
-        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/costomer_analysis.jsp">客户统计 </a> </li>
-        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/sales_about.jsp">销售概况 </a></li>
-        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/top_consumption.jsp">会员排行 </a></li>
-        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/top_goods.jsp">销售排行 </a></li>
-        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/buy_analysis.jsp">访问购买率 </a></li>
+        <li>流量分析（访问量） </li>
+        <li>客户统计</li>
+        <li>销售概况</li>
+        <li>会员排行</li>
+        <li>销售排行</li>
+        <li>访问购买率</li>
       </ul>
       <h3 class="am-icon-user"><em></em> 用户管理</h3>
        <ul>
@@ -202,171 +362,13 @@ window.onload =function(){
 <div class="admin">
 	
  <div class="info"></div>
-	
-	
-   
-   <div class="admin-index">
-      <dl data-am-scrollspy="{animation: 'slide-right', delay: 100}">
-		  <dt class="qs"><i class="am-icon-users"></i></dt>
-        <dd>455</dd>
-        <dd class="f12">今日访客</dd>
-      </dl>
-      <dl data-am-scrollspy="{animation: 'slide-right', delay: 300}">
-        <dt class="cs"><i class="am-icon-area-chart"></i></dt>
-        <dd>455</dd>
-        <dd class="f12">今日收入</dd>
-      </dl>
-      <dl data-am-scrollspy="{animation: 'slide-right', delay: 600}">
-        <dt class="hs"><i class="am-icon-shopping-cart"></i></dt>
-        <dd>455</dd>
-        <dd class="f12">商品数量</dd>
-      </dl>
-      <dl data-am-scrollspy="{animation: 'slide-right', delay: 900}">
-        <dt class="ls"><i class="am-icon-cny"></i></dt>
-        <dd>455</dd>
-        <dd class="f12">全部收入</dd>
-      </dl>
-    </div>
-    
-    
-    
+	  
   <div class="admin-biaoge">
-      <div class="xinxitj">信息概况</div>
+      <div class="xinxitj">销售排行</div>
     
     </div>
-    <div class="shuju">
-      <div class="shujuone">
-        <dl>
-          <dt>全盘收入：  1356666</dt>
-          <dt>全盘支出：   5646465.98</dt>
-          <dt>全盘利润：  546464</dt>
-        </dl>
-        <ul>
-          <h2>26.83%</h2>
-          <li>全盘拨出</li>
-        </ul>
-      </div>
-      <div class="shujutow">
-        <dl>
-          <dt>全盘收入：  1356666</dt>
-          <dt>全盘支出：   5646465.98</dt>
-          <dt>全盘利润：  546464</dt>
-        </dl>
-        <ul>
-          <h2>26.83%</h2>
-          <li>全盘拨出</li>
-        </ul>
-      </div>
-      <div class="slideTxtBox">
-        <div class="hd">
-          <ul>
-            <li>工作通知</li>
-            <li>工作进度表</li>
-          </ul>
-        </div>
-        <div class="bd">
-         
-          <ul>
-            <table class="am-table">
-              <tbody>
-                <tr>
-                  <td>普卡</td>
-                  <td>普卡</td>
-                  <td><a href="#">4534</a></td>
-                  <td>+20</td>
-                  <td> 4534 </td>
-                </tr>
-                <tr>
-                  <td>银卡</td>
-                  <td>银卡</td>
-                  <td>4534</td>
-                  <td>+2</td>
-                  <td> 4534 </td>
-                </tr>
-                <tr>
-                  <td>金卡</td>
-                  <td>金卡</td>
-                  <td>4534</td>
-                  <td>+10</td>
-                  <td> 4534 </td>
-                </tr>
-                <tr>
-                  <td>钻卡</td>
-                  <td>钻卡</td>
-                  <td>4534</td>
-                  <td>+50</td>
-                  <td> 4534 </td>
-                </tr>
-                <tr>
-                  <td>合计</td>
-                  <td>合计</td>
-                  <td>4534</td>
-                  <td>+50</td>
-                  <td> 4534 </td>
-                </tr>
-              </tbody>
-            </table>
-          </ul>
-          
-           <ul>
-            <table width="100%" class="am-table">
-              <tbody>
-                <tr>
-                  <td width="7%"  align="center">1 </td>
-                  <td width="83%" >工作进度名称</td>
-                  <td width="10%"  align="center"><a href="#">10%</a></td>
-                </tr>
-                <tr>
-                  <td align="center">1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                <tr>
-                  <td  align="center">1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                <tr>
-                  <td  align="center">1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                
-                <tr>
-                  <td  align="center">1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                
-                <tr>
-                  <td  align="center" >1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                
-                <tr>
-                  <td  align="center">1 </td>
-                  <td>工作进度名称</td>
-                  <td  align="center"><a href="#">10%</a></td>
-                </tr>
-                
-                
-                
-                
-                
-                
-                
-                
-              </tbody>
-            </table>
-          </ul>
-        </div>
-      </div>
-      <script type="text/javascript">jQuery(".slideTxtBox").slide();</script> 
-   
- </div>  
-   
-    
+    <div id="main" style="width:60%; height:100%; margin-top:20px; float:right;" ></div>
+    <div id="min" style="width:40%; height:100%; margin-top:20px; float:left;" ></div>
 
     <div class="foods">
     	<ul>版权所有@2017 . 光宗耀祖</ul>
@@ -403,31 +405,7 @@ window.onload =function(){
 
 <!--<![endif]-->
 
-<script>
-	
-$(function(){
-$("[rel=drevil]").popover({
-trigger:'manual',
-placement : 'bottom', //placement of the popover. also can use top, bottom, left or right
-html: 'true', //needed to show html of course
-content : '<div id="popOverBox" style="width:130px;height:150px;">  <img src="assets/img/user05.png"  width="130" height="130" > <br> <p>超级管理员：曾盈</p> </div>', //this is the content of the html box. add the image here or anything you want really.
-animation: false
-}).on("mouseenter", function () {
-var _this = this;
-$(this).popover("show");
-$(this).siblings(".popover").on("mouseleave", function () {
-$(_this).popover('hide');
-});
-}).on("mouseleave", function () {
-var _this = this;
-setTimeout(function () {
-if (!$(".popover:hover").length) {
-$(_this).popover("hide")
-}
-}, 100);
-});
-});	
-</script>
+
 
 </body>
 </html>

@@ -26,6 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/amazeui.min.js"></script>
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/echarts/echarts.js"></script>
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/echarts/china.js"></script>
+<script src="${pageContext.request.contextPath }/JSP/HT/assets/echarts/roma.js"></script>
 <script>
 window.onload =function(){
 var geoCoordMap = {
@@ -239,7 +240,7 @@ $.ajax({
   			contentType:'application/json;charset=utf-8',
   			dataType:"json",
   			success:function(data){
-  			var myChart = echarts.init(document.getElementById('main'));
+  			var myChart = echarts.init(document.getElementById('main'),'roma');
             var item=[];
   			$.each(data,function(index,content){
   			 item.push({
@@ -249,13 +250,13 @@ $.ajax({
   			});
   			
   			option = {
-    backgroundColor: '#404a59',
+    
     title: {
         text: '城市购买量',
         subtext: 'data from 孝心坊',
         x:'center',
         textStyle: {
-            color: '#fff'
+            color: '#696969'
         }
     },
     tooltip: {
@@ -270,7 +271,7 @@ $.ajax({
         x:'right',
         data:['pm2.5'],
         textStyle: {
-            color: '#fff'
+            color: '#696969'
         }
     },
     dataRange: {
@@ -279,7 +280,7 @@ $.ajax({
         calculable: true,
         color: ['#d94e5d','#eac736','#50a3ba'],
         textStyle: {
-            color: '#fff'
+            color: '#696969'
         }
     },
     geo: {

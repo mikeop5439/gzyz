@@ -63,6 +63,7 @@ option = {
     title: {
         left: 'center',
         text: '流量分析',
+        subtext: 'data from 孝心坊',
     },
     toolbox: {
         feature: {
