@@ -1,5 +1,6 @@
 package com.gzyz.test;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -15,12 +16,14 @@ import com.gzyz.bean.analysis.extend.GoodsNameAndSalesCount;
 import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.goods.extend.GoodsAndCategory;
 import com.gzyz.bean.order.Order_invoice;
+import com.gzyz.bean.order.extend.DateQuery;
 import com.gzyz.bean.order.extend.OrderAndUserAndOrderDetails;
 import com.gzyz.bean.users.Manager_log;
 import com.gzyz.bean.users.manger;
 import com.gzyz.bean.users.extend.MangerAndManageRole;
 import com.gzyz.service.analysis.service.DateTrafficAnalysisService;
 import com.gzyz.service.goods.service.GoodsListService;
+import com.gzyz.service.login.service.HtLoginService;
 import com.gzyz.service.order.service.OrderInvoiceAndSwapService;
 import com.gzyz.service.users.service.ManagerListService;
 
@@ -35,11 +38,18 @@ public class GoodListTest {
 	private OrderInvoiceAndSwapService orderInvoiceAndSwapService;
 	@Autowired
 	private DateTrafficAnalysisService dateTrafficAnalysisService;
+	@Autowired
+	private HtLoginService htLoginService;
 	@Test
 	public void test1(){
 		/*List<OrderAndUserAndOrderDetails> orderAndUserAndOrderDetails=orderInvoiceAndSwapService.queryTheOrder();
 		System.out.println("aaaaaaaaaaaaaaa"+orderAndUserAndOrderDetails);*/
-		List<GoodsNameAndSalesCount> dateTraffices=dateTrafficAnalysisService.queryTopCategoryFree();
-		System.out.println("aaaaaaaaaaaaaaa"+dateTraffices);
+		double totalIncome=0;
+		if(htLoginService.queryTotalIncome()==null){
+			totalIncome=0;
+		}else{
+			totalIncome=Double.valueOf(htLoginService.queryTotalIncome());
+		}
+		System.out.println(totalIncome);
 	}
 }

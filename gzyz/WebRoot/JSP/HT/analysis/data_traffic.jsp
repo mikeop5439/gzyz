@@ -37,6 +37,35 @@ function ConvertJSONDateToJSDate(jsondate) {
     return date;
 };
 window.onload =function(){
+if(<c:out value="${managerRole}"/>==0){
+    $("#goods-h").css("display","none");
+    $("#goods-ul").css("display","none");
+    $("#orders-h").css("display","none");
+    $("#analysis-h").css("display","none");
+    $("#users-h").css("display","none");
+    $("#manager-h").css("display","none");
+    $("#system-h").css("display","none");
+    $("#jf-h").css("display","none");
+    }else if(<c:out value="${managerRole}"/>==1){
+    $("#goods-h").css("display","none");
+    $("#goods-ul").css("display","none");
+    $("#analysis-h").css("display","none");
+    $("#users-h").css("display","none");
+    $("#manager-h").css("display","none");
+    }else if(<c:out value="${managerRole}"/>==2){
+    $("#orders-h").css("display","none");
+    $("#analysis-h").css("display","none");
+    $("#users-h").css("display","none");
+    $("#system-h").css("display","none");
+    $("#manager-h").css("display","none");
+    }else  if(<c:out value="${managerRole}"/>==3){
+    $("#orders-h").css("display","none");
+    $("#users-h").css("display","none");
+    $("#manager-h").css("display","none");
+    $("#system-h").css("display","none");
+    $("#jf-h").css("display","none");
+    }else if(<c:out value="${managerRole}"/>==4){
+    };
 $.ajax({		
   			url:"${pageContext.request.contextPath }/analysisDF/dateanalysis.action",
   			type:"POST",
@@ -148,10 +177,27 @@ mychart.setOption(option);
  <li class="kuanjie">
  	
  	 
-     <a href="#" rel="drevil">个人中心</a>
+     <a href="#" rel="drevil">您好，
+     
+     <c:if test="${managerRole==0}">
+     您当前无权限
+	 </c:if>
+	 <c:if test="${managerRole==1}">
+     客服（编辑）
+	 </c:if>
+     <c:if test="${managerRole==2}">
+     商品管理员
+	 </c:if>
+	 <c:if test="${managerRole==3}">
+  CEO管理员
+	 </c:if>
+	 <c:if test="${managerRole==4}">
+    超级管理员
+	 </c:if>
+     </a>
  	 
  	
- 	 <a href="login.html">退出</a>
+ 	 <a href="${pageContext.request.contextPath }/htlogin/quitLogin.action">退出</a>
  </li>
  
 
@@ -188,45 +234,44 @@ mychart.setOption(option);
     
     <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;"> 欢迎系统管理员：<c:out value="${username}"/> </div>
     <div class="sideMenu">
-      <h3 class="am-icon-flag"><em></em> 商品管理</h3>
-      <ul>
+      <div id="goods-h"><h3 class="am-icon-flag"><em></em> 商品管理</h3></div>
+      <ul id="goods-ul">
         <li><a href="${pageContext.request.contextPath }/good/squreyGoodsLimit.action?nowpage=1">商品列表</a></li>
         <li><a href="${pageContext.request.contextPath}/JSP/HT/goods/addgoods.jsp">添加新商品</a></li>
 		  <li><a href="${pageContext.request.contextPath}/JSP/HT/goods/goodscategory.jsp">商品分类</a></li>
         <li>商品回收站</li>
         <li><a href="${pageContext.request.contextPath }/comment/commentlist.action">商品评论列表</a></li>
       </ul>
-      <h3 class="am-icon-cart-plus"><em></em> <a href="#"> 订单管理</a></h3>
+      <div id="orders-h"><h3 class="am-icon-cart-plus"><em></em> <a href="#"> 订单管理</a></h3></div>
       <ul>
         <li><a href="${pageContext.request.contextPath }/order/orderlist.action">订单列表</a></li>
         <li><a href="${pageContext.request.contextPath }/JSP/HT/orders/order_query.jsp">订单查询</a></li>
 		<li>订单打印</li>
         <li><a href="${pageContext.request.contextPath }/orderiands/squeryAllInvoiceLimit.action?nowpage=1">退换货单列表</a></li>
       </ul>
-      <h3 class="am-icon-bar-chart"><em></em> <a href="#">数据统计</a></h3>
+      <div id="analysis-h"><h3 class="am-icon-bar-chart"><em></em> <a href="#">数据统计</a></h3></div>
       <ul>
-        <li>流量分析（访问量） </li>
-        <li>客户统计</li>
-        <li>销售概况</li>
-        <li>会员排行</li>
-        <li>销售排行</li>
-        <li>访问购买率</li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/data_traffic.jsp">流量分析（访问量）</a> </li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/costomer_analysis.jsp">客户统计 </a> </li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/sales_about.jsp">销售概况 </a></li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/top_consumption.jsp">会员排行 </a></li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/top_goods.jsp">销售排行 </a></li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/buy_analysis.jsp">访问购买率 </a></li>
       </ul>
-      <h3 class="am-icon-user"><em></em> 用户管理</h3>
+      <div id="users-h"><h3 id="user-ul" class="am-icon-user"><em></em> 用户管理</h3></div>
        <ul>
         <li><a href="${pageContext.request.contextPath }/userlist/queryuserList.action">用户列表</a></li>
 		<li><a href="${pageContext.request.contextPath }/userlist/querycartList.action">用户购物车</a></li>
 		<li><a href="${pageContext.request.contextPath }/userlist/querycollectList.action">用户收藏夹</a></li>
 		<li><a href="${pageContext.request.contextPath }/userlist/queryreceiverList.action">用户收货地址</a></li>
 		</ul>
-      <h3 class="am-icon-lock"><em></em> 权限管理</h3>
+      <div id="manager-h"><h3 class="am-icon-lock"><em></em> 权限管理</h3></div>
       <ul>
-        
         <li><a href="${pageContext.request.contextPath }/manager/queryAllManager.action">管理员列表</a></li>
         <li><a href="${pageContext.request.contextPath }/manager/squeryLogLimit.action?nowpage=1">管理员日志</a></li>
         <li><a href="${pageContext.request.contextPath }/manager/queryManagerAndRole.action">角色管理</a></li>
       </ul>
-      <h3 class="am-icon-gears"><em></em> <a href="#">系统设置</a></h3>
+      <div id="system-h"><h3 class="am-icon-gears"><em></em> <a href="#">系统设置</a></h3></div>
       <ul>
         <li><a href="${pageContext.request.contextPath }/JSP/HT/system/systemdata.jsp">数据备份</a></li>
         <li><a href="${pageContext.request.contextPath }/JSP/HT/system/systempay.jsp">支付方式</a></li>
@@ -236,10 +281,9 @@ mychart.setOption(option);
      
       </ul>
      
-     <h3 class="am-icon-dollar"><em></em> <a href="#">促销管理</a></h3>
+     <div id="jf-h"><h3 class="am-icon-dollar" id="jf-ul"><em></em> <a href="#">促销管理</a></h3></div>
       <ul>
         <li>积分商城商品</li>
-       
       </ul>
     </div>
     <!-- sideMenu End --> 
@@ -269,11 +313,8 @@ mychart.setOption(option);
 	
 		<div class="daohang">
 			<ul>
-				<li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs"> 首页</button><br>
+				<li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs" onclick="location.href=('${pageContext.request.contextPath }')"> 首页</button><br>
  </li>
-				<li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs">帮助中心<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button></li>
-				<li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs">奖金管理<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button></li>
-				<li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs">产品管理<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button></li>
 				
 				
 			</ul>

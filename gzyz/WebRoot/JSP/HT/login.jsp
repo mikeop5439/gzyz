@@ -21,6 +21,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--[if IE]>
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/html5.js"></script>
 <![endif]-->
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
 
@@ -54,8 +57,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						     
 							
 						    <div id="change_margin_3" class="mb2">
+						    <% String message=(String)session.getAttribute("flag");
+							    if(message==null){
+							    message="";
+							    }
+							 %>
+							 <center><font color="red"><h2><%=message %></h2></font></center>
 						    <input name="submit" class="act-but submit" type="submit" value="登录"  >
-						   
+						    <%
+						    session.removeAttribute("flag");
+						     %>
 						    </div>
 						</form>
 					</div>
