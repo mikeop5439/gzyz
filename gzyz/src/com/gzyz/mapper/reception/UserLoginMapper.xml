@@ -9,4 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where user_name = #{user_name}
 	</select>
 	
+	<insert id="insertUsername" parameterType="InsertInfo">
+		insert into user (user_name,user_tele,user_password) VALUES(#{user_name},#{user_tele},#{user_password})
+	</insert>
 </mapper>

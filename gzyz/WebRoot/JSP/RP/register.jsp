@@ -70,7 +70,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			
 			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
 				
-				<form action="#" data-animate-effect="fadeInLeft" method="post" onSubmit="return checkForm()" >
+				<form action="/gzyz/user/insertUsername.action" data-animate-effect="fadeInLeft" method="post" onSubmit="return checkForm()" >
 				<center><h3 >注册</h3></center>	
 			   <br>
 			   <br>
@@ -78,7 +78,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				   <br>
 				   <span class="default" id="nameErr" ></span>
 		        
-			        <input id="userPhone" type="text" placeholder="电话" required=" " class="input_outer" style="margin-top: 18px;" onBlur="checkUserPhone()" oninput="checkUserPhone()">
+			        <input id="userPhone" name="userphone" type="text" placeholder="电话" required=" " class="input_outer" style="margin-top: 18px;" onBlur="checkUserPhone()" oninput="checkUserPhone()">
 				    <br>
 				    <span class="default" id="nametel" ></span>
 				    
@@ -152,7 +152,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--验证 -->
 
 	
-<script type="text/javascript"> 
+<script type="text/javascript">
+
+var flag=false;
+
      function checkForm(){ 
         var nametip = checkUserName(); 
 	    var nametel = checkUserPhone();
@@ -161,38 +164,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
  
         return nametip && nametel && passtip && repasstip ; 
   } 
+  
   //验证用户名   
   function checkUserName(){ 
   var username = document.getElementById('userName'); 
   var errname = document.getElementById('nameErr'); 
   var pattern = /^[^@#]{3,16}$/;  
   var user_name=$("#userName").val();
- 
   if(!pattern.test(username.value)){ 
-    errname.innerHTML="用户名为3~16个字符，且不能包含”@”和”#”字符"
-    errname.className="error"
+    errname.innerHTML="用户名为3~16个字符，且不能包含”@”和”#”字符";
+    errname.className="error";
     return false; 
     } 
    else{ 
-     errname.innerHTML=""
+     errname.innerHTML="";
      errname.className="success"; 
      $.ajax({
     	 type:"POST",
          url:"${pageContext.request.contextPath }/user/checkUsername.action",
          data:"user_name="+user_name,
          dataType:"json",
-         
          success:function(data){
         	 if(data == 0){
-        		 errname.innerHTML="用户名可用" 
+        		 errname.innerHTML="用户名可用";
+        		 flag=true;
         	 }else{
-        		 errname.innerHTML="用户名重复"
-        		 return false;
+        		 errname.innerHTML="用户名重复";
+        		 flag=false;
         	 }
          }
      });
-     return true; 
-     } 
+	 return flag;
+   } 
   } 
    //验证电话  
   function checkUserPhone(){ 
