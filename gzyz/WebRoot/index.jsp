@@ -246,10 +246,9 @@ window.onload =function(){
 	
 		<div class="daohang">
 			<ul>
-				<li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs" onclick="location.href=('${pageContext.request.contextPath }')"> 首页</button><br>
- </li>
-				
-				
+				<li>
+				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" onclick="location.href=('${pageContext.request.contextPath }')"> 首页</button><br>
+                </li>
 			</ul>
 
        

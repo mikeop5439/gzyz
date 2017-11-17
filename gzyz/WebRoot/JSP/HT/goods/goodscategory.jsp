@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -232,14 +233,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  
   
 				</li>
-
- 				<li class="kuanjie">
+				<li class="kuanjie">
  	
  	 
- 					<a href="#">个人中心</a> 
+     <a href="#" rel="drevil">您好，
+     
+     <c:if test="${managerRole==0}">
+     您当前无权限
+	 </c:if>
+	 <c:if test="${managerRole==1}">
+     客服（编辑）
+	 </c:if>
+     <c:if test="${managerRole==2}">
+     商品管理员
+	 </c:if>
+	 <c:if test="${managerRole==3}">
+  CEO管理员
+	 </c:if>
+	 <c:if test="${managerRole==4}">
+    超级管理员
+	 </c:if>
+     </a>
+ 	 
  	
- 	 				<a href="login.html">退出</a>
- 				</li>
+ 	 <a href="${pageContext.request.contextPath }/htlogin/quitLogin.action">退出</a>
+ </li>
+ 				
 
  				<li class="soso">
  	
@@ -271,44 +290,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="nav-navicon admin-main admin-sidebar">
     
     
-    <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;"> 欢迎系统管理员：黄鼎运</div>
+    <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;"> 欢迎系统管理员：<c:out value="${username}"/> </div>
     <div class="sideMenu">
-      <h3 class="am-icon-flag"><em></em> 商品管理</h3>
-      <ul>
-       <li><a href="The_gods_list.html">商品列表</a></li>
-        <li><a href="Add_new_goods.html">添加新商品</a></li>
-		<li><a href="Classfiy_goods.html">商品分类</a></li>
-		<li><a href="The_recycle_bin.html">商品回收站</a></li>
-        <li>商品自动上下架 </li>
-		 <li><a href="The_good_comment_list.html">商品评论列表</a></li>
+      <div id="goods-h"><h3 class="am-icon-flag"><em></em> 商品管理</h3></div>
+      <ul id="goods-ul">
+        <li><a href="${pageContext.request.contextPath }/good/squreyGoodsLimit.action?nowpage=1">商品列表</a></li>
+        <li><a href="${pageContext.request.contextPath}/JSP/HT/goods/addgoods.jsp">添加新商品</a></li>
+		  <li><a href="${pageContext.request.contextPath}/JSP/HT/goods/goodscategory.jsp">商品分类</a></li>
+        <li>商品回收站</li>
+        <li><a href="${pageContext.request.contextPath }/comment/commentlist.action">商品评论列表</a></li>
       </ul>
-      <h3 class="am-icon-cart-plus"><em></em>订单管理</h3>
+      <div id="orders-h"><h3 class="am-icon-cart-plus"><em></em> <a href="#"> 订单管理</a></h3></div>
       <ul>
-        <li>订单列表</li>
-        <li><a href="query.html">订单查询</a></li>
+        <li><a href="${pageContext.request.contextPath }/order/orderlist.action">订单列表</a></li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/orders/order_query.jsp">订单查询</a></li>
 		<li>订单打印</li>
-        <li>发货单列表</li>
-        <li>换货单列表</li>
+        <li><a href="${pageContext.request.contextPath }/orderiands/squeryAllInvoiceLimit.action?nowpage=1">退换货单列表</a></li>
       </ul>
-      <h3 class="am-icon-bar-chart"><em></em> 数据统计</h3>
+      <div id="analysis-h"><h3 class="am-icon-bar-chart"><em></em> <a href="#">数据统计</a></h3></div>
       <ul>
-        <li>流量分析（访问量） </li>
-        <li>客户统计</li>
-        <li>销售概况</li>
-        <li>会员排行</li>
-        <li>销售排行</li>
-        <li>访问购买率</li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/data_traffic.jsp">流量分析（访问量）</a> </li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/costomer_analysis.jsp">客户统计 </a> </li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/sales_about.jsp">销售概况 </a></li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/top_consumption.jsp">会员排行 </a></li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/top_goods.jsp">销售排行 </a></li>
+        <li><a href="${pageContext.request.contextPath }/JSP/HT/analysis/buy_analysis.jsp">访问购买率 </a></li>
       </ul>
-      <h3 class="am-icon-user"><em></em> 用户管理</h3>
+      <div id="users-h"><h3 id="user-ul" class="am-icon-user"><em></em> 用户管理</h3></div>
+       <ul>
+        <li><a href="${pageContext.request.contextPath }/userlist/queryuserList.action">用户列表</a></li>
+		<li><a href="${pageContext.request.contextPath }/userlist/querycartList.action">用户购物车</a></li>
+		<li><a href="${pageContext.request.contextPath }/userlist/querycollectList.action">用户收藏夹</a></li>
+		<li><a href="${pageContext.request.contextPath }/userlist/queryreceiverList.action">用户收货地址</a></li>
+		</ul>
+      <div id="manager-h"><h3 class="am-icon-lock"><em></em> 权限管理</h3></div>
       <ul>
-        <li>用户列表 </li>
-        <li>用户购物车</li>
-        <li>用户收藏夹</li>
-        <li>管理员列表</li>
-        <li>管理员日志</li>
-        <li>角色管理</li>
+        <li><a href="${pageContext.request.contextPath }/manager/queryAllManager.action">管理员列表</a></li>
+        <li><a href="${pageContext.request.contextPath }/manager/squeryLogLimit.action?nowpage=1">管理员日志</a></li>
+        <li><a href="${pageContext.request.contextPath }/manager/queryManagerAndRole.action">角色管理</a></li>
       </ul>
-      <h3 class="am-icon-gears"><em></em>系统设置</h3>
+      <div id="system-h"><h3 class="am-icon-gears"><em></em> <a href="#">系统设置</a></h3></div>
       <ul>
         <li><a href="${pageContext.request.contextPath }/JSP/HT/system/systemdata.jsp">数据备份</a></li>
         <li><a href="${pageContext.request.contextPath }/JSP/HT/system/systempay.jsp">支付方式</a></li>
@@ -318,10 +339,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      
       </ul>
      
-     <h3 class="am-icon-dollar"><em></em> 促销管理</h3>
+     <div id="jf-h"><h3 class="am-icon-dollar" id="jf-ul"><em></em> <a href="#">促销管理</a></h3></div>
       <ul>
         <li>积分商城商品</li>
-       
       </ul>
     </div>
     <!-- sideMenu End --> 
@@ -342,26 +362,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class=" admin-content">
     <div class="daohang">
       <ul>
-        <li>
-        <button type="button" class="am-btn am-btn-default am-radius am-btn-xs">
-        首页
-        </li>
-        <li>
-        <button type="button" class="am-btn am-btn-default am-radius am-btn-xs">
-        帮助中心<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a>
-        </button>
-        </li>
-        <li>
-          <button type="button" class="am-btn am-btn-default am-radius am-btn-xs">
-          奖金管理<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="am-btn am-btn-default am-radius am-btn-xs">
-          产品管理<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a>
-          </button>
-        </li>
-      </ul>
+				<li>
+				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" onclick="location.href=('${pageContext.request.contextPath }')"> 首页</button><br>
+                </li>
+			</ul>
     </div>
     
     
@@ -423,7 +427,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           商品分类
         </ul>
         <dl class="am-icon-home" style="float: right;">
-          当前位置： 商品分类 > <a href="index.html">首页</a>
+          当前位置： 商品分类 > <a href="{pageContext.request.contextPath }">首页</a>
         </dl>
 
        
