@@ -35,7 +35,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 	});
 	window.onload=function(){
-		var flag=1;
+		var flag=0;
 		if(flag==0){
 			$('#person1').css("display","none")
 		}else(
@@ -71,12 +71,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
  
 			</div>
 			<div class="w3l_offers">
-				 <a href="index.html"><i class="fa fa-home fa-2x" style="color: white"></i></a>
+				 <a href="${pageContext.request.contextPath}/JSP/RP/index.jsp"><i class="fa fa-home fa-2x" style="color: white"></i></a>
 			</div>
 			<div class="agile-login">
 				<ul>
-					<li id="zhuce" ><a href="registered.html"> 注册</a></li>
-					<li id="denglv" ><a href="login.html">登录</a></li>
+					<li id="zhuce" ><a href="register.jsp"> 注册</a></li>
+					<li id="denglv" ><a href="login.jsp">登录</a></li>
 			        <li id="person1" ><a href="address.html">个人中心</a></li>
 					<li><a href="like.html">收藏夹</a></li>
 					<li><a href="contact.html">联系我们</a></li> 
@@ -94,7 +94,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
               
-                <!--hidden-box-->
+        <!--hidden-box-->
         <div data-toggle="hidden-box" id="nav-box1" class="user-box" >
 
         </div>
@@ -144,7 +144,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</div> 
 							<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 								<ul class="nav navbar-nav">
-									<li class="active"><a href="index.html" class="act" >首页</a></li>	
+									<li class="active"><a href="${pageContext.request.contextPath}/JSP/RP/index.jsp" class="act" >首页</a></li>	
 									<!-- Mega Menu -->
 									<li class="dropdown">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">老年理疗产品<b class="caret"></b></a>
@@ -977,10 +977,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="col-md-3 w3_footer_grid">
 					<h3>后台管理</h3>
 					<ul class="info"> 
-						
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">我的积分</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.html">登录</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">注册</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="${pageContext.request.contextPath }/JSP/HT/login.jsp">登录</a></li>
 					</ul>
 				</div>
 				<div class="clearfix"> </div>

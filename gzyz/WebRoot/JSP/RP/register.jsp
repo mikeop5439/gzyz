@@ -247,7 +247,30 @@ function checkRepassword(){
      } 
   } 
 </script>
-	
+	<script type="text/javascript">
+
+//加载页面
+
+  $(window).load(function(){
+    $('.preloader').fadeOut(1000); // set duration in brackets    
+  });
+
+
+
+//滚动出现固定导航
+(function(){
+    $(window).scroll(function(){
+        var scTop = $(window).scrollTop(),
+            $scS = $('.scroll-search'),
+            rW;
+        rW = ($(window).width() - 1190)/2;
+
+        scTop >= 200 ? $scS.slideDown(200) : $scS.slideUp(200);
+        
+    });
+})(jQuery);
+
+</script>
 
 </body>
 </html>

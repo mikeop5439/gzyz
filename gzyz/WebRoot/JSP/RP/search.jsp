@@ -106,10 +106,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="am-u-sm-12 am-u-md-12">
 	                  	<div class="theme-popover">														
 							<div class="searchAbout">
-								<span class="font-pale">相关搜索：</span>
-								<a title="手机" href="#">手机</a>
-								<a title="锤子" href="#">锤子</a>
-								<a title="三星" href="#">三星</a>
 
 							</div>
 							<ul class="select">
@@ -142,28 +138,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</dl>
 								</li>
 								
-								<li class="select-list">
-									<dl id="select3">
-										<dt class="am-badge am-round">选购热点</dt>
-										<div class="dd-conent">
-											<dd class="select-all selected"><a href="#">全部</a></dd>
-											<dd><a href="#">上海</a></dd>
-											<dd><a href="#">贵州</a></dd>
-											<dd><a href="#">浙江</a></dd>
-											
-										</div>
-									</dl>
-								</li>
+								
 					        
 							</ul>
 							<div class="clear"></div>
                         </div>
-							<div class="search-content">
+							<div class="am-u-sm-12 am-u-md-12 ">
 								<div class="sort">
 									<li class="first"><a title="综合">综合排序</a></li>
 									<li><a title="销量">销量排序</a></li>
 									<li><a title="价格">价格优先</a></li>
-									<li class="big"><a title="评价" href="#">评价为主</a></li>
+									
 								</div>
 								<div class="clear"></div>
 
@@ -285,43 +270,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								
 								</ul>
 							</div>
-							<div class="search-side">
-
-								<div class="side-title">
-									经典搭配
-								</div>
-
-								<li>
-									<div class="i-pic check">
-										<img src="images/1.png" />
-										<p class="check-title">充电宝+手机</p>
-										<p class="price fl">
-											<b>¥</b>
-											<strong>29.90</strong>
-										</p>
-										<p class="number fl">
-											销量<span>1110</span>
-										</p>
-									</div>
-								</li>
-								<li>
-									<div class="i-pic check">
-										<img src="images/1.png" />
-										<p class="check-title">充电宝+手机</p>
-										<p class="price fl">
-											<b>¥</b>
-											<strong>29.90</strong>
-										</p>
-										<p class="number fl">
-											销量<span>1110</span>
-										</p>
-									</div>
-								</li>
-								
-							</div>
+							
 							<div class="clear"></div>
 							<!--分页 -->
-							<ul class="am-pagination am-pagination-right">
+							<ul class="am-pagination am-pagination-centered">
 								<li class="am-disabled"><a href="#">&laquo;</a></li>
 								<li class="am-active"><a href="#">1</a></li>
 								<li><a href="#">2</a></li>
