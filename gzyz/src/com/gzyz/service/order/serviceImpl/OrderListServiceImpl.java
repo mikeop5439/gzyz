@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.gzyz.bean.order.extend.OrderInfo;
 import com.gzyz.bean.order.extend.OrderKeywords;
 import com.gzyz.bean.order.extend.OrderVo;
+import com.gzyz.bean.order.extend.StatusKeywords;
 import com.gzyz.mapper.order.OrderListMapper;
 import com.gzyz.service.order.service.OrderListService;
 
@@ -47,4 +48,14 @@ public class OrderListServiceImpl implements OrderListService {
 		return orderListMapper.queryOrderReceiverInfo(order_id);
 	}
 
+	@Override
+	public void updateOrderShippingNameInfo(StatusKeywords statusKeywords) {
+		orderListMapper.updateOrderShippingNameInfo(statusKeywords);
+		
+	}
+
+	@Override
+	public void updateOrderShippingCodeInfo(StatusKeywords statusKeywords) {
+		orderListMapper.updateOrderShippingCodeInfo(statusKeywords);
+	}
 }

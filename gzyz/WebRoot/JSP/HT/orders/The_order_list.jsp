@@ -121,9 +121,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       		$.each(data,function(index,content){
 	       			var tr1 = $("<td></td>").append(content.receiver_id);
 	       			$("#tr1").append(tr1);
-	       			var div1 = $("<input></input>").addClass("am-input-sm").attr("type","text").attr("id","doc-ipt-email-1").attr("value",content.shipping_name);
+	       			var div1 = $("<input onBlur='updateShippingName()'></input>").addClass("am-input-sm").attr("type","text").attr("id","doc-ipt-email-1").attr("value",content.shipping_name);
 	       			$("#div1").append(div1);
-	       			var div2 = $("<input></input>").addClass("am-input-sm").attr("type","text").attr("id","doc-ipt-pwd-1").attr("value",content.shipping_code);
+	       			var div2 = $("<input onBlur='updateShippingCode()'></input>").addClass("am-input-sm").attr("type","text").attr("id","doc-ipt-pwd-1").attr("value",content.shipping_code);
 	       			$("#div2").append(div2);
 	       			var div3 = $("<input></input>").addClass("am-input-sm").attr("type","text").attr("id","doc-ipt-pwd-2").attr("value",content.receiver_state);
 	       			$("#div3").append(div3);
@@ -182,6 +182,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	return tmp;
     }
      
+    function updateShippingName(){
+    	var order_id = showTableContent("orderlist");
+    	var shipping_name=document.getElementById("doc-ipt-email-1").value;
+    	$.ajax({
+            type:"POST",
+            url:"${pageContext.request.contextPath }/order/updateOrderShippingNameInfo.action?order_id="+order_id,
+            data:"shipping_name="+shipping_name,
+            dataType:"json",
+    	});
+    }
+    
+    function updateShippingCode(){
+    	var order_id = showTableContent("orderlist");
+    	var shipping_code=document.getElementById("doc-ipt-pwd-1").value;
+    	$.ajax({
+            type:"POST",
+            url:"${pageContext.request.contextPath }/order/updateOrderShippingCodeInfo.action?order_id="+order_id,
+            data:"shipping_code="+shipping_code,
+            dataType:"json",
+    	});
+    }
+    
      function setpage(allpage,nowpage){
 	     var i=2;
 	     var page_id="AllPage"+1;

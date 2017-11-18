@@ -112,8 +112,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where o.order_id=${order_id}
 </select>
 
-<!-- <update id="updateOrderShippingNameInfo" parameterType="StatusKeywords">
-	update order set shipping_name = #{shipping_name}
+<update id="updateOrderShippingNameInfo" parameterType="StatusKeywords">
+	update `order` set shipping_name = #{shipping_name}
 	where order_id = ${order_id}
-</update> -->
+</update> 
+
+<update id="updateOrderShippingCodeInfo" parameterType="StatusKeywords">
+	update `order` set shipping_code = #{shipping_code}
+	where order_id = ${order_id}
+</update> 
 </mapper>

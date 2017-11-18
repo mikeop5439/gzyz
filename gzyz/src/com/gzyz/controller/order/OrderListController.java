@@ -19,6 +19,7 @@ import com.gzyz.bean.order.extend.OrderInfo;
 import com.gzyz.bean.order.extend.OrderKeywords;
 import com.gzyz.bean.order.extend.OrderQuery;
 import com.gzyz.bean.order.extend.OrderVo;
+import com.gzyz.bean.order.extend.StatusKeywords;
 import com.gzyz.service.order.service.OrderListService;
 import com.gzyz.service.order.serviceImpl.OrderListServiceImpl;
 
@@ -90,5 +91,29 @@ public class OrderListController {
 		order_id = Integer.parseInt(param);
 		List<OrderInfo> orderInfos = orderListService.queryOrderReceiverInfo(order_id);
 		return orderInfos;
+	}
+	
+	@RequestMapping("updateOrderShippingNameInfo")
+	public @ResponseBody void updateOrderShippingNameInfo(int order_id,String shipping_name) throws UnsupportedEncodingException{
+		//request.setCharacterEncoding("UTF-8");
+		String param = shipping_name;
+		StatusKeywords statusKeywords = new StatusKeywords();
+		
+		statusKeywords.setOrder_id(order_id);
+		statusKeywords.setShipping_name(param);
+		
+		orderListService.updateOrderShippingNameInfo(statusKeywords);
+	}
+	
+	@RequestMapping("updateOrderShippingCodeInfo")
+	public @ResponseBody void updateOrderShippingCodeInfo(int order_id,String shipping_code) throws UnsupportedEncodingException{
+		//request.setCharacterEncoding("UTF-8");
+		String param = shipping_code;
+		StatusKeywords statusKeywords = new StatusKeywords();
+		
+		statusKeywords.setOrder_id(order_id);
+		statusKeywords.setShipping_code(param);
+		
+		orderListService.updateOrderShippingCodeInfo(statusKeywords);
 	}
 }
