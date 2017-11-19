@@ -391,8 +391,8 @@ function ConvertJSONDateToJSDate(jsondate) {
             </tbody>
           </table>
           
-          <ul id="pageUl"class="am-pagination am-fr">
-                <li><a href="http//www.baidu.com">«</a></li>
+          <ul id="pageUl" class="am-pagination am-fr">
+                <li><a href="">«</a></li>
                 <li class="am-active"><a href="#" onclick="javascript:qureyAllGoodLimt(1)">1</a></li>
                 <li><a id="tri" href="#" onclick="javascript:qureyAllGoodLimt(2)">2</a></li>
                 <li><a id="tri" onclick="javascript:qureyAllGoodLimt(3)">3</a></li>

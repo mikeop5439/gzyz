@@ -112,8 +112,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			
 		<div class="w3l_search"  >
-			<form action="#" method="post">
-				<input type="search" name="Search" placeholder="搜索商品..." required="">
+			<form action="${pageContext.request.contextPath}/rpsearch/searchgoods.action" method="post">
+				<input type="search" name="keywords" placeholder="搜索商品..." required="">
 				<button type="submit" class="btn btn-default search" aria-label="Left Align">
 					<i class="fa fa-search" aria-hidden="true"> </i>
 				</button>

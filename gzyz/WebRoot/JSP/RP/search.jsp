@@ -35,6 +35,114 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 		<script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/personal/js/jquery.min.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/personal/js/script.js"></script>
+		<script type="text/javascript">
+		window.onload =function setSpage(){
+	     var i=2;
+	     var page_id="AllPage"+1;
+	     $("#pageUl").empty();
+	     $("#pageUl").append("<li><a href='javascript:searchGoodsLimt(1)'>«</a></li>");
+	     $("#pageUl").append("<li class='am-active'><a href='javascript:searchGoodsLimt(1)'>1</a></li>");
+	      for(i;i<=${result.allpage};i++){
+	      page_id="AllPage";
+	      page_id=page_id+i;
+	      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:searchGoodsLimt("+i+")'>"+i+"</a></li>");
+	     } 
+	     $("#pageUl").append("<li><a href='javascript:searchGoodsLimt("+${result.allpage}+")'>»</a></li>");
+	     
+	     };
+	     
+	     function setpagedate(allpage,nowpage){
+	     var i=2;
+	     var page_id="AllPage"+1;
+	     $("#pageUl").empty();
+	     $("#pageUl").append("<li><a href='javascript:searchGoodsLimt(1)'>«</a></li>");
+	     $("#pageUl").append("<li id='"+page_id+"' class='am-active'><a href='javascript:searchGoodsLimt(1)'>1</a></li>");
+	     for(i;i<=allpage;i++){
+	      page_id="AllPage";
+	      page_id=page_id+i;
+	      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:searchGoodsLimt("+i+")'>"+i+"</a></li>");
+	     }
+	     $("#pageUl").append("<li><a onclick='javascript:searchGoodsLimt("+allpage+")'>»</a></li>");
+	     page_id="AllPage"+nowpage;
+	     var id="#"+page_id;
+	     $("ul.am-pagination li").removeClass("am-active");
+	     $(id).addClass("am-active");
+	     };
+	     
+	     function setpagebrand(allpage,nowpage,brand_name){
+	     var i=2;
+	     var page_id="AllPage"+1;
+	     $("#pageUl").empty();
+	     $("#pageUl").append("<li><a href='javascript:searchGoodsBrand(1,"+brand_name+")'>«</a></li>");
+	     $("#pageUl").append("<li id='"+page_id+"' class='am-active'><a href='javascript:searchGoodsBrand(1,"+brand_name+")'>1</a></li>");
+	     for(i;i<=allpage;i++){
+	      page_id="AllPage";
+	      page_id=page_id+i;
+	      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:searchGoodsBrand(1,"+brand_name+")'>"+i+"</a></li>");
+	     }
+	     $("#pageUl").append("<li><a onclick='javascript:searchGoodsBrand(1,"+brand_name+")'>»</a></li>");
+	     page_id="AllPage"+nowpage;
+	     var id="#"+page_id;
+	     $("ul.am-pagination li").removeClass("am-active");
+	     $(id).addClass("am-active");
+	     };
+	     function searchGoodsLimt(nowpage){
+	     var keywords = $("#stringofkeyword").text();
+	     var count=$("#stringofcount").text()
+	     var params = '{"keywords":"'+keywords+'","count":"'+count+'"}';
+	     $.ajax({  
+	           type:"POST",  
+	           url:"${pageContext.request.contextPath }/rpsearch/asearchgoods.action?nowpage="+nowpage, 
+		       contentType:'application/json;charset=utf-8',
+		       dataType:"json",
+		       data:params,
+			   success:function(data){
+			   setpagedate(data.allpage,nowpage);
+			   $("#searchGoodsUl").empty();
+			   $.each(data.goods,function(index,content){
+			   var li=$("<li></li>");
+			   var div=$("<div></div>").addClass("i-pic limit");
+			   var img=$("<img></img>").attr("weidth","200px").attr("height","280px").attr("src","${pageContext.request.contextPath }/"+content.original_img);
+			   var p1=$("<p></p>").addClass("title fl").append(content.goods_name);
+			   var p2=$("<p></p>").addClass("price fl").append($("<b></b>").append("¥")).append($("<strong></strong>").append(content.shop_price));
+			   var p3=$("<p></p>").addClass("number fl").append("销量").append($("<span></span>").append(content.sales));
+			   div.append(img).append(p1).append(p2).append(p3);
+			   $("#searchGoodsUl").append(li.append(div));
+			   });
+			  } 
+			  	   
+	       });  
+     };
+     function searchGoodsBrand(nowpage,brand_name){
+	     var keywords = $("#stringofkeyword").text();
+	     var count=$("#stringofcount").text();
+	     var brandname=brand_name;
+	     var params = '{"keywords":"'+keywords+'","count":"'+count+'","brand_name":"'+brandname+'"}';
+	     $.ajax({  
+	           type:"POST",  
+	           url:"${pageContext.request.contextPath }/rpsearch/asearchgoodsbrand.action?nowpage="+nowpage, 
+		       contentType:'application/json;charset=utf-8',
+		       dataType:"json",
+		       data:params,
+			   success:function(data){
+			   setpagebrand(data.allpage,nowpage,brand_name);
+			   initli();
+			   $("#searchGoodsUl").empty();
+			   $.each(data.goods,function(index,content){
+			   var li=$("<li></li>");
+			   var div=$("<div></div>").addClass("i-pic limit");
+			   var img=$("<img></img>").attr("weidth","200px").attr("height","280px").attr("src","${pageContext.request.contextPath }/"+content.original_img);
+			   var p1=$("<p></p>").addClass("title fl").append(content.goods_name);
+			   var p2=$("<p></p>").addClass("price fl").append($("<b></b>").append("¥")).append($("<strong></strong>").append(content.shop_price));
+			   var p3=$("<p></p>").addClass("number fl").append("销量").append($("<span></span>").append(content.sales));
+			   div.append(img).append(p1).append(p2).append(p3);
+			   $("#searchGoodsUl").append(li.append(div));
+			   }); 
+			  } 
+			  	   
+	       });  
+     };
+		</script>
 	</head>
 
 	<body>
@@ -110,8 +218,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</div>
 							<ul class="select">
 								<p class="title font-normal">
-									<span class="fl">手机</span>
-									<span class="total fl">搜索到<strong class="num">997</strong>件相关商品</span>
+									<span id= "stringofkeyword"class="fl">${result.keywords}</span>
+									<span class="total fl">搜索到<strong id="stringofcount"  class="num">${result.count}</strong>件相关商品</span>
 								</p>
 								<div class="clear"></div>
 								<li class="select-result">
@@ -126,13 +234,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<dl id="select1">
 										<dt class="am-badge am-round">品牌</dt>	
 									
-										 <div class="dd-conent">										
-											<dd class="select-all selected"><a href="#">全部</a></dd>
-											<dd><a href="#">三星</a></dd>
-											<dd><a href="#">华为</a></dd>
-											<dd><a href="#">诺基亚</a></dd>
-											<dd><a href="#">锤子</a></dd>
-											
+										 <div id="brandDd"class="dd-conent">										
+											<dd class="select-all selected"><a href="#" onclick="javascript:searchGoodsLimt(1)">全部</a></dd>
+											<c:forEach items="${result.brand}" var="brands">
+											<dd><a href="#" onclick="javascript:searchGoodsBrand(1,'${brands.brand_name}')">${brands.brand_name}</a></dd>
+							                </c:forEach> 
 										 </div>
 						
 									</dl>
@@ -145,135 +251,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
 							<div class="am-u-sm-12 am-u-md-12 ">
 								<div class="sort">
-									<li class="first"><a title="综合">综合排序</a></li>
-									<li><a title="销量">销量排序</a></li>
-									<li><a title="价格">价格优先</a></li>
-									
+									<li class="liofchlik first thisinit"><a title="综合" href="#">综合排序</a></li>
+									<li class="liofchlik" ><a title="销量" href="#">销量排序</a></li>
+									<li class="liofchlik" ><a title="价格" href="#">价格优先</a></li>
 								</div>
 								<div class="clear"></div>
 
-								<ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes">
-									<li>
-										<div class="i-pic limit">
-											<img src="images/5.jpg" />											
-											<p class="title fl">【孝和】老年三星时尚手机</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									<li>
-										<div class="i-pic limit">
-											
-											<img src="images/2.jpg" />
-											<p class="title fl">【孝和】老年三星时尚手机</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									<li>
-										<div class="i-pic limit">
-											
-											<img src="images/3.jpg" />
-											<p class="title fl">【孝和】老年三星时尚手机</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									<li>
-										<div class="i-pic limit">
-											
-											<img src="images/4.jpg" />
-											<p class="title fl">【孝和】老年三星时尚手机</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									
-									
-								<li>
-										<div class="i-pic limit">
-											<img src="images/5.jpg" />											
-											<p class="title fl">【孝和】老年三星时尚手机</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									<li>
-										<div class="i-pic limit">
-											
-											<img src="images/2.jpg" />
-											<p class="title fl">【孝和】老年三星时尚手机</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									<li>
-										<div class="i-pic limit">
-											
-											<img src="images/3.jpg" />
-											<p class="title fl">【孝和】老年三星时尚手机</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									<li>
-										<div class="i-pic limit">
-											
-											<img src="images/4.jpg" />
-											<p class="title fl">【孝和】老年三星时尚手机</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									
-								
-								
-								</ul>
+								<ul id="searchGoodsUl" class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes">
+							     <c:forEach items="${result.goods}" var="good">
+							         <li>
+											<div class="i-pic limit">
+												<img src="${pageContext.request.contextPath }${good.original_img}" weidth="200px" height="280px"/>											
+												<p class="title fl">${good.goods_name}</p>
+												<p class="price fl">
+													<b>¥</b>
+													<strong>${good.shop_price}</strong>
+												</p>
+												<p class="number fl">
+													销量<span>${good.sales}</span>
+												</p>
+											</div>
+										</li>    
+							     </c:forEach> 
+							 </ul>
 							</div>
 							
 							<div class="clear"></div>
 							<!--分页 -->
-							<ul class="am-pagination am-pagination-centered">
+							<ul id="pageUl" class="am-pagination am-pagination-centered">
 								<li class="am-disabled"><a href="#">&laquo;</a></li>
 								<li class="am-active"><a href="#">1</a></li>
 								<li><a href="#">2</a></li>
@@ -303,13 +308,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</ul>
 				</div>
 				<div class="payment-w3ls">	
-					<img src="images/card.png" alt=" " class="img-responsive">
+					<img src="${pageContext.request.contextPath }/JSP/RP/images/card.png" alt=" " class="img-responsive">
 				</div>
 				<div class="clearfix"> </div>
 			</div>
 		</div>
 <!-- //footer -->	
-
+<script type="text/javascript">
+$("li.liofchlik").click(function(){
+    $("li.liofchlik").removeClass("first");
+	$(this).addClass("first");
+})
+function initli(){
+    $("li.liofchlik").removeClass("first");
+	$("li.thisinit").addClass("first");
+}
+</script>
 
 		
 		

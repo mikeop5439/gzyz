@@ -109,7 +109,7 @@ public class GoodsListController {
 		}
 		 goodsListService.updateTheGood(goods);
 		 System.out.println(goods);
-		 return "forward:/good/queryAllGoods.action";
+		 return "forward:/good/squreyGoodsLimit.action?nowpage=1";
 	}
 	//删除商品
 	@RequestMapping("deleteTheGood.action")

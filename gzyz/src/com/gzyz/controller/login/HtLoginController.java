@@ -61,7 +61,7 @@ public class HtLoginController {
 		if(htLoginService.queryTodayIncome(dateQuery)==null){
 			todayIncome=0;
 		}else{
-			todayIncome=Integer.parseInt(htLoginService.queryTodayIncome(dateQuery));
+			todayIncome=Double.valueOf(htLoginService.queryTodayIncome(dateQuery));
 		}
 		//商品数量
 		int numberOfGoods=htLoginService.queryNumOfGoods();

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.gzyz.bean.rpsearch.searchextend.*;
 import com.gzyz.bean.analysis.extend.DateTraffice;
 import com.gzyz.bean.analysis.extend.GoodsNameAndSalesCount;
 import com.gzyz.bean.goods.Goods;
@@ -25,31 +26,20 @@ import com.gzyz.service.analysis.service.DateTrafficAnalysisService;
 import com.gzyz.service.goods.service.GoodsListService;
 import com.gzyz.service.login.service.HtLoginService;
 import com.gzyz.service.order.service.OrderInvoiceAndSwapService;
+import com.gzyz.service.rpsearch.service.SearchService;
 import com.gzyz.service.users.service.ManagerListService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:com/config/applicationContext.xml"})
 public class GoodListTest {
 	@Autowired
-	private GoodsListService goodsListService;
-	@Autowired
-	private ManagerListService managerListService;
-	@Autowired
-	private OrderInvoiceAndSwapService orderInvoiceAndSwapService;
-	@Autowired
-	private DateTrafficAnalysisService dateTrafficAnalysisService;
-	@Autowired
 	private HtLoginService htLoginService;
+	@Autowired
+	private SearchService searchService;
 	@Test
 	public void test1(){
-		/*List<OrderAndUserAndOrderDetails> orderAndUserAndOrderDetails=orderInvoiceAndSwapService.queryTheOrder();
-		System.out.println("aaaaaaaaaaaaaaa"+orderAndUserAndOrderDetails);*/
-		double totalIncome=0;
-		if(htLoginService.queryTotalIncome()==null){
-			totalIncome=0;
-		}else{
-			totalIncome=Double.valueOf(htLoginService.queryTotalIncome());
-		}
-		System.out.println(totalIncome);
+		SearchAndIndex searchAndIndex=new SearchAndIndex();
+		searchAndIndex.setKeywords("脑白金");
+		System.out.println(searchService.brandOfTheSearch(searchAndIndex));
 	}
 }
