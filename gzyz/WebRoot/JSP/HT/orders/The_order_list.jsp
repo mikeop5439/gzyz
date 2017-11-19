@@ -121,9 +121,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       		$.each(data,function(index,content){
 	       			var tr1 = $("<td></td>").append(content.receiver_id);
 	       			$("#tr1").append(tr1);
-	       			var div1 = $("<input onBlur='updateShippingName()'></input>").addClass("am-input-sm").attr("type","text").attr("id","doc-ipt-email-1").attr("value",content.shipping_name);
+	       			var div1 = $("<input></input>").addClass("am-input-sm").attr("type","text").attr("id","doc-ipt-email-1").attr("value",content.shipping_name);
 	       			$("#div1").append(div1);
-	       			var div2 = $("<input onBlur='updateShippingCode()'></input>").addClass("am-input-sm").attr("type","text").attr("id","doc-ipt-pwd-1").attr("value",content.shipping_code);
+	       			var div2 = $("<input></input>").addClass("am-input-sm").attr("type","text").attr("id","doc-ipt-pwd-1").attr("value",content.shipping_code);
 	       			$("#div2").append(div2);
 	       			var div3 = $("<input></input>").addClass("am-input-sm").attr("type","text").attr("id","doc-ipt-pwd-2").attr("value",content.receiver_state);
 	       			$("#div3").append(div3);
@@ -202,6 +202,61 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             data:"shipping_code="+shipping_code,
             dataType:"json",
     	});
+    }
+    
+    function updateReceiverState(){
+    	var receiver_id = showTableContent("receiver");
+    	var receiver_state=document.getElementById("doc-ipt-pwd-2").value;
+    	$.ajax({
+            type:"POST",
+            url:"${pageContext.request.contextPath }/order/updateReceiverStateInfo.action?receiver_id="+receiver_id,
+            data:"receiver_state="+receiver_state,
+            dataType:"json",
+    	});
+    }
+    
+    function updateReceiverCity(){
+    	var receiver_id = showTableContent("receiver");
+    	var receiver_city=document.getElementById("doc-ipt-pwd-3").value;
+    	$.ajax({
+            type:"POST",
+            url:"${pageContext.request.contextPath }/order/updateReceiverCityInfo.action?receiver_id="+receiver_id,
+            data:"receiver_city="+receiver_city,
+            dataType:"json",
+    	});
+    }
+    
+    function updateReceiverDistrict(){
+    	var receiver_id = showTableContent("receiver");
+    	var receiver_district=document.getElementById("doc-ipt-pwd-4").value;
+    	$.ajax({
+            type:"POST",
+            url:"${pageContext.request.contextPath }/order/updateReceiverDistrictInfo.action?receiver_id="+receiver_id,
+            data:"receiver_district="+receiver_district,
+            dataType:"json",
+    	});
+    }
+    
+    function updateReceiverAddress(){
+    	var receiver_id = showTableContent("receiver");
+    	var receiver_address=document.getElementById("doc-ipt-pwd-5").value;
+    	$.ajax({
+            type:"POST",
+            url:"${pageContext.request.contextPath }/order/updateReceiverAddressInfo.action?receiver_id="+receiver_id,
+            data:"receiver_address="+receiver_address,
+            dataType:"json",
+    	});
+    }
+    
+    function okTheInfo(){
+    	updateShippingName();
+    	updateShippingCode();
+    	updateReceiverState();
+    	updateReceiverCity();
+    	updateReceiverDistrict();
+    	updateReceiverAddress();
+    	sub(1);
+    	alert("修改成功");
     }
     
      function setpage(allpage,nowpage){
@@ -421,7 +476,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           			<th>收货信息编号</th>
           		</tr>
           	</thead>
-          	<tbody>
+          	<tbody id="receiver">
           		<tr id="tr1">
           			<td>*</td>
           		</tr>
@@ -487,8 +542,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-form-group am-cf">
               <div class="you">
                 <p>
-                  <input type="button" class="am-btn am-btn-success am-radius" value="确认" onclick="javascript:sub(1)"/>
-                  <button type="submit" class="am-btn am-btn-success am-radius" onclick="javascript:sub(1)">提交</button>
+                  <input type="button" class="am-btn am-btn-success am-radius" value="确认" onclick="okTheInfo()"></input>
                 </p>
               </div>
             </div>

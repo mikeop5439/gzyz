@@ -121,4 +121,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update `order` set shipping_code = #{shipping_code}
 	where order_id = ${order_id}
 </update> 
+
+<update id="updateReceiverStateInfo" parameterType="StatusKeywords">
+	update `receiver` set receiver_state = #{receiver_state}
+	where receiver_id = ${receiver_id}
+</update>
+
+<update id="updateReceiverCityInfo" parameterType="StatusKeywords">
+	update `receiver` set receiver_city = #{receiver_city}
+	where receiver_id = ${receiver_id}
+</update>
+
+<update id="updateReceiverDistrictInfo" parameterType="StatusKeywords">
+	update `receiver` set receiver_district = #{receiver_district}
+	where receiver_id = ${receiver_id}
+</update>
+
+<update id="updateReceiverAddressInfo" parameterType="StatusKeywords">
+	update `receiver` set receiver_address = #{receiver_address}
+	where receiver_id = ${receiver_id}
+</update>
 </mapper>

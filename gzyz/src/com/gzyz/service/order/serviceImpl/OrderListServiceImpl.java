@@ -58,4 +58,24 @@ public class OrderListServiceImpl implements OrderListService {
 	public void updateOrderShippingCodeInfo(StatusKeywords statusKeywords) {
 		orderListMapper.updateOrderShippingCodeInfo(statusKeywords);
 	}
+
+	@Override
+	public void updateReceiverStateInfo(StatusKeywords statusKeywords) {
+		orderListMapper.updateReceiverStateInfo(statusKeywords);	
+	}
+
+	@Override
+	public void updateReceiverCityInfo(StatusKeywords statusKeywords) {
+		orderListMapper.updateReceiverCityInfo(statusKeywords);
+	}
+
+	@Override
+	public void updateReceiverDistrictInfo(StatusKeywords statusKeywords) {
+		orderListMapper.updateReceiverDistrictInfo(statusKeywords);
+	}
+
+	@Override
+	public void updateReceiverAddressInfo(StatusKeywords statusKeywords) {
+		orderListMapper.updateReceiverAddressInfo(statusKeywords);
+	}
 }

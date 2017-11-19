@@ -96,11 +96,10 @@ public class OrderListController {
 	@RequestMapping("updateOrderShippingNameInfo")
 	public @ResponseBody void updateOrderShippingNameInfo(int order_id,String shipping_name) throws UnsupportedEncodingException{
 		//request.setCharacterEncoding("UTF-8");
-		String param = shipping_name;
 		StatusKeywords statusKeywords = new StatusKeywords();
 		
 		statusKeywords.setOrder_id(order_id);
-		statusKeywords.setShipping_name(param);
+		statusKeywords.setShipping_name(shipping_name);
 		
 		orderListService.updateOrderShippingNameInfo(statusKeywords);
 	}
@@ -108,12 +107,55 @@ public class OrderListController {
 	@RequestMapping("updateOrderShippingCodeInfo")
 	public @ResponseBody void updateOrderShippingCodeInfo(int order_id,String shipping_code) throws UnsupportedEncodingException{
 		//request.setCharacterEncoding("UTF-8");
-		String param = shipping_code;
 		StatusKeywords statusKeywords = new StatusKeywords();
 		
 		statusKeywords.setOrder_id(order_id);
-		statusKeywords.setShipping_code(param);
+		statusKeywords.setShipping_code(shipping_code);
 		
 		orderListService.updateOrderShippingCodeInfo(statusKeywords);
+	}
+	
+	@RequestMapping("updateReceiverStateInfo")
+	public @ResponseBody void updateReceiverStateInfo(int receiver_id,String receiver_state) throws UnsupportedEncodingException{
+		//request.setCharacterEncoding("UTF-8");
+		StatusKeywords statusKeywords = new StatusKeywords();
+		
+		statusKeywords.setReceiver_id(receiver_id);
+		statusKeywords.setReceiver_state(receiver_state);
+		
+		orderListService.updateReceiverStateInfo(statusKeywords);
+	}
+	
+	@RequestMapping("updateReceiverCityInfo")
+	public @ResponseBody void updateReceiverCityInfo(int receiver_id,String receiver_city) throws UnsupportedEncodingException{
+		//request.setCharacterEncoding("UTF-8");
+		StatusKeywords statusKeywords = new StatusKeywords();
+		
+		statusKeywords.setReceiver_id(receiver_id);
+		statusKeywords.setReceiver_city(receiver_city);
+		
+		orderListService.updateReceiverCityInfo(statusKeywords);
+	}
+	
+	@RequestMapping("updateReceiverDistrictInfo")
+	public @ResponseBody void updateReceiverDistrictInfo(int receiver_id,String receiver_district) throws UnsupportedEncodingException{
+		//request.setCharacterEncoding("UTF-8");
+		StatusKeywords statusKeywords = new StatusKeywords();
+		
+		statusKeywords.setReceiver_id(receiver_id);
+		statusKeywords.setReceiver_district(receiver_district);
+		
+		orderListService.updateReceiverDistrictInfo(statusKeywords);
+	}
+	
+	@RequestMapping("updateReceiverAddressInfo")
+	public @ResponseBody void updateReceiverAddressInfo(int receiver_id,String receiver_address) throws UnsupportedEncodingException{
+		//request.setCharacterEncoding("UTF-8");
+		StatusKeywords statusKeywords = new StatusKeywords();
+		
+		statusKeywords.setReceiver_id(receiver_id);
+		statusKeywords.setReceiver_address(receiver_address);
+		
+		orderListService.updateReceiverAddressInfo(statusKeywords);
 	}
 }
