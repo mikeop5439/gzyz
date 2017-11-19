@@ -75,7 +75,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		limit #{nowpage},5
 	</select>
 	
+	<update id="updateCommentStatusToTrue" parameterType="int">
+		update `comment` set status = 1
+		where comment_id = ${comment_id}
+	</update>
+	
 	<update id="updateCommentStatusToFalse" parameterType="int">
-		update comment set status=0 where comment_id=#{comment_id}
+		update `comment` set status = 0
+		where comment_id = ${comment_id}
 	</update>
 </mapper>

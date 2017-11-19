@@ -13,5 +13,7 @@ public interface GoodsCommentMapper {
 	public List<CommentVo> queryCommentByLimit(CommentPageKeywords commentPageKeywords);
 	public int queryAllCommentCounts(@Param("goods_name") String goods_name);
 	/*修改评论状态*/
+	
+	public void updateCommentStatusToTrue(@Param("comment_id")int comment_id);
 	public void updateCommentStatusToFalse(@Param("comment_id")int comment_id);
 }

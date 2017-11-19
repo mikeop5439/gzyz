@@ -43,6 +43,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      	});
      } */
      
+     /** 
+      * 遍历表格内容返回数组
+      * @param  Int   id 表格id
+      * @return Array
+      */
+       function getTableContent(id){
+         var mytable = document.getElementById(id);
+         var data = [];
+         for(var i=0,rows=mytable.rows.length; i<rows; i++){
+             for(var j=0,cells=mytable.rows[i].cells.length; j<cells; j++){
+                 if(!data[i]){
+                     data[i] = new Array();
+                 }
+                 data[i][j] = mytable.rows[i].cells[j].innerHTML;
+             }
+         }
+         return data;
+     }
+     
+     /** 
+      * 显示表格内容
+      * @param  Int   id 表格id
+      */
+     function showTableContent(id){
+         var data = getTableContent(id);
+         var tmp = null;
+         /* var tmp = '';
+         for(i=0,rows=data.length; i<rows; i++){
+             for(j=0,cells=data[i].length; j<cells; j++){
+                 tmp += data[i][j] + ',';
+             }
+             tmp += '<br>';
+         } */
+         tmp = data[0][0];
+         //document.getElementById('result').innerHTML = tmp;
+     	return tmp;
+     }
+     
      function sub(nowpage){
      var findtext=$("#findtextid").val();
        $.ajax({
@@ -77,10 +115,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       			var td7=$("<td></td>").append(content.formatDateString).addClass("am-hide-sm-only");
 	       			var td8=$("<td></td>").attr("id",showid).append(i);
 	       			var a1=$("<a></a>").addClass("am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-check am-text-warning")
-	       			.attr("data-am-modal","{target: '#my-popups'}").attr("title","显示").attr("herf","#");
+	       			.attr("title","显示").attr("herf","#").attr("onclick","updateCommentStatusToTrue()");
 	       			var span1=$("<span></span>").addClass("am-icon-close am-text-primary");
 	       			var a2=$("<a ></a>").append(span1).addClass("am-btn am-btn-default am-btn-xs am-text-secondary am-round")
-	       			.attr("data-am-modal","{target: '#my-popups'}").attr("title","不显示").attr("herf","#");
+	       			.attr("title","不显示").attr("herf","#").attr("onclick","updateCommentStatusToFalse()");
 	       			var td9=$("<td></td>").append($("<div></div>").addClass("am-btn-toolbar").append($("<div></div>").addClass("am-btn-group am-btn-group-xs").append(a1).append(a2)));
 	       			$("#commentlist").append($("<tr></tr>").append(td0).append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(td8).append(td9));
 	       			//$("#commentlist").append("<tr><td class='am-text-center'>"+content.goods_id+"</td><td>"+content.goods_name+"</td><td>"+content.user_id+"</td><td class='am-hide-sm-only'>"+content.user_name+"</td><td>"+content.content+"</td><td>"+content.comment_rank+"</td><td>"+content.formatDateString+"</td><td class='am-hide-sm-only'>"+content.status+"</td><td><div class='am-btn-toolbar'><div class='am-btn-group am-btn-group-xs'><a href='#' class='am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-check am-text-warning' data-am-modal='{target: '#my-popups'''}' title='显示'></a><button class='am-btn am-btn-default am-btn-xs am-text-secondary am-round' data-am-modal='{target: '#my-popups'}' title='不显示'><a herf='#'><span class='am-icon-close am-text-primary></span></a></button></div></div></td></tr>");
@@ -120,6 +158,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	     $(id).addClass("am-active");
 	     //$(id).tri("click");
 	     };
+	 
+	     function updateCommentStatusToTrue(){
+	     	var comment_id = showTableContent("commentlist");
+	     	$.ajax({
+	             type:"POST",
+	             url:"${pageContext.request.contextPath }/comment/updateCommentStatusToTrue.action",
+	             data:"comment_id="+comment_id,
+	             dataType:"json",
+	     	});
+	     }     
+	     
+	     function updateCommentStatusToFalse(){
+		     	var comment_id = showTableContent("commentlist");
+		     	$.ajax({
+		             type:"POST",
+		             url:"${pageContext.request.contextPath }/comment/updateCommentStatusToFalse.action",
+		             data:"comment_id="+comment_id,
+		             dataType:"json",
+		     	});
+		     }     
 	     
 	function keyOnClick(e){
     var theEvent = window.event || e;

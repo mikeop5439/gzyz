@@ -24,6 +24,7 @@ import com.github.pagehelper.PageInfo;
 import com.gzyz.bean.comment.extend.CommentPageKeywords;
 import com.gzyz.bean.comment.extend.CommentQuery;
 import com.gzyz.bean.comment.extend.CommentVo;
+import com.gzyz.bean.order.extend.StatusKeywords;
 import com.gzyz.service.comment.service.GoodsCommentService;
 
 
@@ -93,5 +94,19 @@ public class GoodsCommentController {
 			model.addAttribute("commentlist",page );
 			return "/JSP/HT/goods/The_good_comment_list.jsp";
 		}*/
+	}
+	
+	@RequestMapping("updateCommentStatusToTrue")
+	public @ResponseBody void updateCommentStatusToTrue(String comment_id) throws UnsupportedEncodingException{
+		//request.setCharacterEncoding("UTF-8");
+		int param = Integer.parseInt(comment_id);
+		goodsCommentService.updateCommentStatusToTrue(param);
+	}
+	
+	@RequestMapping("updateCommentStatusToFalse")
+	public @ResponseBody void updateCommentStatusToFalse(String comment_id) throws UnsupportedEncodingException{
+		//request.setCharacterEncoding("UTF-8");
+		int param = Integer.parseInt(comment_id);
+		goodsCommentService.updateCommentStatusToFalse(param);
 	}
 }

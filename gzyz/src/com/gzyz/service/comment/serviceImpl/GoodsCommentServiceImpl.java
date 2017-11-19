@@ -41,33 +41,14 @@ public class GoodsCommentServiceImpl implements GoodsCommentService {
 	}
 
 	@Override
-	public void updateCommentStatusToFlase(int comment_id) {
-		goodsCommentMapper.updateCommentStatusToFalse(comment_id);		
-	}
-
-
-	/*@Override
-	public List<CommentVo> queryCommentList(String goods_name) {
-		// TODO Auto-generated method stub
-		
-		return goodsCommentMapper.queryCommentList(goods_name);
-	}
-
-	public List<CommentVo> queryCommentByLimit(
-			CommentPageKeywords commentPageKeywords) {
-		// TODO Auto-generated method stub
-		return goodsCommentMapper.queryCommentByLimit(commentPageKeywords);
-	}
-	
-	public int queryAllCommentCounts(String goods_name) {
-		// TODO Auto-generated method stub
-		return goodsCommentMapper.queryAllCommentCounts(goods_name);
+	public void updateCommentStatusToTrue(int comment_id) {
+		goodsCommentMapper.updateCommentStatusToTrue(comment_id);
 	}
 
 	@Override
-	public void updateCommentStatusToFlase(int comment_id) {
-		// TODO Auto-generated method stub
+	public void updateCommentStatusToFalse(int comment_id) {
 		goodsCommentMapper.updateCommentStatusToFalse(comment_id);
-	}*/
+	}
+
 
 }
