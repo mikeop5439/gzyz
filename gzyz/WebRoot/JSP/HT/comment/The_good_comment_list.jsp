@@ -115,10 +115,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       			var td7=$("<td></td>").append(content.formatDateString).addClass("am-hide-sm-only");
 	       			var td8=$("<td></td>").attr("id",showid).append(i);
 	       			var a1=$("<a></a>").addClass("am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-check am-text-warning")
-	       			.attr("title","显示").attr("herf","#").attr("onclick","ToTrue("+content.comment_id+")");
+	       			.attr("title","显示").attr("herf","#").attr("onclick","ToTrue("+content.comment_id+","+nowpage+")");
 	       			var span1=$("<span></span>").addClass("am-icon-close am-text-primary");
 	       			var a2=$("<a ></a>").append(span1).addClass("am-btn am-btn-default am-btn-xs am-text-secondary am-round")
-	       			.attr("title","不显示").attr("herf","#").attr("onclick","ToFalse("+content.comment_id+")");
+	       			.attr("title","不显示").attr("herf","#").attr("onclick","ToFalse("+content.comment_id+","+nowpage+")");
 	       			var td9=$("<td></td>").append($("<div></div>").addClass("am-btn-toolbar").append($("<div></div>").addClass("am-btn-group am-btn-group-xs").append(a1).append(a2)));
 	       			$("#commentlist").append($("<tr></tr>").append(td0).append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(td8).append(td9));
 	       			//$("#commentlist").append("<tr><td class='am-text-center'>"+content.goods_id+"</td><td>"+content.goods_name+"</td><td>"+content.user_id+"</td><td class='am-hide-sm-only'>"+content.user_name+"</td><td>"+content.content+"</td><td>"+content.comment_rank+"</td><td>"+content.formatDateString+"</td><td class='am-hide-sm-only'>"+content.status+"</td><td><div class='am-btn-toolbar'><div class='am-btn-group am-btn-group-xs'><a href='#' class='am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-check am-text-warning' data-am-modal='{target: '#my-popups'''}' title='显示'></a><button class='am-btn am-btn-default am-btn-xs am-text-secondary am-round' data-am-modal='{target: '#my-popups'}' title='不显示'><a herf='#'><span class='am-icon-close am-text-primary></span></a></button></div></div></td></tr>");
@@ -170,9 +170,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	     	});
 	     }     
 	     
-	     function ToTrue(id){
+	     function ToTrue(id,nowpage){
 	    	 updateCommentStatusToTrue(id);
-	    	 sub(1);
+	    	 sub(nowpage);
 	     }
 	     
 	     function updateCommentStatusToFalse(id){
@@ -186,9 +186,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		     	});
 		     }     
 	     
-	     function ToFalse(id){
+	     function ToFalse(id,nowpage){
 	    	 updateCommentStatusToFalse(id);
-	    	 sub(1);
+	    	 sub(nowpage);
 	     }
 	     
 	function keyOnClick(e){
@@ -556,9 +556,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               
               <td><div class="am-btn-toolbar">
                   <div class="am-btn-group am-btn-group-xs">
-                  <a href="#" class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-check am-text-warning" data-am-modal="{target: '#my-popups'}" title="显示">
+                  <a href="#" class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-check am-text-warning" title="显示" onclick="ToTrue(${commentvo.comment_id },${commentlist.pageNum})">
                   </a>
-                  <a herf="#" class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" data-am-modal="{target: '#my-popups'}" title="不显示">
+                  <a herf="#" class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" title="不显示" onclick="ToFalse(${commentvo.comment_id },${commentlist.pageNum})">
                   	   <span class="am-icon-close am-text-primary" >
                  	   </span>
                   </a>
@@ -574,7 +574,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <ul id="pageUl" class="am-pagination am-fr">
         
         <c:if test="${commentlist.hasPreviousPage }">
-        	<li><a href="?pn=${commentlist.pageNum-1 }"><<</a></li>
+        	<li><a href="?pn=${commentlist.pageNum-1 }">«</a></li>
         </c:if>
         
         	<c:forEach items="${commentlist.navigatepageNums }" var="page_Num">
@@ -587,7 +587,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	</c:forEach>
         	
          <c:if test="${commentlist.hasNextPage }">
-        	<li><a href="?pn=${commentlist.pageNum+1 }">>></a></li>
+        	<li><a href="?pn=${commentlist.pageNum+1 }">»</a></li>
          </c:if>
         </ul>
         <hr />
