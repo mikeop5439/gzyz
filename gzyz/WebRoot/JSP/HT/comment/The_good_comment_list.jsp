@@ -556,9 +556,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               
               <td><div class="am-btn-toolbar">
                   <div class="am-btn-group am-btn-group-xs">
-                  <a href="#" class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-check am-text-warning" data-am-modal="{target: '#my-popups'}" title="显示">
+                  <a href="#" class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-check am-text-warning" title="显示" onclick="ToTrue(${commentvo.comment_id },${commentlist.pageNum})">
                   </a>
-                  <a herf="#" class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" data-am-modal="{target: '#my-popups'}" title="不显示">
+                  <a herf="#" class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" title="不显示" onclick="ToFalse(${commentvo.comment_id },${commentlist.pageNum})">
                   	   <span class="am-icon-close am-text-primary" >
                  	   </span>
                   </a>
@@ -574,7 +574,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <ul id="pageUl" class="am-pagination am-fr">
         
         <c:if test="${commentlist.hasPreviousPage }">
-        	<li><a href="?pn=${commentlist.pageNum-1 }"><<</a></li>
+        	<li><a href="?pn=${commentlist.pageNum-1 }">«</a></li>
         </c:if>
         
         	<c:forEach items="${commentlist.navigatepageNums }" var="page_Num">
@@ -587,7 +587,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	</c:forEach>
         	
          <c:if test="${commentlist.hasNextPage }">
-        	<li><a href="?pn=${commentlist.pageNum+1 }">>></a></li>
+        	<li><a href="?pn=${commentlist.pageNum+1 }">»</a></li>
          </c:if>
         </ul>
         <hr />
