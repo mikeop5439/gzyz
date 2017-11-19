@@ -115,10 +115,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       			var td7=$("<td></td>").append(content.formatDateString).addClass("am-hide-sm-only");
 	       			var td8=$("<td></td>").attr("id",showid).append(i);
 	       			var a1=$("<a></a>").addClass("am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-check am-text-warning")
-	       			.attr("title","显示").attr("herf","#").attr("onclick","updateCommentStatusToTrue("+content.comment_id+")");
+	       			.attr("title","显示").attr("herf","#").attr("onclick","ToTrue("+content.comment_id+")");
 	       			var span1=$("<span></span>").addClass("am-icon-close am-text-primary");
 	       			var a2=$("<a ></a>").append(span1).addClass("am-btn am-btn-default am-btn-xs am-text-secondary am-round")
-	       			.attr("title","不显示").attr("herf","#").attr("onclick","updateCommentStatusToFalse("+content.comment_id+")");
+	       			.attr("title","不显示").attr("herf","#").attr("onclick","ToFalse("+content.comment_id+")");
 	       			var td9=$("<td></td>").append($("<div></div>").addClass("am-btn-toolbar").append($("<div></div>").addClass("am-btn-group am-btn-group-xs").append(a1).append(a2)));
 	       			$("#commentlist").append($("<tr></tr>").append(td0).append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(td8).append(td9));
 	       			//$("#commentlist").append("<tr><td class='am-text-center'>"+content.goods_id+"</td><td>"+content.goods_name+"</td><td>"+content.user_id+"</td><td class='am-hide-sm-only'>"+content.user_name+"</td><td>"+content.content+"</td><td>"+content.comment_rank+"</td><td>"+content.formatDateString+"</td><td class='am-hide-sm-only'>"+content.status+"</td><td><div class='am-btn-toolbar'><div class='am-btn-group am-btn-group-xs'><a href='#' class='am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-check am-text-warning' data-am-modal='{target: '#my-popups'''}' title='显示'></a><button class='am-btn am-btn-default am-btn-xs am-text-secondary am-round' data-am-modal='{target: '#my-popups'}' title='不显示'><a herf='#'><span class='am-icon-close am-text-primary></span></a></button></div></div></td></tr>");
@@ -170,6 +170,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	     	});
 	     }     
 	     
+	     function ToTrue(id){
+	    	 updateCommentStatusToTrue(id);
+	    	 sub(1);
+	     }
+	     
 	     function updateCommentStatusToFalse(id){
 		     	//var comment_id = showTableContent("commentlist");
 		     	var comment_id = id;
@@ -180,6 +185,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		             dataType:"json",
 		     	});
 		     }     
+	     
+	     function ToFalse(id){
+	    	 updateCommentStatusToFalse(id);
+	    	 sub(1);
+	     }
 	     
 	function keyOnClick(e){
     var theEvent = window.event || e;
