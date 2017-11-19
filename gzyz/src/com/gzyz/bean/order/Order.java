@@ -17,7 +17,14 @@ public class Order {
 	private String shipping_code;
 	private String order_remark;
 	private String user_name;
+	private int goods_id;
 	
+	public int getGoods_id() {
+		return goods_id;
+	}
+	public void setGoods_id(int goods_id) {
+		this.goods_id = goods_id;
+	}
 	public int getOrder_id() {
 		return order_id;
 	}

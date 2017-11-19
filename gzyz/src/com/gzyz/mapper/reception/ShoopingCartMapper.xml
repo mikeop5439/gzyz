@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 这个文件中编写sql语句 -->
+<!-- xml 可以作为配置文件。 -->
+<mapper namespace="com.gzyz.mapper.reception.ShoopingCartMapper">
+	
+	<!--resultMap  -->
+	<resultMap  type="Usercart" id="UserCarMapper">
+		<id column="user_id" property="user_id"/>
+		<result column="user_name" property="user_name"/>
+		<collection property="cartextend" ofType="cartextend">
+				<id column="rec_id" property="rec_id"/>
+				<result column="goods_number" property="goods_number"/>
+				<association property="goods" javaType="goods">
+					<result column="goods_id" property="goods_id"/>
+					<result column="goods_name" property="goods_name"/>
+					<result column="goods_price" property="goods_price"/>
+					<result column="goods_sn" property="goods_sn"/>
+					<result column="original_img" property="original_img"/>
+					<result column="goods_brief" property="goods_brief"/>
+					<result column="shop_price" property="shop_price"/>
+					<result column="original_price" property="original_price"/>
+				</association>
+		</collection>
+	</resultMap>
+	
+	<!-- //查询购物车 -->
+	<select id="selectcart" resultMap="UserCarMapper" parameterType="int">
+		select c.rec_id rec_id,u.user_id user_id,u.user_name user_name,g.goods_id goods_id,g.goods_sn goods_sn,g.original_img original_img,g.goods_name goods_name,g.goods_brief goods_brief,g.original_price original_price,g.shop_price shop_price,c.goods_number goods_number
+		from cart c 
+		JOIN user u 
+		on c.user_id=u.user_id 
+		LEFT JOIN goods g
+		on c.goods_id=g.goods_id
+		where u.user_id= #{page}
+	</select>
+	
+	<!-- //修改购物车商品数量 -->
+	<update id="updatecartgoodsnumber" parameterType="cartextend">
+		update  cart set goods_number=#{goods_number} 
+		where user_id=#{user_id} and goods_id=#{goods_id}
+	</update>
+	
+	<!--删除购物车商品  -->
+	<delete id="deletecartByidone" parameterType="cartextend">
+		delete from cart where user_id=#{user_id} and goods_id=#{goods_id}
+	</delete>
+	
+	<select id="selectcartNP" resultType="cartextend" parameterType="cartextend">
+		select * from cart where user_id=#{user_id} and goods_id=#{goods_id}
+	</select> 
+	
+	<select id="selectgoods" resultType="goods" parameterType="int">
+		select * from goods where goods_id=#{goods_id}
+	</select>
+	<select id="selectuserreceiver" resultType="Receiver" parameterType="int">
+			select * from receiver where user_id=#{user_id}
+	</select>
+	<update id="updatemorenaddress" parameterType="User">
+		update  user set receiver_id=#{receiver_id} 
+		where user_id=#{user_id}
+	</update>
+	<select id="selectuserrs" resultType="User" parameterType="int">
+		select * from user where user_id=#{id}
+	</select>
+	<insert id="insertorser" parameterType="order">
+		INSERT INTO `order` ( `user_id`, `receiver_id`, `order_time`,  `goods_id`)
+		VALUES (#{user_id},#{receiver_id},#{order_time},#{goods_id});
+	</insert>
+	<select id="selectorderid" resultType="int" parameterType="order">
+		select order_id from `order` where user_id=#{user_id} and goods_id=#{goods_id}
+	</select>
+	<insert id="insertorderdetails" parameterType="order_details">
+		INSERT INTO `order_details` ( `order_id`, `goods_id`, `quantity`, `shop_price`, `goods_name`, `total_fee`, `original_img`) 
+		VALUES ( #{order_id}, #{goods_id}, #{quantity}, #{shop_price}, #{goods_name}, #{total_fee}, #{original_img});
+	</insert>
+</mapper>	
