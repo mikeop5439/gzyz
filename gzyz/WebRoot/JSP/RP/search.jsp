@@ -151,6 +151,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	       });  
      };
 		</script>
+		<script type="text/javascript">
+		window.onload=function(){
+		if("${sessionScope.loginuser.user_name}"==""){
+		$("#aofalogin").css("display","inline");
+		$("#aofblogin").css("display","inline");
+		}else{
+		$("#imgoflogin").css("display","inline");
+		$("#aoflogin").css("display","inline");
+		}
+		}; 
+		</script>
+		<style>
+		.agileits_header img{
+		border-radius:50%;
+		width:40px;
+	    height:40px;
+	    margin-left:30px;
+	    display:none;
+		}
+		</style>
 	</head>
 
 	<body>
@@ -162,9 +182,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<a href="index.html" ><i class="fa fa-home fa-2x" style="color: #FFFFFF;"></i></a>
 			
 			
-			<a href="login.html" style="color: #FCFCFC;margin-left: 20px;">登录</a>
+			<img id="imgoflogin" src="${pageContext.request.contextPath }\upload\goodsimg\2.jpg" >
+			
+			<a id="aoflogin" href="#" style="color: #FCFCFC;margin-left: 20px; display:none;">欢迎，${sessionScope.loginuser.user_name}</a>
+			
+			<a id="aofalogin" href="login.html" style="color: #FCFCFC;margin-left: 20px; display:none;">登录</a>
 		
-			<a href="registered.html" style="color: #FCFCFC;margin-left: 20px;">注册</a>
+			<a id="aofblogin" href="registered.html" style="color: #FCFCFC;margin-left: 20px; display:none;">注册</a>
 		
 			</div>
 			<div class="w3l_search" style="margin-top: 5px;">
