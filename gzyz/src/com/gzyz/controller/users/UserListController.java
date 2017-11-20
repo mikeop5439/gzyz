@@ -1,7 +1,6 @@
 package com.gzyz.controller.users;
 
 import java.text.SimpleDateFormat;
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,13 +9,11 @@ import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gzyz.bean.goods.extend.GoodsCollect;
-
+import com.gzyz.bean.users.User;
 import com.gzyz.bean.users.extend.UserCart;
 import com.gzyz.bean.users.extend.UserCollect;
 import com.gzyz.bean.users.extend.UserReceiver;
@@ -383,7 +380,87 @@ public class UserListController {
 							
 						return result;
 						}	
+		//用户登录
+		@RequestMapping("queryuserLogin")
+		public String queryuserLogin(HttpServletRequest request,
+				HttpServletResponse response,
+				User user,String user_name,
+				String user_password,
+				String userCode
+				){
+			System.out.println("23");			
+			
+			HttpSession session = request.getSession();
+			
+			user_name = request.getParameter("username");
+			user_password = request.getParameter("userpass");
+			userCode = request.getParameter("userCode"); // 获取验证码文本
+			
+			String verificationCode = (String) session.getAttribute("yanzhengma_InSession");
+			session.removeAttribute("yanzhengma_InSession");
+			 
+			if(user_name == null || user_name == ""){
+				
+				System.out.println("用户名为空！");
+				session.setAttribute("loginError", "用户名不能为空！");
+				return "redirect:/JSP/RP/login.jsp";
+				
+			}
+			
+			user.setUser_name(user_name);
+			User user2 = userListService.userLogin(user);
+			System.out.println("23");
+			
+			
+			
+			if(user2 == null){	
+				System.out.println("用户不存在！");
+				session.setAttribute("loginError", "用户名错误！");
+				return "redirect:/JSP/RP/login.jsp";
+				
+			}else{
+				if(user_password == "" || user_password == null ){ 
+					System.out.println("密码为空！！");
+					session.setAttribute("loginError", "密码不能为空！");
+					return "redirect:/JSP/RP/login.jsp";
+				}else{
+					if(user2.getUser_password().equals(user_password)){
+						if(userCode == null || userCode == ""){
+							System.out.println("验证码为空！！"); 
+							session.setAttribute("loginError", "验证码不能为空！");
+							return "redirect:/JSP/RP/login.jsp";
+						}else{
+							if(userCode.equals(verificationCode)){
+								System.out.println("登录成功！");
+								session.setAttribute("loginuser", user2);
+								String st2 = session.getId();
+								System.out.println(st2);
+								return "redirect:/JSP/RP/index.jsp";					
+							}else{
+								session.setAttribute("loginError", "验证码错误");
+								return "redirect:/JSP/RP/login.jsp";
+							}
+						}
+					}else{
+						session.setAttribute("loginError", "密码错误！");
+						return "redirect:/JSP/RP/login.jsp";
+					}
+				}
+			}
+			
+		}
 		
+		
+		//用户退出登录
+		@RequestMapping("queryuserLoginExit")
+		public String queryuserLoginExit(HttpSession session)throws Exception{
+			System.out.println("23");	
+			
+			session.invalidate();
+			String st1 = session.getId();
+			System.out.println(st1);
+			return "redirect:/JSP/RP/index.jsp";
+		}
 		
 		
 }

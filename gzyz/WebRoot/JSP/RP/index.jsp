@@ -77,8 +77,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<ul>
 					<li id="zhuce" ><a href="register.jsp"> 注册</a></li>
 					<li id="denglv" ><a href="login.jsp">登录</a></li>
-			        <li id="person1" ><a href="address.html">个人中心</a></li>
+			        <li id="person1" ><a href="address.html">个人中心</a></li>			        
 					<li><a href="like.html">收藏夹</a></li>
+					<c:if test="${sessionScope.loginuser.user_name!=null}">
+						<li><a href="#">当前用户：${sessionScope.loginuser.user_name}</a></li>
+						<li><a href="${pageContext.request.contextPath }/userlist/queryuserLoginExit.action">退出登陆</a></li>				
+                   	</c:if>
 					<li><a href="contact.html">联系我们</a></li> 
 					
 				</ul>
