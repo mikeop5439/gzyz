@@ -45,4 +45,32 @@ public class SearchServiceImpl implements SearchService {
 		// TODO Auto-generated method stub
 		return searchMapper.searchGoodsByBrandCount(searchAndIndexAndBrand);
 	}
+
+	@Override
+	public List<GoodsAndSales> searchGoodsBySales(SearchAndIndex searchAndIndex) {
+		// TODO Auto-generated method stub
+		return searchMapper.searchGoodsBySales(searchAndIndex);
+	}
+
+	@Override
+	public List<GoodsAndSales> searchGoodsByPrice(SearchAndIndex searchAndIndex) {
+		// TODO Auto-generated method stub
+		return searchMapper.searchGoodsByPrice(searchAndIndex);
+	}
+
+	@Override
+	public List<GoodsAndSales> searchGoodsByBrandBySales(
+			SearchAndIndexAndBrand searchAndIndexAndBrand) {
+		// TODO Auto-generated method stub
+		return searchMapper.searchGoodsByBrandBySales(searchAndIndexAndBrand);
+	}
+
+	@Override
+	public List<GoodsAndSales> searchGoodsByBrandByPrice(
+			SearchAndIndexAndBrand searchAndIndexAndBrand) {
+		// TODO Auto-generated method stub
+		return searchMapper.searchGoodsByBrandByPrice(searchAndIndexAndBrand);
+	}
+
+
 }

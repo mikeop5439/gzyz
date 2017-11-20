@@ -98,7 +98,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		       data:params,
 			   success:function(data){
 			   setpagedate(data.allpage,nowpage);
+			   initli();
 			   $("#searchGoodsUl").empty();
+			   $("#aofzh").attr("onclick","javascript:searchGoodsLimt(1)");
+			   $("#aofxl").attr("onclick","javascript:searchGoodsLimtBySales(1)");
+			   $("#aofjg").attr("onclick","javascript:searchGoodsLimtByPrice(1)");
 			   $.each(data.goods,function(index,content){
 			   var li=$("<li></li>");
 			   var div=$("<div></div>").addClass("i-pic limit");
@@ -113,6 +117,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			  	   
 	       });  
      };
+     
      function searchGoodsBrand(nowpage,brand_name){
 	     var keywords = $("#stringofkeyword").text();
 	     var count=$("#stringofcount").text();
@@ -127,6 +132,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			   success:function(data){
 			   setpagebrand(data.allpage,nowpage,brand_name);
 			   initli();
+			   $("#aofzh").attr("onclick","javascript:searchGoodsBrand(1,'"+brand_name+"')");
+			   $("#aofxl").attr("onclick","javascript:searchGoodsBrandBySales(1,'"+brand_name+"')");
+			   $("#aofjg").attr("onclick","javascript:searchGoodsBrandByPrice(1,'"+brand_name+"')");
 			   $("#searchGoodsUl").empty();
 			   $.each(data.goods,function(index,content){
 			   var li=$("<li></li>");
@@ -251,9 +259,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
 							<div class="am-u-sm-12 am-u-md-12 ">
 								<div class="sort">
-									<li class="liofchlik first thisinit"><a title="综合" href="#">综合排序</a></li>
-									<li class="liofchlik" ><a title="销量" href="#">销量排序</a></li>
-									<li class="liofchlik" ><a title="价格" href="#">价格优先</a></li>
+									<li id="aofzh" class="liofchlik first thisinit" onclick="javascript:searchGoodsLimt(1)" style="cursor:pointer;">综合排序</li>
+									<li id="aofxl" class="liofchlik" onclick="javascript:searchGoodsLimtBySales(1)" style="cursor:pointer;">销量排序</li>
+									<li id="aofjg" class="liofchlik" onclick="javascript:searchGoodsLimtByPrice(1)" style="cursor:pointer;">低价优先</li>
 								</div>
 								<div class="clear"></div>
 
@@ -324,10 +332,200 @@ function initli(){
 	$("li.thisinit").addClass("first");
 }
 </script>
-
-		
-		
-		
+<!-- 销量排序 -->
+<script type="text/javascript">
+function setpagedateBySales(allpage,nowpage){
+	     var i=2;
+	     var page_id="AllPage"+1;
+	     $("#pageUl").empty();
+	     $("#pageUl").append("<li><a href='javascript:searchGoodsLimtBySales(1)'>«</a></li>");
+	     $("#pageUl").append("<li id='"+page_id+"' class='am-active'><a href='javascript:searchGoodsLimtBySales(1)'>1</a></li>");
+	     for(i;i<=allpage;i++){
+	      page_id="AllPage";
+	      page_id=page_id+i;
+	      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:searchGoodsLimtBySales("+i+")'>"+i+"</a></li>");
+	     }
+	     $("#pageUl").append("<li><a onclick='javascript:searchGoodsLimtBySales("+allpage+")'>»</a></li>");
+	     page_id="AllPage"+nowpage;
+	     var id="#"+page_id;
+	     $("ul.am-pagination li").removeClass("am-active");
+	     $(id).addClass("am-active");
+	     };
+	     
+function searchGoodsLimtBySales(nowpage){
+	     var keywords = $("#stringofkeyword").text();
+	     var count=$("#stringofcount").text()
+	     var params = '{"keywords":"'+keywords+'","count":"'+count+'"}';
+	     $.ajax({  
+	           type:"POST",  
+	           url:"${pageContext.request.contextPath }/rpsearch/asearchgoodsbysales.action?nowpage="+nowpage, 
+		       contentType:'application/json;charset=utf-8',
+		       dataType:"json",
+		       data:params,
+			   success:function(data){
+			   setpagedateBySales(data.allpage,nowpage);
+			   $("#searchGoodsUl").empty();
+			   $.each(data.goods,function(index,content){
+			   var li=$("<li></li>");
+			   var div=$("<div></div>").addClass("i-pic limit");
+			   var img=$("<img></img>").attr("weidth","200px").attr("height","280px").attr("src","${pageContext.request.contextPath }/"+content.original_img);
+			   var p1=$("<p></p>").addClass("title fl").append(content.goods_name);
+			   var p2=$("<p></p>").addClass("price fl").append($("<b></b>").append("¥")).append($("<strong></strong>").append(content.shop_price));
+			   var p3=$("<p></p>").addClass("number fl").append("销量").append($("<span></span>").append(content.sales));
+			   div.append(img).append(p1).append(p2).append(p3);
+			   $("#searchGoodsUl").append(li.append(div));
+			   });
+			  } 
+			  	   
+	       });  
+     };
+</script>
+<!-- 价格排序 -->
+<script type="text/javascript">
+function setpagedateByPrice(allpage,nowpage){
+	     var i=2;
+	     var page_id="AllPage"+1;
+	     $("#pageUl").empty();
+	     $("#pageUl").append("<li><a href='javascript:searchGoodsLimtByPrice(1)'>«</a></li>");
+	     $("#pageUl").append("<li id='"+page_id+"' class='am-active'><a href='javascript:searchGoodsLimtByPrice(1)'>1</a></li>");
+	     for(i;i<=allpage;i++){
+	      page_id="AllPage";
+	      page_id=page_id+i;
+	      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:searchGoodsLimtByPrice("+i+")'>"+i+"</a></li>");
+	     }
+	     $("#pageUl").append("<li><a onclick='javascript:searchGoodsLimtByPrice("+allpage+")'>»</a></li>");
+	     page_id="AllPage"+nowpage;
+	     var id="#"+page_id;
+	     $("ul.am-pagination li").removeClass("am-active");
+	     $(id).addClass("am-active");
+	     };
+	     
+function searchGoodsLimtByPrice(nowpage){
+	     var keywords = $("#stringofkeyword").text();
+	     var count=$("#stringofcount").text()
+	     var params = '{"keywords":"'+keywords+'","count":"'+count+'"}';
+	     $.ajax({  
+	           type:"POST",  
+	           url:"${pageContext.request.contextPath }/rpsearch/asearchgoodsbyprice.action?nowpage="+nowpage, 
+		       contentType:'application/json;charset=utf-8',
+		       dataType:"json",
+		       data:params,
+			   success:function(data){
+			   setpagedateByPrice(data.allpage,nowpage);
+			   $("#searchGoodsUl").empty();
+			   $.each(data.goods,function(index,content){
+			   var li=$("<li></li>");
+			   var div=$("<div></div>").addClass("i-pic limit");
+			   var img=$("<img></img>").attr("weidth","200px").attr("height","280px").attr("src","${pageContext.request.contextPath }/"+content.original_img);
+			   var p1=$("<p></p>").addClass("title fl").append(content.goods_name);
+			   var p2=$("<p></p>").addClass("price fl").append($("<b></b>").append("¥")).append($("<strong></strong>").append(content.shop_price));
+			   var p3=$("<p></p>").addClass("number fl").append("销量").append($("<span></span>").append(content.sales));
+			   div.append(img).append(p1).append(p2).append(p3);
+			   $("#searchGoodsUl").append(li.append(div));
+			   });
+			  } 
+			  	   
+	       });  
+     };
+</script>		
+<!-- 指定品牌销量排序 -->
+<script type="text/javascript">
+function setpagebrandBySales(allpage,nowpage,brand_name){
+	     var i=2;
+	     var page_id="AllPage"+1;
+	     $("#pageUl").empty();
+	     $("#pageUl").append("<li><a href='javascript:searchGoodsBrandBySales(1,"+brand_name+")'>«</a></li>");
+	     $("#pageUl").append("<li id='"+page_id+"' class='am-active'><a href='javascript:searchGoodsBrandBySales(1,"+brand_name+")'>1</a></li>");
+	     for(i;i<=allpage;i++){
+	      page_id="AllPage";
+	      page_id=page_id+i;
+	      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:searchGoodsBrandBySales(1,"+brand_name+")'>"+i+"</a></li>");
+	     }
+	     $("#pageUl").append("<li><a onclick='javascript:searchGoodsBrandBySales(1,"+brand_name+")'>»</a></li>");
+	     page_id="AllPage"+nowpage;
+	     var id="#"+page_id;
+	     $("ul.am-pagination li").removeClass("am-active");
+	     $(id).addClass("am-active");
+	     };
+	     
+function searchGoodsBrandBySales(nowpage,brand_name){
+	     var keywords = $("#stringofkeyword").text();
+	     var count=$("#stringofcount").text();
+	     var brandname=brand_name;
+	     var params = '{"keywords":"'+keywords+'","count":"'+count+'","brand_name":"'+brandname+'"}';
+	     $.ajax({  
+	           type:"POST",  
+	           url:"${pageContext.request.contextPath }/rpsearch/asearchgoodsbrandbysales.action?nowpage="+nowpage, 
+		       contentType:'application/json;charset=utf-8',
+		       dataType:"json",
+		       data:params,
+			   success:function(data){
+			   setpagebrandBySales(data.allpage,nowpage,brand_name);
+			   $("#searchGoodsUl").empty();
+			   $.each(data.goods,function(index,content){
+			   var li=$("<li></li>");
+			   var div=$("<div></div>").addClass("i-pic limit");
+			   var img=$("<img></img>").attr("weidth","200px").attr("height","280px").attr("src","${pageContext.request.contextPath }/"+content.original_img);
+			   var p1=$("<p></p>").addClass("title fl").append(content.goods_name);
+			   var p2=$("<p></p>").addClass("price fl").append($("<b></b>").append("¥")).append($("<strong></strong>").append(content.shop_price));
+			   var p3=$("<p></p>").addClass("number fl").append("销量").append($("<span></span>").append(content.sales));
+			   div.append(img).append(p1).append(p2).append(p3);
+			   $("#searchGoodsUl").append(li.append(div));
+			   }); 
+			  } 
+			  	   
+	       });  
+     };
+</script>		
+<!-- 指定品牌价格排序 -->
+<script type="text/javascript">
+function setpagebrandByPrice(allpage,nowpage,brand_name){
+	     var i=2;
+	     var page_id="AllPage"+1;
+	     $("#pageUl").empty();
+	     $("#pageUl").append("<li><a href='javascript:searchGoodsBrandByPrice(1,"+brand_name+")'>«</a></li>");
+	     $("#pageUl").append("<li id='"+page_id+"' class='am-active'><a href='javascript:searchGoodsBrandByPrice(1,"+brand_name+")'>1</a></li>");
+	     for(i;i<=allpage;i++){
+	      page_id="AllPage";
+	      page_id=page_id+i;
+	      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:searchGoodsBrandByPrice(1,"+brand_name+")'>"+i+"</a></li>");
+	     }
+	     $("#pageUl").append("<li><a onclick='javascript:searchGoodsBrandByPrice(1,"+brand_name+")'>»</a></li>");
+	     page_id="AllPage"+nowpage;
+	     var id="#"+page_id;
+	     $("ul.am-pagination li").removeClass("am-active");
+	     $(id).addClass("am-active");
+	     };
+	     
+function searchGoodsBrandByPrice(nowpage,brand_name){
+	     var keywords = $("#stringofkeyword").text();
+	     var count=$("#stringofcount").text();
+	     var brandname=brand_name;
+	     var params = '{"keywords":"'+keywords+'","count":"'+count+'","brand_name":"'+brandname+'"}';
+	     $.ajax({  
+	           type:"POST",  
+	           url:"${pageContext.request.contextPath }/rpsearch/asearchgoodsbrandbyprice.action?nowpage="+nowpage, 
+		       contentType:'application/json;charset=utf-8',
+		       dataType:"json",
+		       data:params,
+			   success:function(data){
+			   setpagebrandByPrice(data.allpage,nowpage,brand_name);
+			   $("#searchGoodsUl").empty();
+			   $.each(data.goods,function(index,content){
+			   var li=$("<li></li>");
+			   var div=$("<div></div>").addClass("i-pic limit");
+			   var img=$("<img></img>").attr("weidth","200px").attr("height","280px").attr("src","${pageContext.request.contextPath }/"+content.original_img);
+			   var p1=$("<p></p>").addClass("title fl").append(content.goods_name);
+			   var p2=$("<p></p>").addClass("price fl").append($("<b></b>").append("¥")).append($("<strong></strong>").append(content.shop_price));
+			   var p3=$("<p></p>").addClass("number fl").append("销量").append($("<span></span>").append(content.sales));
+			   div.append(img).append(p1).append(p2).append(p3);
+			   $("#searchGoodsUl").append(li.append(div));
+			   }); 
+			  } 
+			  	   
+	       });  
+     };
+</script>				
 
 
 

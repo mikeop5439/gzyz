@@ -50,9 +50,9 @@ function updategood(id){
 			   $("#original_price").val(data.original_price);
 			   $("#shop_price").val(data.shop_price);
 			   $("#keywords").val(data.keywords);
-			   $("#original_img").val(data.original_img);
 			   $("#goods_brief").val(data.goods_brief);
 			   $("#goods_desc").val(data.goods_desc);
+			   $("#imgofgood").attr("src","${pageContext.request.contextPath}"+data.original_img+"");
 			   /* 设置显示状态和上架状态的标识 */
 			  if(data.show_in_recyc==1){
 			     $("#onshow").attr("checked","checked");
@@ -426,7 +426,7 @@ function updategood(id){
             class="am-close">&times;</span> </div>
       <div class="am-popup-bd">
       
-        <form class="am-form tjlanmu" action="${pageContext.request.contextPath }/good/updateTheGood.action" method="POST" enctype="multipart/form-data">
+        <form id="thisform" class="am-form tjlanmu" action="${pageContext.request.contextPath }/good/updateTheGood.action?flage=1" method="POST" enctype="multipart/form-data">
           <div class="am-form-group am-cf">
          <div class="zuo"><input id="goods_id" type="hidden" name="goods_id" value="${TheGoods.goods_id }"></div>
          <div class="zuo"><input id="cat_id" type="hidden" name="cat_id" value="${TheGoods.cat_id }"></div>
@@ -504,7 +504,7 @@ function updategood(id){
           </div>
           <div class="am-form-group am-cf">
             <div class="zuo">图片：</div>
-            <img src="${pageContext.request.contextPath }" width=80px height=100px/>
+            <img id="imgofgood" src="${pageContext.request.contextPath }" width=80px height=100px/>
             <div class="you" style="height: 45px;">
               <input id="goodphoto" type="file" id="doc-ipt-file-1" name="goodphoto">
               <p class="am-form-help">请选择要上传的文件...</p>
@@ -516,10 +516,10 @@ function updategood(id){
             <div class="zuo">显示状态：</div>
             <div class="you" style="margin-top: 3px;">
               <label class="am-checkbox-inline">
-                <input id="onshow" type="radio" value="1" name="show_in_recyc" >
+              <input id="undershow" type="radio" value="0" name="show_in_recyc" >  
                 显示 </label>
               <label class="am-checkbox-inline">
-                <input id="undershow" type="radio" value="0" name="show_in_recyc" >
+              <input id="onshow" type="radio" value="1" name="show_in_recyc" >
                 隐藏 </label>
             </div>
           </div>
@@ -542,7 +542,7 @@ function updategood(id){
           <div class="am-form-group am-cf">
             <div class="you">
               <p>
-                <button type="submit" class="am-btn am-btn-success am-radius">提交</button>
+                <button type="submit" class="am-btn am-btn-success am-radius" onclick="javascript:isNull()">提交</button>
               </p>
             </div>
           </div>
@@ -724,7 +724,15 @@ function selectNull(){
     });  
 }  
 </script>   
-
+<script type="text/javascript">
+function isNull(){
+if($("#goodphoto").val()==""){
+$("#thisform").attr("action","${pageContext.request.contextPath }/good/updateTheGood.action?flage=0");
+}else{
+$("#thisform").attr("action","${pageContext.request.contextPath }/good/updateTheGood.action?flage=1");
+}
+}
+</script>
 
 </body>
 </html>

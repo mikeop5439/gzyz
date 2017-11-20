@@ -32,9 +32,6 @@ import com.gzyz.service.goods.service.GoodsListService;
 
 @Controller
 @RequestMapping("good")
-//JUnite4.Test测试备注
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:com/config/applicationContext.xml"})
 public class GoodsListController {
 	@Autowired
 	private GoodsListService goodsListService;
@@ -86,8 +83,8 @@ public class GoodsListController {
 	}
 	//修改商品信息
 	@RequestMapping("updateTheGood.action")
-	public String updateTheGood(Goods goods,MultipartFile goodphoto,HttpSession session) throws IllegalStateException, IOException{
-		if(goodphoto != null && goodphoto.getOriginalFilename()!=null){
+	public String updateTheGood(Goods goods,MultipartFile goodphoto,HttpSession session,int flage) throws IllegalStateException, IOException{
+		if(flage==1){
 			//在这里进行文件保存操作
 			//传进去的是一个路径，返回的也是一个路径
 			String path = session.getServletContext().getRealPath("/upload/goodsimg");
@@ -101,7 +98,6 @@ public class GoodsListController {
 			String saveFilePath = File.separator+"upload"+File.separator+"goodsimg"+File.separator+realName;
 			
 			File file = new File(realFilePath);
-			
 			goodphoto.transferTo(file);
 			
 			
