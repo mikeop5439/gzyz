@@ -41,4 +41,7 @@ public interface UserListMapper {
 		public List<UserReceiver> selectreceiverByid(String sogo);
 
 		public List<UserCart> selectcartSn(String sogo);
+		
+		//用户登录
+		public User userLogin(User user);
 }

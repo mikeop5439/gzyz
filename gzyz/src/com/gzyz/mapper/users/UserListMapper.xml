@@ -174,4 +174,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where u.user_id like '%${value}%' or u.user_name like '%${value}%' 
  		ORDER BY u.user_id
 	</select>
+	<select id="userLogin" parameterType="com.gzyz.bean.users.User" resultType="com.gzyz.bean.users.User">
+		select * 
+		from 
+		user
+		<where>
+			<include refid="query_user_where"></include>
+		</where>		
+	</select>
+	<sql id="query_user_where">
+		<if test="user_name!=null and user_name!=''">
+			and user_name = #{user_name}
+		</if>
+		<if test="user_password!=null and user_password!=''">
+			and user_password = #{user_password}
+		</if>
+	</sql>
 </mapper>	

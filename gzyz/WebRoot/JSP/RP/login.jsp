@@ -34,6 +34,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
 	});
+	
+	/*	刷新验证码	*/
+	function change_yanzhengma() 
+	{
+		document.getElementById("yanzhengma_img").src = "yanzhengma.jsp?" + new Date().getTime();
+	}
 </script>
 <!-- start-smoth-scrolling -->
 <style>
@@ -63,7 +69,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 		
 			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
-				<form action="#"  data-animate-effect="fadeInLeft" method="post" onSubmit="return checkForm()">
+				<form action="${pageContext.request.contextPath }/userlist/queryuserLogin.action"  data-animate-effect="fadeInLeft" method="post" onSubmit="return checkForm()">
 					<center><h3 >登录</h3></center>	
 			   <br>
 			   <br>
@@ -74,9 +80,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				    <input id="userPasword" name="userpass" type="password" placeholder="密码"   class="input_outer" onBlur="checkPassword()" oninput="checkPassword()">
 				   <br>
 				   <span class="default" id="passwordErr" ></span>
-					<input id="usercode" type="code" placeholder="图片验证码"  class="input_outer" style="margin-top: 18px;"  class="txtSearch" onBlur="checkImg()" oninput="checkImg()" >
-					<img src="images/0.png" width="70" height="37"  class="btnSearch" >
+					<input id="usercode" name="userCode" type="code" placeholder="图片验证码"  class="input_outer" style="margin-top: 18px;width: 200px;"  class="txtSearch" onBlur="checkImg()" oninput="checkImg()" >
+					<!-- <img src="images/0.png" width="70" height="37"  class="btnSearch" > -->
+					<img alt="点击刷新" src="yanzhengma.jsp" border="0" id="yanzhengma_img" onClick="change_yanzhengma();" />
 					 <br>
+						 <font color="red">
+							${sessionScope.loginError } <%session.removeAttribute("loginError"); %>
+						 </font>
 					 <br>
 				   <span class="default" id="imageErr" ></span>
 					<div class="forgot">
@@ -154,7 +164,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   function checkUserName(){ 
   var username = document.getElementById('userName'); 
   var errname = document.getElementById('nameErr'); 
-  var pattern = /^\w{4,8}$/;  //用户名格式正则表达式：用户名要至少三位 
+  /* var pattern = /^\w{4,8}$/; */  //用户名格式正则表达式：用户名要至少三位 
+  var pattern = /^{2,8}$/;
   if(username.value.length == 0){ 
     errname.innerHTML="用户名不能为空"
     errname.className="error"

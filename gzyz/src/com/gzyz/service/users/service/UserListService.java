@@ -27,4 +27,5 @@ public interface UserListService {
 	public List<UserReceiver> queryReceiversToMh(String sogo);
 	public List<UserReceiver> queryReceiversByid(String sogo);
 	public List<UserCart> queryCartSn(String sogo);
+	public User userLogin(User user);//用户登录
 }

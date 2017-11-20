@@ -255,5 +255,9 @@ public class UserListServiceImpl implements UserListService {
 		
 		return userListMapper.selectreceiverByid(sogo);
 	}
-	
+	@Override
+	public User userLogin(User user) {
+		// 用户登录
+		return userListMapper.userLogin(user);
+	}
 }
