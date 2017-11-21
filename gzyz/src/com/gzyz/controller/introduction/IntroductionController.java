@@ -24,7 +24,7 @@ public class IntroductionController {
 	public String itemsIntroduction(Model model) {
 		
 		//int param = Integer.parseInt(goods_id);
-		
+		int a = 0;
 		List<Integer> getSpecIds = new ArrayList<Integer>();
 		List<String> getSpecNames = new ArrayList<String>();
 		List<String> getSpecInfoValues = new ArrayList<String>();
