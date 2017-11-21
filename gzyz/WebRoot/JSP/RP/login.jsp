@@ -82,7 +82,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				   <span class="default" id="passwordErr" ></span>
 					<input id="usercode" name="userCode" type="code" placeholder="图片验证码"  class="input_outer" style="margin-top: 18px;"  class="txtSearch" onBlur="checkImg()" oninput="checkImg()" >
 					<!-- <img src="images/0.png" > -->
-					<img alt="点击刷新" src="yanzhengma.jsp"  width="90" height="37"  class="btnSearch"  id="yanzhengma_img" onClick="change_yanzhengma();" />
+					<img alt="点击刷新" src="yanzhengma.jsp"  width="80" height="40"  class="btnSearch"  id="yanzhengma_img" onClick="change_yanzhengma();" />
 					 <br>
 						 <font color="red">
 							${sessionScope.loginError } <%session.removeAttribute("loginError"); %>

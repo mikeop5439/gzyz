@@ -182,7 +182,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<a href="index.html" ><i class="fa fa-home fa-2x" style="color: #FFFFFF;"></i></a>
 			
 			
-			<img id="imgoflogin" src="${pageContext.request.contextPath }\upload\goodsimg\2.jpg" >
+			<img id="imgoflogin" src="${pageContext.request.contextPath }${sessionScope.loginuser.user_image}" >
 			
 			<a id="aoflogin" href="#" style="color: #FCFCFC;margin-left: 20px; display:none;">欢迎，${sessionScope.loginuser.user_name}</a>
 			
@@ -232,8 +232,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li class="qc"><a href="#">孝心礼品类</a></li>
 					<li class="qc last"><a href="#">大包装</a></li>
 				</ul>
-				<div class="nav-extra">
-					<i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>个人中心
+				<div style="float:right;margin-top:4px;">
+					
+					<a href="#" style="font-size:16px;font-weight:700;"><i class="fa fa-cart-arrow-down fa-2x" style="margin-right:10px;"></i> 购物车</a>
 					<i class="am-icon-angle-right" style="padding-left: 10px;"></i>
 				</div>
 			</div>
@@ -264,7 +265,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="clear"></div>
 								<li class="select-list">
 									<dl id="select1">
-										<dt class="am-badge am-round">品牌</dt>	
+										<dt class="am-badge am-round" style="cursor:default;">品牌</dt>	
 									
 										 <div id="brandDd"class="dd-conent">										
 											<dd class="select-all selected"><a href="#" onclick="javascript:searchGoodsLimt(1)">全部</a></dd>

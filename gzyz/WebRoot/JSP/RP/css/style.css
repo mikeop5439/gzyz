@@ -959,7 +959,7 @@ a.w3_agile_vimeo:hover{
 }
 /*-- login --*/
 
-.txtSearch{ vertical-align:middle; border:1px solid #999; width:200px; height:40px; }
+
 .btnSearch{ vertical-align:middle; }
 .login-form-grids{
 	width: 45%;
@@ -1003,7 +1003,7 @@ a.w3_agile_vimeo:hover{
     font-size: 14px;
     color: #999;
     margin-top: 15px;
-	width: 70%;
+	width:78%;
 	
 }
 .login-form-grids input[type="password"]{

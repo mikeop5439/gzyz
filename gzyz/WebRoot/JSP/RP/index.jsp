@@ -36,7 +36,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	}
 	.agile-login img{
 	   border-radius:50%;
-	   margin-right:5px;
+	   margin-right:15px;
 	}
   
 </style>
@@ -49,6 +49,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 	});
 	window.onload=function(){
+	
 	if("${sessionScope.loginuser.user_name}"==""){
 	$(".agile-login ul .ulofnologin").css("display","inline");
 	}else{
@@ -111,13 +112,13 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 						<li class="ulofnologin"  style="display:none;"><a href="register.jsp"> 注册</a></li>
 					    <li class="ulofnologin" style="display:none;"><a href="login.jsp">登录</a></li>      
 
-						<li class="uloflogin" style="display:none;"><img src="${pageContext.request.contextPath }\upload\goodsimg\2.jpg" width="40px;" height="40px;"><a href="#">欢迎，${sessionScope.loginuser.user_name}</a></li>
+						<li class="uloflogin" style="display:none;"><img src="${pageContext.request.contextPath }${sessionScope.loginuser.user_image}" width="40px;" height="40px;"><a href="#">欢迎，${sessionScope.loginuser.user_name}</a></li>
 						<li class="uloflogin" style="display:none;"><a href="address.html">个人中心</a></li>		
 						<li class="uloflogin" style="display:none;"><a href="like.html">收藏夹</a></li>
 						<li class="uloflogin" style="display:none;"><a href="${pageContext.request.contextPath }/userlist/queryuserLoginExit.action">退出登陆</a></li>			
                         
 					    <li ><a href="contact.html">联系我们</a></li> 
-					    <li ><a href="contact.html"><i class="fa fa-cart-arrow-down fa-2x" aria-hidden="true"></i></a></li>
+					    <li ><a href="contact.html"><i class="fa fa-cart-arrow-down fa-2x"  aria-hidden="true"></i></a></li>
 					
 				</ul>
 			</div>
