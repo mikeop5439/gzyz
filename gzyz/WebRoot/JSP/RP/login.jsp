@@ -80,9 +80,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				    <input id="userPasword" name="userpass" type="password" placeholder="密码"   class="input_outer" onBlur="checkPassword()" oninput="checkPassword()">
 				   <br>
 				   <span class="default" id="passwordErr" ></span>
-					<input id="usercode" name="userCode" type="code" placeholder="图片验证码"  class="input_outer" style="margin-top: 18px;width: 200px;"  class="txtSearch" onBlur="checkImg()" oninput="checkImg()" >
-					<!-- <img src="images/0.png" width="70" height="37"  class="btnSearch" > -->
-					<img alt="点击刷新" src="yanzhengma.jsp" border="0" id="yanzhengma_img" onClick="change_yanzhengma();" />
+					<input id="usercode" name="userCode" type="code" placeholder="图片验证码"  class="input_outer" style="margin-top: 18px;"  class="txtSearch" onBlur="checkImg()" oninput="checkImg()" >
+					<!-- <img src="images/0.png" > -->
+					<img alt="点击刷新" src="yanzhengma.jsp"  width="90" height="37"  class="btnSearch"  id="yanzhengma_img" onClick="change_yanzhengma();" />
 					 <br>
 						 <font color="red">
 							${sessionScope.loginError } <%session.removeAttribute("loginError"); %>
@@ -164,8 +164,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   function checkUserName(){ 
   var username = document.getElementById('userName'); 
   var errname = document.getElementById('nameErr'); 
-  /* var pattern = /^\w{4,8}$/; */  //用户名格式正则表达式：用户名要至少三位 
-  var pattern = /^{2,8}$/;
+  var pattern = /^\w{2,8}$/;  //用户名格式正则表达式：用户名要至少三位 
+  
   if(username.value.length == 0){ 
     errname.innerHTML="用户名不能为空"
     errname.className="error"
