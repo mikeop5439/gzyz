@@ -40,7 +40,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/personal/js/jquery.imagezoom.min.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/personal/js/jquery.flexslider.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/personal/js/list.js"></script>
-
+		<style>
+		.J_Brand p{
+		text-align:none
+		}
+		</style>
 	</head>
 
 	<body>
@@ -103,13 +107,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="flexslider">
 							<ul class="slides">
 								<li>
-									<img src="images/1.png" title="pic" />
+									<img src="${pageContext.request.contextPath}/JSP/RP/images/1.png" title="pic" />
 								</li>
 								<li>
-									<img src="images/1.png" />
+									<img src="${pageContext.request.contextPath}/JSP/RP/images/1.png" />
 								</li>
 								<li>
-									<img src="images/1.png" />
+									<img src="${pageContext.request.contextPath}/JSP/RP/images/1.png" />
 								</li>
 							</ul>
 						</div>
@@ -134,22 +138,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</script>
 
 							<div class="tb-booth tb-pic tb-s310">
-								<a href="images/1.png"><img src="images/1.png" alt="细节展示放大镜特效" rel="images/1.png" class="jqzoom" /></a>
+								<a href="${pageContext.request.contextPath}/JSP/RP/images/1.png"><img src="${pageContext.request.contextPath}/JSP/RP/images/1.png" alt="细节展示放大镜特效" rel="${pageContext.request.contextPath}/JSP/RP/images/1.png" class="jqzoom" /></a>
 							</div>
 							<ul class="tb-thumb" id="thumblist">
 								<li class="tb-selected">
 									<div class="tb-pic tb-s40">
-										<a href="#"><img src="images/1.png" mid="images/1.png" big="images/1.png"></a>
+										<a href="#"><img src="${pageContext.request.contextPath}/JSP/RP/images/1.png" mid="${pageContext.request.contextPath}/JSP/RP/images/1.png" big="${pageContext.request.contextPath}/JSP/RP/images/1.png"></a>
 									</div>
 								</li>
 								<li>
 									<div class="tb-pic tb-s40">
-										<a href="#"><img src="images/1.png" mid="images/1.png" big="images/1.png"></a>
+										<a href="#"><img src="${pageContext.request.contextPath}/JSP/RP/images/1.png" mid="${pageContext.request.contextPath}/JSP/RP/images/1.png" big="${pageContext.request.contextPath}/JSP/RP/images/1.png"></a>
 									</div>
 								</li>
 								<li>
 									<div class="tb-pic tb-s40">
-										<a href="#"><img src="images/1.png" mid="images/1.png" big="images/1.png"></a>
+										<a href="#"><img src="${pageContext.request.contextPath}/JSP/RP/images/1.png" mid="${pageContext.request.contextPath}/JSP/RP/images/1.png" big="${pageContext.request.contextPath}/JSP/RP/images/1.png"></a>
 									</div>
 								</li>
 							</ul>
@@ -163,20 +167,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<!--规格属性-->
 						<!--名称-->
 						<div class="tb-detail-hd">
+						<c:forEach items="${goodsinfo }" var="info">
 							<h1>	
-				中老年人高端智能手机———— 卡布奇诺
-	          </h1>
+								${info.goods_name }
+	         				 </h1>
+						</c:forEach>
+							
 						</div>
 						<div class="tb-detail-list">
 							<!--价格-->
 							<div class="tb-detail-price">
 								<li class="price iteminfo_price">
 									<dt>促销价</dt>
-									<dd><em>¥</em><b class="sys_item_price">5600.90</b>  </dd>                                 
+									<c:forEach items="${goodsinfo }" var="info">
+										<dd><em>¥</em><b class="sys_item_price">${info.shop_price }</b>  </dd>                                 
+									</c:forEach>
 								</li>
 								<li class="price iteminfo_mktprice">
 									<dt>原价</dt>
-									<dd><em>¥</em><b class="sys_item_mktprice">9800.00</b></dd>									
+									<c:forEach items="${goodsinfo }" var="info">
+										<dd><em>¥</em><b class="sys_item_mktprice">${info.original_price }</b></dd>
+									</c:forEach>
 								</li>
 								<div class="clear"></div>
 							</div>
@@ -261,7 +272,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 															<input id="min" class="am-btn am-btn-default" name="" type="button" value="-" />
 															<input id="text_box" name="" type="text" value="1" style="width:30px;" />
 															<input id="add" class="am-btn am-btn-default" name="" type="button" value="+" />
-															<span id="Stock" class="tb-hidden">库存<span class="stock">1000</span>件</span>
+															<c:forEach items="${goodsinfo }" var="info">
+																<span id="Stock" class="tb-hidden">库存<span class="stock">${info.goods_number }</span>件</span>
+															</c:forEach>
 														</dd>
 
 													</div>
@@ -326,7 +339,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						     	
 							      <li class="first">
 							      	<div class="p-img">                    
-							      		<a  href="#"> <img class="" src="images/21.jpg"> </a>               
+							      		<a  href="#"> <img class="" src="${pageContext.request.contextPath}/JSP/RP/images/21.jpg"> </a>               
 							      	</div>
 							      	<div class="p-name"><a href="#">
 							      		踏步机
@@ -337,7 +350,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							    							      
 							      <li>
 							      	<div class="p-img">                    
-							      		<a  href="#"> <img class="" src="images/191.jpg"> </a>               
+							      		<a  href="#"> <img class="" src="${pageContext.request.contextPath}/JSP/RP/images/191.jpg"> </a>               
 							      	</div>
 							      	<div class="p-name"><a href="#">
 							      		动感单车
@@ -382,15 +395,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<h4>产品参数：</h4></div>
 										<div class="clear"></div>
 										<ul id="J_AttrUL">
-											<li title="">产品类型:&nbsp;手机类</li>
-											<li title="">原料产地:&nbsp;巴基斯坦</li>
+										<c:forEach items="${result}" var="result">
+											<li title="">${result }</li>
+											<!-- <li title="">原料产地:&nbsp;巴基斯坦</li>
 											<li title="">产地:&nbsp;贵州省省贵阳市</li>
 											
 											<li title="">产品规格:&nbsp;大屏幕</li>
 											<li title="">保质期:&nbsp;三年</li>
 											<li title="">产品标准号:&nbsp;GB/T 22165</li>
-											<li title="">生产许可证编号：&nbsp;QS4201 1801 0226</li>
-											
+											<li title="">生产许可证编号：&nbsp;QS4201 1801 0226</li> -->
+										</c:forEach>
 										</ul>
 										<div class="clear"></div>
 									</div>
@@ -399,8 +413,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<div class="attr-list-hd tm-clear">
 											<h4>产品描述：</h4></div>
 										<div class="clear"></div>
-										<ul id="J_AttrUL">
-											<li title="">1.结合老年人对硬件方面的需求。</li>
+										<!-- <ul id="J_AttrUL">
+											<li title="">1.结合老年人对硬件方面的需求111111111111111111111111111111111111111111111111111111111111111。</li>
 											<li title=""></li>
 											<li title=""></li>
 											<li title="">2.互联网服务让老人体会到高科技的便利。</li>
@@ -409,7 +423,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<li title="">3.为老人提供最贴心的服务。</li>
 											
 											
-										</ul>
+										</ul> -->
+										<p>结合老年人对硬件方面的需求111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111。</p>
 										<div class="clear"></div>
 									</div>
 
@@ -479,7 +494,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<li class="am-comment">
 											<!-- 评论容器 -->
 											<a href="">
-												<img class="am-comment-avatar" src="images/qq_pic_merged_1509681761763.jpg" />
+												<img class="am-comment-avatar" src="${pageContext.request.contextPath}/JSP/RP/images/qq_pic_merged_1509681761763.jpg" />
 												<!-- 评论者头像 -->
 											</a>
 
@@ -513,7 +528,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<li class="am-comment">
 											<!-- 评论容器 -->
 											<a href="">
-												<img class="am-comment-avatar" src="images/09.jpg" />
+												<img class="am-comment-avatar" src="${pageContext.request.contextPath}/JSP/RP/images/09.jpg" />
 												<!-- 评论者头像 -->
 											</a>
 
@@ -547,7 +562,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<li class="am-comment">
 											<!-- 评论容器 -->
 											<a href="">
-												<img class="am-comment-avatar" src="images/IMG_20171108_182501R.jpg" />
+												<img class="am-comment-avatar" src="${pageContext.request.contextPath}/JSP/RP/images/IMG_20171108_182501R.jpg" />
 												<!-- 评论者头像 -->
 											</a>
 
@@ -608,7 +623,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes">
 											<li>
 												<div class="i-pic limit">
-													<img src="images/5.jpg" />
+													<img src="${pageContext.request.contextPath}/JSP/RP/images/5.jpg" />
 													<p>【和孝商城】老年豪华手机
 														<span>东北红 大屏幕</span></p>
 													<p class="price fl">
@@ -623,7 +638,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<li>
 												<div class="i-pic limit">
 													
-													<img src="images/5.jpg" />
+													<img src="${pageContext.request.contextPath}/JSP/RP/images/5.jpg" />
 													<p>【和孝商城】老年豪华手机
 														<span>东北红 大屏幕</span></p>
 													<p class="price fl">
@@ -634,7 +649,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											</li>
 											<li>
 												<div class="i-pic limit">
-													<img src="images/5.jpg" />
+													<img src="${pageContext.request.contextPath}/JSP/RP/images/5.jpg" />
 													<p>【和孝商城】老年豪华手机
 														<span>东北红 大屏幕</span></p>
 													<p class="price fl">
@@ -645,7 +660,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											</li>
 											<li>
 												<div class="i-pic limit">
-													<img src="images/5.jpg" />
+													<img src="${pageContext.request.contextPath}/JSP/RP/images/5.jpg" />
 													<p>【和孝商城】老年豪华手机
 														<span>东北红 大屏幕</span></p>
 													<p class="price fl">

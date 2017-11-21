@@ -9,54 +9,52 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 商品评论列表显示所有信息
 
  -->
-<!-- <resultMap type="commentvo" id="queryAllComment">
-	<id column="cid" property="comment_id" />
-	<result column="cgid" property="goods_id" />
-	<result column="gname" property="goods_name" />
-	<result column="uid" property="user_base_id" />
-	<result column="uname" property="user_base_name" />
-	<result column="con" property="content" />
-	<result column="rank" property="comment_rank" />
-	<result column="time" property="add_time" />
-	<result column="status" property="status" />
+<resultMap type="getspecinfoid" id="getSpecInfoId">
+	<id column="gsid" property="goods_spec_id" />
+	<result column="siid" property="spec_info_id" />
 </resultMap>
-	<select id="queryAllComment" resultMap="queryAllComment">
-		select com.comment_id cid,com.goods_id cgid,com.user_base_id uid,com.user_base_name uname,com.content con,com.comment_rank rank,com.add_time time,com.status status,
-			   g.goods_id gid,g.goods_name gname	 
-		from comment com 
-		join goods g
-		on com.goods_id=g.goods_id
-	</select> -->
 	
-<!-- <resultMap type="commentvo" id="queryCommentList">
-	<id column="cid" property="comment_id" />
-	<result column="gid" property="goods_id" />
-	<result column="gname" property="goods_name" />
-	<result column="uid" property="user_id" />
-	<result column="uname" property="user_name" />
-	<result column="con" property="content" />
-	<result column="rank" property="comment_rank" />
-	<result column="time" property="add_time" />
-	<result column="time" property="formatDateString" />
-	<result column="status" property="status" />
-	<association property="goods" javaType="goods">
-				<id column="gid" property="goods_id"/>
-				<result column="gname" property="goods_name"/>
-	</association>
-</resultMap> -->
-	
-	<!-- <select id="queryCommentByLimit" parameterType="CommentPageKeywords" resultMap="queryCommentList">
-		select com.comment_id cid,com.goods_id cgid,com.user_id uid,u.user_name uname,com.content con,com.comment_rank rank,com.add_time time,com.status status,
-			   g.goods_id gid,g.goods_name gname	 
-		from comment com 
-		join goods g
-		on com.goods_id=g.goods_id
-		join user u on u.user_id=com.user_id
-		where g.goods_name like '%${goods_name}%' or u.user_name like '%${goods_name}%'
-		limit #{nowpage},5
+	<select id="getSpecInfoId" parameterType="int" resultMap="getSpecInfoId">
+		select spec_info_id siid,goods_spec_id gsid
+		from `goods_spec`
+		where goods_id = ${goods_id}
 	</select>
 	
-	<update id="updateCommentStatusToTrue" parameterType="int">
+	<select id="getSpecId" parameterType="int" resultType="int">
+		select spec_id sid
+		from spec_info
+		where spec_info_id = ${spec_info_id}
+	</select>
+	
+	<select id="getSpecName" parameterType="int" resultType="string">
+		select spec_name sname
+		from spec
+		where spec_id = ${spec_id}
+	</select>
+	
+	<select id="getSpecInfoValue" parameterType="int" resultType="string">
+		select spec_info_value siv
+		from spec_info
+		where spec_info_id = ${spec_info_id}
+	</select>
+	
+<resultMap type="goodsinfo" id="getGoodsInfo">
+	<id column="gid" property="goods_id" />
+	<result column="gname" property="goods_name" />
+	<result column="gnum" property="goods_number" />
+	<result column="op" property="original_price" />
+	<result column="sp" property="shop_price" />
+	<result column="gd" property="goods_desc" />
+	<result column="oi" property="original_img" />
+</resultMap>
+	
+	<select id="getGoodsInfo" parameterType="int" resultMap="getGoodsInfo">
+		select goods_name gname,goods_number gnum,original_price op,shop_price sp,
+			   goods_desc gd,original_img oi,goods_id gid
+		from `goods`
+		where goods_id = ${goods_id}
+	</select>
+	<!-- <update id="updateCommentStatusToTrue" parameterType="int">
 		update `comment` set status = 1
 		where comment_id = ${comment_id}
 	</update>
@@ -64,13 +62,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateCommentStatusToFalse" parameterType="int">
 		update `comment` set status = 0
 		where comment_id = ${comment_id}
-	</update> -->
+	</update>  -->
 	
-	<select id="getSpecId" parameterType="int" resultType="int">
-		select goods_spec_id gsid
-		from `goods_spec`
-		where goods_id = ${goods_id}
-	</select>
+	
 	
 	<select id="getInfoId" parameterType="int" resultType="int">
 		select spec_info_id inid
