@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.gzyz.bean.introduction.extend.CommentInfo;
 import com.gzyz.bean.introduction.extend.GetSpecInfoId;
 import com.gzyz.bean.introduction.extend.GoodsInfo;
 import com.gzyz.service.introduction.service.IntroductionService;
@@ -20,18 +21,22 @@ public class IntroductionController {
 	private IntroductionService introductionService;
 	
 	@RequestMapping("itemsIntroduction")
-	public String itemsIntroduction(Model model) {
+	public String itemsIntroduction(Model model,int goods_id) {
 		
 		//int param = Integer.parseInt(goods_id);
-		
 		List<Integer> getSpecIds = new ArrayList<Integer>();
 		List<String> getSpecNames = new ArrayList<String>();
 		List<String> getSpecInfoValues = new ArrayList<String>();
 		List<String> result = new ArrayList<String>();
 		
-		List<GetSpecInfoId> getSpecInfoIds = introductionService.getSpecInfoId(1);
+		List<GetSpecInfoId> getSpecInfoIds = introductionService.getSpecInfoId(goods_id);
 		
-		List<GoodsInfo> goodsInfos = introductionService.getGoodsInfo(1);
+		List<GoodsInfo> goodsInfos = introductionService.getGoodsInfo(goods_id);
+		
+		List<Integer> comments = new ArrayList<Integer>();
+		comments.add(introductionService.countComment(goods_id));
+		
+		List<CommentInfo> commentInfos = introductionService.getCommentInfo(goods_id);
 		
 		for (int i = 0; i < getSpecInfoIds.size(); i++) {
 			int spec_info_id = getSpecInfoIds.get(i).getSpec_info_id();
@@ -53,6 +58,8 @@ public class IntroductionController {
 		model.addAttribute("getSpecNames", getSpecNames);
 		model.addAttribute("getSpecInfoValues", getSpecInfoValues);
 		model.addAttribute("result", result);
+		model.addAttribute("comments", comments);
+		model.addAttribute("commentinfos", commentInfos);
 		return "/JSP/RP/introduction.jsp";
 	}
 }

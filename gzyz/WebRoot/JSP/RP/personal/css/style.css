@@ -121,7 +121,7 @@ width: 62px;line-height:24px;font-size: 12px;display: block;}
 .like_list .plus_icon i.am-icon-angle-right{position: absolute;right:10px;font-weight:600 ;}
 .match-comment{border-bottom: 1px solid #E6E6E6;}
 /*介绍*/
-.introduce{width:100%;margin: 0px auto;text-align: center;padding-bottom: 110px;max-width:1200px ;}
+.introduce{width:100%;margin: 0px auto;padding-bottom: 110px;max-width:1200px ;}
 .introduceMain{width:100%;background:#fff ;}
 .browse{display: none;}
 
