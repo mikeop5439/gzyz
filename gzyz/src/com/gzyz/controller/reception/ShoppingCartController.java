@@ -1,7 +1,7 @@
 package com.gzyz.controller.reception;
 
+
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,15 +16,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.gzyz.bean.address.ProvinceCityUseQuery;
+import com.gzyz.bean.address.Provinces;
+import com.gzyz.bean.address.ProvincesCities;
 import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.order.Order;
 import com.gzyz.bean.order.Order_details;
 import com.gzyz.bean.users.Receiver;
 import com.gzyz.bean.users.User;
+import com.gzyz.bean.users.cart;
+import com.gzyz.bean.users.collect_goods;
 import com.gzyz.bean.users.extend.Cartextend;
 import com.gzyz.bean.users.extend.UserCart;
 import com.gzyz.service.reception.service.ShoopingCartService;
-import com.sun.mail.iap.Response;
 
 @Controller
 @RequestMapping("shoppingcart")
@@ -167,7 +171,7 @@ public class ShoppingCartController {
 			
 			order.setUser_id(user.getUser_id());
 			order.setReceiver_id(Integer.parseInt(userreceiveid));
-			SimpleDateFormat myFmt2=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			
 			order.setOrder_time(new Date());
 			order.setOrder_status(0);
 			order.setGoods_id(Integer.parseInt(stringoods_id[i]));
@@ -201,6 +205,163 @@ public class ShoppingCartController {
 	
 		return null;
 	}
+	@RequestMapping("delectselectcart")
+	public String delectselectcart(HttpServletRequest request,HttpSession session,HttpServletResponse response) throws Exception{
+		//删除多个选择的购物车商品
+		//User user=(User) session.getAttribute("user");
+		String[] goods_id = request.getParameterValues("goods_id");
+		String g1=goods_id[0];
+		String g2=g1.substring(1,g1.length()-1);
+		String g3=g2.replace("\"", "");
+		/*Pattern pattern = Pattern.compile("[^0-9]");
+        Matcher matcher = pattern.matcher(g2);
+        String all = matcher.replaceAll("");*/
+		String[] id =g3.split(",");
+		cart cart=new cart();
+		cart.setUser_id(1);
+		for(int i=0;i<id.length;i++){
+			cart.setGoods_id(Integer.parseInt(id[i]));
+			shoopingCartService.delectSelectCart(cart);
+		}
+		response.getWriter().print(true);
+		return null;
+	}
+	
+	@RequestMapping("insertcollect")
+	public String insertcollect(HttpServletRequest request,HttpSession session,HttpServletResponse response) throws Exception{
+		
+		//User user=(User) session.getAttribute("user");
+		User user=new User();user.setUser_id(1);
+		String[] goods_id = request.getParameterValues("goods_id");
+		
+		collect_goods collect_goods=new collect_goods();
+		collect_goods.setUser_id(user.getUser_id());
+		collect_goods.setAdd_time(new Date());
+		//选择多个商品添加收藏夹
+		if(goods_id != null && goods_id.length != 0){
+			String g1=goods_id[0];
+			String g2=g1.substring(1,g1.length()-1);
+			String g3=g2.replace("\"", "");
+			String[] id =g3.split(",");
+			
+			for(int i=0;i<id.length;i++){
+				List<Integer> collect_goods_id=shoopingCartService.querycollectgoodsid(user.getUser_id());
+				if(collect_goods_id.indexOf(Integer.parseInt(id[i]))>= 0){
+					}else{
+						collect_goods.setGoods_id(Integer.parseInt(id[i]));
+						//添加收藏夹
+						shoopingCartService.insertcollect(collect_goods);
+					}
+				
+			}
+		}	
+		//选择单个商品添加收藏夹
+		String collectgoodsidString=request.getParameter("collectgoodsidString");
+		if(collectgoodsidString !=null && collectgoodsidString != ""){
+			List<Integer> collect_goods_id=shoopingCartService.querycollectgoodsid(user.getUser_id());
+			if(collect_goods_id.indexOf(Integer.parseInt(collectgoodsidString)) >= 0){}
+			else {
+				collect_goods.setGoods_id(Integer.parseInt(collectgoodsidString));
+				//添加收藏夹
+				shoopingCartService.insertcollect(collect_goods);
+			}
+		}
+		response.getWriter().print(true);
+		return null;
+	}
+	@RequestMapping("addnewaddress")
+	public String addnewaddress(HttpServletResponse response) throws Exception{
+		//查询省市
+		List<Provinces> provinces= shoopingCartService.queryprovinces();
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String reslut=mapper.writeValueAsString(provinces);
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/Javascript;charse=UTF-8");
+		response.getWriter().print(reslut);
+		return null;
+	}
+	
+	@RequestMapping("addnewaddress_city")
+	public String addnewaddress_city(String province,HttpServletResponse response) throws Exception{
+		//查询城市
+		List<ProvincesCities> provinces= shoopingCartService.querycities(province);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String reslut=mapper.writeValueAsString(provinces);
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/Javascript;charse=UTF-8");
+		response.getWriter().print(reslut);
+		return null;
+	}
+	@RequestMapping("addnewaddress_areas")
+	public String addnewaddress_areas(String province,String city,HttpServletResponse response) throws Exception{
+		//查询城市
+		ProvinceCityUseQuery p=new ProvinceCityUseQuery();
+		p.setCity(city);
+		p.setProvince(province);
+		List<ProvincesCities> provinces= shoopingCartService.queryareas(p);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String reslut=mapper.writeValueAsString(provinces);
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/Javascript;charse=UTF-8");
+		response.getWriter().print(reslut);
+		return null;
+	}
+	@RequestMapping("updateaddress")
+	public String updateaddress(Receiver receiver,HttpSession session,HttpServletResponse response) throws IOException{
+		//修改收货地址
+		//User user=session.getAttribute("user");
+		receiver.setUser_id(1);
+		shoopingCartService.updateaddress(receiver);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String reslut=mapper.writeValueAsString("true");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/Javascript;charse=UTF-8");
+		response.getWriter().print(reslut);
+		return null;
+	}
+	@RequestMapping("add_ads_newaddres")
+	public String add_ads_newaddres(Receiver receiver,HttpSession session,HttpServletResponse response) throws IOException{
+		//增加新的收货地址
+		//User user=session.getAttribute("user");
+		receiver.setUser_id(1);
+	 if(receiver.getReceiver_name() !=null && receiver.getReceiver_address() != null && receiver.getReceiver_state() != null){
+		shoopingCartService.insertaddress(receiver);
+		List<Receiver> address=shoopingCartService.selectuserreceiver(1);
+		int max=0;
+		for(Receiver a:address){
+			if(max<a.getReceiver_id()){
+				max=a.getReceiver_id();
+			}
+		}
+		Receiver receiver2=shoopingCartService.selectaddressByid(max);
+		ObjectMapper mapper=new ObjectMapper();
+		String reslut=mapper.writeValueAsString(receiver2);
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/Javascript;charse=UTF-8");
+		response.getWriter().print(reslut);
+	 }
+		return null;
+	}
+	
+	
+	@RequestMapping("queryaddress")
+	public String queryaddress(HttpServletResponse response,HttpSession session) throws Exception{
+		//查询用户收货地址
+		//备用 User user=(User) session.getAttribute("user");
+		List<Receiver> receiver=shoopingCartService.selectuserreceiver(1);
+		ObjectMapper mapper=new ObjectMapper();
+		//响应用户地址
+		String reslut=mapper.writeValueAsString(receiver);
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/Javascript;charse=UTF-8");
+		response.getWriter().print(reslut);
+		return null;
+	}
+	
 	
 	
 }

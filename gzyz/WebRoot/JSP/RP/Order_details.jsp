@@ -24,8 +24,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-
-
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/JSP/RP/css/bootstrap.css" >
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/JSP/HT/assets/css/amazeui.min.css"/>
 	<link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/JSP/HT/assets/css/admin.css">
@@ -41,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="${pageContext.request.contextPath}/JSP/HT/assets/js/jquery.validate.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/JSP/HT/assets/js/additional-methods.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/JSP/HT/assets/js/jquery.validate.extend.js"></script>
-
+	<script src="${pageContext.request.contextPath}/JSP/HT/assets/js/amazeui.min.js"></script>
 <script type="application/x-javascript"> 
 addEventListener("load", function() {setTimeout(hideURLbar, 0); }, false);
 function hideURLbar(){window.scrollTo(0,1);} 
@@ -61,7 +59,7 @@ function hideURLbar(){window.scrollTo(0,1);}
 	<div class="page-header"><h3 class="dib"><font color="#FF7F00" size="4px">确认收货地址</font></h3></div>
 	<div id="receiver">
 		<c:forEach items="${receiver }" var="r">
-			<div class="receiver_top" >
+			<div class="receiver_top" id="${r.getReceiver_id()}">
 				<c:choose>
 				<c:when test="${sessionScope.user.getReceiver_id()==r.getReceiver_id() }">
 					<div class="container container_top" >
@@ -74,7 +72,7 @@ function hideURLbar(){window.scrollTo(0,1);}
 							<span id="name">(${r.getReceiver_name()}收)</span>
 							<span id="phone">${r.getReceiver_phone()}</span>
 							<span style="color:red;font-size:16px;">默认地址</span>
-							<span class="updateaddress"><a  href="javascript:void(0)" onclick="updateaddress(${r.getReceiver_id()})">修改地址</a></span>
+							<span class="updateaddress"><button id="update-ads_button" onclick="return update_ads_new(${r.getReceiver_id()})" class="btn btn-primary btn-sm" data-am-modal="{target: '#update-address'}" style="width:70px;height:30px;color:#FFFFFF;">修改地址</button></span>
 						</div>
 					</div>
 			  </c:when>
@@ -89,7 +87,7 @@ function hideURLbar(){window.scrollTo(0,1);}
 							<span id="name">(${r.getReceiver_name()}收)</span>
 							<span id="phone">${r.getReceiver_phone()}</span>
 							<span><a  href="javascript:void(0)" onclick="setmorenaddress(${r.getReceiver_id()})">设置为默认地址</a></span>
-							<span class="updateaddress"><a href="javascript:void(0)" onclick="updateaddress(${r.getReceiver_id()})">修改地址</a></span>
+							<span class="updateaddress"><button id="update-ads_button" onclick="return update_ads_new(${r.getReceiver_id()})" class="btn btn-primary btn-sm" data-am-modal="{target: '#update-address'}" style="width:70px;height:25px;">修改地址</button></span>
 						</div>
 					</div>
 			  </c:otherwise>
@@ -98,55 +96,132 @@ function hideURLbar(){window.scrollTo(0,1);}
 			  
 			</div>
 		</c:forEach>
+		<div id="add_address_position"></div>
 		<div class="container" style="margin:30px;">
-			 <button type="button" class="am-btn am-btn-secondary am-round am-btn-xs am-icon-plus" data-am-modal="{target: '#add-address'}">添加新地址</button>
- 			<!-- <div class="btn btn-warning">+添加新地址</div> -->
+			<!--  type="button" class="am-btn am-btn-secondary am-round am-btn-xs am-icon-plus" >添加新地址 -->
+ 			<button id="add-ads_button" class="btn btn-warning " data-am-modal="{target: '#add-address'}">+添加新地址</button>
  		</div>
 	</div>
 <!--收货地址  -->
 
 <!--添加新地址  -->
- <div class="am-popup am-popup-inner" id="add-address">
-      <div class="am-popup-hd">
-        <h4 class="am-popup-title">添加新品牌</h4>
-      </div>
-      <div class="am-popup-bd">
-        <form id="addbrand" class="am-form tjlanmu" action="${pageContext.request.contextPath}/goods/addbrand.action" method="post" enctype="multipart/form-data">
-        
-          <div class="am-form-group">
-            <div class="zuo">品牌名称：</div>
-            <div class="you">
-              <input type="text" id="brand_name" name="brand_name" class="am-input-sm" id="doc-ipt-email-1" placeholder="请输品牌"/>
-            </div>
-          </div>          
-          <div class="am-form-group am-cf">
-            <div class="zuo">品牌LOG：</div>
-            <div class="you" style="height: 45px;">
-              <input type="file" name="goodsphoto" id="doc-ipt-file-1" placeholder="请选择要上传的文件..."/>
-            </div>
-          </div>
-          <div class="am-form-group am-cf">
-            <div class="zuo">品牌介绍：</div>
-            <div class="you">
-              <input type="text" name="brand_desc" rows="2" id="doc-ta-1"/>
-            </div>
-          </div>
-          
-          <div class="am-form-group am-cf">
-            <div class="you">
-              <p>
-                <button type="submit" class="am-btn am-btn-success am-radius">提交</button>
-              </p>
-            </div>
-          </div>
-          
-        </form>
-      </div>
+ <div class="am-popup am-popup-inner" id="add-address" style="height:560px;">
+ 	<div class="container" style="border:3px dashed #FFB338;background-color: #ffefc2;">
+ 	<div style="margin-bottom:30px;margin-top:10px;text-align: center;"><h3 class="dib"><font color="#FF7F00" size="5px">添加新地址</font></h3></div>
+     <div class="form-horizontal">
+  		<div class="form-group form-div">
+	    	<label class="col-sm-4 control-label">收货人：</label>
+	    	<div class="col-sm-8">
+	      		<input type="text" id="add_ads_name" name="name" class="form-control" id="inputEmail3" placeholder="请输入姓名">
+	    	</div>
+  		</div>
+  		<div class="form-group form-div">
+	    	<label class="col-sm-4 control-label">收货电话：</label>
+	    	<div class="col-sm-8">
+	      		<input type="text" id="add_ads_phone" name="phone"  class="form-control" id="inputEmail3" placeholder="请输入电话">
+	    	</div>
+  		</div>
+	   <div class="form-group form-div">
+		    <label  class="col-sm-4 control-label">省份：</label>
+		    <div class="col-sm-8">
+		       <select class="form-control" id="add_ads_state" name="state">
+				  	<option id="addadsstateoption1">请选择</option>
+				</select>
+		    </div>
+	   </div>
+	   <div class="form-group form-div">
+		    <label  class="col-sm-4 control-label">城市：</label>
+		    <div class="col-sm-8">
+		       <select class="form-control"  id="add_ads_city" name="city">
+				  	<option id="addadscityoption1">请选择</option>
+				</select>
+		    </div>
+	   </div>
+	   <div class="form-group form-div">
+		    <label  class="col-sm-4 control-label">区/县/州：</label>
+		    <div class="col-sm-8">
+		       <select class="form-control" id="add_ads_district" name="district">
+				  	<option id="addadsdistrictoption1">请选择</option>
+			   </select>
+		    </div>
+	   </div>
+	   <div class="form-group form-div">
+		    <label class="col-sm-4 control-label">详细地址：</label>
+		    <div class="col-sm-8">
+		       <input name="address" id="add_ads_address" type="text" class="form-control" id="inputEmail3" placeholder="请输入详细地址">
+		    </div>
+	   </div>
+	  
+	  <div class="form-group form-div">
+	    <div class="col-sm-offset-2 col-sm-12" style=" margin-top:20px;">
+	    	<button type="submit" id="cancel_add" class="btn btn-warning btn-lg" style="margin-right:20px;width:150px;size:16px;">取消</button>
+	        <button type="submit" id="add_ads_newaddres" onclick="return add_ads_newaddres()" class="btn btn-danger btn-lg" style="margin-right:20px;width:150px;">提交</button>
+	    </div>
+	  </div>
+</div>
+</div>
 </div>
  <!--添加新地址  -->	
-
-
-	
+ 
+<!-- 修改收货地址 -->
+<div class="am-popup am-popup-inner" id="update-address" style="height:560px;">
+ 	<div class="container" style="border:3px dashed #337AB7;background-color: #e6f4fb;">
+ 	<div style="margin-bottom:30px;margin-top:10px;text-align: center;"><h3 class="dib"><font color="#337AB7" size="5px">修改收货地址</font></h3></div>
+     <div class="form-horizontal">
+  		<div class="form-group form-div">
+	    	<label class="col-sm-4 control-label">收货人：</label>
+	    	<div class="col-sm-8">
+	    		<input id="update_ads_address_id" type="hidden"/>
+	      		<input id="update_ads_name" type="text" class="form-control" id="inputEmail3" placeholder="姓名" value="">
+	    	</div>
+  		</div>
+  		<div class="form-group form-div">
+	    	<label class="col-sm-4 control-label">收货电话：</label>
+	    	<div class="col-sm-8">
+	      		<input id="update_ads_phone" type="text" class="form-control" id="inputEmail3" placeholder="电话">
+	    	</div>
+  		</div>
+	   <div class="form-group form-div">
+		    <label  class="col-sm-4 control-label">省份：</label>
+		    <div class="col-sm-8">
+		       <select class="form-control" id="add_ads_state1" name="state">
+				  	
+				</select>
+		    </div>
+	   </div>
+	   <div class="form-group form-div">
+		    <label  class="col-sm-4 control-label">城市：</label>
+		    <div class="col-sm-8">
+		       <select class="form-control" id="add_ads_city1" name="city">
+				  	
+				</select>
+		    </div>
+	   </div>
+	   <div class="form-group form-div">
+		    <label  class="col-sm-4 control-label">区/县/州：</label>
+		    <div class="col-sm-8">
+		       <select class="form-control" id="add_ads_district1" name="district">
+				  
+				</select>
+		    </div>
+	   </div>
+	   <div class="form-group form-div">
+		    <label class="col-sm-4 control-label">详细地址：</label>
+		    <div class="col-sm-8">
+		       <input id="update_ads_address" type="text" class="form-control" id="inputEmail3" placeholder="详细地址">
+		    </div>
+	   </div>
+	  
+	  <div class="form-group form-div">
+	    <div class="col-sm-offset-2 col-sm-12" style=" margin-top:20px;font-size:14px;">
+	      <button type="submit" id="cancel_update" class="btn btn-primary btn-lg" style="margin-right:20px;width:150px;size:16px;">取消</button>
+	      <button type="button" id="update_address_button" onclick="return update_address()" class="btn btn-info btn-lg" style="margin-right:20px;width:150px;">修改</button>
+	    </div>
+	  </div>
+</div>
+</div>
+</div>
+<!-- 修改收货地址 -->	
 <!--确认订单  -->
 <form id="J_Form" name="J_Form" action="${pageContext.request.contextPath}/shoppingcart/addcartorder.action" method="post">
 		<div>
@@ -239,7 +314,7 @@ function hideURLbar(){window.scrollTo(0,1);}
 				<div id="ordername" style="margin-bottom:5px;"></div>
 				<div id="orderphone" style="margin-bottom:5px;"></div>
 			</div>
-			<div style="">
+			<div style="margin-bottom:10px;">
 				<!--用户提交的地址  -->
 				<input type="hidden" name="userreceiveid" value=""/>
 				<input type="hidden" name="ordertotal" value="${total}"/>

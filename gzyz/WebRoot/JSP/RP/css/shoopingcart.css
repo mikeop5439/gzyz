@@ -169,10 +169,7 @@ text-decoration:none;
 	font-size:25px;
 	color: #FF4400;
 }
-.btn-info{
-	height:50px;
-	bakground-color:red;
-}
+
 
 
 
@@ -300,7 +297,7 @@ text-decoration:none;
 
 }
 .container_top{
-	width:80%;
+	width:95%;
 }
 
 .receiver_top{
@@ -328,20 +325,25 @@ background-color: #F2F7FF;
 	margin-top:10px;
 	font-size:14px;
 }
+.updateaddress{
+	float:right;
+}
 
 
-.updateaddress a{
+.nogoods{
+	width:30%;
+	margin-top:30px;
+}
+
+.form-div{
+	width:100%;
+	
+}
+.updateaddress a {
 	color: #FFFFFF;
-	font-size:14px;
 }
-.updateaddress a:hover{
-	color: #FF0000;
-	font-size:14px;
+.am-dimmer.am-active{
+	 opacity: 0; 
 }
-
-
-
-
-
 /*∂©µ•œÍ«È  */
 

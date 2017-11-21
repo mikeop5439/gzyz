@@ -2,11 +2,19 @@ package com.gzyz.mapper.reception;
 
 import java.util.List;
 
+import com.gzyz.bean.address.Areas;
+import com.gzyz.bean.address.Cities;
+import com.gzyz.bean.address.CitiesAreas;
+import com.gzyz.bean.address.ProvinceCityUseQuery;
+import com.gzyz.bean.address.Provinces;
+import com.gzyz.bean.address.ProvincesCities;
 import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.order.Order;
 import com.gzyz.bean.order.Order_details;
 import com.gzyz.bean.users.Receiver;
 import com.gzyz.bean.users.User;
+import com.gzyz.bean.users.cart;
+import com.gzyz.bean.users.collect_goods;
 import com.gzyz.bean.users.extend.Cartextend;
 import com.gzyz.bean.users.extend.UserCart;
 
@@ -33,4 +41,22 @@ public interface ShoopingCartMapper {
 	public int selectorderid(Order order);
 	/*增加订单详情*/
 	public void insertorderdetails(Order_details details);
+	/*删除选择的购物车商品*/
+	public void delectselectcart(cart cart);
+	// 添加收藏夹
+	public void insertcollect(collect_goods collect_goods);
+	//查询用户收藏夹商品ID
+	public List<Integer> selectcollectgoodsid(int user_id);
+	//查询省市
+	public List<Provinces> selectprovinces();
+	//查询城市
+	public List<ProvincesCities> selectcities(String s);
+	//查询地区
+	public List<ProvincesCities> selectareas(ProvinceCityUseQuery p);
+	//修改收货地址
+	public void updateaddress(Receiver receiver);
+	//添加新的收货地址
+	public void insertaddress(Receiver receiver);
+	//查询收货地址Byid
+	public Receiver selectaddressByid(int max);
 }

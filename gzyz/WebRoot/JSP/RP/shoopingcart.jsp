@@ -59,7 +59,7 @@ function hideURLbar(){window.scrollTo(0,1);}
 <!--header-->
 
 <!--header-->
-  
+ 
  <!-- //购物车部分 -->
   <div class="container">
   
@@ -89,6 +89,7 @@ function hideURLbar(){window.scrollTo(0,1);}
   <form action="${pageContext.request.contextPath}/shoppingcart/addcartorder_details.action" method="post">
   <c:forEach items="${userCarts }" var="u">
   <c:forEach items="${u.getCartextend() }" var="c">
+  	<div id="${c.getGoods().getGoods_id() }">
 	  <div class="item" id="${c.getGoods().getGoods_id() }" >
 	    <ul class="item-content" >
 	    	<%-- <input class="user_name" type="hidden" value="${u.getUser_id()} }"/> --%>
@@ -138,23 +139,32 @@ function hideURLbar(){window.scrollTo(0,1);}
 			</li>
 			<li class="td">
 				<div class="shanchu">
-					<p style="height:10px; margin-top: 0px;"><a href="">加入收藏</a></p>
-					<p style="height:10px; margin-top: 0px;"><a href="${pageContext.request.contextPath}/shoppingcart/deletecartByidone.action?goods_id=${c.getGoods().getGoods_id() }">删除</a></p>
+					<p style="height:10px; margin-top: 0px;"><a href="javascript:void(0)" onclick="insertcollect(${c.getGoods().getGoods_id() })">加入收藏</a></p>
+					<p style="height:10px; margin-top: 0px;"><a href="${pageContext.request.contextPath}/shoppingcart/deletecartByidone.action?iadjsal=<%=new Date() %>&&goods_id=${c.getGoods().getGoods_id() }&&iadjsal=<%=new Date() %>">删除</a></p>
 				</div>
 			</li>
 	    </ul>
-	    
+	   </div> 
 	  </div>
   </c:forEach>
   </c:forEach>
+  <!--如果购物车没有商品  --> 
+<c:if test="${userCarts.size() == 0}">
+	<div class="item" >
+		<div  class="container nogoods">
+			<p><font color="#FF4400" size="6px">请添加商品</font></p>
+		</div>
+	</div>
+</c:if>
+<!----------如果购物车没有商品  --> 
   <div style="background-color: #E5E5E5;margin-top:20px;width:100%;height:50px;clear:both;">
   		<div >
   		<ul class="top-bottom">
 	  	<li class="td1"><input id="allselect2" name="allselect2" type="checkbox" >&nbsp;&nbsp;全选</li>
-	  	<li class="td2" ><a href="">删除</a></li>
-	  	<li class="td3" ><a href="">加入收藏夹</a></li>
+	  	<li class="td2" ><a href="javascript:void(0)" onclick="delectselectcart()">删除</a></li>
+	  	<li class="td3" ><a href="javascript:void(0)" onclick="insertcollect()">加入收藏夹</a></li>
 	  	<li class="td4" >已选<input  id="selectnumber" name="price" disabled="disabled"  style="text-align:center;border:none;width:25px;color:#FF4400;background-color: #E5E5E5; " type="text"  value="0"/>件</li>
-	  	<li class="td5" >合计<input  id="total" name="total"  style="text-align:center;border:none;width:50px;color:#FF4400;background-color: #E5E5E5; " type="text"  value="0.00"/>￥</li>
+	  	<li class="td5" >合计<font color="#FF4400" size="4px">￥<input  id="total" name="total"  style="text-align:center;border:none;width:50px;color:#FF4400;background-color: #E5E5E5; " type="text"  value="0.00"/></font></li>
 	  	<li class="td6"><div style="clear:;margin-top:0px;"><input class="btn btn-info" type="submit" value="结算" style="width:100px;height:50px;font-size:24px;background-color: #FF4400;border:0 #FF4400;" ></div></li>
 	  	</ul>
   		</div>
@@ -225,7 +235,7 @@ function hideURLbar(){window.scrollTo(0,1);}
 					</ul>
 				</div>
 				<div class="payment-w3ls">	
-					<img src="images/card.png" alt=" " class="img-responsive">
+					<img src="${pageContext.request.contextPath}/JSP/RP/images/card.png" alt=" " class="img-responsive">
 				</div>
 				<div class="clearfix"> </div>
 			</div>
