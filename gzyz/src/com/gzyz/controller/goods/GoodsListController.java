@@ -111,7 +111,7 @@ public class GoodsListController {
 	@RequestMapping("deleteTheGood.action")
 	public String deleteTheGoods(int goods_id){
 		goodsListService.deleteTheGood(goods_id);
-		return "forward:/good/queryAllGoods.action";
+		return "forward:/good/squreyGoodsLimit.action?nowpage=1";
 	}
 	//按照商品分类与关键字查找
 		@RequestMapping("squreyByCatrgoryAndKeywords.action")

@@ -64,6 +64,7 @@ $.ajax({
   			contentType:'application/json;charset=utf-8',
   			dataType:"json",
   			success:function(data){
+  			
   			var maxc=0;
   			var maxp=0;
   			var all=0;
@@ -72,10 +73,7 @@ $.ajax({
   			var charts={};
   			var components={};
   			var downloadJson ={};
-  			var themeJson = {};
-  			/* charts.birthday="dasdasd";
-  			builderJson.charts=charts;
-  			console.log(builderJson); */ 
+  			var themeJson = {}; 
   			$.each(data.goodsTopSales,function(index,content){
   			if(index==0){
   			maxc=content.count;
@@ -116,6 +114,8 @@ $.ajax({
   			builderJson.ie=ie;
   			builderJson.maxc=maxc;
   			builderJson.maxp=maxp;
+  			console.log(themeJson);
+  			console.log(builderJson);
   			console.log(maxc);
   			console.log(maxp);
   			
@@ -284,8 +284,8 @@ $.ajax({
 			            }
 			        })
 			    }]
-			}
-			            mychart.setOption(option);
+			} 
+			            mychart.setOption(option); 
 			  			}
 			  		});
 			};
