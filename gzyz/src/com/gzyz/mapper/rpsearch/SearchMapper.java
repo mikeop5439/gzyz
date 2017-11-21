@@ -15,4 +15,12 @@ public interface SearchMapper {
 	public List<GoodsAndSales> searchGoodsByBrand(SearchAndIndexAndBrand searchAndIndexAndBrand);
 	//通过品牌查询商品总数
 	public int searchGoodsByBrandCount(SearchAndIndexAndBrand searchAndIndexAndBrand);
+	//搜索商品(销量优先)
+	public List<GoodsAndSales> searchGoodsBySales(SearchAndIndex searchAndIndex);
+	//搜索商品(价格优先)
+	public List<GoodsAndSales> searchGoodsByPrice(SearchAndIndex searchAndIndex);
+	//通过品牌查询(销量优先)
+	public List<GoodsAndSales> searchGoodsByBrandBySales(SearchAndIndexAndBrand searchAndIndexAndBrand);
+	//通过品牌查询(价格优先)
+	public List<GoodsAndSales> searchGoodsByBrandByPrice(SearchAndIndexAndBrand searchAndIndexAndBrand);
 }

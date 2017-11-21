@@ -27,7 +27,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/js/move-top.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/js/easing.js"></script>
+<style>
+	
+   .mscBtn {
+	   height: 50px;
+	   float: left;
+       display:inline;
+	}
+	.agile-login img{
+	   border-radius:50%;
+	   margin-right:5px;
+	}
+  
+</style>
 <script type="text/javascript">
+
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){		
 			event.preventDefault();
@@ -35,15 +49,39 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 	});
 	window.onload=function(){
-		var flag=0;
-		if(flag==0){
-			$('#person1').css("display","none")
-		}else(
-			$("#zhuce").css("display","none"),
-			$("#denglv").css("display","none")
-		)
-	} 
+	if("${sessionScope.loginuser.user_name}"==""){
+	$(".agile-login ul .ulofnologin").css("display","inline");
+	}else{
+	$(".agile-login ul .uloflogin").css("display","inline");
+	}
+	}; 
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    function audioAutoPlay() {
+        var audio = document.getElementById('bg-music');
+            audio.play();
+        document.addEventListener("WeixinJSBridgeReady", function () {
+            audio.play();
+        }, false);
+    }
+    audioAutoPlay();
+});
+ 
+</script>
+<script>
+$(function(){
+var music = document.getElementById('bg-music');
+$("#audioBtn").click(function(){
+if(music.paused){music.play();
+$("#iconOfPlayer").removeClass("fa fa-close fa-2x").addClass("fa fa-music fa-2x");
+$("#audioBtn").removeClass("pause").addClass("play");
+}else{music.pause();
+$("#iconOfPlayer").removeClass("fa fa-music fa-2x").addClass("fa fa-close fa-2x");
+$("#audioBtn").removeClass("play").addClass("pause");}});
+});
+</script>
+
 <!-- start-smoth-scrolling -->
 </head>
 	
@@ -63,37 +101,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             
                <div class="agileits_header" >
 		<div class="container">
-		<div class="spinner">
-  <div class="cube1">和</div>
-  <div class="cube2">孝</div>
-  <div class="cube3">孝</div>
-  <div class="cube4">城</div>
- 
-			</div>
+		
 			<div class="w3l_offers">
 				 <a href="${pageContext.request.contextPath}/JSP/RP/index.jsp"><i class="fa fa-home fa-2x" style="color: white"></i></a>
 			</div>
-			<div class="agile-login">
+			<div class="agile-login" style="width:600px;">
 				<ul>
-					<li id="zhuce" ><a href="register.jsp"> 注册</a></li>
-					<li id="denglv" ><a href="login.jsp">登录</a></li>
-			        <li id="person1" ><a href="address.html">个人中心</a></li>			        
-					<li><a href="like.html">收藏夹</a></li>
-					<c:if test="${sessionScope.loginuser.user_name!=null}">
-						<li><a href="#">当前用户：${sessionScope.loginuser.user_name}</a></li>
-						<li><a href="${pageContext.request.contextPath }/userlist/queryuserLoginExit.action">退出登陆</a></li>				
-                   	</c:if>
-					<li><a href="contact.html">联系我们</a></li> 
+
+						<li class="ulofnologin"  style="display:none;"><a href="register.jsp"> 注册</a></li>
+					    <li class="ulofnologin" style="display:none;"><a href="login.jsp">登录</a></li>      
+
+						<li class="uloflogin" style="display:none;"><img src="${pageContext.request.contextPath }\upload\goodsimg\2.jpg" width="40px;" height="40px;"><a href="#">欢迎，${sessionScope.loginuser.user_name}</a></li>
+						<li class="uloflogin" style="display:none;"><a href="address.html">个人中心</a></li>		
+						<li class="uloflogin" style="display:none;"><a href="like.html">收藏夹</a></li>
+						<li class="uloflogin" style="display:none;"><a href="${pageContext.request.contextPath }/userlist/queryuserLoginExit.action">退出登陆</a></li>			
+                        
+					    <li ><a href="contact.html">联系我们</a></li> 
+					    <li ><a href="contact.html"><i class="fa fa-cart-arrow-down fa-2x" aria-hidden="true"></i></a></li>
 					
 				</ul>
 			</div>
-			<div class="product_list_header">  
-					<form action="#" method="post" class="last"> 
-						<input type="hidden" name="cmd" value="_cart">
-						<input type="hidden" name="display" value="1">
-						<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-					</form>  
-			</div>
+			
 			
 		</div>
 	</div>
@@ -108,9 +136,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
            	<div class="logo_products" >
 		<div class="container">
 		
+		   <a class="mscBtn" id="audioBtn"  style="cursor:pointer;"><i id="iconOfPlayer" class="fa fa-music fa-2x" style="color: black;"></i></a>
+        <audio style="display:none; " id="bg-music" preload="auto" src="王筝-我们都是好孩子 - 铃声.mp3" loop></audio>
 		<div class="w3ls_logo_products_left1"  >
 				<ul class="phone_email">
-					<li><i class="fa fa-phone" aria-hidden="true"></i>客服 : (+0123) 234 567</li>
+					<li style="margin-left: 100px;"><i class="fa fa-phone" aria-hidden="true"></i>客服 : (+0123) 234 567</li>
 					
 				</ul>
 			</div>

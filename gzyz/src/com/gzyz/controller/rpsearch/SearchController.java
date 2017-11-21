@@ -75,24 +75,98 @@ public class SearchController {
 		resultOfSearch.setKeywords(searchOfKeywordsAndCount.getKeywords());
 		return resultOfSearch;
 	}
+	//商城搜索（销量优先）
+	@RequestMapping("asearchgoodsbysales.action")
+	public @ResponseBody ResultOfSearch asearchgoodsbysales(int nowpage,@RequestBody SearchOfKeywordsAndCount searchOfKeywordsAndCount){
+		int nowindex=8*(nowpage-1);
+		ResultOfSearch resultOfSearch=new ResultOfSearch();
+		SearchAndIndex searchAndIndex=new SearchAndIndex();
+		searchAndIndex.setKeywords(searchOfKeywordsAndCount.getKeywords());
+		searchAndIndex.setNowindex(nowindex);
+		int count = searchOfKeywordsAndCount.getCount();
+		double  c=count;
+		int allpage=(int) Math.ceil(c/8);
+		resultOfSearch.setGoods(searchService.searchGoodsBySales(searchAndIndex));
+		resultOfSearch.setAllpage(allpage);
+		resultOfSearch.setNowpage(nowpage);
+		resultOfSearch.setCount(count);
+		resultOfSearch.setKeywords(searchOfKeywordsAndCount.getKeywords());
+		return resultOfSearch;
+	}
+	//商城搜索（价格优先）
+	@RequestMapping("asearchgoodsbyprice.action")
+	public @ResponseBody ResultOfSearch asearchgoodsbyprice(int nowpage,@RequestBody SearchOfKeywordsAndCount searchOfKeywordsAndCount){
+		int nowindex=8*(nowpage-1);
+		ResultOfSearch resultOfSearch=new ResultOfSearch();
+		SearchAndIndex searchAndIndex=new SearchAndIndex();
+		searchAndIndex.setKeywords(searchOfKeywordsAndCount.getKeywords());
+		searchAndIndex.setNowindex(nowindex);
+		int count = searchOfKeywordsAndCount.getCount();
+		double  c=count;
+		int allpage=(int) Math.ceil(c/8);
+		resultOfSearch.setGoods(searchService.searchGoodsByPrice(searchAndIndex));
+		resultOfSearch.setAllpage(allpage);
+		resultOfSearch.setNowpage(nowpage);
+		resultOfSearch.setCount(count);
+		resultOfSearch.setKeywords(searchOfKeywordsAndCount.getKeywords());
+		return resultOfSearch;
+	}
 	//商城搜索（按照品牌）
-		@RequestMapping("asearchgoodsbrand.action")
-		public @ResponseBody ResultOfSearch asearchgoodsbrand(int nowpage,@RequestBody SearchOfBrand searchOfBrand){
-			int nowindex=8*(nowpage-1);
-			ResultOfSearch resultOfSearch=new ResultOfSearch();
-			SearchAndIndexAndBrand searchAndIndexAndBrand=new SearchAndIndexAndBrand();
-			searchAndIndexAndBrand.setKeywords(searchOfBrand.getKeywords());
-			searchAndIndexAndBrand.setNowindex(nowindex);
-			searchAndIndexAndBrand.setBrand_name(searchOfBrand.getBrand_name());
-			int count = searchService.searchGoodsByBrandCount(searchAndIndexAndBrand);
-			double  c=count;
-			int allpage=(int) Math.ceil(c/8);
-			resultOfSearch.setGoods(searchService.searchGoodsByBrand(searchAndIndexAndBrand));
-			resultOfSearch.setAllpage(allpage);
-			resultOfSearch.setNowpage(nowpage);
-			resultOfSearch.setCount(count);
-			resultOfSearch.setKeywords(searchOfBrand.getKeywords());
-			return resultOfSearch;
-		}
+	@RequestMapping("asearchgoodsbrand.action")
+	public @ResponseBody ResultOfSearch asearchgoodsbrand(int nowpage,@RequestBody SearchOfBrand searchOfBrand){
+		int nowindex=8*(nowpage-1);
+		ResultOfSearch resultOfSearch=new ResultOfSearch();
+		SearchAndIndexAndBrand searchAndIndexAndBrand=new SearchAndIndexAndBrand();
+		searchAndIndexAndBrand.setKeywords(searchOfBrand.getKeywords());
+		searchAndIndexAndBrand.setNowindex(nowindex);
+		searchAndIndexAndBrand.setBrand_name(searchOfBrand.getBrand_name());
+		int count = searchService.searchGoodsByBrandCount(searchAndIndexAndBrand);
+		double  c=count;
+		int allpage=(int) Math.ceil(c/8);
+		resultOfSearch.setGoods(searchService.searchGoodsByBrand(searchAndIndexAndBrand));
+		resultOfSearch.setAllpage(allpage);
+		resultOfSearch.setNowpage(nowpage);
+		resultOfSearch.setCount(count);
+		resultOfSearch.setKeywords(searchOfBrand.getKeywords());
+		return resultOfSearch;
+	}
+	//商城搜索（按照品牌--销量优先）
+	@RequestMapping("asearchgoodsbrandbysales.action")
+	public @ResponseBody ResultOfSearch asearchgoodsbrandbysales(int nowpage,@RequestBody SearchOfBrand searchOfBrand){
+		int nowindex=8*(nowpage-1);
+		ResultOfSearch resultOfSearch=new ResultOfSearch();
+		SearchAndIndexAndBrand searchAndIndexAndBrand=new SearchAndIndexAndBrand();
+		searchAndIndexAndBrand.setKeywords(searchOfBrand.getKeywords());
+		searchAndIndexAndBrand.setNowindex(nowindex);
+		searchAndIndexAndBrand.setBrand_name(searchOfBrand.getBrand_name());
+		int count = searchService.searchGoodsByBrandCount(searchAndIndexAndBrand);
+		double  c=count;
+		int allpage=(int) Math.ceil(c/8);
+		resultOfSearch.setGoods(searchService.searchGoodsByBrandBySales(searchAndIndexAndBrand));
+		resultOfSearch.setAllpage(allpage);
+		resultOfSearch.setNowpage(nowpage);
+		resultOfSearch.setCount(count);
+		resultOfSearch.setKeywords(searchOfBrand.getKeywords());
+		return resultOfSearch;
+	}
+	//商城搜索（按照品牌--价格优先）
+	@RequestMapping("asearchgoodsbrandbyprice.action")
+	public @ResponseBody ResultOfSearch asearchgoodsbrandbyprice(int nowpage,@RequestBody SearchOfBrand searchOfBrand){
+		int nowindex=8*(nowpage-1);
+		ResultOfSearch resultOfSearch=new ResultOfSearch();
+		SearchAndIndexAndBrand searchAndIndexAndBrand=new SearchAndIndexAndBrand();
+		searchAndIndexAndBrand.setKeywords(searchOfBrand.getKeywords());
+		searchAndIndexAndBrand.setNowindex(nowindex);
+		searchAndIndexAndBrand.setBrand_name(searchOfBrand.getBrand_name());
+		int count = searchService.searchGoodsByBrandCount(searchAndIndexAndBrand);
+		double  c=count;
+		int allpage=(int) Math.ceil(c/8);
+		resultOfSearch.setGoods(searchService.searchGoodsByBrandByPrice(searchAndIndexAndBrand));
+		resultOfSearch.setAllpage(allpage);
+		resultOfSearch.setNowpage(nowpage);
+		resultOfSearch.setCount(count);
+		resultOfSearch.setKeywords(searchOfBrand.getKeywords());
+		return resultOfSearch;
+	}
 	
 }
