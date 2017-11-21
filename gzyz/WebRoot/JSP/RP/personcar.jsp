@@ -34,7 +34,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<link href="${pageContext.request.contextPath}/JSP/RP/personal/css/addstyle.css" rel="stylesheet" type="text/css">
 		<script src="${pageContext.request.contextPath}/JSP/RP/personal/js/jquery.min.js" type="text/javascript"></script>
 		<script src="${pageContext.request.contextPath}/JSP/RP/personal/js/amazeui.js"></script>
-
+		<style>
+		.agileits_header img{
+		border-radius:50%;
+		width:40px;
+	    height:40px;
+	    margin-left:30px;
+	    display:none;
+		}
+		</style>
+		<script type="text/javascript">
+		window.onload=function(){
+		if("${sessionScope.loginuser.user_name}"==""){
+		$("#aofalogin").css("display","inline");
+		$("#aofblogin").css("display","inline");
+		}else{
+		$("#imgoflogin").css("display","inline");
+		$("#aoflogin").css("display","inline");
+		}
+		}
+		</script>
 	</head>
 
 	<body>
@@ -43,17 +62,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
-			<a href="index.html" ><i class="fa fa-home fa-2x" style="color: #FFFFFF;"></i></a>
+			<a href="${pageContext.request.contextPath}/JSP/RP/" ><i class="fa fa-home fa-2x" style="color: #FFFFFF;"></i></a>
 			
 			
-			<a href="login.html" style="color: #FCFCFC;margin-left: 20px;">登录</a>
+			<img id="imgoflogin" src="${pageContext.request.contextPath }${sessionScope.loginuser.user_image}" >
+			
+			<a id="aoflogin" href="#" style="color: #FCFCFC;margin-left: 20px; display:none;">欢迎，${sessionScope.loginuser.user_name}</a>
+			
+			<a id="aofalogin" href="login.html" style="color: #FCFCFC;margin-left: 20px; display:none;">登录</a>
 		
-			<a href="registered.html" style="color: #FCFCFC;margin-left: 20px;">注册</a>
+			<a id="aofblogin" href="registered.html" style="color: #FCFCFC;margin-left: 20px; display:none;">注册</a>
 		
 			</div>
 			<div class="w3l_search" style="margin-top: 5px;">
-			<form action="#" method="post">
-				<input type="search" name="Search" placeholder="搜索商品..." required="">
+			<form action="${pageContext.request.contextPath}/rpsearch/searchgoods.action" method="post">
+				<input type="search" name="keywords" placeholder="搜索商品..." required="">
 				<button type="submit" class="btn btn-default search" aria-label="Left Align">
 					<i class="fa fa-search" aria-hidden="true"> </i>
 				</button>
@@ -74,7 +97,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="breadcrumbs">
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1">
-				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				<li><a href="${pageContext.request.contextPath}/JSP/RP/index.jsp"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
 				<li class="active">个人信息</li>
 			</ol>
 		</div>
@@ -85,10 +108,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="long-title"><span class="all-goods">个人中心</span></div>
 			<div class="nav-cont">
 				<ul>
-					<li> <a href="personcar.html">个人信息</a></li>
-							<li> <a href="options.html">安全设置</a></li>
-							<li class="active"> <a href="address.html">收货地址</a></li>
-							<li><a href="oderlist.html">订单管理</a></li>
+					        <li > <a href="personcar.jsp">个人信息</a></li>
+							<li> <a href="options.jsp">安全设置</a></li>
+							<li class="active"> <a href="address.jsp">收货地址</a></li>
+							<li><a href="oderlist.jsp">订单管理</a></li>
 				</ul>
 			
 			</div>
@@ -108,30 +131,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<hr/>
 						<div class="am-u-md-12 am-u-lg-8" style="margin-top: 20px;">
 									<form class="am-form am-form-horizontal">
-
-										<div class="am-form-group">
-											<label for="user-name" class="am-form-label">用户名</label>
-											<div class="am-form-content">
-												<input type="text" id="user-name" placeholder="用户名">
-											</div>
-										</div>
+									<input type="hidden" name="user_id">
+									<input type="hidden" name="user_name">
+									<input type="hidden" name="user_password">
+									<input type="hidden" name="receiver_id">
+									<input type="hidden" name="user_register">
+									<input type="hidden" name="user_update">
+									
 										<div class="am-form-group">
 											<label for="user-phone" class="am-form-label">手机号码</label>
 											<div class="am-form-content">
-												<input id="user-phone" placeholder="手机号必填" type="email">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="user-name" class="am-form-label">生日</label>
-											<div class="am-form-content">
-												<input type="text" id="user-name" placeholder="生日">
+												<input placeholder="您的手机号" type="email" name="user_tele">
 											</div>
 										</div>
 										
 										<div class="am-form-group">
 											<label for="user-address" class="am-form-label">性别</label>
 											<div class="am-form-content address">
-												<select data-am-selected>
+												<select data-am-selected name="user_sex">
 													<option value="a">男</option>
 													<option value="b" selected>女</option>
 													<option value="c" selected>其他</option>
@@ -139,6 +156,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												
 											</div>
 										</div>
+										
+										<div class="am-form-group">
+											<label for="user-name" class="am-form-label">生日</label>
+											<div class="am-form-content">
+												<input type="text" placeholder="生日" name="user_birthday">
+											</div>
+										</div>
+										
+										<div class="am-form-group">
+											<label for="user-name" class="am-form-label">年龄</label>
+											<div class="am-form-content">
+												<input type="text" placeholder="年龄" name="user_">
+											</div>
+										</div>
+										
+										
 
 										
 										
@@ -184,7 +217,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<div class="am-form-group">
 											<label for="user-intro" class="am-form-label">兴趣爱好</label>
 											<div class="am-form-content">
-												<textarea class="" rows="3" id="user-intro" placeholder="输入兴趣爱好"></textarea>
+												<textarea class="" rows="3"  placeholder="输入兴趣爱好" name="user_interest"></textarea>
 												<small>100字以内写出你的兴趣爱好...</small>
 											</div>
 										</div>
