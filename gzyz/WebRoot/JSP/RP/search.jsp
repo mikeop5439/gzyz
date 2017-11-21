@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html >
 
 	<head>
-		<title>和孝 | 首页</title>
+		<title>和孝 | 搜索商品</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -37,6 +37,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/personal/js/script.js"></script>
 		<script type="text/javascript">
 		window.onload =function setSpage(){
+		if("${sessionScope.loginuser.user_name}"==""){
+		$("#aofalogin").css("display","inline");
+		$("#aofblogin").css("display","inline");
+		}else{
+		$("#imgoflogin").css("display","inline");
+		$("#aoflogin").css("display","inline");
+		}
 	     var i=2;
 	     var page_id="AllPage"+1;
 	     $("#pageUl").empty();
@@ -151,17 +158,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	       });  
      };
 		</script>
-		<script type="text/javascript">
-		window.onload=function(){
-		if("${sessionScope.loginuser.user_name}"==""){
-		$("#aofalogin").css("display","inline");
-		$("#aofblogin").css("display","inline");
-		}else{
-		$("#imgoflogin").css("display","inline");
-		$("#aoflogin").css("display","inline");
-		}
-		}; 
-		</script>
+
 		<style>
 		.agileits_header img{
 		border-radius:50%;
@@ -179,7 +176,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
-			<a href="index.html" ><i class="fa fa-home fa-2x" style="color: #FFFFFF;"></i></a>
+			<a href="${pageContext.request.contextPath}/JSP/RP/" ><i class="fa fa-home fa-2x" style="color: #FFFFFF;"></i></a>
 			
 			
 			<img id="imgoflogin" src="${pageContext.request.contextPath }${sessionScope.loginuser.user_image}" >
@@ -192,8 +189,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		
 			</div>
 			<div class="w3l_search" style="margin-top: 5px;">
-			<form action="#" method="post">
-				<input type="search" name="Search" placeholder="搜索商品..." required="">
+			<form action="${pageContext.request.contextPath}/rpsearch/searchgoods.action" method="post">
+				<input type="search" name="keywords" placeholder="搜索商品..." required="">
 				<button type="submit" class="btn btn-default search" aria-label="Left Align">
 					<i class="fa fa-search" aria-hidden="true"> </i>
 				</button>
@@ -214,7 +211,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="breadcrumbs">
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1">
-				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				<li><a href="${pageContext.request.contextPath}/JSP/RP/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
 				<li class="active">搜索商品</li>
 			</ol>
 		</div>

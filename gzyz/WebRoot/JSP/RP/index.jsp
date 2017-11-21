@@ -113,7 +113,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 					    <li class="ulofnologin" style="display:none;"><a href="login.jsp">登录</a></li>      
 
 						<li class="uloflogin" style="display:none;"><img src="${pageContext.request.contextPath }${sessionScope.loginuser.user_image}" width="40px;" height="40px;"><a href="#">欢迎，${sessionScope.loginuser.user_name}</a></li>
-						<li class="uloflogin" style="display:none;"><a href="address.html">个人中心</a></li>		
+						<li class="uloflogin" style="display:none;"><a href="personcar.jsp">个人中心</a></li>		
 						<li class="uloflogin" style="display:none;"><a href="like.html">收藏夹</a></li>
 						<li class="uloflogin" style="display:none;"><a href="${pageContext.request.contextPath }/userlist/queryuserLoginExit.action">退出登陆</a></li>			
                         
@@ -188,10 +188,10 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 												<div class="multi-gd-img">
 													<ul class="multi-column-dropdown">
 														<h6>理疗产品分类</h6>
-														<li><a href="groceries.html">刮痧板</a></li>
-														<li><a href="groceries.html">足疗粉</a></li>
-														<li><a href="groceries.html">足疗药</a></li>
-														<li><a href="groceries.html">拔罐器</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=刮痧板">刮痧板</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=足疗粉">足疗粉</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=足疗药">足疗药</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=拔罐器">拔罐器</a></li>
 														
 													</ul>
 												</div>	
@@ -206,12 +206,12 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 												<div class="multi-gd-img">
 													<ul class="multi-column-dropdown">
 														<h6>日常用品分类</h6>
-														<li><a href="household.html">老年代步车</a></li>
-														<li><a href="household.html">老花眼镜</a></li>
-														<li><a href="household.html">足疗盆</a></li>
-														<li><a href="household.html">穿袜器</a></li>
-														<li><a href="household.html"> 按摩鞋 </a></li>
-														<li><a href="household.html">放大镜指甲刀</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=老年代步车">老年代步车</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=老花眼镜">老花眼镜</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=足疗盆">足疗盆</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=穿袜器">穿袜器</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=按摩鞋"> 按摩鞋 </a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=放大镜指甲刀">放大镜指甲刀</a></li>
 													</ul>
 												</div>
 												
@@ -226,12 +226,12 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 												<div class="multi-gd-img">
 													<ul class="multi-column-dropdown">
 														<h6>健身产品分类</h6>
-														<li><a href="personalcare.html">跑步机</a></li>
-														<li><a href="personalcare.html">收腹机</a></li>
-														<li><a href="personalcare.html">踏步机</a></li>
-														<li><a href="personalcare.html">握力器</a></li>
-														<li><a href="personalcare.html"> 哑铃</a></li>
-														<li><a href="personalcare.html">仰卧板</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=跑步机">跑步机</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=收腹机">收腹机</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=踏步机">踏步机</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=握力器">握力器</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=哑铃"> 哑铃</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=仰卧板">仰卧板</a></li>
 													</ul>
 												</div>
 												
@@ -245,12 +245,12 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 												<div class="multi-gd-img">
 													<ul class="multi-column-dropdown">
 														<h6>按摩产品分类</h6>
-														<li><a href="packagedfoods.html">按摩椅</a></li>
-														<li><a href="packagedfoods.html">肩颈按摩</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=按摩椅">按摩椅</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=肩颈按摩">肩颈按摩</a></li>
 														
-														<li><a href="packagedfoods.html">背背捶</a></li>
-														<li><a href="packagedfoods.html"> 按摩垫 </a></li>
-														<li><a href="packagedfoods.html">车载按摩</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=背背捶">背背捶</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=按摩垫"> 按摩垫 </a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=车载按摩">车载按摩</a></li>
 													</ul>
 												</div>
 												
@@ -265,10 +265,10 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 												<div class="multi-gd-img">
 													<ul class="multi-column-dropdown">
 														<h6>医疗机械分类</h6>
-														<li><a href="beverages.html">拐杖</a></li>
-														<li><a href="beverages.html">轮椅</a></li>
-														<li><a href="beverages.html">血压计</a></li>
-														<li><a href="beverages.html">家用制氧机</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=拐杖">拐杖</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=轮椅">轮椅</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=血压计">血压计</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=家用制氧机">家用制氧机</a></li>
 														
 													</ul>
 												</div>
@@ -283,10 +283,10 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 												<div class="multi-gd-img">
 													<ul class="multi-column-dropdown">
 														<h6>中老年服饰分类</h6>
-														<li><a href="beverages.html">上衣</a></li>
-														<li><a href="beverages.html">裤子</a></li>
-														<li><a href="beverages.html">鞋子</a></li>
-														<li><a href="beverages.html">包包</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=上衣">上衣</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=裤子">裤子</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=鞋子">鞋子</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=包包">包包</a></li>
 														
 													</ul>
 												</div>
@@ -301,11 +301,9 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 												<div class="multi-gd-img">
 													<ul class="multi-column-dropdown">
 														<h6>孝心礼品分类</h6>
-														<li><a href="beverages.html">拐杖</a></li>
-														<li><a href="beverages.html">轮椅</a></li>
-														<li><a href="beverages.html">血压计</a></li>
-														<li><a href="beverages.html">家用制氧机</a></li>
-														
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=长寿食品">长寿食品</a></li>
+														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=养身茶酒">养身茶酒</a></li>	
+																					
 													</ul>
 												</div>
 							
@@ -358,7 +356,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 					<ul id="myTab" class="nav nav-tabs" role="tablist">
 						<li role="presentation" class="active"><a href="#expeditions" id="expeditions-tab" role="tab" data-toggle="tab" aria-controls="expeditions" aria-expanded="true">周热榜</a></li>
-						<li role="presentation"><a href="#tours" role="tab" id="tours-tab" data-toggle="tab" aria-controls="tours">今日上新</a></li>
+						<li role="presentation"><a href="#tours" role="tab" id="tours-tab" data-toggle="tab" aria-controls="tours">本期上新</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
 						<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">

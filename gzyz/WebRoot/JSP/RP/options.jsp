@@ -35,7 +35,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 		<script src="${pageContext.request.contextPath}/JSP/RP/personal/js/jquery.min.js" type="text/javascript"></script>
 		<script src="${pageContext.request.contextPath}/JSP/RP/personal/js/amazeui.js"></script>
-
+		<style>
+		.agileits_header img{
+		border-radius:50%;
+		width:40px;
+	    height:40px;
+	    margin-left:30px;
+	    display:none;
+		}
+		</style>
+		<script type="text/javascript">
+		window.onload=function(){
+		if("${sessionScope.loginuser.user_name}"==""){
+		$("#aofalogin").css("display","inline");
+		$("#aofblogin").css("display","inline");
+		}else{
+		$("#imgoflogin").css("display","inline");
+		$("#aoflogin").css("display","inline");
+		}
+		}
+		</script>
 
 	</head>
 
@@ -46,17 +65,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
-			<a href="index.html" ><i class="fa fa-home fa-2x" style="color: #FFFFFF;"></i></a>
+			<a href="${pageContext.request.contextPath}/JSP/RP/" ><i class="fa fa-home fa-2x" style="color: #FFFFFF;"></i></a>
 			
 			
-			<a href="login.html" style="color: #FCFCFC;margin-left: 20px;">登录</a>
+			<img id="imgoflogin" src="${pageContext.request.contextPath }${sessionScope.loginuser.user_image}" >
+			
+			<a id="aoflogin" href="#" style="color: #FCFCFC;margin-left: 20px; display:none;">欢迎，${sessionScope.loginuser.user_name}</a>
+			
+			<a id="aofalogin" href="login.html" style="color: #FCFCFC;margin-left: 20px; display:none;">登录</a>
 		
-			<a href="registered.html" style="color: #FCFCFC;margin-left: 20px;">注册</a>
+			<a id="aofblogin" href="registered.html" style="color: #FCFCFC;margin-left: 20px; display:none;">注册</a>
 		
 			</div>
 			<div class="w3l_search" style="margin-top: 5px;">
-			<form action="#" method="post">
-				<input type="search" name="Search" placeholder="搜索商品..." required="">
+			<form action="${pageContext.request.contextPath}/rpsearch/searchgoods.action" method="post">
+				<input type="search" name="keywords" placeholder="搜索商品..." required="">
 				<button type="submit" class="btn btn-default search" aria-label="Left Align">
 					<i class="fa fa-search" aria-hidden="true"> </i>
 				</button>
@@ -88,10 +111,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="long-title"><span class="all-goods">个人中心</span></div>
 			<div class="nav-cont">
 				<ul>
-					<li> <a href="personcar.html">个人信息</a></li>
-							<li> <a href="safety.html">安全设置</a></li>
-							<li class="active"> <a href="address.html">收货地址</a></li>
-							<li><a href="oderlist.html">订单管理</a></li>
+					        <li> <a href="personcar.jsp">个人信息</a></li>
+							<li> <a href="options.jsp">安全设置</a></li>
+							<li class="active"> <a href="address.jsp">收货地址</a></li>
+							<li><a href="oderlist.jsp">订单管理</a></li>
 				</ul>
 				
 			</div>

@@ -38,8 +38,20 @@ public class GoodListTest {
 	private SearchService searchService;
 	@Test
 	public void test1(){
+		String searchOfKeywords="脑白金";
+		ResultOfSearch resultOfSearch=new ResultOfSearch();
 		SearchAndIndex searchAndIndex=new SearchAndIndex();
-		searchAndIndex.setKeywords("脑白金");
-		System.out.println(searchService.brandOfTheSearch(searchAndIndex));
+		searchAndIndex.setKeywords(searchOfKeywords);
+		searchAndIndex.setNowindex(0);
+		int count=searchService.searchGoodsCount(searchAndIndex);
+		double  c=count;
+		int allpage=(int) Math.ceil(c/8);
+		resultOfSearch.setGoods(searchService.searchGoods(searchAndIndex));
+		resultOfSearch.setAllpage(allpage);
+		resultOfSearch.setNowpage(1);
+		resultOfSearch.setCount(count);
+		resultOfSearch.setKeywords(searchOfKeywords);
+		resultOfSearch.setBrand(searchService.brandOfTheSearch(searchAndIndex));
+		System.out.println("aaaaaaaaaaaa"+resultOfSearch);
 	}
 }

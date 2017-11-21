@@ -57,6 +57,25 @@ public class SearchController {
 		model.addAttribute("result", resultOfSearch);
 		return "forward:/JSP/RP/search.jsp";
 	}
+	//分类查询（同步）
+	@RequestMapping("searchscategory.action")
+	public String searchscategory(Model model,String searchOfKeywords){
+		ResultOfSearch resultOfSearch=new ResultOfSearch();
+		SearchAndIndex searchAndIndex=new SearchAndIndex();
+		searchAndIndex.setKeywords(searchOfKeywords);
+		searchAndIndex.setNowindex(0);
+		int count=searchService.searchGoodsCount(searchAndIndex);
+		double  c=count;
+		int allpage=(int) Math.ceil(c/8);
+		resultOfSearch.setGoods(searchService.searchGoods(searchAndIndex));
+		resultOfSearch.setAllpage(allpage);
+		resultOfSearch.setNowpage(1);
+		resultOfSearch.setCount(count);
+		resultOfSearch.setKeywords(searchOfKeywords);
+		resultOfSearch.setBrand(searchService.brandOfTheSearch(searchAndIndex));
+		model.addAttribute("result", resultOfSearch);
+		return "forward:/JSP/RP/search.jsp";
+	}
 	//商城搜索（异步）
 	@RequestMapping("asearchgoods.action")
 	public @ResponseBody ResultOfSearch asearchgoods(int nowpage,@RequestBody SearchOfKeywordsAndCount searchOfKeywordsAndCount){
