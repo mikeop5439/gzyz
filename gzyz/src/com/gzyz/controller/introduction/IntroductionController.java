@@ -21,7 +21,7 @@ public class IntroductionController {
 	private IntroductionService introductionService;
 	
 	@RequestMapping("itemsIntroduction")
-	public String itemsIntroduction(Model model) {
+	public String itemsIntroduction(Model model,int goods_id) {
 		
 		//int param = Integer.parseInt(goods_id);
 		int a = 0;
@@ -30,14 +30,14 @@ public class IntroductionController {
 		List<String> getSpecInfoValues = new ArrayList<String>();
 		List<String> result = new ArrayList<String>();
 		
-		List<GetSpecInfoId> getSpecInfoIds = introductionService.getSpecInfoId(1);
+		List<GetSpecInfoId> getSpecInfoIds = introductionService.getSpecInfoId(goods_id);
 		
-		List<GoodsInfo> goodsInfos = introductionService.getGoodsInfo(1);
+		List<GoodsInfo> goodsInfos = introductionService.getGoodsInfo(goods_id);
 		
 		List<Integer> comments = new ArrayList<Integer>();
-		comments.add(introductionService.countComment(1));
+		comments.add(introductionService.countComment(goods_id));
 		
-		List<CommentInfo> commentInfos = introductionService.getCommentInfo(1);
+		List<CommentInfo> commentInfos = introductionService.getCommentInfo(goods_id);
 		
 		for (int i = 0; i < getSpecInfoIds.size(); i++) {
 			int spec_info_id = getSpecInfoIds.get(i).getSpec_info_id();
