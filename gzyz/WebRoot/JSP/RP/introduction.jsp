@@ -226,7 +226,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<div class="tm-indcon"><span class="tm-label">累计销量</span><span class="tm-count">6015</span></div>
 								</li>
 								<li class="tm-ind-item tm-ind-reviewCount canClick tm-line3">
-									<div class="tm-indcon"><span class="tm-label">累计评价</span><span class="tm-count">640</span></div>
+									<div class="tm-indcon">
+										<c:forEach items="${comments }" var="comments">
+											<span class="tm-label">累计评价</span><span class="tm-count">${comments }</span>
+										</c:forEach>
+									</div>
 								</li>
 							</ul>
 							<div class="clear"></div>
@@ -397,13 +401,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<ul id="J_AttrUL">
 										<c:forEach items="${result}" var="result">
 											<li title="">${result }</li>
-											<!-- <li title="">原料产地:&nbsp;巴基斯坦</li>
-											<li title="">产地:&nbsp;贵州省省贵阳市</li>
-											
-											<li title="">产品规格:&nbsp;大屏幕</li>
-											<li title="">保质期:&nbsp;三年</li>
-											<li title="">产品标准号:&nbsp;GB/T 22165</li>
-											<li title="">生产许可证编号：&nbsp;QS4201 1801 0226</li> -->
 										</c:forEach>
 										</ul>
 										<div class="clear"></div>
@@ -481,6 +478,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<div class="clear"></div>
 
 									<ul class="am-comments-list am-comments-list-flip">
+									<c:forEach items="${commentinfos }" var="commentinfo">
 										<li class="am-comment">
 											<!-- 评论容器 -->
 											<a href="">
@@ -494,17 +492,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 													<!--<h3 class="am-comment-title">评论标题</h3>-->
 													<div class="am-comment-meta">
 														<!-- 评论元数据 -->
-														<a href="#link-to-user" class="am-comment-author">b***1 (匿名)</a>
+														<a href="#link-to-user" class="am-comment-author">${commentinfo.user_name }</a>
 														<!-- 评论者 -->
 														评论于
-														<time datetime="">2015年11月02日 17:46</time>
+														<time datetime="">${commentinfo.formatDateString }</time>
 													</div>
 												</header>
 
 												<div class="am-comment-bd">
 													<div class="tb-rev-item " data-id="255776406962">
 														<div class="J_TbcRate_ReviewContent tb-tbcr-content ">
-															摸起来丝滑柔软，不厚，没色差，颜色好看！买这个衣服还接到诈骗电话，我很好奇他们是怎么知道我买了这件衣服，并且还知道我的电话的！
+															${commentinfo.content }
 														</div>
 														<div class="tb-r-act-bar">
 															颜色分类：柠檬黄&nbsp;&nbsp;尺码：S
@@ -515,7 +513,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												<!-- 评论内容 -->
 											</div>
 										</li>
-										<li class="am-comment">
+									</c:forEach>
+										
+										<%-- <li class="am-comment">
 											<!-- 评论容器 -->
 											<a href="">
 												<img class="am-comment-avatar" src="${pageContext.request.contextPath}/JSP/RP/images/09.jpg" />
@@ -582,7 +582,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												</div>
 												<!-- 评论内容 -->
 											</div>
-										</li>
+										</li> --%>
 										
 										
 

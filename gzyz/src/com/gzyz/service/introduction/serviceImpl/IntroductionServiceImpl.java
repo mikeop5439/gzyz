@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gzyz.bean.introduction.extend.CommentInfo;
 import com.gzyz.bean.introduction.extend.GetSpecId;
 import com.gzyz.bean.introduction.extend.GetSpecInfoId;
 import com.gzyz.bean.introduction.extend.GoodsInfo;
@@ -40,6 +41,16 @@ public class IntroductionServiceImpl implements IntroductionService {
 	public List<GoodsInfo> getGoodsInfo(int goods_id) {
 		// TODO Auto-generated method stub
 		return introductionMapper.getGoodsInfo(goods_id);
+	}
+	@Override
+	public int countComment(int goods_id) {
+		// TODO Auto-generated method stub
+		return introductionMapper.countComment(goods_id);
+	}
+	@Override
+	public List<CommentInfo> getCommentInfo(int goods_id) {
+		// TODO Auto-generated method stub
+		return introductionMapper.getCommentInfo(goods_id);
 	}
 
 }

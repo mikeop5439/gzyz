@@ -71,4 +71,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from `goods_spec`
 		where goods_id = ${goods_id}
 	</select>
+	
+	<select id="countComment" parameterType="int" resultType="int">
+		select count(*)
+		from comment
+	</select>
+	
+<resultMap type="commentinfo" id="getCommentInfo">
+	<id column="cid" property="comment_id" />
+	<result column="uname" property="user_name" />
+	<result column="c" property="content" />
+	<result column="cr" property="comment_rank" />
+	<result column="atime" property="formatDateString" />
+</resultMap>
+	
+	<select id="getCommentInfo" parameterType="int" resultMap="getCommentInfo">
+		select comment_id cid,user_name uname,content c,comment_rank cr,add_time atime
+		from `comment`
+		where goods_id = ${goods_id}
+	</select>
 </mapper>

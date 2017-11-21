@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.gzyz.bean.introduction.extend.CommentInfo;
 import com.gzyz.bean.introduction.extend.GetSpecInfoId;
 import com.gzyz.bean.introduction.extend.GoodsInfo;
 import com.gzyz.service.introduction.service.IntroductionService;
@@ -33,6 +34,11 @@ public class IntroductionController {
 		
 		List<GoodsInfo> goodsInfos = introductionService.getGoodsInfo(1);
 		
+		List<Integer> comments = new ArrayList<Integer>();
+		comments.add(introductionService.countComment(1));
+		
+		List<CommentInfo> commentInfos = introductionService.getCommentInfo(1);
+		
 		for (int i = 0; i < getSpecInfoIds.size(); i++) {
 			int spec_info_id = getSpecInfoIds.get(i).getSpec_info_id();
 			
@@ -53,6 +59,8 @@ public class IntroductionController {
 		model.addAttribute("getSpecNames", getSpecNames);
 		model.addAttribute("getSpecInfoValues", getSpecInfoValues);
 		model.addAttribute("result", result);
+		model.addAttribute("comments", comments);
+		model.addAttribute("commentinfos", commentInfos);
 		return "/JSP/RP/introduction.jsp";
 	}
 }
