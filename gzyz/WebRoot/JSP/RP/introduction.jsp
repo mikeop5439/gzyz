@@ -410,22 +410,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</div>
 									<div class="J_Brand">
 
-										<div class="attr-list-hd tm-clear">
+										<div class="attr-list-hd ">
 											<h4>产品描述：</h4></div>
 										<div class="clear"></div>
-										<!-- <ul id="J_AttrUL">
-											<li title="">1.结合老年人对硬件方面的需求111111111111111111111111111111111111111111111111111111111111111。</li>
-											<li title=""></li>
-											<li title=""></li>
-											<li title="">2.互联网服务让老人体会到高科技的便利。</li>
-											<li title=""></li>
-											<li title=""></li>
-											<li title="">3.为老人提供最贴心的服务。</li>
-											
-											
-										</ul> -->
-										<p>结合老年人对硬件方面的需求111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111。</p>
-										<div class="clear"></div>
+										<c:forEach items="${goodsinfo }" var="info">
+											<span style="float:left;">${info.goods_desc }</span>
+										</c:forEach>	
 									</div>
 
 									
