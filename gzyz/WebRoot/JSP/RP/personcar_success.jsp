@@ -98,8 +98,9 @@ timer = setTimeout('Redirect()', time * 1000); //跳转
 
 
 <div>
-<i class="fa fa-check fa-5x" style="color: green;margin-left:700px;margin-top: 200px;"></i>
-<div id="btn" style="text-align: center;margin-right: 50px;">
+
+<div id="btn" style="text-align: center;margin-right: 50px;margin-top:200px;">
+<p><i class="fa fa-check fa-5x" style="color: green;"></i></p>
 <p style="font-size: 30px;">您已成功更改密码，稍后将从新登录</p>
 <br>
 <a id="s" href="${pageContext.request.contextPath}/JSP/RP/index.jsp" style=""></a>
