@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.gzyz.bean.comment.extend.CommentPageKeywords;
 import com.gzyz.bean.introduction.extend.CommentInfo;
+import com.gzyz.bean.introduction.extend.CommentInfoByPage;
 import com.gzyz.bean.introduction.extend.GetSpecId;
 import com.gzyz.bean.introduction.extend.GetSpecInfoId;
 import com.gzyz.bean.introduction.extend.GoodsInfo;
@@ -17,5 +19,6 @@ public interface IntroductionService {
 	public List<GoodsInfo> getGoodsInfo(int goods_id);
 	public int countComment(int goods_id);
 	public List<CommentInfo> getCommentInfo(int goods_id);
-
+	public List<CommentInfo> getCommentInfoByPage(CommentInfoByPage commentInfoByPage);
+	public int getCommentCount(int goods_id); 
 }

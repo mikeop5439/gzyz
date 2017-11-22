@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gzyz.bean.comment.extend.CommentPageKeywords;
 import com.gzyz.bean.introduction.extend.CommentInfo;
+import com.gzyz.bean.introduction.extend.CommentInfoByPage;
 import com.gzyz.bean.introduction.extend.GetSpecId;
 import com.gzyz.bean.introduction.extend.GetSpecInfoId;
 import com.gzyz.bean.introduction.extend.GoodsInfo;
@@ -51,6 +53,17 @@ public class IntroductionServiceImpl implements IntroductionService {
 	public List<CommentInfo> getCommentInfo(int goods_id) {
 		// TODO Auto-generated method stub
 		return introductionMapper.getCommentInfo(goods_id);
+	}
+	@Override
+	public List<CommentInfo> getCommentInfoByPage(
+			CommentInfoByPage commentInfoByPage) {
+		// TODO Auto-generated method stub
+		return introductionMapper.getCommentInfoByPage(commentInfoByPage);
+	}
+	@Override
+	public int getCommentCount(int goods_id) {
+		// TODO Auto-generated method stub
+		return introductionMapper.getCommentCount(goods_id);
 	}
 
 }

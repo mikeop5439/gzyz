@@ -111,7 +111,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					        <li> <a href="personcar.jsp">个人信息</a></li>
 							<li> <a href="options.jsp">安全设置</a></li>
 							<li class="active"> <a href="address.jsp">收货地址</a></li>
-							<li><a href="oderlist.jsp">订单管理</a></li>
+							<li><a href="oderlist.jsp" style="color:red">订单管理</a></li>
 				</ul>
 			
 			</div>

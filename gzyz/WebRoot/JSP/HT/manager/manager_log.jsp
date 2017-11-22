@@ -98,12 +98,13 @@ window.onload =function setSpage(){
   			  $("#logsTable").empty();
 
 			  $.each(data.manager_logs,function(index,content){
+			  console.log(content.log_time);
 			  var date = "/Date("+content.log_time+")/";
 			  var td1=$("<td></td>").append(content.manager_log_id);
 			  var td2=$("<td></td>").append(content.manager_id);
 			  var td3=$("<td></td>").append(content.log_origin);
 			  var td4=$("<td></td>").append(content.log_method);
-			  var td5=$("<td></td>").append(ConvertJSONDateToJSDate(date));
+			  var td5=$("<td></td>").append(getDateTime(ConvertJSONDateToJSDate(date)));
 			  var d1=$("<div></div>").addClass("am-btn-toolbar").append($("<div></div>").addClass("am-btn-group am-btn-group-xs").append($("<button></button>").addClass("am-btn am-btn-danger am-round am-btn-xl am-icon-trash-o").attr("type","button").attr("style","width:200px;").attr("data-am-modal","{target: '#my-confirm'}").attr("onclick","javascript:deleteLog("+content.manager_log_id+")").append("删除日志")));
 			  var td6=$("<td></td>").append(d1);
 			  //var td6=$("<td></td>").append("asdasd");

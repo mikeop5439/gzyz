@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzyz.mapper.personcar.PersoncarMapper">
+<!-- 修改用户信息 -->
+<update id="updateUserInfo" parameterType="user">
+update user
+<set>
+      <if test="user_tele != null" >
+        user_tele = #{user_tele,jdbcType=VARCHAR},
+      </if>
+      <if test="user_sex != null" >
+        user_sex = #{user_sex,jdbcType=INTEGER},
+      </if>
+      <if test="user_birthday != null" >
+        user_birthday = #{user_birthday,jdbcType=DATE},
+      </if>
+      <if test="user_age != null" >
+        user_age = #{user_age,jdbcType=INTEGER},
+      </if>
+      <if test="user_image != null" >
+        user_image = #{user_image,jdbcType=VARCHAR},
+      </if>
+      <if test="user_interest != null" >
+        user_interest = #{user_interest,jdbcType=VARCHAR},
+      </if>
+</set>
+where user_id=#{user_id}  
+</update>
+<!-- 验证原密码 -->
+<select id="queryOriginalPassword" parameterType="userNameAndUserPassword" resultType="int">
+select count(*) from user
+where user_name=#{user_name} and user_password=#{user_password}
+</select>
+<!-- 验证原密码 -->
+<update id="updatePassword" parameterType="user">
+update user
+set 
+user_password=#{user_password}
+where user_name=#{user_name}
+</update>
+</mapper>

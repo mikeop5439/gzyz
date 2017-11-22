@@ -90,4 +90,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from `comment`
 		where goods_id = ${goods_id}
 	</select>
+	
+	<select id="getCommentInfoByPage" parameterType="CommentInfoByPage" resultMap="getCommentInfo">
+		select comment_id cid,user_name uname,content c,comment_rank cr,add_time atime
+		from `comment`
+		where goods_id = ${goods_id}
+		limit #{nowpage},5
+	</select>
+	
+	<select id="getCommentCount" parameterType="int" resultType="int">
+		select count(*)
+		from `comment`
+		where goods_id = ${goods_id}
+	</select>
 </mapper>
