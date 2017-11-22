@@ -7,8 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.gzyz.bean.comment.extend.CommentPageKeywords;
+import com.gzyz.bean.comment.extend.CommentVo;
 import com.gzyz.bean.introduction.extend.CommentInfo;
+import com.gzyz.bean.introduction.extend.CommentInfoByPage;
+import com.gzyz.bean.introduction.extend.CommentListQuery;
 import com.gzyz.bean.introduction.extend.GetSpecInfoId;
 import com.gzyz.bean.introduction.extend.GoodsInfo;
 import com.gzyz.service.introduction.service.IntroductionService;
@@ -21,8 +29,9 @@ public class IntroductionController {
 	private IntroductionService introductionService;
 	
 	@RequestMapping("itemsIntroduction")
-	public String itemsIntroduction(Model model,int goods_id) {
+	public String itemsIntroduction(Model model,@RequestParam(value="pn",defaultValue="1")int pn) {
 		
+		int goods_id = 1;
 		//int param = Integer.parseInt(goods_id);
 		List<Integer> getSpecIds = new ArrayList<Integer>();
 		List<String> getSpecNames = new ArrayList<String>();
@@ -36,7 +45,9 @@ public class IntroductionController {
 		List<Integer> comments = new ArrayList<Integer>();
 		comments.add(introductionService.countComment(goods_id));
 		
+		PageHelper.startPage(pn, 5);
 		List<CommentInfo> commentInfos = introductionService.getCommentInfo(goods_id);
+		PageInfo page = new PageInfo(commentInfos);
 		
 		for (int i = 0; i < getSpecInfoIds.size(); i++) {
 			int spec_info_id = getSpecInfoIds.get(i).getSpec_info_id();
@@ -54,12 +65,29 @@ public class IntroductionController {
 			result.add(key);
 		}
 		
+		model.addAttribute("goodsid", goods_id);
 		model.addAttribute("goodsinfo", goodsInfos);
 		model.addAttribute("getSpecNames", getSpecNames);
 		model.addAttribute("getSpecInfoValues", getSpecInfoValues);
 		model.addAttribute("result", result);
 		model.addAttribute("comments", comments);
-		model.addAttribute("commentinfos", commentInfos);
+		model.addAttribute("commentinfos", page);
 		return "/JSP/RP/introduction.jsp";
+	}
+	
+	@RequestMapping("getcommentinfobypage")
+	public @ResponseBody CommentListQuery getCommentInfoByPage(String goods_id,int nowpage) {
+		int param = Integer.parseInt(goods_id);
+		double count = introductionService.getCommentCount(param);
+		int allpage=(int) Math.ceil(count/5.0);
+		nowpage=5*(nowpage-1);
+		CommentInfoByPage commentInfoByPage = new CommentInfoByPage();
+		commentInfoByPage.setGoods_id(param);
+		commentInfoByPage.setNowpage(nowpage);
+		List<CommentInfo> commentInfos = introductionService.getCommentInfoByPage(commentInfoByPage);
+		CommentListQuery commentListQuery = new CommentListQuery();
+		commentListQuery.setCommentInfos(commentInfos);
+		commentListQuery.setAllpage(allpage);
+		return commentListQuery;
 	}
 }

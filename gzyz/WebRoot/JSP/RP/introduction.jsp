@@ -45,6 +45,107 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		text-align:none
 		}
 		</style>
+		
+		<script type="text/javascript">
+		 function sub(nowpage){
+			 var goods_id = showTableContent("keylist");
+		       $.ajax({
+		           type:"POST",
+		           url:"${pageContext.request.contextPath }/items/getcommentinfobypage.action?nowpage="+nowpage
+		           ,data:"goods_id="+goods_id,
+		           dataType:"json",
+		           
+			       success:function(data){
+						setpage(data.allpage,nowpage);	            
+			            $("#comment").empty();
+			       		$.each(data.commentInfos,function(index,content){
+							var img1 = $("<img></img>").addClass("am-comment-avatar").attr("src","${pageContext.request.contextPath}/JSP/RP/images/qq_pic_merged_1509681761763.jpg");			    			
+			       			var a1 = $("<a href=''></a>").append(img1);
+			       			
+			       			var a2 = $("<a></a>").addClass("am-comment-author").attr("href","#link-to-user").append(content.user_name);
+							var time1 = $("<time datetime=''></time>").append(content.formatDateString);
+			       			var div1 = $("<div><div>").addClass("am-comment-meta").append(a2).append(time1);
+							var header1 =$("<header></header>").addClass("am-comment-hd").append(div1);
+							
+			       			var div2 = $("<div></div>").addClass("J_TbcRate_ReviewContent tb-tbcr-content").append(content.content);
+			       			var div3 = $("<div></div>").addClass("tb-r-act-bar").append("颜色分类：柠檬黄&nbsp;&nbsp;尺码：S");
+			       			var div4 = $("<div></div>").append(div2).append(div3);
+							var div5 = $("<div></div>").addClass("am-comment-bd").append(div4);			       			
+			       			
+							var div6 = $("<div></div>").addClass("am-comment-main").append(header1).append(div5);
+							
+							$("#comment").append($("<li></li>").addClass("am-comment").append(a1).append(div6));
+			       		});
+			       }
+		       });
+		     };
+		     
+		     function setpage(allpage,nowpage){
+			     var i=2;
+			     var page_id="AllPage"+1;
+			     var lastpage=nowpage-1;
+			     var nextpage=nowpage+1;
+			     $("#pageUl").empty();
+			     if(lastpage>0){
+			     	$("#pageUl").append("<li><a href='javascript:sub("+lastpage+")'>«</a></li>");
+			     }
+			     $("#pageUl").append("<li id='"+page_id+"' class='am-active'><a href='javascript:sub(1)'>1</a></li>");
+			     for(i;i<=allpage;i++){
+			      page_id="AllPage";
+			      page_id=page_id+i;
+			      $("#pageUl").append("<li id='"+page_id+"'><a id='tri' href='javascript:sub("+i+")'>"+i+"</a></li>");
+			     }
+			     /* <c:if test="${commentlist.hasNextPage }">
+		        	<li><a href="?pn=${commentlist.pageNum+1 }">>></a></li>
+		         </c:if> */
+		         if(nextpage<=allpage){
+		         	$("#pageUl").append("<li><a onclick='javascript:sub("+nextpage+")'>»</a></li>");
+		         }
+			     page_id="AllPage"+nowpage;
+			     var id="#"+page_id;
+			     $("ul.am-pagination li").removeClass("am-active");
+			     $(id).addClass("am-active");
+			     //$(id).tri("click");
+			     };
+			     
+			     /** 
+			      * 遍历表格内容返回数组
+			      * @param  Int   id 表格id
+			      * @return Array
+			      */
+			       function getTableContent(id){
+			         var mytable = document.getElementById(id);
+			         var data = [];
+			         for(var i=0,rows=mytable.rows.length; i<rows; i++){
+			             for(var j=0,cells=mytable.rows[i].cells.length; j<cells; j++){
+			                 if(!data[i]){
+			                     data[i] = new Array();
+			                 }
+			                 data[i][j] = mytable.rows[i].cells[j].innerHTML;
+			             }
+			         }
+			         return data;
+			     }
+			     
+			     /** 
+			      * 显示表格内容
+			      * @param  Int   id 表格id
+			      */
+			     function showTableContent(id){
+			         var data = getTableContent(id);
+			         var tmp = null;
+			         /* var tmp = '';
+			         for(i=0,rows=data.length; i<rows; i++){
+			             for(j=0,cells=data[i].length; j<cells; j++){
+			                 tmp += data[i][j] + ',';
+			             }
+			             tmp += '<br>';
+			         } */
+			         tmp = data[0][0];
+			         //document.getElementById('result').innerHTML = tmp;
+			     	return tmp;
+			     }
+		</script>
 	</head>
 
 	<body>
@@ -138,24 +239,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</script>
 
 							<div class="tb-booth tb-pic tb-s310">
-								<a href="${pageContext.request.contextPath}/JSP/RP/images/1.png"><img src="${pageContext.request.contextPath}/JSP/RP/images/1.png" alt="细节展示放大镜特效" rel="${pageContext.request.contextPath}/JSP/RP/images/1.png" class="jqzoom" /></a>
+							<c:forEach items="${goodsinfo }" var="info">
+								<a href="${pageContext.request.contextPath}${info.original_img}"><img src="${pageContext.request.contextPath}${info.original_img}" alt="细节展示放大镜特效" rel="${pageContext.request.contextPath}${info.original_img}" class="jqzoom" /></a>
+							</c:forEach>
 							</div>
 							<ul class="tb-thumb" id="thumblist">
-								<li class="tb-selected">
-									<div class="tb-pic tb-s40">
-										<a href="#"><img src="${pageContext.request.contextPath}/JSP/RP/images/1.png" mid="${pageContext.request.contextPath}/JSP/RP/images/1.png" big="${pageContext.request.contextPath}/JSP/RP/images/1.png"></a>
-									</div>
-								</li>
-								<li>
-									<div class="tb-pic tb-s40">
-										<a href="#"><img src="${pageContext.request.contextPath}/JSP/RP/images/1.png" mid="${pageContext.request.contextPath}/JSP/RP/images/1.png" big="${pageContext.request.contextPath}/JSP/RP/images/1.png"></a>
-									</div>
-								</li>
-								<li>
-									<div class="tb-pic tb-s40">
-										<a href="#"><img src="${pageContext.request.contextPath}/JSP/RP/images/1.png" mid="${pageContext.request.contextPath}/JSP/RP/images/1.png" big="${pageContext.request.contextPath}/JSP/RP/images/1.png"></a>
-									</div>
-								</li>
+								<c:forEach items="${goodsinfo }" var="info">
+									<li class="tb-selected">
+										<div class="tb-pic tb-s40">
+											<a><img src="${pageContext.request.contextPath}${info.original_img}" mid="${pageContext.request.contextPath}${info.original_img}" big="${pageContext.request.contextPath}${info.original_img}"></a>
+										</div>
+									</li>
+								</c:forEach>
 							</ul>
 						</div>
 
@@ -171,6 +266,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<h1>	
 								${info.goods_name }
 	         				 </h1>
+	         				
 						</c:forEach>
 							
 						</div>
@@ -320,6 +416,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</div>
 							<div class="col-md-4 snipcart-details agileinfo_single_right_details">
 							<input type="button"  value="立即购买" class="button" onClick="" >
+							<c:forEach items="${goodsinfo }" var="info">
+							<table id="keylist">
+								<tr>
+									<td id="goods_Id" name="goods_id" style="display: none;">${info.goods_id }</td>
+								</tr>
+							</table>
+							</c:forEach>
 						</div>
 						</div>
 
@@ -377,7 +480,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</li>
 
 								<li>
-									<a href="#">
+									<a href="#" onclick="javascript:sub(1)">
 
 										<span class="index-needs-dt-txt">全部评价</span></a>
 
@@ -477,8 +580,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</div>
 									<div class="clear"></div>
 
-									<ul class="am-comments-list am-comments-list-flip">
-									<c:forEach items="${commentinfos }" var="commentinfo">
+									<ul class="am-comments-list am-comments-list-flip" id="comment">
+									<c:forEach items="${commentinfos.list }" var="commentinfo">
 										<li class="am-comment">
 											<!-- 评论容器 -->
 											<a href="">
@@ -514,91 +617,37 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											</div>
 										</li>
 									</c:forEach>
-										
-										<%-- <li class="am-comment">
-											<!-- 评论容器 -->
-											<a href="">
-												<img class="am-comment-avatar" src="${pageContext.request.contextPath}/JSP/RP/images/09.jpg" />
-												<!-- 评论者头像 -->
-											</a>
-
-											<div class="am-comment-main">
-												<!-- 评论内容容器 -->
-												<header class="am-comment-hd">
-													<!--<h3 class="am-comment-title">评论标题</h3>-->
-													<div class="am-comment-meta">
-														<!-- 评论元数据 -->
-														<a href="#link-to-user" class="am-comment-author">l***4 (匿名)</a>
-														<!-- 评论者 -->
-														评论于
-														<time datetime="">2015年10月28日 11:33</time>
-													</div>
-												</header>
-
-												<div class="am-comment-bd">
-													<div class="tb-rev-item " data-id="255095758792">
-														<div class="J_TbcRate_ReviewContent tb-tbcr-content ">
-															没有色差，很暖和……美美的
-														</div>
-														<div class="tb-r-act-bar">
-															颜色分类：蓝调灰&nbsp;&nbsp;尺码：2XL
-														</div>
-													</div>
-
-												</div>
-												<!-- 评论内容 -->
-											</div>
-										</li>
-										<li class="am-comment">
-											<!-- 评论容器 -->
-											<a href="">
-												<img class="am-comment-avatar" src="${pageContext.request.contextPath}/JSP/RP/images/IMG_20171108_182501R.jpg" />
-												<!-- 评论者头像 -->
-											</a>
-
-											<div class="am-comment-main">
-												<!-- 评论内容容器 -->
-												<header class="am-comment-hd">
-													<!--<h3 class="am-comment-title">评论标题</h3>-->
-													<div class="am-comment-meta">
-														<!-- 评论元数据 -->
-														<a href="#link-to-user" class="am-comment-author">b***1 (匿名)</a>
-														<!-- 评论者 -->
-														评论于
-														<time datetime="">2015年11月02日 17:46</time>
-													</div>
-												</header>
-
-												<div class="am-comment-bd">
-													<div class="tb-rev-item " data-id="255776406962">
-														<div class="J_TbcRate_ReviewContent tb-tbcr-content ">
-															摸起来丝滑柔软，不厚，没色差，颜色好看！买这个衣服还接到诈骗电话，我很好奇他们是怎么知道我买了这件衣服，并且还知道我的电话的！
-														</div>
-														<div class="tb-r-act-bar">
-															颜色分类：柠檬黄&nbsp;&nbsp;尺码：S
-														</div>
-													</div>
-
-												</div>
-												<!-- 评论内容 -->
-											</div>
-										</li> --%>
-										
-										
-
 									</ul>
 
 									<div class="clear"></div>
 
 									<!--分页 -->
-									<ul class="am-pagination am-pagination-right">
-										<li class="am-disabled"><a href="#">&laquo;</a></li>
+									<ul class="am-pagination am-pagination-right" id="pageUl">
+										
+										<c:if test="${commentinfos.hasPreviousPage }">
+	        								<li><a onclick="javascript:sub(${commentinfos.pageNum-1})">«</a></li>
+	        							</c:if>
+	        
+	        							<c:forEach items="${commentinfos.navigatepageNums }" var="page_Num">
+			       					    	<c:if test="${page_Num == commentinfos.pageNum }">
+			        							<li class="am-active"><a href="#">${page_Num }</a></li>
+			        						</c:if>
+			         						<c:if test="${page_Num != commentinfos.pageNum }">
+			        							<li><a href="?pn=${page_Num }">${page_Num }</a></li>
+			       	 						</c:if>
+	        							</c:forEach>
+	        	
+	         							<c:if test="${commentinfos.hasNextPage }">
+	        								<li><a onclick="javascript:sub(${commentinfos.pageNum+1})">»</a></li>
+	         							</c:if>
+										
+										<!-- <li class="am-disabled"><a href="#">&laquo;</a></li>
 										<li class="am-active"><a href="#">1</a></li>
 										<li><a href="#">2</a></li>
 										<li><a href="#">3</a></li>
 										<li><a href="#">4</a></li>
 										<li><a href="#">5</a></li>
-										<li><a href="#">&raquo;</a></li>
+										<li><a href="#">&raquo;</a></li> -->
 									</ul>
 									<div class="clear"></div>
 
