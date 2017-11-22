@@ -29,9 +29,8 @@ public class IntroductionController {
 	private IntroductionService introductionService;
 	
 	@RequestMapping("itemsIntroduction")
-	public String itemsIntroduction(Model model,@RequestParam(value="pn",defaultValue="1")int pn) {
+	public String itemsIntroduction(Model model,@RequestParam(value="pn",defaultValue="1")int pn,int goods_id) {
 		
-		int goods_id = 1;
 		//int param = Integer.parseInt(goods_id);
 		List<Integer> getSpecIds = new ArrayList<Integer>();
 		List<String> getSpecNames = new ArrayList<String>();
