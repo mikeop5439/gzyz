@@ -469,7 +469,7 @@ public class UserListController {
 			System.out.println(st1);
 			return "redirect:/JSP/RP/index.jsp";
 		}
-		
+		//查询用户地址——个人中心
 		@RequestMapping("useraddress")
 		public String useraddress(HttpSession session,HttpServletRequest request){
 			User user=(User) session.getAttribute("user");
