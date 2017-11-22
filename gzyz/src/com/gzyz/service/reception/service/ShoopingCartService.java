@@ -58,4 +58,6 @@ public interface ShoopingCartService {
 		public void insertaddress(Receiver receiver);
 
 		public Receiver selectaddressByid(int max);
+
+		public void delectreceiver(int parseInt);
 }

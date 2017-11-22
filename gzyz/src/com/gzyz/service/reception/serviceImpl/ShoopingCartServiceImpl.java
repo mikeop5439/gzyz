@@ -193,5 +193,13 @@ public class ShoopingCartServiceImpl implements ShoopingCartService {
 		// 查找地址通过ID
 		return shoopingCartMapper.selectaddressByid(max);
 	}
+
+
+	@Override
+	public void delectreceiver(int parseInt) {
+		// 删除用户地址
+		shoopingCartMapper.deletereceiver(parseInt);
+		
+	}
 	
 }

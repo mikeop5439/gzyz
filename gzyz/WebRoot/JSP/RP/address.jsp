@@ -29,21 +29,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 		<link href="${pageContext.request.contextPath}/JSP/RP/personal/css/admin.css" rel="stylesheet" type="text/css">
 		<link href="${pageContext.request.contextPath}/JSP/RP/personal/css/amazeui.css" rel="stylesheet" type="text/css">
-
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/JSP/RP/css/shoopingcart.css" >
 		<link href="${pageContext.request.contextPath}/JSP/RP/personal/css/personal.css" rel="stylesheet" type="text/css">
 		<link href="${pageContext.request.contextPath}/JSP/RP/personal/css/addstyle.css" rel="stylesheet" type="text/css">
-		<script src="${pageContext.request.contextPath}/JSP/RP/personal/js/jquery.min.js" type="text/javascript"></script>
-		<script src="${pageContext.request.contextPath}/JSP/RP/personal/js/amazeui.js"></script>
-		<style>
-		.agileits_header img{
-		border-radius:50%;
-		width:40px;
-	    height:40px;
-	    margin-left:30px;
-	    display:none;
-		}
-		</style>
-		<script type="text/javascript">
+		<script  type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/personal/js/jquery.min.js"></script>
+		<script  type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/personal/js/amazeui.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/js/address.js"></script>
+<style>
+.agileits_header img{
+border-radius:50%;
+width:40px;
+height:40px;
+margin-left:30px;
+display:none;
+}
+</style>
+<script type="text/javascript">
 		window.onload=function(){
 		if("${sessionScope.loginuser.user_name}"==""){
 		$("#aofalogin").css("display","inline");
@@ -53,7 +54,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		$("#aoflogin").css("display","inline");
 		}
 		}
-		</script>
+</script>
 	</head>
 
 	<body>
@@ -110,7 +111,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<ul>
 					        <li> <a href="personcar.jsp">个人信息</a></li>
 							<li> <a href="options.jsp">安全设置</a></li>
-							<li class="active"> <a href="address.jsp">收货地址</a></li>
+							<li class="active" > <a href="address.jsp">收货地址</a></li>
 							<li><a href="oderlist.jsp">订单管理</a></li>
 				</ul>
 			
@@ -118,174 +119,191 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 		<b class="line"></b>
 		
-
-		<div class="center" >
-			<div class="col-main" >
-				<div class="main-wrap">
-
-					<div class="user-address">
-						<!--标题 -->
-						<div class="am-cf am-padding">
-							<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">地址管理</strong> </div>
-						</div>
-						<hr/>
-						<ul class="am-avg-sm-1 am-avg-md-3 am-thumbnails">
-
-							<li class="user-addresslist defaultAddr">
-								<span class="new-option-r"><i class="am-icon-check-circle"></i>默认地址</span>
-								<p class="new-tit new-p-re">
-									<span class="new-txt">小叮当</span>
-									<span class="new-txt-rd2">159****1622</span>
-								</p>
-								<div class="new-mu_l2a new-p-re">
-									<p class="new-mu_l2cw">
-										<span class="title">地址：</span>
-										<span class="province">湖北</span>省
-										<span class="city">武汉</span>市
-										<span class="dist">洪山</span>区
-										<span class="street">雄楚大道666号(中南财经政法大学)</span></p>
-								</div>
-								<div class="new-addr-btn">
-									<a href="#"><i class="am-icon-edit"></i>编辑</a>
-									<span class="new-addr-bar">|</span>
-									<a href="javascript:void(0);" onclick="delClick(this);"><i class="am-icon-trash"></i>删除</a>
-								</div>
-							</li>
-
-							<li class="user-addresslist">
-								<span class="new-option-r"><i class="am-icon-check-circle"></i>设为默认</span>
-								<p class="new-tit new-p-re">
-									<span class="new-txt">小叮当</span>
-									<span class="new-txt-rd2">159****1622</span>
-								</p>
-								<div class="new-mu_l2a new-p-re">
-									<p class="new-mu_l2cw">
-										<span class="title">地址：</span>
-										<span class="province">湖北</span>省
-										<span class="city">武汉</span>市
-										<span class="dist">洪山</span>区
-										<span class="street">雄楚大道666号(中南财经政法大学)</span></p>
-								</div>
-								<div class="new-addr-btn">
-									<a href="#"><i class="am-icon-edit"></i>编辑</a>
-									<span class="new-addr-bar">|</span>
-									<a href="javascript:void(0);" onclick="delClick(this);"><i class="am-icon-trash"></i>删除</a>
-								</div>
-							</li>
-							<li class="user-addresslist">
-								<span class="new-option-r"><i class="am-icon-check-circle"></i>设为默认</span>
-								<p class="new-tit new-p-re">
-									<span class="new-txt">小叮当</span>
-									<span class="new-txt-rd2">159****1622</span>
-								</p>
-								<div class="new-mu_l2a new-p-re">
-									<p class="new-mu_l2cw">
-										<span class="title">地址：</span>
-										<span class="province">湖北</span>省
-										<span class="city">武汉</span>市
-										<span class="dist">洪山</span>区
-										<span class="street">雄楚大道666号(中南财经政法大学)</span></p>
-								</div>
-								<div class="new-addr-btn">
-									<a href="#"><i class="am-icon-edit"></i>编辑</a>
-									<span class="new-addr-bar">|</span>
-									<a href="javascript:void(0);" onclick="delClick(this);"><i class="am-icon-trash"></i>删除</a>
-								</div>
-							</li>
-						</ul>
-						<div class="clear"></div>
-						<a class="new-abtn-type" data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0}">添加新地址</a>
-						<!--例子-->
-						<div class="am-modal am-modal-no-btn" id="doc-modal-1">
-
-							<div class="add-dress">
-
-								<!--标题 -->
-								<div class="am-cf am-padding">
-									<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">新增地址</strong> </div>
-								</div>
-								<hr/>
-
-								<div class="am-u-md-12 am-u-lg-8" style="margin-top: 20px;">
-									<form class="am-form am-form-horizontal">
-
-										<div class="am-form-group">
-											<label for="user-name" class="am-form-label">收货人</label>
-											<div class="am-form-content">
-												<input type="text" id="user-name" placeholder="收货人">
-											</div>
-										</div>
-
-										<div class="am-form-group">
-											<label for="user-phone" class="am-form-label">手机号码</label>
-											<div class="am-form-content">
-												<input id="user-phone" placeholder="手机号必填" type="email">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="user-address" class="am-form-label">所在地</label>
-											<div class="am-form-content address">
-												<select data-am-selected>
-													<option value="a">浙江省</option>
-													<option value="b" selected>湖北省</option>
-												</select>
-												<select data-am-selected>
-													<option value="a">温州市</option>
-													<option value="b" selected>武汉市</option>
-												</select>
-												<select data-am-selected>
-													<option value="a">瑞安区</option>
-													<option value="b" selected>洪山区</option>
-												</select>
-											</div>
-										</div>
-
-										<div class="am-form-group">
-											<label for="user-intro" class="am-form-label">详细地址</label>
-											<div class="am-form-content">
-												<textarea class="" rows="3" id="user-intro" placeholder="输入详细地址"></textarea>
-												<small>100字以内写出你的详细地址...</small>
-											</div>
-										</div>
-
-										<div class="am-form-group">
-											<div class="am-u-sm-9 am-u-sm-push-3">
-												<a class="am-btn am-btn-secondary">保存</a>
-												<a href="javascript: void(0)" class="am-close am-btn am-btn-secondary" data-am-modal-close>取消</a>
-											</div>
-										</div>
-									</form>
-								</div>
-
-							</div>
-
-						</div>
-
-					</div>
-
-					<script type="text/javascript">
-						$(document).ready(function() {							
-							$(".new-option-r").click(function() {
-								$(this).parent('.user-addresslist').addClass("defaultAddr").siblings().removeClass("defaultAddr");
-							});
-							
-							var $ww = $(window).width();
-							if($ww>640) {
-								$("#doc-modal-1").removeClass("am-modal am-modal-no-btn")
-							}
-							
-						})
-					</script>
-
-					<div class="clear"></div>
-
-				</div>
-
-			</div>
+<!-- 地址管理 -->
+<div class="center" >
+<div class="col-main" >
+<div class="main-wrap">
 			
-
-		</div>
+<div class="container" style="width:100%">
+<!--收货地址  -->
+	<div class="page-header"><h3 class="dib"><font color="#FF7F00" size="4px">已有收货地址</font></h3></div>
+	<div id="receiver">
+		<c:forEach items="${receiver }" var="r">
+			<div class="receiver_top" id="${r.getReceiver_id()}">
+				<c:choose>
+				<c:when test="${sessionScope.user.getReceiver_id()==r.getReceiver_id() }">
+					<div class="container container_top" >
+						<div class="receiveraddress1" >
+							<%-- <span><input id="receiverid" name="receiverid" type="radio" value="${r.getReceiver_id()}" checked="checked" /></span> --%>
+							<span id="state">${r.getReceiver_state()}</span> 
+							<span id="city">${r.getReceiver_city()}</span>
+							<span id="district">${r.getReceiver_district()} </span>
+							<span id="address">${r.getReceiver_address()}</span>
+							<span id="name">(${r.getReceiver_name()}收)</span>
+							<span id="phone">${r.getReceiver_phone()}</span>
+							<span style="color:red;font-size:16px;">默认地址</span>
+							<span class="updateaddress"><button id="" onclick="return delete_address(${r.getReceiver_id()})" class="btn btn-danger btn-sm" style="width:70px;height:30px;background-color: #ba120c;border-color: #f97878;">删除</button></span>
+							<span class="updateaddress"><button id="update-ads_button" onclick="return update_ads_new(${r.getReceiver_id()})" class="btn btn-primary btn-sm" data-am-modal="{target: '#update-address'}" style="width:70px;height:30px;color:#FFFFFF;">修改</button></span>
+						</div>
+					</div>
+			  </c:when>
+			  <c:otherwise>
+			  		<div class="container container_top">
+						<div class="receiveraddress2" >
+							<%-- <span><input id="receiverid" name="receiverid" type="radio" value="${r.getReceiver_id()}"/></span> --%>
+							<span id="state">${r.getReceiver_state()}</span> 
+							<span id="city">${r.getReceiver_city()}</span>
+							<span id="district">${r.getReceiver_district()} </span>
+							<span id="address">${r.getReceiver_address()}</span>
+							<span id="name">(${r.getReceiver_name()}收)</span>
+							<span id="phone">${r.getReceiver_phone()}</span>
+							<span><a  href="javascript:void(0)" onclick="setmorenaddress(${r.getReceiver_id()})" style="color:#11b374;">设置为默认地址</a></span>
+							<span class="updateaddress"><button id="" onclick="return delete_address(${r.getReceiver_id()})" class="btn btn-danger btn-sm" style="width:70px;height:30px;background-color: #ba120c;border-color: #f97878;">删除</button></span>
+							<span class="updateaddress"><button id="update-ads_button" onclick="return update_ads_new(${r.getReceiver_id()})" class="btn btn-primary btn-sm" data-am-modal="{target: '#update-address'}" style="width:70px;height:30px;">修改</button></span>
+						</div>
+					</div>
+			  </c:otherwise>
+			  
+			  </c:choose>
+			  
+			</div>
+		</c:forEach>
+		<div id="add_address_position"></div>
 		
+	</div>
+<!--收货地址  -->
+
+<!--添加新地址  -->
+<div class="page-header"><h3 class="dib"><font color="#FF7F00" size="4px">+添加新地址</font></h3></div>
+ <div class=""  id="add-address" style="margin-bottom:50px;">
+ 	<div class="form-horizontal">
+	  		<div class="form-group form-div">
+		    	<label class="col-sm-2 control-label">收货人：</label>
+		    	<div class="col-sm-7">
+		      		<input type="text" id="add_ads_name" name="name" class="form-control" id="inputEmail3" placeholder="请输入姓名">
+		    	</div>
+		    	<div class="col-sm-3"></div>
+  			</div>
+  			<div class="form-group form-div">
+		    	<label class="col-sm-2 control-label">收货电话：</label>
+		    	<div class="col-sm-7">
+		      		<input type="text" id="add_ads_phone" name="phone"  class="form-control" id="inputEmail3" placeholder="请输入电话">
+		    	</div>
+		    	<div class="col-sm-3"></div>
+  			</div>
+	   <div class="form-group form-div">
+		    <label  class="col-sm-2 control-label">省份：</label>
+		    <div class="col-sm-7">
+		       <select class="form-control" id="add_ads_state" name="state">
+				  	<option id="addadsstateoption1">请选择</option>
+				</select>
+		    </div>
+		    <div class="col-sm-3"></div>
+	   </div>
+	   <div class="form-group form-div">
+		    <label  class="col-sm-2 control-label">城市：</label>
+		    <div class="col-sm-7">
+		       <select class="form-control"  id="add_ads_city" name="city">
+				  	<option id="addadscityoption1">请选择</option>
+				</select>
+		    </div>
+		    <div class="col-sm-3"></div>
+	   </div>
+	   <div class="form-group form-div">
+		    <label  class="col-sm-2 control-label">区/县/州：</label>
+		    <div class="col-sm-7">
+		       <select class="form-control" id="add_ads_district" name="district">
+				  	<option id="addadsdistrictoption1">请选择</option>
+			   </select>
+		    </div>
+		    <div class="col-sm-3"></div>
+	   </div>
+	   <div class="form-group form-div">
+		    <label class="col-sm-2 control-label">详细地址：</label>
+		    <div class="col-sm-7">
+		       <input name="address" id="add_ads_address" type="text" class="form-control" id="inputEmail3" placeholder="请输入详细地址">
+		    </div>
+		    <div class="col-sm-3"></div>
+	   </div>
+	  
+	  <div class="form-group form-div">
+	    <div class="col-sm-offset-2 col-sm-12" style=" margin-top:20px;">
+	    	<button type="submit" id="add_ads_newaddres" onclick="return add_ads_newaddres()" class="btn btn-danger btn-lg" style="margin-right:20px;width:300px;">提交</button>
+	    </div>
+	  </div>
+	  		
+	  		
+  </div>
+
+</div>
+ <!--添加新地址  -->	
+ 
+<!-- 修改收货地址 -->
+<div class="am-popup am-popup-inner" id="update-address" style="height:560px;">
+ 	<div class="container" style="border:3px dashed #337AB7;background-color: #e6f4fb;">
+ 	<div style="margin-bottom:30px;margin-top:10px;text-align: center;"><h3 class="dib"><font color="#337AB7" size="5px">修改收货地址</font></h3></div>
+     <div class="form-horizontal">
+  		<div class="form-group form-div">
+	    	<label class="col-sm-4 control-label">收货人：</label>
+	    	<div class="col-sm-8">
+	    		<input id="update_ads_address_id" type="hidden"/>
+	      		<input id="update_ads_name" type="text" class="form-control" id="inputEmail3" placeholder="姓名" value="">
+	    	</div>
+  		</div>
+  		<div class="form-group form-div">
+	    	<label class="col-sm-4 control-label">收货电话：</label>
+	    	<div class="col-sm-8">
+	      		<input id="update_ads_phone" type="text" class="form-control" id="inputEmail3" placeholder="电话">
+	    	</div>
+  		</div>
+	   <div class="form-group form-div">
+		    <label  class="col-sm-4 control-label">省份：</label>
+		    <div class="col-sm-8">
+		       <select class="form-control" id="add_ads_state1" name="state">
+				  	
+				</select>
+		    </div>
+	   </div>
+	   <div class="form-group form-div">
+		    <label  class="col-sm-4 control-label">城市：</label>
+		    <div class="col-sm-8">
+		       <select class="form-control" id="add_ads_city1" name="city">
+				  	
+				</select>
+		    </div>
+	   </div>
+	   <div class="form-group form-div">
+		    <label  class="col-sm-4 control-label">区/县/州：</label>
+		    <div class="col-sm-8">
+		       <select class="form-control" id="add_ads_district1" name="district">
+				  
+				</select>
+		    </div>
+	   </div>
+	   <div class="form-group form-div">
+		    <label class="col-sm-4 control-label">详细地址：</label>
+		    <div class="col-sm-8">
+		       <input id="update_ads_address" type="text" class="form-control" id="inputEmail3" placeholder="详细地址">
+		    </div>
+	   </div>
+	  
+	  <div class="form-group form-div">
+	    <div class="col-sm-offset-2 col-sm-12" style=" margin-top:20px;font-size:14px;">
+	      <button type="submit" id="cancel_update" class="btn btn-primary btn-lg" style="margin-right:20px;width:150px;size:16px;">取消</button>
+	      <button type="button" id="update_address_button" onclick="return update_address()" class="btn btn-info btn-lg" style="margin-right:20px;width:150px;">修改</button>
+	    </div>
+	  </div>
+</div>
+</div>
+</div>
+<!-- 修改收货地址 -->					
+</div>
+</div>
+</div>
+		
+<!-- 结束——————>>>地址管理 -->
+
+
 		
 <!-- //footer -->
 

@@ -59,4 +59,6 @@ public interface ShoopingCartMapper {
 	public void insertaddress(Receiver receiver);
 	//查询收货地址Byid
 	public Receiver selectaddressByid(int max);
+	//删除用户地址
+	public void deletereceiver(int parseInt);
 }

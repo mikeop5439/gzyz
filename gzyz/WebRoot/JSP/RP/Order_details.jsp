@@ -87,7 +87,7 @@ function hideURLbar(){window.scrollTo(0,1);}
 							<span id="name">(${r.getReceiver_name()}收)</span>
 							<span id="phone">${r.getReceiver_phone()}</span>
 							<span><a  href="javascript:void(0)" onclick="setmorenaddress(${r.getReceiver_id()})">设置为默认地址</a></span>
-							<span class="updateaddress"><button id="update-ads_button" onclick="return update_ads_new(${r.getReceiver_id()})" class="btn btn-primary btn-sm" data-am-modal="{target: '#update-address'}" style="width:70px;height:25px;">修改地址</button></span>
+							<span class="updateaddress"><button id="update-ads_button" onclick="return update_ads_new(${r.getReceiver_id()})" class="btn btn-primary btn-sm" data-am-modal="{target: '#update-address'}" style="width:70px;height:30px;">修改地址</button></span>
 						</div>
 					</div>
 			  </c:otherwise>

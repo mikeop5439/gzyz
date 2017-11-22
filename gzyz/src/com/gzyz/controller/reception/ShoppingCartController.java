@@ -37,9 +37,10 @@ public class ShoppingCartController {
 	private ShoopingCartService shoopingCartService;
 	
 	@RequestMapping("queryShoopingCart")
-	public String queryShoopingCart(int user_id,Model model){
+	public String queryShoopingCart(Model model,HttpSession session){
 		//查询购物车
-		List<UserCart> userCarts=shoopingCartService.queryShoopingcart(user_id);
+		User user=(User) session.getAttribute("user");
+		List<UserCart> userCarts=shoopingCartService.queryShoopingcart(user.getUser_id());
 		model.addAttribute("userCarts",userCarts);
 		
 		return "/JSP/RP/shoopingcart.jsp";
@@ -81,8 +82,8 @@ public class ShoppingCartController {
 		String[] stringoods_id=request.getParameterValues("goods_id");
 		String total=request.getParameter("total");
 		
-		//User user=(User) session.getAttribute("user");
-		/*设置一个临时的user*/User user=new User();user.setUser_id(1);
+		User user=(User) session.getAttribute("user");
+		
 		List<Order_details> order_details=new ArrayList<>();
 		for(int i=0;i<stringoods_id.length;i++){
 			/*Order order=new Order();
@@ -129,11 +130,9 @@ public class ShoppingCartController {
 		return "/JSP/RP/Order_details.jsp";
 	}
 	@RequestMapping("setmorenaddress")
-	public String setmorenaddress(int id,HttpServletResponse response) throws Exception{
+	public String setmorenaddress(int id,HttpServletResponse response,HttpSession session) throws Exception{
 		//设置用户的默认地址
-		//User user=(User) session.getAttribute("user");
-		User user=new User();
-		user.setUser_id(1);
+		User user=(User) session.getAttribute("user");
 		user.setReceiver_id(id);
 		shoopingCartService.updatemorenaddress(user);
 		//查询用户收货地址
@@ -157,7 +156,7 @@ public class ShoppingCartController {
 		/*商品ID*/
 		String[] stringoods_id=request.getParameterValues("goods_id");
 		/*总计格*/
-		String ordertotal=request.getParameter("ordertotal");
+		//String ordertotal=request.getParameter("ordertotal");
 		/*获取用户对象*/
 		User user=(User) session.getAttribute("user");
 		
@@ -203,12 +202,22 @@ public class ShoppingCartController {
 			order_details.add(details);
 		}
 	
-		return null;
+		return "forward:/shoppingcart/playorder.action";
 	}
+	//查询用户未支付的订到——>显示到付款页面
+	@RequestMapping("playorder")
+	public String queryplayorder(){
+		
+		
+		
+		return null;
+		
+	}
+	
 	@RequestMapping("delectselectcart")
 	public String delectselectcart(HttpServletRequest request,HttpSession session,HttpServletResponse response) throws Exception{
 		//删除多个选择的购物车商品
-		//User user=(User) session.getAttribute("user");
+		User user=(User) session.getAttribute("user");
 		String[] goods_id = request.getParameterValues("goods_id");
 		String g1=goods_id[0];
 		String g2=g1.substring(1,g1.length()-1);
@@ -218,7 +227,7 @@ public class ShoppingCartController {
         String all = matcher.replaceAll("");*/
 		String[] id =g3.split(",");
 		cart cart=new cart();
-		cart.setUser_id(1);
+		cart.setUser_id(user.getUser_id());
 		for(int i=0;i<id.length;i++){
 			cart.setGoods_id(Integer.parseInt(id[i]));
 			shoopingCartService.delectSelectCart(cart);
@@ -230,8 +239,8 @@ public class ShoppingCartController {
 	@RequestMapping("insertcollect")
 	public String insertcollect(HttpServletRequest request,HttpSession session,HttpServletResponse response) throws Exception{
 		
-		//User user=(User) session.getAttribute("user");
-		User user=new User();user.setUser_id(1);
+		User user=(User) session.getAttribute("user");
+		
 		String[] goods_id = request.getParameterValues("goods_id");
 		
 		collect_goods collect_goods=new collect_goods();
@@ -312,8 +321,8 @@ public class ShoppingCartController {
 	@RequestMapping("updateaddress")
 	public String updateaddress(Receiver receiver,HttpSession session,HttpServletResponse response) throws IOException{
 		//修改收货地址
-		//User user=session.getAttribute("user");
-		receiver.setUser_id(1);
+		User user=(User) session.getAttribute("user");
+		receiver.setUser_id(user.getUser_id());
 		shoopingCartService.updateaddress(receiver);
 		
 		ObjectMapper mapper=new ObjectMapper();
@@ -326,11 +335,11 @@ public class ShoppingCartController {
 	@RequestMapping("add_ads_newaddres")
 	public String add_ads_newaddres(Receiver receiver,HttpSession session,HttpServletResponse response) throws IOException{
 		//增加新的收货地址
-		//User user=session.getAttribute("user");
-		receiver.setUser_id(1);
+		User user=(User) session.getAttribute("user");
+		receiver.setUser_id(user.getUser_id());
 	 if(receiver.getReceiver_name() !=null && receiver.getReceiver_address() != null && receiver.getReceiver_state() != null){
 		shoopingCartService.insertaddress(receiver);
-		List<Receiver> address=shoopingCartService.selectuserreceiver(1);
+		List<Receiver> address=shoopingCartService.selectuserreceiver(user.getUser_id());
 		int max=0;
 		for(Receiver a:address){
 			if(max<a.getReceiver_id()){
@@ -351,8 +360,8 @@ public class ShoppingCartController {
 	@RequestMapping("queryaddress")
 	public String queryaddress(HttpServletResponse response,HttpSession session) throws Exception{
 		//查询用户收货地址
-		//备用 User user=(User) session.getAttribute("user");
-		List<Receiver> receiver=shoopingCartService.selectuserreceiver(1);
+		 User user=(User) session.getAttribute("user");
+		List<Receiver> receiver=shoopingCartService.selectuserreceiver(user.getUser_id());
 		ObjectMapper mapper=new ObjectMapper();
 		//响应用户地址
 		String reslut=mapper.writeValueAsString(receiver);

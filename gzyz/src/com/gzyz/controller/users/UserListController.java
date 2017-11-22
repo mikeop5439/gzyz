@@ -1,5 +1,6 @@
 package com.gzyz.controller.users;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -12,12 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.gzyz.bean.address.ProvinceCityUseQuery;
+import com.gzyz.bean.address.Provinces;
+import com.gzyz.bean.address.ProvincesCities;
 import com.gzyz.bean.goods.extend.GoodsCollect;
+import com.gzyz.bean.users.Receiver;
 import com.gzyz.bean.users.User;
 import com.gzyz.bean.users.extend.UserCart;
 import com.gzyz.bean.users.extend.UserCollect;
 import com.gzyz.bean.users.extend.UserReceiver;
 import com.gzyz.bean.users.extend.Userdate;
+import com.gzyz.service.reception.service.ShoopingCartService;
 import com.gzyz.service.users.service.UserListService;
 
 @Controller
@@ -25,7 +31,8 @@ import com.gzyz.service.users.service.UserListService;
 public class UserListController {
 	@Autowired
 	private UserListService userListService;
-	
+	@Autowired
+	private ShoopingCartService shoopingCartService;
 	//查询用户
 	@RequestMapping("queryuserList")
 	public String queryuserList(HttpServletRequest request){
@@ -433,6 +440,7 @@ public class UserListController {
 							if(userCode.equals(verificationCode)){
 								System.out.println("登录成功！");
 								session.setAttribute("loginuser", user2);
+								session.setAttribute("user", user2);
 								String st2 = session.getId();
 								System.out.println(st2);
 								return "redirect:/JSP/RP/index.jsp";					
@@ -462,5 +470,139 @@ public class UserListController {
 			return "redirect:/JSP/RP/index.jsp";
 		}
 		
+		@RequestMapping("useraddress")
+		public String useraddress(HttpSession session,HttpServletRequest request){
+			User user=(User) session.getAttribute("user");
+			User user2=shoopingCartService.queryuserservice(1);
+			
+			List<Receiver> receiver=shoopingCartService.selectuserreceiver(1);
+			session.setAttribute("user", user2);
+			request.setAttribute("receiver", receiver);
+			return "forward:/JSP/RP/address.jsp";
+		}
 		
+		@RequestMapping("setmorenaddress")
+		public String setmorenaddress(int id,HttpServletResponse response,HttpSession session) throws Exception{
+			//设置用户的默认地址
+			User user=(User) session.getAttribute("user");
+			user.setReceiver_id(id);
+			shoopingCartService.updatemorenaddress(user);
+			//查询用户收货地址
+			List<Receiver> receiver=shoopingCartService.selectuserreceiver(user.getUser_id());
+			ObjectMapper mapper=new ObjectMapper();
+			//响应用户地址
+			String reslut=mapper.writeValueAsString(receiver);
+			
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/Javascript;charse=UTF-8");
+			response.getWriter().print(reslut);
+			
+			return null;
+		}
+		
+		@RequestMapping("addnewaddress")
+		public String addnewaddress(HttpServletResponse response) throws Exception{
+			//查询省市
+			List<Provinces> provinces= shoopingCartService.queryprovinces();
+			
+			ObjectMapper mapper=new ObjectMapper();
+			String reslut=mapper.writeValueAsString(provinces);
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/Javascript;charse=UTF-8");
+			response.getWriter().print(reslut);
+			return null;
+		}
+		
+		@RequestMapping("addnewaddress_city")
+		public String addnewaddress_city(String province,HttpServletResponse response) throws Exception{
+			//查询城市
+			List<ProvincesCities> provinces= shoopingCartService.querycities(province);
+			
+			ObjectMapper mapper=new ObjectMapper();
+			String reslut=mapper.writeValueAsString(provinces);
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/Javascript;charse=UTF-8");
+			response.getWriter().print(reslut);
+			return null;
+		}
+		@RequestMapping("addnewaddress_areas")
+		public String addnewaddress_areas(String province,String city,HttpServletResponse response) throws Exception{
+			//查询城市
+			ProvinceCityUseQuery p=new ProvinceCityUseQuery();
+			p.setCity(city);
+			p.setProvince(province);
+			List<ProvincesCities> provinces= shoopingCartService.queryareas(p);
+			
+			ObjectMapper mapper=new ObjectMapper();
+			String reslut=mapper.writeValueAsString(provinces);
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/Javascript;charse=UTF-8");
+			response.getWriter().print(reslut);
+			return null;
+		}
+		@RequestMapping("updateaddress")
+		public String updateaddress(Receiver receiver,HttpSession session,HttpServletResponse response) throws IOException{
+			//修改收货地址
+			User user=(User) session.getAttribute("user");
+			receiver.setUser_id(user.getUser_id());
+			shoopingCartService.updateaddress(receiver);
+			
+			ObjectMapper mapper=new ObjectMapper();
+			String reslut=mapper.writeValueAsString("true");
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/Javascript;charse=UTF-8");
+			response.getWriter().print(reslut);
+			return null;
+		}
+		@RequestMapping("add_ads_newaddres")
+		public String add_ads_newaddres(Receiver receiver,HttpSession session,HttpServletResponse response) throws IOException{
+			//增加新的收货地址
+			User user=(User) session.getAttribute("user");
+			receiver.setUser_id(user.getUser_id());
+		 if(receiver.getReceiver_name() !=null && receiver.getReceiver_address() != null && receiver.getReceiver_state() != null){
+			shoopingCartService.insertaddress(receiver);
+			List<Receiver> address=shoopingCartService.selectuserreceiver(user.getUser_id());
+			int max=0;
+			for(Receiver a:address){
+				if(max<a.getReceiver_id()){
+					max=a.getReceiver_id();
+				}
+			}
+			Receiver receiver2=shoopingCartService.selectaddressByid(max);
+			ObjectMapper mapper=new ObjectMapper();
+			String reslut=mapper.writeValueAsString(receiver2);
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/Javascript;charse=UTF-8");
+			response.getWriter().print(reslut);
+		 }
+			return null;
+		}
+		
+		
+		@RequestMapping("queryaddress")
+		public String queryaddress(HttpServletResponse response,HttpSession session) throws Exception{
+			//查询用户收货地址
+			 User user=(User) session.getAttribute("user");
+			List<Receiver> receiver=shoopingCartService.selectuserreceiver(user.getUser_id());
+			ObjectMapper mapper=new ObjectMapper();
+			//响应用户地址
+			String reslut=mapper.writeValueAsString(receiver);
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/Javascript;charse=UTF-8");
+			response.getWriter().print(reslut);
+			return null;
+		}
+		//删除用户地址
+		@RequestMapping("delete_address")
+		public String delete_address(String receiver_id,HttpServletResponse response) throws IOException{
+			
+			shoopingCartService.delectreceiver(Integer.parseInt(receiver_id));
+			
+			ObjectMapper mapper=new ObjectMapper();
+			String result=mapper.writeValueAsString("true");
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charse=UTF-8");
+			response.getWriter().print(result);
+			return null;
+		}
 }

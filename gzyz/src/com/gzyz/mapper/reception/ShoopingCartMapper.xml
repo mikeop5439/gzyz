@@ -138,4 +138,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectaddressByid" resultType="receiver" parameterType="int">
 		select * from receiver where receiver_id=#{id}
 	</select>
+	<delete id="deletereceiver" parameterType="int">
+		delete from receiver where receiver_id=#{id}
+	</delete>
 </mapper>	

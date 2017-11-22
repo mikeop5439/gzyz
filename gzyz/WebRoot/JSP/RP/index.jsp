@@ -81,6 +81,13 @@ $("#audioBtn").removeClass("pause").addClass("play");
 $("#iconOfPlayer").removeClass("fa fa-music fa-2x").addClass("fa fa-close fa-2x");
 $("#audioBtn").removeClass("play").addClass("pause");}});
 });
+
+/* $(function(){
+	$("input[name='submit']").click(function(){   
+     //点击图片后发送跳转到指定页面的事件。
+    window.location.href="${pageContext.request.contextPath}/shoppingcart/queryShoopingCart.action?user_id=1";  
+	});
+}); */
 </script>
 
 <!-- start-smoth-scrolling -->
@@ -118,7 +125,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 						<li class="uloflogin" style="display:none;"><a href="${pageContext.request.contextPath }/userlist/queryuserLoginExit.action">退出登陆</a></li>			
                         
 					    <li ><a href="contact.html">联系我们</a></li> 
-					    <li ><a href="contact.html"><i class="fa fa-cart-arrow-down fa-2x"  aria-hidden="true"></i></a></li>
+					    <li ><a href="${pageContext.request.contextPath }/shoppingcart/queryShoopingCart.action?"><i class="fa fa-cart-arrow-down fa-2x"  aria-hidden="true"></i></a></li>
 					
 				</ul>
 			</div>
@@ -129,7 +136,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
               
         <!--hidden-box-->
         <div data-toggle="hidden-box" id="nav-box1" class="user-box" >
-
+			
         </div>
 
  <!--scroll-top-->
@@ -943,7 +950,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
                                         <a href="daily_household.html">
                                             <span class="plus" ><i class="fa fa-plus"></i></span>
                                         </a>
-                                        <img src="images/120.jpg" alt="" >
+                                        <img src="${PageContext.request.contextPath}/JSP/RP/images/120.jpg" alt="" >
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-12 gallery-item coffee catering mb-30">
@@ -951,7 +958,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
                                         <a href="images/gallery/2.jpg">
                                             <span class="plus"><i class="fa fa-plus"></i></span>
                                         </a>
-                                        <img src="images/1.jpg" alt="">
+                                        <img src="${PageContext.request.contextPath}/JSP/RP/images/1.jpg" alt="">
                                     </div>
                                 </div> 
                                 <div class="col-md-4 col-sm-6 col-xs-12 gallery-item desert drink mb-30">
@@ -959,7 +966,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
                                         <a href="images/gallery/3.jpg">
                                             <span class="plus"><i class="fa fa-plus"></i></span>
                                         </a>	
-                                        <img src="images/191.jpg" alt="">
+                                        <img src="${PageContext.request.contextPath}/JSP/RP/images/191.jpg" alt="">
                                     </div>
                                 </div>
                               
@@ -1037,7 +1044,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 					</ul>
 				</div>
 				<div class="payment-w3ls">	
-					<img src="images/card.png" alt=" " class="img-responsive">
+					<img src="${PageContext.request.contextPath}/JSP/RP/images/card.png" alt=" " class="img-responsive">
 				</div>
 				<div class="clearfix"> </div>
 			</div>
