@@ -36,6 +36,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<script src="${pageContext.request.contextPath}/JSP/RP/personal/js/jquery.min.js" type="text/javascript"></script>
 		<script src="${pageContext.request.contextPath}/JSP/RP/personal/js/amazeui.js"></script>
 		<style>
+		.error{
+		color:red;
+		display:block;
+		}
+		.success{
+		
+		display:none;
+		}
+		</style>
+		<style>
 		.agileits_header img{
 		border-radius:50%;
 		width:40px;
@@ -53,6 +63,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		$("#imgoflogin").css("display","inline");
 		$("#aoflogin").css("display","inline");
 		}
+		};
+		</script>
+		
+		<script type="text/javascript">
+		function checkpassword(){
+		var user_name=$("#user_name").val();
+		var user_password=$("#o_password").val();;
+		var params='{"user_name":"'+user_name+'","user_password":"'+user_password+'"}';
+		$.ajax({
+  			url:"${pageContext.request.contextPath }/personcar/queryOriginalPassword.action",
+  			
+  			type:"POST",
+  			//如果前台传递json数据，那么一定要加上这个字段。
+  			contentType:'application/json;charset=utf-8',
+  			//会自动把字符串数据转换为json对象数据
+  			dataType:"json",
+  			//data:"username=abc&age=1",
+  			data:params,
+  			//当服务器成功的返回数据后调用这个方法
+  			//data就是服务器返回的数据，
+  			success:function(data){
+  			$("#flagepassword").val(data);
+  			if(data==0){
+  			$("#errstring1").css("display","block");
+  			}else{
+  			$("#errstring1").css("display","none");
+  			}
+  			}
+  			
+  		});
 		}
 		</script>
 
@@ -72,9 +112,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			
 			<a id="aoflogin" href="#" style="color: #FCFCFC;margin-left: 20px; display:none;">欢迎，${sessionScope.loginuser.user_name}</a>
 			
-			<a id="aofalogin" href="login.html" style="color: #FCFCFC;margin-left: 20px; display:none;">登录</a>
+			<a id="aofalogin" href="login.jsp" style="color: #FCFCFC;margin-left: 20px; display:none;">登录</a>
 		
-			<a id="aofblogin" href="registered.html" style="color: #FCFCFC;margin-left: 20px; display:none;">注册</a>
+			<a id="aofblogin" href="registered.jsp" style="color: #FCFCFC;margin-left: 20px; display:none;">注册</a>
 		
 			</div>
 			<div class="w3l_search" style="margin-top: 5px;">
@@ -100,7 +140,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="breadcrumbs">
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1">
-				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				<li><a href="${pageContext.request.contextPath}/JSP/RP/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
 				<li class="active">修改密码</li>
 			</ol>
 		</div>
@@ -112,8 +152,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="nav-cont">
 				<ul>
 					        <li> <a href="personcar.jsp">个人信息</a></li>
-							<li> <a href="options.jsp">安全设置</a></li>
-							<li class="active"> <a href="address.jsp">收货地址</a></li>
+							<li> <a href="options.jsp" style="color:red">安全设置</a></li>
+							<li class="active"> <a href="${pageContext.request.contextPath}/userlist/useraddress.action">收货地址</a></li>
 							<li><a href="oderlist.jsp">订单管理</a></li>
 				</ul>
 				
@@ -149,27 +189,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="u-progress-bar-inner"></div>
 						</div>
 					</div>
-					<form class="am-form am-form-horizontal">
+					<form class="am-form am-form-horizontal" action="${pageContext.request.contextPath }/personcar/updatePassword.action" method="post" onSubmit="return checkForm()">
 						<div class="am-form-group">
 							<label for="user-old-password" class="am-form-label">原密码</label>
 							<div class="am-form-content">
-								<input type="password" id="user-old-password" placeholder="请输入原登录密码">
+							    <input  type="hidden" id="flagepassword">
+							    <input type="hidden" id="user_name" name="user_name" value="${sessionScope.loginuser.user_name}">
+								<input id="o_password" type="password" id="user-old-password" placeholder="请输入原登录密码" onblur="javascript:checkpassword()">
+								<span id="errstring1"style="color:red;display:none;">与原密码不符</span>
 							</div>
 						</div>
 						<div class="am-form-group">
 							<label for="user-new-password" class="am-form-label">新密码</label>
 							<div class="am-form-content">
-								<input type="password" id="user-new-password" placeholder="由数字、字母组合">
+								<input id="apswd" type="password" id="user-new-password" placeholder="由数字、字母组合" oninput="javascript:acheckPassword()" onblur="javascript:acheckPassword()">
+								<span id="errstring2"style="color:red;display:none;">密码长度在6个字符到12个字符，由字母、数字和"_"组成</span>
 							</div>
 						</div>
 						<div class="am-form-group">
 							<label for="user-confirm-password" class="am-form-label">确认密码</label>
 							<div class="am-form-content">
-								<input type="password" id="user-confirm-password" placeholder="请再次输入上面的密码">
+								<input id="rpswd" type="password" id="user-confirm-password" placeholder="请再次输入上面的密码" name="user_password" oninput="javascript:checkRepassword()" onblur="javascript:checkRepassword()">
+								<span id="errstring4"style="color:red;display:none;">两次密码必须相同</span>
 							</div>
 						</div>
 						<div class="info-btn">
-							<div class="am-btn am-btn-secondary">保存修改</div>
+						<input type="submit" class="am-btn am-btn-secondary" value="修改">
+							
 						</div>
 
 					</form>
@@ -199,7 +245,63 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 		</div>
 <!-- //footer -->	
+<script>
+ function checkForm(){ 
+        var passtip = acheckPassword(); 
+		var repasstip =checkRepassword ();
+		var orpasstip =checOrepassword();
+        return orpasstip && passtip && repasstip ; 
+  }
+function checOrepassword(){
+     var item=$("#flagepassword").val();
+     if(item==0){
+     return false; 
+     }else{
+     return true; 
+     }
+}
+function checkRepassword(){ 
+  var userpasswd = document.getElementById('apswd').value; 
+  var reuserpasswd = document.getElementById('rpswd').value;
+  if(reuserpasswd!==userpasswd){ 
+    $("#errstring4").css("display","block");
+    return false; 
+    } 
+else{
+     $("#errstring4").css("display","none"); 
+     return true; 
+     }
+  } 
+  
+  function acheckPassword(){ 
+  var userpasswd = document.getElementById('apswd').value; 
+  
+  var pattern = /^[0-9A-Za-z_]\w{5,11}$/; //密码长度在8个字符到16个字符，由字母、数字和"_"组成
 
+  if(!pattern.test(userpasswd)){ 
+    $("#errstring2").css("display","block");
+    return false; 
+    } 
+   else{ 
+    $("#errstring2").css("display","none");
+     return true; 
+     } 
+  } 
+  function rcheckPassword(){ 
+  var userpasswd = document.getElementById('apswd').value; 
+  
+  var pattern = /^[0-9A-Za-z_]\w{5,11}$/; //密码长度在8个字符到16个字符，由字母、数字和"_"组成
+
+  if(!pattern.test(userpasswd)){ 
+    $("#errstring3").css("display","block");
+    return false; 
+    } 
+   else{ 
+    $("#errstring3").css("display","none");
+     return true; 
+     } 
+  } 
+</script>
 	</body>
 
 </html>

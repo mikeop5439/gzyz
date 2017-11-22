@@ -41,6 +41,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	    height:40px;
 	    margin-left:30px;
 	    display:none;
+	    
 		}
 		</style>
 		<script type="text/javascript">
@@ -52,8 +53,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		$("#imgoflogin").css("display","inline");
 		$("#aoflogin").css("display","inline");
 		}
+		if("${sessionScope.loginuser.user_birthday}"==""){
+		}else{
+		var date=new Date("${sessionScope.loginuser.user_birthday}");
+		$("#birthdayinput").attr("value",formatDate(date));
+		}
 		}
 		</script>
+		<style>
+			.center img{
+				width: 150px;
+				height: 150px;
+				border-radius: 50%;
+			
+				
+			}
+			
+		
+		</style>
 	</head>
 
 	<body>
@@ -108,9 +125,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="long-title"><span class="all-goods">个人中心</span></div>
 			<div class="nav-cont">
 				<ul>
-					        <li > <a href="personcar.jsp">个人信息</a></li>
+					        <li ><a href="personcar.jsp" style="color:red">个人信息</a></li>
 							<li> <a href="options.jsp">安全设置</a></li>
-							<li class="active"> <a href="address.jsp">收货地址</a></li>
+							<li class="active"> <a href="${pageContext.request.contextPath}/userlist/useraddress.action">收货地址</a></li>
 							<li><a href="oderlist.jsp">订单管理</a></li>
 				</ul>
 			
@@ -120,6 +137,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		
 
 		<div class="center" >
+		<div style="float: left;margin-top: 20px;">
+		<img src="${pageContext.request.contextPath }${sessionScope.loginuser.user_image}" >
+		<p style="margin-top: 20px;font-weight:600">尊敬的用户，${sessionScope.loginuser.user_name}</p>
+		<br>
+		<p style="font-weight:600">电  话：${sessionScope.loginuser.user_tele}</p>
+		</div>
 			<div class="col-main" >
 				<div class="main-wrap">
 
@@ -130,44 +153,54 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</div>
 						<hr/>
 						<div class="am-u-md-12 am-u-lg-8" style="margin-top: 20px;">
-									<form class="am-form am-form-horizontal">
-									<input type="hidden" name="user_id">
-									<input type="hidden" name="user_name">
-									<input type="hidden" name="user_password">
-									<input type="hidden" name="receiver_id">
-									<input type="hidden" name="user_register">
-									<input type="hidden" name="user_update">
-									
+									<form id="thisform" class="am-form am-form-horizontal" action="${pageContext.request.contextPath }/personcar/updateUserInfo.action?" method="post" enctype="multipart/form-data">
+									<input type="hidden" name="user_id" value="${sessionScope.loginuser.user_id}">
+									<input type="hidden" name="user_name" value="${sessionScope.loginuser.user_name}">
 										<div class="am-form-group">
 											<label for="user-phone" class="am-form-label">手机号码</label>
 											<div class="am-form-content">
-												<input placeholder="您的手机号" type="email" name="user_tele">
+												<input placeholder="您的手机号" type="text" name="user_tele" value="${sessionScope.loginuser.user_tele}">
 											</div>
 										</div>
 										
 										<div class="am-form-group">
 											<label for="user-address" class="am-form-label">性别</label>
 											<div class="am-form-content address">
+												<c:if test="${sessionScope.loginuser.user_sex==0}">
 												<select data-am-selected name="user_sex">
-													<option value="a">男</option>
-													<option value="b" selected>女</option>
-													<option value="c" selected>其他</option>
+													<option value="0" selected>男</option>
+													<option value="1">女</option>
+													<option value="2">保密</option>
 												</select>
-												
+												</c:if>
+												<c:if test="${sessionScope.loginuser.user_sex==1}">
+												<select data-am-selected name="user_sex">
+													<option value="0">男</option>
+													<option value="1" selected>女</option>
+													<option value="2">保密</option>
+												</select>
+												</c:if>
+												<c:if test="${sessionScope.loginuser.user_sex==2}">
+												<select data-am-selected name="user_sex">
+													<option value="0">男</option>
+													<option value="1">女</option>
+													<option value="2" selected>保密</option>
+												</select>
+												</c:if>
 											</div>
 										</div>
 										
 										<div class="am-form-group">
 											<label for="user-name" class="am-form-label">生日</label>
 											<div class="am-form-content">
-												<input type="text" placeholder="生日" name="user_birthday">
+												<input id="birthdayinput" type="text" placeholder="生日" name="user_birthday" value="">
 											</div>
 										</div>
 										
 										<div class="am-form-group">
 											<label for="user-name" class="am-form-label">年龄</label>
 											<div class="am-form-content">
-												<input type="text" placeholder="年龄" name="user_">
+												<input type="text" placeholder="年龄" name="user_age" value="${sessionScope.loginuser.user_age}">
 											</div>
 										</div>
 										
@@ -178,62 +211,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<div class="am-form-group">
 											<label for="user-name" class="am-form-label">更换头像</label>
 											<div class="am-form-content" style="margin-top: 5px;">
-												<input type="file" id="user-name" placeholder="选择图片">
+												<input type="file" id="userphoto" name="userphoto" placeholder="选择图片">
+												
 											</div>
 										</div>
+										<div class="am-cf am-padding">
+									<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">其他信息</strong> </div>
+								</div>
+								<hr/>
 
+										<div class="am-form-group">
+											<label for="user-intro" class="am-form-label">兴趣爱好</label>
+											<div class="am-form-content">
+												<textarea class="" rows="3"  placeholder="输入兴趣爱好" name="user_interest">${sessionScope.loginuser.user_interest}</textarea>
+												<small>100字以内写出你的兴趣爱好...</small>
+											</div>
+										</div>
 										
 										<div class="am-form-group">
 											<div class="am-u-sm-9 am-u-sm-push-3">
-												<a class="am-btn am-btn-secondary">保存</a>
-												<a href="javascript: void(0)" class="am-close am-btn am-btn-secondary" data-am-modal-close>取消</a>
+												<input class="am-btn am-btn-secondary" type="submit" onclick="javascript:isNull()" value="保存">
 											</div>
 										</div>
+										
 									</form>
 								</div>
 
 						
 						<div class="clear"></div>
 						
-						<div class="am-modal am-modal-no-btn" id="doc-modal-1">
-
-							<div class="add-dress">
-
-								<!--标题 -->
-								<div class="am-cf am-padding">
-									<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">其他信息</strong> </div>
-								</div>
-								<hr/>
-
-								
-								<div class="am-u-md-12 am-u-lg-8" style="margin-top: 20px;">
-									<form class="am-form am-form-horizontal">
-
-										
-
-									
-										
-
-										<div class="am-form-group">
-											<label for="user-intro" class="am-form-label">兴趣爱好</label>
-											<div class="am-form-content">
-												<textarea class="" rows="3"  placeholder="输入兴趣爱好" name="user_interest"></textarea>
-												<small>100字以内写出你的兴趣爱好...</small>
-											</div>
-										</div>
-
-										<div class="am-form-group">
-											<div class="am-u-sm-9 am-u-sm-push-3">
-												<a class="am-btn am-btn-secondary">保存</a>
-												<a href="javascript: void(0)" class="am-close am-btn am-btn-secondary" data-am-modal-close>取消</a>
-											</div>
-										</div>
-									</form>
-								</div>
-
-							</div>
-
-						</div>
+						
 
 					</div>
 
@@ -281,5 +288,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 <!-- //footer -->	
 	</body>
-
+	<script type="text/javascript">
+function formatDate(date) {  
+    var y = date.getFullYear();  
+    var m = date.getMonth() + 1;  
+    m = m < 10 ? '0' + m : m;  
+    var d = date.getDate();  
+    d = d < 10 ? ('0' + d) : d;  
+    return y + '-' + m + '-' + d;  
+}; 
+function isNull(){
+if($("#userphoto").val()==""){
+$("#thisform").attr("action","${pageContext.request.contextPath }/personcar/updateUserInfo.action?flage=0");
+}else{
+$("#thisform").attr("action","${pageContext.request.contextPath }/personcar/updateUserInfo.action?flage=1");
+}
+}
+	</script>
 </html>
