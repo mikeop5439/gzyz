@@ -54,22 +54,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from `goods`
 		where goods_id = ${goods_id}
 	</select>
-	<!-- <update id="updateCommentStatusToTrue" parameterType="int">
-		update `comment` set status = 1
-		where comment_id = ${comment_id}
-	</update>
-	
-	<update id="updateCommentStatusToFalse" parameterType="int">
-		update `comment` set status = 0
-		where comment_id = ${comment_id}
-	</update>  -->
-	
-	
 	
 	<select id="getInfoId" parameterType="int" resultType="int">
 		select spec_info_id inid
 		from `goods_spec`
 		where goods_id = ${goods_id}
+	</select>
+	
+	<select id="getGoodsKey" parameterType="int" resultType="string">
+		select keywords
+		from `goods`
+		where goods_id = ${goods_id}
+	</select>
+	
+<resultMap type="relatedgoods" id="getRelatedGoods">
+	<id column="gid" property="goods_id" />
+	<result column="gname" property="goods_name" />
+	<result column="sp" property="shop_price" />
+	<result column="oimg" property="original_img" />
+</resultMap>
+	
+	<select id="getRelatedGoods" parameterType="RelatedGoodsKey" resultMap="getRelatedGoods">
+		select goods_id gid,goods_name gname,shop_price sp,original_img oimg
+		from goods
+		where keywords = #{keywords}
+		limit #{firstnum},#{secondnum}
+	</select>
+	
+	<select id="getRelatedGoodsCount" parameterType="string" resultType="int">
+		select count(*)
+		from goods
+		where keywords = #{keywords}
 	</select>
 	
 	<select id="countComment" parameterType="int" resultType="int">

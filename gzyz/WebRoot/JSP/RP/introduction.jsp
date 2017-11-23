@@ -80,6 +80,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		       });
 		     };
 		     
+		     function getrelategoods(){
+				 var goods_id = showTableContent("keylist");
+				$.ajax({
+					type:"POST",
+			        url:"${pageContext.request.contextPath }/items/getrelatedgoodsinfo.action",
+			        data:"goods_id="+goods_id,
+			        dataType:"json",
+			        
+			        success:function(data){
+			        	$("#relatedgoosdid").empty();
+			        	$.each(data,function(index,content){
+			        		var img1 = $("<img></img>").attr("src","${pageContext.request.contextPath}"+content.original_img);
+			        		
+			        		var p1 = $("<p></p>").append(content.goods_name);
+			        		
+			        		var b1 = $("<b></b>").append("¥").addClass("price fl");
+			        		var strong1 = $("<strong></strong>").append(content.shop_price);
+			        		var p2 = $("<p></p>").append(b1).append(strong1);
+			        		
+			        		var div1 = $("<div></div>").addClass("i-pic limit").append(img1).append(p1).append(p2);
+			        		
+			        		$("#relatedgoosdid").append($("<li></li>").append(div1));
+			        	});
+			        }
+				});
+		     }
+		     
 		     function setpage(allpage,nowpage){
 			     var i=2;
 			     var page_id="AllPage"+1;
@@ -443,29 +470,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						     	<div class="mt">            
 						            <h2>看了又看</h2>        
 					            </div>
-						     	
-							      <li class="first">
-							      	<div class="p-img">                    
-							      		<a  href="#"> <img class="" src="${pageContext.request.contextPath}/JSP/RP/images/21.jpg"> </a>               
-							      	</div>
-							      	<div class="p-name"><a href="#">
-							      		踏步机
-							      	</a>
-							      	</div>
-							      	<div class="p-price"><strong>￥3500.90</strong></div>
-							      </li>
-							    							      
-							      <li>
-							      	<div class="p-img">                    
-							      		<a  href="#"> <img class="" src="${pageContext.request.contextPath}/JSP/RP/images/191.jpg"> </a>               
-							      	</div>
-							      	<div class="p-name"><a href="#">
-							      		动感单车
-							      	</a>
-							      	</div>
-							      	<div class="p-price"><strong>￥3500.90</strong></div>
-							      </li>							      
-					      
+						     	<c:forEach items="${relatedgoods }" var="relatedgoods">
+									<li class="first">
+							      		<div class="p-img">                    
+							      			<a> <img class="" src="${pageContext.request.contextPath}${relatedgoods.original_img}"> </a>               
+							      		</div>
+							      		<div class="p-name">
+							      			<a>
+							      				${relatedgoods.goods_name }
+							      			</a>
+							      		</div>
+							      		<div class="p-price"><strong>￥${relatedgoods.shop_price }</strong></div>
+							    	</li>
+								</c:forEach>
 						     </ul>					
 					    </div>
 					</div>
@@ -487,7 +504,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</li>
 
 								<li>
-									<a href="#">
+									<a href="#" onclick="javascript:getrelategoods()">
 
 										<span class="index-needs-dt-txt">猜你喜欢</span></a>
 								</li>
@@ -659,61 +676,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 								<div class="am-tab-panel am-fade">
 									<div class="like">
-										<ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes">
+										<ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes" id="relatedgoosdid">
+										<c:forEach items="${relatedgoods }" var="relatedgoods">
 											<li>
 												<div class="i-pic limit">
-													<img src="${pageContext.request.contextPath}/JSP/RP/images/5.jpg" />
-													<p>【和孝商城】老年豪华手机
-														<span>东北红 大屏幕</span></p>
+													<img src="${pageContext.request.contextPath}${relatedgoods.original_img}" />
+													<p>
+														${relatedgoods.goods_name }
+													</p>
 													<p class="price fl">
 														<b>¥</b>
-														<strong>2980.00</strong>
+														<strong>${relatedgoods.shop_price }</strong>
 													</p>
 												</div>
 											</li>
-											
-										
-											
-											<li>
-												<div class="i-pic limit">
-													
-													<img src="${pageContext.request.contextPath}/JSP/RP/images/5.jpg" />
-													<p>【和孝商城】老年豪华手机
-														<span>东北红 大屏幕</span></p>
-													<p class="price fl">
-														<b>¥</b>
-														<strong>298.00</strong>
-													</p>
-												</div>
-											</li>
-											<li>
-												<div class="i-pic limit">
-													<img src="${pageContext.request.contextPath}/JSP/RP/images/5.jpg" />
-													<p>【和孝商城】老年豪华手机
-														<span>东北红 大屏幕</span></p>
-													<p class="price fl">
-														<b>¥</b>
-														<strong>298.00</strong>
-													</p>
-												</div>
-											</li>
-											<li>
-												<div class="i-pic limit">
-													<img src="${pageContext.request.contextPath}/JSP/RP/images/5.jpg" />
-													<p>【和孝商城】老年豪华手机
-														<span>东北红 大屏幕</span></p>
-													<p class="price fl">
-														<b>¥</b>
-														<strong>298.00</strong>
-													</p>
-												</div>
-											</li>
+										</c:forEach>
 										</ul>
 									</div>
 									<div class="clear"></div>
 
 									<!--分页 -->
-									<ul class="am-pagination am-pagination-right">
+									<!-- <ul class="am-pagination am-pagination-right">
 										<li class="am-disabled"><a href="#">&laquo;</a></li>
 										<li class="am-active"><a href="#">1</a></li>
 										<li><a href="#">2</a></li>
@@ -721,7 +704,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<li><a href="#">4</a></li>
 										<li><a href="#">5</a></li>
 										<li><a href="#">&raquo;</a></li>
-									</ul>
+									</ul> -->
 									<div class="clear"></div>
 
 								</div>
