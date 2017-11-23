@@ -272,8 +272,13 @@ $.ajax({
   			var myChart = echarts.init(document.getElementById('main'),'roma');
             var item=[];
   			$.each(data,function(index,content){
+  			/* var city=""+content.city+""; */
+  			var city=""+content.city+"";
+  			console.log(city);
+  			city=city.substr(0, city.length - 1);;
+  			console.log(city);
   			 item.push({
-  			 name:content.city,
+  			 name:city,
   			 value:content.count
   			 });
   			});

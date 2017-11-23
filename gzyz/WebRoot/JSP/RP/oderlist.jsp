@@ -58,8 +58,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<body>
 
 			
-<!-- header -->
-	<div class="agileits_header">
+<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
 			<a href="${pageContext.request.contextPath}/JSP/RP/" ><i class="fa fa-home fa-2x" style="color: #FFFFFF;"></i></a>
@@ -91,13 +90,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			
 		</div>
 	</div>
-
-<!-- //header -->
 <!-- breadcrumbs -->
 	<div class="breadcrumbs">
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1">
-				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				<li><a href="${pageContext.request.contextPath}/JSP/RP/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
 				<li class="active">订单管理</li>
 			</ol>
 		</div>
@@ -120,6 +117,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		
 
 
+		
 			<!--购物车 -->
 			<div class="concent">
 				<div id="cartTable">
@@ -137,14 +135,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="td-inner">单价</div>
 							</div>
 							<div class="th th-amount">
-								<div class="td-inner">交易状态</div>
+								<div class="td-inner">数量</div>
 							</div>
 							<div class="th th-sum">
-								<div class="td-inner">实付金额</div>
+								<div class="td-inner">总计</div>
 							</div>
-							<div class="th th-op">
-								<div class="td-inner">操作</div>
-							</div>
+							
 						</div>
 					</div>
 					<div class="clear"></div>
@@ -153,26 +149,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="bundle  bundle-last ">
 							<div class="bundle-hd">
 								<div class="bd-promos">
-									<div class="bd-has-promo">已享优惠:<span class="bd-has-promo-content">省￥19.50</span>&nbsp;&nbsp;</div>
-									<div class="act-promo">
-										<a href="#" target="_blank">第二支半价，第三支免费<span class="gt">&gt;&gt;</span></a>
+									
+									<div>
+										<p><span style="margin-right: 20px;">订单号：100833333339qwwww99999999</span><span>订单时间：2017-11-23</span></p>
+										
 									</div>
-									<span class="list-change theme-login">编辑</span>
+									
 								</div>
 							</div>
 							<div class="clear"></div>
 							<div class="bundle-main">
 								<ul class="item-content clearfix">
-									<li class="td td-chk">
-										<div class="cart-checkbox ">
-											<input class="check" id="J_CheckBox_170037950254" name="items[]" value="170037950254" type="checkbox">
-											<label for="J_CheckBox_170037950254"></label>
-										</div>
-									</li>
+									
 									<li class="td td-item">
 										<div class="item-pic">
-											<a href="#" target="_blank" data-title="美康粉黛醉美东方唇膏口红正品 持久保湿滋润防水不掉色护唇彩妆" class="J_MakePoint" data-point="tbcart.8.12">
-												<img src="images/kouhong.jpg_80x80.jpg"  class="itempic J_ItemImg"></a>
+											<a href="#" target="_blank" data-title="美康粉正品 持久" class="J_MakePoint" data-point="tbcart.8.12">
+												<img src="../images/kouhong.jpg_80x80.jpg" class="itempic J_ItemImg"></a>
 										</div>
 										<div class="item-info">
 											<div class="item-basic-info">
@@ -180,14 +172,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											</div>
 										</div>
 									</li>
-									<li class="td td-info">
-										<div class="item-props item-props-can">
-											<span class="sku-line">颜色：12#川南玛瑙</span>
-											<span class="sku-line">包装：裸装</span>
-											<span tabindex="0" class="btn-edit-sku theme-login">修改</span>
-											<i class="theme-login am-icon-sort-desc"></i>
-										</div>
-									</li>
+									
 									<li class="td td-price">
 										<div class="item-price price-promo-promo">
 											<div class="price-content">
@@ -205,7 +190,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<div class="item-amount ">
 												<div class="sl">
 													
-													<p>已发货</p>
+													<p>3</p>
 													
 												</div>
 											</div>
@@ -216,30 +201,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<em tabindex="0" class="J_ItemSum number">117.00</em>
 										</div>
 									</li>
-									<li class="td td-op">
-										<div class="td-inner">
-											<a title="移入收藏夹" class="btn-fav" href="#">
-                  移入收藏夹</a>
-											<a href="javascript:;" data-point-url="#" class="delete">
-                  删除订单</a>
-										</div>
-									</li>
+									
 								</ul>
 								
 								
 								
 								
 								<ul class="item-content clearfix">
-									<li class="td td-chk">
-										<div class="cart-checkbox ">
-											<input class="check" id="J_CheckBox_170037950254" name="items[]" value="170037950254" type="checkbox">
-											<label for="J_CheckBox_170037950254"></label>
-										</div>
-									</li>
+									
 									<li class="td td-item">
 										<div class="item-pic">
 											<a href="#" target="_blank" data-title="美康粉黛醉美东方唇膏口红正品 持久保湿滋润防水不掉色护唇彩妆" class="J_MakePoint" data-point="tbcart.8.12">
-												<img src="images/kouhong.jpg_80x80.jpg" class="itempic J_ItemImg"></a>
+												<img src="../images/kouhong.jpg_80x80.jpg" class="itempic J_ItemImg"></a>
 										</div>
 										<div class="item-info">
 											<div class="item-basic-info">
@@ -247,14 +220,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											</div>
 										</div>
 									</li>
-									<li class="td td-info">
-										<div class="item-props item-props-can">
-											<span class="sku-line">颜色：12#川南玛瑙</span>
-											<span class="sku-line">包装：裸装</span>
-											<span tabindex="0" class="btn-edit-sku theme-login">修改</span>
-											<i class="theme-login am-icon-sort-desc"></i>
-										</div>
-									</li>
+								
 									<li class="td td-price">
 										<div class="item-price price-promo-promo">
 											<div class="price-content">
@@ -271,7 +237,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<div class="amount-wrapper ">
 											<div class="item-amount ">
 												<div class="sl">
-												<p>已发货</p>
+													<p>4</p>
 												</div>
 											</div>
 										</div>
@@ -281,101 +247,133 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<em tabindex="0" class="J_ItemSum number">117.00</em>
 										</div>
 									</li>
-									<li class="td td-op">
-										<div class="td-inner">
-											<a title="移入收藏夹" class="btn-fav" href="#">
-                  移入收藏夹</a>
-											<a href="javascript:;" data-point-url="#" class="delete">
-                  删除订单</a>
-										</div>
-									</li>
+									
 								</ul>
 													
 								
-								<ul class="item-content clearfix">
-									<li class="td td-chk">
-										<div class="cart-checkbox ">
-											<input class="check" id="J_CheckBox_170037950254" name="items[]" value="170037950254" type="checkbox">
-											<label for="J_CheckBox_170037950254"></label>
-										</div>
-									</li>
-									<li class="td td-item">
-										<div class="item-pic">
-											<a href="#" target="_blank" data-title="美康粉黛醉美东方唇膏口红正品 持久保湿滋润防水不掉色护唇彩妆" class="J_MakePoint" data-point="tbcart.8.12">
-												<img src="images/kouhong.jpg_80x80.jpg" class="itempic J_ItemImg"></a>
-										</div>
-										<div class="item-info">
-											<div class="item-basic-info">
-												<a href="#" target="_blank" title="美康粉黛醉美唇膏 持久保湿滋润防水不掉色" class="item-title J_MakePoint" data-point="tbcart.8.11">美康粉黛醉美唇膏 持久保湿滋润防水不掉色</a>
-											</div>
-										</div>
-									</li>
-									<li class="td td-info">
-										<div class="item-props item-props-can">
-											<span class="sku-line">颜色：12#川南玛瑙</span>
-											<span class="sku-line">包装：裸装</span>
-											<span tabindex="0" class="btn-edit-sku theme-login">修改</span>
-											<i class="theme-login am-icon-sort-desc"></i>
-										</div>
-									</li>
-									<li class="td td-price">
-										<div class="item-price price-promo-promo">
-											<div class="price-content">
-												<div class="price-line">
-													<em class="price-original">78.00</em>
-												</div>
-												<div class="price-line">
-													<em class="J_Price price-now" tabindex="0">39.00</em>
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="td td-amount">
-										<div class="amount-wrapper ">
-											<div class="item-amount ">
-												<div class="sl">
-												<p>已发货</p>
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="td td-sum">
-										<div class="td-inner">
-											<em tabindex="0" class="J_ItemSum number">117.00</em>
-										</div>
-									</li>
-									<li class="td td-op">
-										<div class="td-inner">
-											<a title="移入收藏夹" class="btn-fav" href="#">
-                  移入收藏夹</a>
-											<a href="javascript:;" data-point-url="#" class="delete">
-                  删除订单</a>
-										</div>
-									</li>
-								</ul>
 								
 								
 							</div>
 						</div>
 					</tr>
-					
+					<div class="clear"></div>
+						<div class="float-bar-wrapper" style="margin-bottom: 20px;">
+					<div class="operations">
+						<a href="#" hidefocus="true" class="deleteAll">订单状态：已发货</a>
+						
+					</div>
+					<div class="float-bar-right">
+						<div class="amount-sum">
+							<span class="txt">已选商品</span>
+							<em id="J_SelectedItemsCount">2</em><span class="txt">件</span>
+							<div class="arrow-box">
+								<span class="selected-items-arrow"></span>
+								<span class="arrow"></span>
+							</div>
+						</div>
+						<div class="price-sum">
+							<span class="txt">合计:</span>
+							<strong class="price">¥<em id="J_Total">1000.00</em></strong>
+						</div>
+						<div class="btn-area">
+							<a href="pay.html" id="J_Go" class="submit-btn submit-btn-disabled" aria-label="请注意如果没有选择宝贝，将无法结算">
+								<span>结&nbsp;算</span></a>
+						</div>
+					</div>
 
 				</div>
+
+
+					<tr class="item-list">
+						<div class="bundle  bundle-last ">
+							<div class="bundle-hd">
+								<div class="bd-promos">
+									
+									<div>
+										<p><span style="margin-right: 20px;">订单号：100833333339qwwww99999999</span><span>订单时间：2017-11-23</span></p>
+										
+									</div>
+									
+								</div>
+							</div>
+							<div class="clear"></div>
+							<div class="bundle-main">
+								<ul class="item-content clearfix">
+									
+									<li class="td td-item">
+										<div class="item-pic">
+											<a href="#" target="_blank" data-title="美康粉黛醉美东方唇膏口红正品 持久保湿滋润防水不掉色护唇彩妆" class="J_MakePoint" data-point="tbcart.8.12">
+												<img src="../images/kouhong.jpg_80x80.jpg" class="itempic J_ItemImg"></a>
+										</div>
+										<div class="item-info">
+											<div class="item-basic-info">
+												<a href="#" target="_blank" title="美康粉黛醉美唇膏 持久保湿滋润防水不掉色" class="item-title J_MakePoint" data-point="tbcart.8.11">美康粉黛醉美唇膏 持久保湿滋润防水不掉色</a>
+											</div>
+										</div>
+									</li>
+									<li class="td td-price">
+										<div class="item-price price-promo-promo">
+											<div class="price-content">
+												<div class="price-line">
+													<em class="price-original">78.00</em>
+												</div>
+												<div class="price-line">
+													<em class="J_Price price-now" tabindex="0">39.00</em>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li class="td td-amount">
+										<div class="amount-wrapper ">
+											<div class="item-amount ">
+												<div class="sl">
+													<p>3</p>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li class="td td-sum">
+										<div class="td-inner">
+											<em tabindex="0" class="J_ItemSum number">117.00</em>
+										</div>
+									</li>
+									
+								</ul>
+							</div>
+						</div>
+					</tr>
+				</div>
+				
 				<div class="clear"></div>
 
-				<!--分页 -->
-									<ul class="am-pagination am-pagination-right">
-										<li class="am-disabled"><a href="#">&laquo;</a></li>
-										<li class="am-active"><a href="#">1</a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">5</a></li>
-										<li><a href="#">&raquo;</a></li>
-									</ul>
-									<div class="clear"></div>
+				<div class="float-bar-wrapper">
+					
+					<div class="operations">
+						<a href="#" hidefocus="true" class="deleteAll">订单状态：已发货</a>
+						
+					</div>
+					<div class="float-bar-right">
+						<div class="amount-sum">
+							<span class="txt">已选商品</span>
+							<em id="J_SelectedItemsCount">0</em><span class="txt">件</span>
+							<div class="arrow-box">
+								<span class="selected-items-arrow"></span>
+								<span class="arrow"></span>
+							</div>
+						</div>
+						<div class="price-sum">
+							<span class="txt">合计:</span>
+							<strong class="price">¥<em id="J_Total">0.00</em></strong>
+						</div>
+						<div class="btn-area">
+							<a href="pay.html" id="J_Go" class="submit-btn submit-btn-disabled" aria-label="请注意如果没有选择宝贝，将无法结算">
+								<span>结&nbsp;算</span></a>
+						</div>
+					</div>
 
-				
+				</div>
+
+			
 
 			</div>
 
@@ -388,51 +386,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="theme-poptit h-title">
 					<a href="javascript:;" title="关闭" class="close">×</a>
 				</div>
-				<div class="theme-popbod dform">
-					<form class="theme-signin" name="loginform" action="" method="post">
-
-						<div class="theme-signin-left">
-
-							<li class="theme-options">
-								<div class="cart-title">颜色：</div>
-								<ul>
-									<li class="sku-line selected">12#川南玛瑙<i></i></li>
-									<li class="sku-line">10#蜜橘色+17#樱花粉<i></i></li>
-								</ul>
-							</li>
-							<li class="theme-options">
-								<div class="cart-title">包装：</div>
-								<ul>
-									<li class="sku-line selected">包装：裸装<i></i></li>
-									<li class="sku-line">两支手袋装（送彩带）<i></i></li>
-								</ul>
-							</li>
-							<div class="theme-options">
-								<div class="cart-title number">数量</div>
-								<dd>
-									<input class="min am-btn am-btn-default" name="" type="button" value="-" />
-									<input class="text_box" name="" type="text" value="1" style="width:30px;" />
-									<input class="add am-btn am-btn-default" name="" type="button" value="+" />
-									<span  class="tb-hidden">库存<span class="stock">1000</span>件</span>
-								</dd>
-
-							</div>
-							<div class="clear"></div>
-							<div class="btn-op">
-								<div class="btn am-btn am-btn-warning">确认</div>
-								<div class="btn close am-btn am-btn-warning">取消</div>
-							</div>
+				
+			</div>
+		<div class="clear"></div>
+							<!--分页 -->
+							<ul id="pageUl" class="am-pagination am-pagination-centered">
+								<li class="am-disabled"><a href="#">&laquo;</a></li>
+								<li class="am-active"><a href="#">1</a></li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#">5</a></li>
+								<li><a href="#">&raquo;</a></li>
+							</ul>
 
 						</div>
-						
-
-					</form>
-				</div>
-			</div>
-		
 		<!-- //footer -->
 
-	<div class="footer-botm navbar-fixed-bottom">
+	<div class="footer-botm">
 			<div class="container">
 				<div class="w3layouts-foot">
 					<ul>
@@ -448,7 +419,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="clearfix"> </div>
 			</div>
 		</div>
-<!-- //footer -->	
+<!-- //footer -->		
 
 	
 	</body>
