@@ -11,6 +11,8 @@ import com.gzyz.bean.introduction.extend.CommentInfoByPage;
 import com.gzyz.bean.introduction.extend.GetSpecId;
 import com.gzyz.bean.introduction.extend.GetSpecInfoId;
 import com.gzyz.bean.introduction.extend.GoodsInfo;
+import com.gzyz.bean.introduction.extend.RelatedGoods;
+import com.gzyz.bean.introduction.extend.RelatedGoodsKey;
 import com.gzyz.mapper.introduction.IntroductionMapper;
 import com.gzyz.service.introduction.service.IntroductionService;
 
@@ -64,6 +66,21 @@ public class IntroductionServiceImpl implements IntroductionService {
 	public int getCommentCount(int goods_id) {
 		// TODO Auto-generated method stub
 		return introductionMapper.getCommentCount(goods_id);
+	}
+	@Override
+	public String getGoodsKey(int goods_id) {
+		// TODO Auto-generated method stub
+		return introductionMapper.getGoodsKey(goods_id);
+	}
+	@Override
+	public List<RelatedGoods> getRelatedGoods(RelatedGoodsKey relatedGoodsKey) {
+		// TODO Auto-generated method stub
+		return introductionMapper.getRelatedGoods(relatedGoodsKey);
+	}
+	@Override
+	public int getRelatedGoodsCount(String keywords) {
+		// TODO Auto-generated method stub
+		return introductionMapper.getRelatedGoodsCount(keywords);
 	}
 
 }

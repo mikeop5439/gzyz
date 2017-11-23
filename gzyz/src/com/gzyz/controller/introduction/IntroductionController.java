@@ -19,6 +19,8 @@ import com.gzyz.bean.introduction.extend.CommentInfoByPage;
 import com.gzyz.bean.introduction.extend.CommentListQuery;
 import com.gzyz.bean.introduction.extend.GetSpecInfoId;
 import com.gzyz.bean.introduction.extend.GoodsInfo;
+import com.gzyz.bean.introduction.extend.RelatedGoods;
+import com.gzyz.bean.introduction.extend.RelatedGoodsKey;
 import com.gzyz.service.introduction.service.IntroductionService;
 
 @Controller
@@ -29,8 +31,9 @@ public class IntroductionController {
 	private IntroductionService introductionService;
 	
 	@RequestMapping("itemsIntroduction")
-	public String itemsIntroduction(Model model,@RequestParam(value="pn",defaultValue="1")int pn,int goods_id) {
+	public String itemsIntroduction(Model model,@RequestParam(value="pn",defaultValue="1")int pn) {
 		
+		int goods_id = 1;
 		//int param = Integer.parseInt(goods_id);
 		List<Integer> getSpecIds = new ArrayList<Integer>();
 		List<String> getSpecNames = new ArrayList<String>();
@@ -64,6 +67,17 @@ public class IntroductionController {
 			result.add(key);
 		}
 		
+		String goodskeywords = introductionService.getGoodsKey(goods_id);
+		int relatedgoodscount = introductionService.getRelatedGoodsCount(goodskeywords);
+		int end = relatedgoodscount-3;
+		int firstnum = (int)(Math.random()*end);
+		int secondnum = 2;
+		RelatedGoodsKey relatedGoodsKey = new RelatedGoodsKey();
+		relatedGoodsKey.setKeywords(goodskeywords);
+		relatedGoodsKey.setFirstnum(firstnum);
+		relatedGoodsKey.setSecondnum(secondnum);
+		List<RelatedGoods> relatedGoods = introductionService.getRelatedGoods(relatedGoodsKey);
+		
 		model.addAttribute("goodsid", goods_id);
 		model.addAttribute("goodsinfo", goodsInfos);
 		model.addAttribute("getSpecNames", getSpecNames);
@@ -71,6 +85,7 @@ public class IntroductionController {
 		model.addAttribute("result", result);
 		model.addAttribute("comments", comments);
 		model.addAttribute("commentinfos", page);
+		model.addAttribute("relatedgoods", relatedGoods);
 		return "/JSP/RP/introduction.jsp";
 	}
 	
@@ -88,5 +103,21 @@ public class IntroductionController {
 		commentListQuery.setCommentInfos(commentInfos);
 		commentListQuery.setAllpage(allpage);
 		return commentListQuery;
+	}
+	
+	@RequestMapping("getrelatedgoodsinfo")
+	public @ResponseBody List<RelatedGoods> getRelatedGoodsInfo(String goods_id){
+		int param = Integer.parseInt(goods_id);
+		String goodskeywords = introductionService.getGoodsKey(param);
+		int relatedgoodscount = introductionService.getRelatedGoodsCount(goodskeywords);
+		int end = relatedgoodscount-3;
+		int firstnum = (int)(Math.random()*end);
+		int secondnum = 4;
+		RelatedGoodsKey relatedGoodsKey = new RelatedGoodsKey();
+		relatedGoodsKey.setKeywords(goodskeywords);
+		relatedGoodsKey.setFirstnum(firstnum);
+		relatedGoodsKey.setSecondnum(secondnum);
+		List<RelatedGoods> relatedGoods = introductionService.getRelatedGoods(relatedGoodsKey);
+		return relatedGoods;
 	}
 }
