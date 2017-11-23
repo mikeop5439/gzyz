@@ -112,9 +112,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			
 			<a id="aoflogin" href="#" style="color: #FCFCFC;margin-left: 20px; display:none;">欢迎，${sessionScope.loginuser.user_name}</a>
 			
-			<a id="aofalogin" href="login.jsp" style="color: #FCFCFC;margin-left: 20px; display:none;">登录</a>
+			<a id="aofalogin" href="${pageContext.request.contextPath}/JSP/RP/login.jsp" style="color: #FCFCFC;margin-left: 20px; display:none;">登录</a>
 		
-			<a id="aofblogin" href="registered.jsp" style="color: #FCFCFC;margin-left: 20px; display:none;">注册</a>
+			<a id="aofblogin" href="${pageContext.request.contextPath}/JSP/RP/registered.jsp" style="color: #FCFCFC;margin-left: 20px; display:none;">注册</a>
 		
 			</div>
 			<div class="w3l_search" style="margin-top: 5px;">
@@ -151,10 +151,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="long-title"><span class="all-goods">个人中心</span></div>
 			<div class="nav-cont">
 				<ul>
-					        <li> <a href="personcar.jsp">个人信息</a></li>
-							<li> <a href="options.jsp" style="color:red">安全设置</a></li>
+					        <li> <a href="${pageContext.request.contextPath}/JSP/RP/personcar.jsp">个人信息</a></li>
+							<li> <a href="${pageContext.request.contextPath}/JSP/RP/options.jsp" style="color:red">安全设置</a></li>
 							<li class="active"> <a href="${pageContext.request.contextPath}/userlist/useraddress.action">收货地址</a></li>
-							<li><a href="oderlist.jsp">订单管理</a></li>
+							<li><a href="${pageContext.request.contextPath}/JSP/RP/oderlist.jsp">订单管理</a></li>
 				</ul>
 				
 			</div>

@@ -70,9 +70,9 @@ display:none;
 			
 			<a id="aoflogin" href="#" style="color: #FCFCFC;margin-left: 20px; display:none;">欢迎，${sessionScope.loginuser.user_name}</a>
 			
-			<a id="aofalogin" href="login.html" style="color: #FCFCFC;margin-left: 20px; display:none;">登录</a>
+			<a id="aofalogin" href="${pageContext.request.contextPath}/JSP/RP/login.jsp" style="color: #FCFCFC;margin-left: 20px; display:none;">登录</a>
 		
-			<a id="aofblogin" href="registered.html" style="color: #FCFCFC;margin-left: 20px; display:none;">注册</a>
+			<a id="aofblogin" href="${pageContext.request.contextPath}/JSP/RP/registered.jsp" style="color: #FCFCFC;margin-left: 20px; display:none;">注册</a>
 		
 			</div>
 			<div class="w3l_search" style="margin-top: 5px;">
@@ -109,10 +109,10 @@ display:none;
 			<div class="long-title"><span class="all-goods">个人中心</span></div>
 			<div class="nav-cont">
 				<ul>
-					        <li> <a href="personcar.jsp">个人信息</a></li>
-							<li> <a href="options.jsp">安全设置</a></li>
-							<li class="active" > <a href="address.jsp">收货地址</a></li>
-							<li><a href="oderlist.jsp">订单管理</a></li>
+					        <li> <a href="${pageContext.request.contextPath}/JSP/RP/personcar.jsp">个人信息</a></li>
+							<li> <a href="${pageContext.request.contextPath}/JSP/RP/options.jsp">安全设置</a></li>
+							<li class="active" > <a href="${pageContext.request.contextPath}/userlist/useraddress.action" style="color:red">收货地址</a></li>
+							<li><a href="${pageContext.request.contextPath}/JSP/RP/oderlist.jsp">订单管理</a></li>
 				</ul>
 			
 			</div>
@@ -228,7 +228,7 @@ display:none;
 	  
 	  <div class="form-group form-div">
 	    <div class="col-sm-offset-2 col-sm-12" style=" margin-top:20px;">
-	    	<button type="submit" id="add_ads_newaddres" onclick="return add_ads_newaddres()" class="btn btn-danger btn-lg" style="margin-right:20px;width:300px;">提交</button>
+	    	<button type="submit" id="add_ads_newaddres" onclick="return add_ads_newaddres()" class="am-btn am-btn-secondary" style="margin-right:20px;width:300px;">提交</button>
 	    </div>
 	  </div>
 	  		
