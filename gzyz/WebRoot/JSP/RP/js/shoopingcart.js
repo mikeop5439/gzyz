@@ -397,7 +397,7 @@ function delectselectcart(){
 /*--------------------->删除所有或选择的收藏商品*/
 
 /*将选择的商品加入收藏夹*/
-function insertcollect(){
+function insertcollectall(){
 	var goods_id = [];
 	$("input[id='idcheck']").each(function(){
 		if($(this).prop("checked")){
@@ -648,3 +648,14 @@ $(function(){//地区
 });
 
 /*-------------------->修改收货地址*/
+
+//验证提交
+function check(){
+	var a=false;
+	$("input[id='idcheck']").each(function(){
+		if($(this).prop("checked")){
+			a= true;
+		}
+	});
+	if(a){return true;}else{alert("请选择商品");return false;}
+}

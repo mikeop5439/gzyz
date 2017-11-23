@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.gzyz.bean.users.User;
 import com.gzyz.bean.users.cart;
+import com.gzyz.bean.users.collect_goods;
 import com.gzyz.bean.users.extend.UserCart;
 import com.gzyz.bean.users.extend.UserCollect;
 import com.gzyz.bean.users.extend.UserReceiver;
@@ -44,4 +45,14 @@ public interface UserListMapper {
 		
 		//用户登录
 		public User userLogin(User user);
+
+		public List<UserCollect> selectUserCollect(int user_id);
+
+		public void deleteUserCollect(collect_goods collect);
+
+		public List<cart> queryusercart(int user_id);
+
+		public void updateUsercart(cart cart2);
+
+		public void insertUserCart(cart cart);
 }

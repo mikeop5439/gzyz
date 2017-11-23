@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.gzyz.bean.users.User;
 import com.gzyz.bean.users.cart;
+import com.gzyz.bean.users.collect_goods;
 import com.gzyz.bean.users.extend.UserCart;
 import com.gzyz.bean.users.extend.UserCollect;
 import com.gzyz.bean.users.extend.UserReceiver;
@@ -259,5 +260,36 @@ public class UserListServiceImpl implements UserListService {
 	public User userLogin(User user) {
 		// 用户登录
 		return userListMapper.userLogin(user);
+	}
+
+	@Override
+	public List<UserCollect> queryUserCollect(int user_id) {
+		// 查询用户个人收藏夹
+		return userListMapper.selectUserCollect(user_id);
+	}
+
+	@Override
+	public void deleteUserCollect(collect_goods collect) {
+		// 删除收藏夹的商品
+		userListMapper.deleteUserCollect(collect);
+	}
+
+	@Override
+	public List<cart> queryusercart(int user_id) {
+		// 查询用户购物车商品
+		return userListMapper.queryusercart(user_id);
+	}
+
+	@Override
+	public void updateUserCart(cart cart2) {
+		// 修改用户购物车商品数量
+		userListMapper.updateUsercart(cart2);
+		
+	}
+
+	@Override
+	public void insertUserCart(cart cart) {
+		// 添加用户购物车商品
+		userListMapper.insertUserCart(cart);
 	}
 }

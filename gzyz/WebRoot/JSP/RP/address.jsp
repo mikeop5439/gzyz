@@ -158,7 +158,7 @@ display:none;
 							<span id="name">(${r.getReceiver_name()}收)</span>
 							<span id="phone">${r.getReceiver_phone()}</span>
 							<span><a  href="javascript:void(0)" onclick="setmorenaddress(${r.getReceiver_id()})" style="color:#11b374;">设置为默认地址</a></span>
-							<span class="updateaddress"><button id="" onclick="return delete_address(${r.getReceiver_id()})" class="btn btn-danger btn-sm" style="width:70px;height:30px;background-color: #ba120c;border-color: #f97878;">删除</button></span>
+							<span class="updateaddress"><button id="" onclick="return delete_address(${r.getReceiver_id()})" class="btn btn-warning btn-sm" style="width:70px;height:30px;background-color: #ba120c;border-color: #f97878;">删除</button></span>
 							<span class="updateaddress"><button id="update-ads_button" onclick="return update_ads_new(${r.getReceiver_id()})" class="btn btn-primary btn-sm" data-am-modal="{target: '#update-address'}" style="width:70px;height:30px;">修改</button></span>
 						</div>
 					</div>

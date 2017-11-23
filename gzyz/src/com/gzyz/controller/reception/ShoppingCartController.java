@@ -238,7 +238,7 @@ public class ShoppingCartController {
 	
 	@RequestMapping("insertcollect")
 	public String insertcollect(HttpServletRequest request,HttpSession session,HttpServletResponse response) throws Exception{
-		
+		boolean b=false;
 		User user=(User) session.getAttribute("user");
 		
 		String[] goods_id = request.getParameterValues("goods_id");
@@ -262,7 +262,7 @@ public class ShoppingCartController {
 						shoopingCartService.insertcollect(collect_goods);
 					}
 				
-			}
+			}b=true;
 		}	
 		//选择单个商品添加收藏夹
 		String collectgoodsidString=request.getParameter("collectgoodsidString");
@@ -274,8 +274,9 @@ public class ShoppingCartController {
 				//添加收藏夹
 				shoopingCartService.insertcollect(collect_goods);
 			}
+			b=true;
 		}
-		response.getWriter().print(true);
+		response.getWriter().print(b);
 		return null;
 	}
 	@RequestMapping("addnewaddress")

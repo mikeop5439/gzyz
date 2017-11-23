@@ -57,7 +57,14 @@ function hideURLbar(){window.scrollTo(0,1);}
   
 <body>
 <!--header-->
-
+<div class="breadcrumbs">
+		<div class="container">
+			<ol class="breadcrumb breadcrumb1">
+				<li><a href="${pageContext.request.contextPath}/JSP/RP/index.jsp"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				<li class="active">购物车</li>
+			</ol>
+		</div>
+	</div>
 <!--header-->
  
  <!-- //购物车部分 -->
@@ -86,7 +93,7 @@ function hideURLbar(){window.scrollTo(0,1);}
 	  	<li class="td5" >操作</li>
 	  	</ul>
 	  </div>
-  <form action="${pageContext.request.contextPath}/shoppingcart/addcartorder_details.action" method="post">
+  <form action="${pageContext.request.contextPath}/shoppingcart/addcartorder_details.action" method="post" onsubmit="return check()">
   <c:forEach items="${userCarts }" var="u">
   <c:forEach items="${u.getCartextend() }" var="c">
   	<div id="${c.getGoods().getGoods_id() }">
@@ -162,7 +169,7 @@ function hideURLbar(){window.scrollTo(0,1);}
   		<ul class="top-bottom">
 	  	<li class="td1"><input id="allselect2" name="allselect2" type="checkbox" >&nbsp;&nbsp;全选</li>
 	  	<li class="td2" ><a href="javascript:void(0)" onclick="delectselectcart()">删除</a></li>
-	  	<li class="td3" ><a href="javascript:void(0)" onclick="insertcollect()">加入收藏夹</a></li>
+	  	<li class="td3" ><a href="javascript:void(0)" onclick="insertcollectall()">加入收藏</a></li>
 	  	<li class="td4" >已选<input  id="selectnumber" name="price" disabled="disabled"  style="text-align:center;border:none;width:25px;color:#FF4400;background-color: #E5E5E5; " type="text"  value="0"/>件</li>
 	  	<li class="td5" >合计<font color="#FF4400" size="4px">￥<input  id="total" name="total"  style="text-align:center;border:none;width:50px;color:#FF4400;background-color: #E5E5E5; " type="text"  value="0.00"/></font></li>
 	  	<li class="td6"><div style="clear:;margin-top:0px;"><input class="btn btn-info" type="submit" value="结算" style="width:100px;height:50px;font-size:24px;background-color: #FF4400;border:0 #FF4400;" ></div></li>

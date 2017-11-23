@@ -93,6 +93,7 @@ function add_ads_newaddres(){
 	var receiver_district = $("#add_ads_district").val();
 	var receiver_address = $("#add_ads_address").val();
 	/*var receiver_id = $("#update_ads_address_id").val();*/
+	if(receiver_name != "" && receiver_phone !="" && receiver_state != "请选择" && receiver_city != "请选择" &&  receiver_district != "请选择" && receiver_state != "" && receiver_city != "" &&  receiver_district != "" && receiver_state !=null && receiver_city !=null &&  receiver_district !=null && receiver_address != ""){
 	var url="/gzyz/userlist/add_ads_newaddres.action";
 	var args={"receiver_name":receiver_name,"receiver_phone":receiver_phone,"receiver_state":receiver_state,"receiver_city":receiver_city,"receiver_district":receiver_district,"receiver_address":receiver_address,"time":new Date()};
 	$.getJSON(url,args,function(data){
@@ -105,10 +106,13 @@ function add_ads_newaddres(){
 		 	var name = data.receiver_name;
 		 	var phone = data.receiver_phone;
 		 	/*普通地址*/
-			var jqDom=$('<div class="receiver_top" id="'+receiver_id+'"><div class="container container_top" ><div class="receiveraddress2" ><span id="state">'+state+'</span><span id="city">'+city+'</span><span id="district">'+district+'</span><span id="address">'+address+'</span><span id="name">('+name+'收)</span><span id="phone">'+phone+'</span>	<span><a  href="javascript:void(0)" onclick="setmorenaddress('+receiver_id+')" style="color:#11b374;">设置为默认地址</a></span><span class="updateaddress"><button id="" onclick="return delete_address(${r.getReceiver_id()})" class="btn btn-danger btn-sm" style="width:70px;height:30px;background-color: #ba120c;border-color: #f97878;">删除</button></span><span class="updateaddress"><button id="update-ads_button" onclick="return update_ads_new('+receiver_id+')" class="btn btn-primary btn-sm" data-am-modal="{target: '+"'"+"#update-address"+"'"+'}" style="width:70px;height:30px;">修改</button></span></div></div></div>');
+			var jqDom=$('<div class="receiver_top" id="'+receiver_id+'"><div class="container container_top" ><div class="receiveraddress2" ><span id="state">'+state+'</span><span id="city">'+city+'</span><span id="district">'+district+'</span><span id="address">'+address+'</span><span id="name">('+name+'收)</span><span id="phone">'+phone+'</span>	<span><a  href="javascript:void(0)" onclick="setmorenaddress('+receiver_id+')" style="color:#11b374;">设置为默认地址</a></span><span class="updateaddress"><button id="" onclick="return delete_address('+receiver_id+')" class="btn btn-danger btn-sm" style="width:70px;height:30px;background-color: #ba120c;border-color: #f97878;">删除</button></span><span class="updateaddress"><button id="update-ads_button" onclick="return update_ads_new('+receiver_id+')" class="btn btn-primary btn-sm" data-am-modal="{target: '+"'"+"#update-address"+"'"+'}" style="width:70px;height:30px;">修改</button></span></div></div></div>');
 		 	jqDom.appendTo("#add_address_position");
 		
 	});
+	}else{
+		alert("请输入完整的地址信息");
+	}
 }
 
 
@@ -122,6 +126,7 @@ function update_address(){
 	var receiver_district = $("#add_ads_district1 ").val();
 	var receiver_address = $("#update_ads_address").val();
 	var receiver_id = $("#update_ads_address_id").val();
+	if(receiver_name != "" && receiver_phone !="" && receiver_state != "请选择" && receiver_city != "请选择" &&  receiver_district != "请选择" && receiver_state != "" && receiver_city != "" &&  receiver_district != "" && receiver_state !=null && receiver_city !=null &&  receiver_district !=null && receiver_address != ""){
 	var url="/gzyz/userlist/updateaddress.action";
 	var args={"receiver_id":receiver_id,"receiver_name":receiver_name,"receiver_phone":receiver_phone,"receiver_state":receiver_state,"receiver_city":receiver_city,"receiver_district":receiver_district,"receiver_address":receiver_address,"time":new Date()};
 	$.post(url,args,function(data){
@@ -134,7 +139,9 @@ function update_address(){
 		$("#"+receiver_id).find("#phone").text(receiver_phone);
 	});
 	
-	
+	}else{
+		alert("请输入完整信息");
+	}
 }
 $(function(){
 	//关闭弹窗

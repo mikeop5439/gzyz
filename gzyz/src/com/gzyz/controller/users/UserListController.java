@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,8 @@ import com.gzyz.bean.address.ProvincesCities;
 import com.gzyz.bean.goods.extend.GoodsCollect;
 import com.gzyz.bean.users.Receiver;
 import com.gzyz.bean.users.User;
+import com.gzyz.bean.users.cart;
+import com.gzyz.bean.users.collect_goods;
 import com.gzyz.bean.users.extend.UserCart;
 import com.gzyz.bean.users.extend.UserCollect;
 import com.gzyz.bean.users.extend.UserReceiver;
@@ -473,9 +477,9 @@ public class UserListController {
 		@RequestMapping("useraddress")
 		public String useraddress(HttpSession session,HttpServletRequest request){
 			User user=(User) session.getAttribute("user");
-			User user2=shoopingCartService.queryuserservice(1);
+			User user2=shoopingCartService.queryuserservice(user.getUser_id());
 			
-			List<Receiver> receiver=shoopingCartService.selectuserreceiver(1);
+			List<Receiver> receiver=shoopingCartService.selectuserreceiver(user.getUser_id());
 			session.setAttribute("user", user2);
 			request.setAttribute("receiver", receiver);
 			return "forward:/JSP/RP/address.jsp";
@@ -605,4 +609,68 @@ public class UserListController {
 			response.getWriter().print(result);
 			return null;
 		}
+		//查询收藏夹
+		@RequestMapping("queryusercollect")
+		public String queryusercollect(HttpServletRequest request,HttpSession session){
+					
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		User user=(User)session.getAttribute("user");
+		List<UserCollect> collects=userListService.queryUserCollect(user.getUser_id());
+		for(UserCollect u:collects){
+		for(GoodsCollect g:u.getGoodsCollect()){
+				g.setAddtime((sdf.format(g.getCollect_goods().getAdd_time())));
+			}
+		}
+		session.setAttribute("pages", 1);
+		request.setAttribute("collects", collects);
+		return "forward:/JSP/RP/like.jsp";
+	}	
+	//删除用户购物车
+	@RequestMapping("deleteUserCollect")
+	public String deleteUserCollect(int goods_id,HttpServletResponse response,HttpSession session) throws Exception{
+		User user=(User)session.getAttribute("user");
+		collect_goods collect=new collect_goods();
+		collect.setGoods_id(goods_id);
+		collect.setUser_id(user.getUser_id());
+		userListService.deleteUserCollect(collect);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String reslut=mapper.writeValueAsString("true");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/Javascript;charse=UTF-8");
+		response.getWriter().print(reslut);
+		return null;
+	}
+	//加入购物车
+	@RequestMapping("addUserCart")
+	public String addUserCart(cart cart,HttpSession session,HttpServletResponse response) throws IOException{
+		User user=(User)session.getAttribute("user");
+		//cart2用于封装传入的参数
+		cart cart2=new cart();
+		//查询购物车里用户的商品
+		List<cart> cartlist=userListService.queryusercart(user.getUser_id());
+		boolean b=false;
+		int num=1;
+		for(cart c:cartlist){
+			if(c.getGoods_id()==cart.getGoods_id()){
+				b=true;
+				num=c.getGoods_number()+1;
+			}
+		}
+		if(b){
+			//修改购物车商品数量
+			cart2.setGoods_id(cart.getGoods_id());
+			cart2.setUser_id(user.getUser_id());
+			cart2.setGoods_number(num);
+			userListService.updateUserCart(cart2);
+		}else{
+			//新增购物车商品
+			cart.setGoods_number(num);
+			cart.setUser_id(user.getUser_id());
+			userListService.insertUserCart(cart);
+		}
+		response.getWriter().print(true);
+		return null;
+	}
+		
 }

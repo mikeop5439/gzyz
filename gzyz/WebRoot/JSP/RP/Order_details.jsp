@@ -49,7 +49,17 @@ function hideURLbar(){window.scrollTo(0,1);}
   
 <body>
 <!--header-->
-	
+	<!-- breadcrumbs -->
+	<div class="breadcrumbs">
+		<div class="container">
+			<ol class="breadcrumb breadcrumb1">
+				<li><a href="${pageContext.request.contextPath}/JSP/RP/index.jsp"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				<li class="active">确认订单</li>
+				<li style="float:right;width:150px;font-size:15px;"><a href="${pageContext.request.contextPath }/shoppingcart/queryShoopingCart.action?"><span ></span>查看购物车</a></li>
+			</ol>
+		</div>
+	</div>
+<!-- //breadcrumbs -->
  
 <!--header-->
 

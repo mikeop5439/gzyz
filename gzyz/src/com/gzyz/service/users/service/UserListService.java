@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.gzyz.bean.users.User;
 import com.gzyz.bean.users.cart;
+import com.gzyz.bean.users.collect_goods;
 import com.gzyz.bean.users.extend.UserCart;
 import com.gzyz.bean.users.extend.UserCollect;
 import com.gzyz.bean.users.extend.UserReceiver;
@@ -28,4 +29,9 @@ public interface UserListService {
 	public List<UserReceiver> queryReceiversByid(String sogo);
 	public List<UserCart> queryCartSn(String sogo);
 	public User userLogin(User user);//用户登录
+	public List<UserCollect> queryUserCollect(int user_id);
+	public void deleteUserCollect(collect_goods collect);
+	public List<com.gzyz.bean.users.cart> queryusercart(int user_id);
+	public void updateUserCart(cart cart2);
+	public void insertUserCart(cart cart);
 }

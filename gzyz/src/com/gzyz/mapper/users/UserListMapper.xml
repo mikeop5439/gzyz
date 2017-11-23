@@ -190,4 +190,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and user_password = #{user_password}
 		</if>
 	</sql>
+	
+	<!-- 查询用户个人收藏夹 -->
+	<select id="selectUserCollect" resultMap="UserCollectMapper" parameterType="int">
+		select u.user_id user_id,u.user_name user_name,g.goods_id goods_id,g.original_img original_img,g.goods_name goods_name,g.goods_sn goods_sn,g.original_price original_price,g.goods_brief goods_brief,c.rec_id rec_id,c.add_time add_time
+		from collect_goods c 
+		JOIN user u on c.user_id=u.user_id 
+		LEFT JOIN goods g on c.goods_id=g.goods_id
+		where u.user_id=#{id}
+	</select>
+	<delete id="deleteUserCollect" parameterType="collect_goods">
+		delete from collect_goods where user_id=#{user_id} and goods_id=#{goods_id}
+	</delete>
+	
+	<select id="queryusercart" resultType="cart" parameterType="int">
+		select * from cart where user_id=#{id}
+	</select>
+	
+	<update id="updateUsercart" parameterType="cart">
+		update  cart set goods_number=#{goods_number} where user_id=#{user_id} and goods_id=#{goods_id}
+	</update>
+	<insert id="insertUserCart" parameterType="cart">
+		INSERT INTO `cart` ( `user_id`, `goods_id`, `goods_sn`, `goods_name`, `goods_price`, `goods_number`) VALUES (#{user_id}, #{goods_id},#{goods_sn} ,#{goods_name} ,#{goods_price} , #{goods_number});
+	</insert>
 </mapper>	

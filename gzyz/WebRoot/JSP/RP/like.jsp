@@ -20,6 +20,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="${pageContext.request.contextPath}/JSP/RP/css/style.css" rel="stylesheet" type="text/css" media="all" />
 <!-- font-awesome icons -->
 <link href="${pageContext.request.contextPath}/JSP/RP/css/font-awesome.css" rel="stylesheet"> 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/JSP/HT/assets/css/amazeui.min.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/JSP/HT/assets/css/admin.css">
 <!-- //font-awesome icons -->
 <!-- js -->
 <script src="${pageContext.request.contextPath}/JSP/RP/js/jquery-1.11.1.min.js"></script>
@@ -27,14 +29,35 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/js/move-top.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/js/easing.js"></script>
 <script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".scroll").click(function(event){		
-			event.preventDefault();
-			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-		});
+function delectcollect(id){
+	var url="${pageContext.request.contextPath}/userlist/deleteUserCollect.action";
+	var args={"goods_id":id,"time":new Date()};
+	$.getJSON(url,args,function(){
+		$("#"+id).remove();
 	});
+}
+function addUserCart(id){
+	
+	var goods_name = $("#"+id).find("input[name='goods_name']").val();
+	var goods_sn = $("#"+id).find("input[name='goods_sn']").val();
+	var goods_price = $("#"+id).find("input[name='goods_price']").val();
+	var url="${pageContext.request.contextPath}/userlist/addUserCart.action";
+	var args={"goods_id":id,"goods_name":goods_name,"goods_sn":goods_sn,"goods_price":goods_price,"time":new Date()};
+	$.getJSON(url,args,function(){
+		alert("添加成功");
+	});
+}
 </script>
-<!-- start-smoth-scrolling -->
+<style>
+.row{
+margin-top:10px;
+}
+.col-md-3{
+	width:250px;
+	margin:15px;
+}
+</style>
+
 </head>
 	
 <body>
@@ -46,159 +69,71 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 
 <!-- header -->
-<div class="agileits_header">
+<%--< div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
 				 <a href="index.html"><i class="fa fa-home fa-2x" style="color: white"></i></a>
 			</div>
 			<div class="agile-login">
 				<ul>
-					<li><a href="registered.html"> 注册</a></li>
-					<li><a href="login.html">登录</a></li>
-					<li><a href="contact.html">帮助</a></li>
+					<li><a href="registered.html"> </a></li>
+					<li><a href="login.html"></a></li>
+					<li><a href="contact.html"></a></li>
 					
 				</ul>
 			</div>
 			<div class="product_list_header">  
-					<form action="#" method="post" class="last"> 
-						<input type="hidden" name="cmd" value="_cart">
-						<input type="hidden" name="display" value="1">
-						<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-					</form>  
+					<a href="${pageContext.request.contextPath }/shoppingcart/queryShoopingCart.action?""><button class="w3view-cart" type="button" name="submit" ><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button></a>
+					
 			</div>
 			<div class="clearfix"> </div>
 		</div>
 	</div>
 <!-- //header -->
-
+ --%>
 <!-- breadcrumbs -->
 	<div class="breadcrumbs">
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1">
-				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				<li><a href="${pageContext.request.contextPath}/JSP/RP/index.jsp"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
 				<li class="active">收藏夹</li>
+				<li style="float:right;width:150px;font-size:15px;"><a href="${pageContext.request.contextPath }/shoppingcart/queryShoopingCart.action?"><span ></span>查看购物车</a></li>
 			</ol>
 		</div>
 	</div>
 <!-- //breadcrumbs -->
 <!-- checkout -->
-	<div class="checkout">
+	<div class="">
 		<div class="container">
-			<h2>你的收藏夹里一共有: <span>3个商品</span></h2>
-			<div class="checkout-right">
-				<table class="timetable_sub">
-					<thead>
-						<tr>
-							<th>编号</th>	
-							<th style="width: 200px;">商品</th>
-							<th>加入购物车</th>
-							<th>商品名字</th>
+			<div style="border-bottom:2px dashed red;color:red;height:40px;margin-top:20px;"><h2>全部商品<c:out value="${allnumber}"/></h2></div>
+			<div class="row">
+			<c:forEach items="${collects }" var="c">
+			<c:forEach items="${c.getGoodsCollect()}" var="g" >
+				<div id="${g.getGoods_id()}" class="col-md-3" style="height:330px; border:2px dashed #F5F5F5;">
+					<div class="" style="height:22px;">
+						<div class=""><font size="2px">${g.getGoods_name()}</font></div>
+						<input type="hidden" name="goods_name" value="${g.getGoods_name()}"/>
 						
-							<th>价格</th>
-							<th>删除</th>
-						</tr>
-					</thead>
-					<tr class="rem1">
-						<td class="invert">1</td>
-						<td class="invert-image" ><a href="single.html"><img title=" " alt=" " src="images/5.jpg"  /></a></td>
-						<td class="invert" style="width: 200px;">
-							 <div class="quantity"> 
-								<div class="quantity-select">                           
-									<div class="entry value-minus">&nbsp;</div>
-									<div class="entry value"><span>1</span></div>
-									<div class="entry value-plus active">&nbsp;</div>
-								</div>
-							</div>
-						</td>
-						<td class="invert">老年手机</td>
-						
-						<td class="invert">￥290.00</td>
-						<td class="invert">
-							<div class="rem">
-								<div class="close1"> </div>
-							</div>
-							<script>$(document).ready(function(c) {
-								$('.close1').on('click', function(c){
-									$('.rem1').fadeOut('slow', function(c){
-										$('.rem1').remove();
-									});
-									});	  
-								});
-						   </script>
-						</td>
-					</tr>
-					<tr class="rem2">
-						<td class="invert">2</td>
-						<td class="invert-image"><a href="single.html"><img src="images/2.png" alt=" " class="img-responsive" /></a></td>
-						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                           
-									<div class="entry value-minus">&nbsp;</div>
-									<div class="entry value"><span>1</span></div>
-									<div class="entry value-plus active">&nbsp;</div>
-								</div>
-							</div>
-						</td>
-						<td class="invert">老年女鞋</td>
-					
-						<td class="invert">￥250.00</td>
-						<td class="invert">
-							<div class="rem">
-								<div class="close2"> </div>
-							</div>
-							<script>$(document).ready(function(c) {
-								$('.close2').on('click', function(c){
-									$('.rem2').fadeOut('slow', function(c){
-										$('.rem2').remove();
-									});
-									});	  
-								});
-						   </script>
-						</td>
-					</tr>
-					<tr class="rem3">
-						<td class="invert">3</td>
-						<td class="invert-image"><a href="single.html"><img src="images/3.png" alt=" " class="img-responsive" /></a></td>
-						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                           
-									<div class="entry value-minus">&nbsp;</div>
-									<div class="entry value"><span>1</span></div>
-									<div class="entry value-plus active">&nbsp;</div>
-								</div>
-							</div>
-						</td>
-						<td class="invert">老年男鞋</td>
-						
-						<td class="invert">￥15.00</td>
-						<td class="invert">
-							<div class="rem">
-								<div class="close3"> </div>
-							</div>
-							<script>$(document).ready(function(c) {
-								$('.close3').on('click', function(c){
-									$('.rem3').fadeOut('slow', function(c){
-										$('.rem3').remove();
-									});
-									});	  
-								});
-						   </script>
-						</td>
-					</tr>
-								<!--quantity-->
-									<script>
-									$('.value-plus').on('click', function(){
-										var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
-										divUpd.text(newVal);
-									});
-
-									$('.value-minus').on('click', function(){
-										var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
-										if(newVal>=1) divUpd.text(newVal);
-									});
-									</script>
-								<!--quantity-->
-				</table>
+					</div>
+					<div class="">
+						<div class=""><a href=""><img src="${pageContext.request.contextPath }/${g.getOriginal_img()}" width="100%" height="150px" /></a></div>
+					</div>
+					<div class="" style="height:80px;">
+						<div class=""><font size="2px" color="#777777"> ${g.getGoods_brief()}</font></div>
+					</div>
+					<div class="" style="height:30px;">
+						<div class="" style="float:right"><font color="red">￥${g.getOriginal_price()}</font></div>
+						<input type="hidden" name="goods_price" value="${g.getOriginal_price()}"/>
+						<input type="hidden" name="goods_sn" value="${g.getGoods_sn()}"/>
+					</div>
+					<div class="" style="height:30px;width:90%;">
+						<div class="" style="float:left"><span class="updateaddress"><button type="button" onclick="return addUserCart(${g.getGoods_id()})" class="btn btn-warning btn-sm" style="width:80px;height:30px;color:#FFFFFF;">加入购物车</button></span></div>
+						<div class=""style="float:right"><span class="updateaddress"><button id="" onclick="return delectcollect(${g.getGoods_id()})" class="btn btn-danger btn-sm" style="width:80px;height:30px;">删除</button></span></div>
+					</div>
+				</div>
+				
+				</c:forEach>
+				</c:forEach>
 			</div>
 			
 		</div>
