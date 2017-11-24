@@ -59,11 +59,12 @@ where user_name=#{user_name}
 			<result column="dsprice" property="shop_price"/>
 			<result column="dgname" property="goods_name"/>
 			<result column="dtotalfree" property="total_fee"/>
+			<result column="doriginal_img" property="original_img"/>
 		</collection>
 </resultMap>
 <!-- 订单查询 -->
 <select id="queryTheOrder" resultMap="queryOrders" parameterType="usernameAndNowindex">
-SELECT o.order_id oid,o.user_id uid,u.user_name uname,o.order_time otime,o.order_status ostatus,o.pay_time optime,o.shipping_name osn,o.shipping_code osc,d.order_details_id did,d.goods_id dgid,d.quantity dquantity,d.shop_price dsprice,d.goods_name dgname,d.total_fee dtotalfree
+SELECT o.order_id oid,o.user_id uid,u.user_name uname,o.order_time otime,o.order_status ostatus,o.pay_time optime,o.shipping_name osn,o.shipping_code osc,d.order_details_id did,d.goods_id dgid,d.quantity dquantity,d.shop_price dsprice,d.goods_name dgname,d.total_fee dtotalfree,d.original_img doriginal_img
 FROM `order` o 
 join order_details d 
 ON o.order_id=d.order_id 

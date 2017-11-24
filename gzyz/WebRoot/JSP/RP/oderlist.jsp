@@ -86,40 +86,53 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				
 				
 				
-				
+				var sum=0;
 				$.each(content.order_details,function(index,contentdetil){
 				console.log("aaa");
 				var ul=$("<ul></ul>").addClass("item-content clearfix");
 			    var li1=$("<li></li>").addClass("td td-item")
-                .append($("<div></div>").addClass("item-pic").append("<a href='#' target='_blank' data-title='美康粉正品 持久' class='J_MakePoint' data-point='tbcart.8.12'><img src='../images/kouhong.jpg_80x80.jpg' class='itempic J_ItemImg'></a>"))
-                .append($("<div></div>").append($("<div></div>").addClass("item-basic-info").append("<a href='#' target='_blank' title='美康粉黛醉美唇膏 持久保湿滋润防水不掉色' class='item-title J_MakePoint' data-point='tbcart.8.11'>美康粉黛醉美唇膏 持久保湿滋润防水不掉色</a>")));
+                .append($("<div></div>").addClass("item-pic").append("<a href='${pageContext.request.contextPath }/items/itemsIntroduction.action?goods_id="+contentdetil.goods_id+"' target='_blank' data-title='美康粉正品 持久' class='J_MakePoint' data-point='tbcart.8.12'><img src='${pageContext.request.contextPath }"+contentdetil.original_img+"' class='itempic J_ItemImg' style='width:80px;height:80px'></a>"))
+                .append($("<div></div>").append($("<div></div>").addClass("item-basic-info").append("<a href='${pageContext.request.contextPath }/items/itemsIntroduction.action?goods_id="+contentdetil.goods_id+"' target='_blank' title='美康粉黛醉美唇膏 持久保湿滋润防水不掉色' class='item-title J_MakePoint' data-point='tbcart.8.11'>"+contentdetil.goods_name+"</a>")));
 			    var li2=$("<li></li>").addClass("td td-price")
 				.append($("<div class='item-price price-promo-promo'></div>")
 				.append($("<div class='price-content'></div>")
-				.append("<div class='price-line'><em class='price-original'>78.00</em></div>")
-				.append("<div class='price-line'><em class='J_Price price-now' tabindex='0'>39.00</em></div>")
+				.append("<div class='price-line'><em class='J_Price price-now' tabindex='0'>"+contentdetil.shop_price+"</em></div>")
 				)
 				);
 				var li3=$("<li></li>").addClass("td td-amount")
 				.append($("<div class='amount-wrapper'></div>"))
 				.append($("<div class='item-amount'></div>"))
 				.append($("<div class='sl'></div>"))
-				.append($("<p>3</p>"));
+				.append($("<p>"+contentdetil.quantity+"</p>"));
 				var li4=$("<li></li>").addClass("td td-sum")
-                .append("<div class='td-inner'><em tabindex='0' class='J_ItemSum number'>117.00</em></div>");
+                .append("<div class='td-inner'><em tabindex='0' class='J_ItemSum number'>"+contentdetil.total_fee+"</em></div>");
+				sum=sum+contentdetil.total_fee;
 				ul.append(li1).append(li2).append(li3).append(li4);
 			    div6.append(ul);
 				});
 
-
-
-
+                var flage;
+                var action;
+                var pay=$("<a></a>").attr("id","J_Go").addClass("submit-btn submit-btn-disabled").attr("href","#").append("<span>结&nbsp;算</span>");
+                var queren=$("<a></a>").attr("id","J_Go").addClass("submit-btn submit-btn-disabled").attr("href","#").append("<span>确认收货</span>");
+                var tuikuan=$("<a></a>").attr("id","J_Go").addClass("submit-btn submit-btn-disabled").attr("href","#").append("<span>申请售后</span>");
+                var culi=$("<a></a>").attr("id","J_Go").addClass("submit-btn submit-btn-disabled").attr("href","#").append("<span>售后处理中</span>");
+                switch(content.order_status){
+                case 0: flage="未付款"; action=pay ; break;
+                case 1: flage="已付款"; action=queren ; break;
+                case 2: flage="已发货"; action=queren ; break;
+                case 3: flage="已收货"; action=tuikuan ; break;
+                case 4: flage="申请售后"; action=culi ; break;
+                case 5: flage="交易完成"; action=tuikuan ; break;
+                }
+                var count=content.order_details.length;
                 var div7=$("<div class='float-bar-wrapper' style='margin-bottom: 20px;'></div>")
-				.append("<div class='operations'> <a href='#' hidefocus='true' class='deleteAll'>订单状态：已发货</a> </div>")
+				.append("<div class='operations'> <a  hidefocus='true' class='deleteAll'>订单状态："+flage+"</a> </div>")
 				.append($("<div class='float-bar-right'></div>")
-				.append($("<div class='amount-sum'></div>").append("<span class='txt'>已选商品</span> <em id='J_SelectedItemsCount'>2</em><span class='txt'>件</span><div class='arrow-box'> <span class='selected-items-arrow'></span> <span class='arrow'></span>"))
-				.append($("<div class='price-sum'></div>").append("<span class='txt'>合计:</span> <strong class='price'>¥<em id='J_Total'>1000.00</em></strong>"))
-				.append($("<div class='btn-area'></div>").append(" <a href='pay.html' id='J_Go' class='submit-btn submit-btn-disabled' aria-label='请注意如果没有选择宝贝，将无法结算'> <span>结&nbsp;算</span></a>"))
+				.append($("<div class='amount-sum'></div>").append("<span class='txt'>共计</span> <em id='J_SelectedItemsCount'>"+count+"</em><span class='txt'>件</span><div class='arrow-box'> <span class='selected-items-arrow'></span> <span class='arrow'></span>"))
+				.append($("<div class='price-sum'></div>").append("<span class='txt'>合计:</span> <strong class='price'>¥<em id='J_Total'>"+sum+"</em></strong>"))
+				.append($("<div class='btn-area'></div>")
+				.append(action))
 				);
 			   
 			   div1.append(div6).append(div7);
