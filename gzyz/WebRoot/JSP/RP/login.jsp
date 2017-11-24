@@ -164,7 +164,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   function checkUserName(){ 
   var username = document.getElementById('userName'); 
   var errname = document.getElementById('nameErr'); 
-  var pattern = /^\w{2,8}$/;  //用户名格式正则表达式：用户名要至少三位 
+  var pattern = /([\u4e00-\u9fa5]|[a-zA-Z]|[0-9]){3,8}/;  //用户名格式正则表达式：用户名要至少三位 
   
   if(username.value.length == 0){ 
     errname.innerHTML="用户名不能为空"
@@ -172,7 +172,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     return false; 
     } 
   if(!pattern.test(username.value)){ 
-    errname.innerHTML="用户长度至少为4，最多为8"
+    errname.innerHTML="用户长度至少为3，最多为8"
     errname.className="error"
     return false; 
     } 

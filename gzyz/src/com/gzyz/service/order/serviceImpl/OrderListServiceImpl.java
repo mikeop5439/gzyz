@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gzyz.bean.order.Order;
 import com.gzyz.bean.order.extend.OrderInfo;
 import com.gzyz.bean.order.extend.OrderKeywords;
 import com.gzyz.bean.order.extend.OrderVo;
@@ -77,5 +78,34 @@ public class OrderListServiceImpl implements OrderListService {
 	@Override
 	public void updateReceiverAddressInfo(StatusKeywords statusKeywords) {
 		orderListMapper.updateReceiverAddressInfo(statusKeywords);
+	}
+	
+	//支付 
+	@Override
+	public List<Order> queryAllOrderByUserList(int user_id) {
+		List<Order> orderByUserIdList = orderListMapper.queryAllOrderByUserList(user_id);
+		return orderByUserIdList;
+	}
+
+	@Override
+	public void updateOrderByUser(Order order) {
+		orderListMapper.updateOrderByUser(order);
+	}
+
+	@Override       
+	public int queryAllOrderByUserCounts(int user_id) {
+		int orderTotal = orderListMapper.queryAllOrderByUserCounts(user_id);
+		return orderTotal;
+	}
+ 
+	@Override
+	public Order queryAllOrderByUser(int user_id) {
+		Order order = orderListMapper.queryAllOrderByUser(user_id);
+		return order;
+	}
+
+	@Override
+	public void updateOrderByUserStuts(Order order) {
+		orderListMapper.updateOrderByUserStuts(order);  
 	}
 }

@@ -323,11 +323,15 @@ function hideURLbar(){window.scrollTo(0,1);}
 				<div id="orderaddress" style="margin-bottom:5px;"></div>
 				<div id="ordername" style="margin-bottom:5px;"></div>
 				<div id="orderphone" style="margin-bottom:5px;"></div>
-			</div>
+			</div> 
 			<div style="margin-bottom:10px;">
 				<!--用户提交的地址  -->
 				<input type="hidden" name="userreceiveid" value=""/>
-				<input type="hidden" name="ordertotal" value="${total}"/>
+				<%-- <input type="hidden" name="ordertotal" value="${total}"/> --%>
+				<input type="hidden" id="WIDout_trade_no" name="WIDout_trade_no" value=""/>
+				<input type="hidden" id="WIDtotal_amount" name="WIDtotal_amount" value="${total}"/>
+				<input type="hidden" id="WIDsubject" name="WIDsubject" value="tre"/>
+				<input type="hidden" id="WIDbody" name="WIDbody" value="商品描述"/>
 				<input class="btn btn-info" type="submit" value="提交订单" style="width: 249px;height: 43px;font-size:24px;background-color: #FF4400;border:0 #FF4400;clear:both;folat:right;">
 			</div>
 			
@@ -413,4 +417,18 @@ function hideURLbar(){window.scrollTo(0,1);}
 
   
   </body>
+  <script language="javascript">
+	
+	function GetDateNow() {
+		var vNow = new Date();
+		var sNow = "";		
+		sNow += String(vNow.getHours());
+		sNow += String(vNow.getMinutes()); 
+		sNow += String(vNow.getSeconds());
+		sNow += String(vNow.getMilliseconds());
+		document.getElementById("WIDout_trade_no").value =  sNow;
+		
+	} 
+	GetDateNow();
+</script>
 </html>

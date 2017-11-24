@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.gzyz.bean.order.Order;
 import com.gzyz.bean.order.extend.OrderInfo;
 import com.gzyz.bean.order.extend.OrderKeywords;
 import com.gzyz.bean.order.extend.OrderVo;
@@ -21,4 +22,10 @@ public interface OrderListMapper {
 	public void updateReceiverCityInfo(StatusKeywords statusKeywords);
 	public void updateReceiverDistrictInfo(StatusKeywords statusKeywords);
 	public void updateReceiverAddressInfo(StatusKeywords statusKeywords);
+	//支付
+	public List<Order> queryAllOrderByUserList(int user_id);//查询用户的所有订单
+	public Order queryAllOrderByUser(int user_id);//查询用户的订单
+	public void updateOrderByUser(Order order);//通过用户id设置支付状态和订单号 
+	public int queryAllOrderByUserCounts(int user_id);//通过用户id查询用户订单的记录数
+	public void updateOrderByUserStuts(Order order);//通过用户id设置支付状态和订单号 
 }

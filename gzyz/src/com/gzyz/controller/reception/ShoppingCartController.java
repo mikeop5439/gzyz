@@ -2,9 +2,13 @@ package com.gzyz.controller.reception;
 
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +20,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.internal.util.AlipaySignature;
+import com.alipay.config.AlipayConfig;
 import com.gzyz.bean.address.ProvinceCityUseQuery;
 import com.gzyz.bean.address.Provinces;
 import com.gzyz.bean.address.ProvincesCities;
@@ -28,6 +35,7 @@ import com.gzyz.bean.users.cart;
 import com.gzyz.bean.users.collect_goods;
 import com.gzyz.bean.users.extend.Cartextend;
 import com.gzyz.bean.users.extend.UserCart;
+import com.gzyz.service.order.service.OrderListService;
 import com.gzyz.service.reception.service.ShoopingCartService;
 
 @Controller
@@ -35,6 +43,8 @@ import com.gzyz.service.reception.service.ShoopingCartService;
 public class ShoppingCartController {
 	@Autowired
 	private ShoopingCartService shoopingCartService;
+	@Autowired
+	private OrderListService orderListService;
 	
 	@RequestMapping("queryShoopingCart")
 	public String queryShoopingCart(Model model,HttpSession session){
@@ -202,15 +212,90 @@ public class ShoppingCartController {
 			order_details.add(details);
 		}
 	
-		return "forward:/shoppingcart/playorder.action";
+//		return "forward:/shoppingcart/playorder.action"; 
+		return "forward:/JSP/PAY/alipay.trade.page.pay.jsp";
 	}
-	//查询用户未支付的订到——>显示到付款页面
-	@RequestMapping("playorder")
-	public String queryplayorder(){
+	
+	//查询用户未支付的订单到——>显示到付款页面->主页
+	@RequestMapping("playorderpay")
+	public String playorderpay(HttpServletRequest request,HttpSession session) throws UnsupportedEncodingException, AlipayApiException{
+		//获取订单返回来的信息
+		User user=(User) session.getAttribute("user");
+		List<Order> orderlist = new ArrayList<>();
+		Order order = new Order();
+		int userid = user.getUser_id();
 		
+		//获取支付宝GET过来的信息
+		Map<String,String> params = new HashMap<String,String>();
+		Map<String,String[]> requestParams = request.getParameterMap();
+		for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext();) {
+			String name = (String) iter.next();
+			String[] values = (String[]) requestParams.get(name);
+			String valueStr = "";
+			for (int i = 0; i < values.length; i++) {
+				valueStr = (i == values.length - 1) ? valueStr + values[i]
+						: valueStr + values[i] + ",";
+			}
+			//解决乱码
+			valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
+			params.put(name, valueStr);
+		}
 		
+		System.out.println("123");
+		//验证签名
+		boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type); 
+
+		//处理返回的信息
+		if(signVerified) {
+			//商品订单号
+			String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"),"UTF-8");
 		
-		return null;
+			//支付宝交易号
+			String trade_no = new String(request.getParameter("trade_no").getBytes("ISO-8859-1"),"UTF-8");
+		
+			//支付金额
+			String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
+			
+			System.out.println(out_trade_no);
+			System.out.println(trade_no);
+			System.out.println(total_amount);
+			System.out.println("123");
+//				out.println("trade_no:"+trade_no+"<br/>out_trade_no:"+out_trade_no+"<br/>total_amount:"+total_amount);
+			
+			int a = orderListService.queryAllOrderByUserCounts(userid);
+			System.out.println(a);
+			System.out.println("123");
+			int order_no = Integer.parseInt(out_trade_no.trim());
+			if(orderListService.queryAllOrderByUserCounts(userid) == 1){
+				order = orderListService.queryAllOrderByUser(userid);
+				order.setOrder_id(order_no);
+				order.setOrder_status(1);
+				orderListService.updateOrderByUser(order);
+				System.out.println("支付完成！"); 
+			}else{
+				int b = orderListService.queryAllOrderByUserCounts(userid);
+				System.out.println(b);
+				orderlist = orderListService.queryAllOrderByUserList(userid);
+				for (Order orderEle: orderlist) {
+					/*Date nowTime = new Date(System.currentTimeMillis());
+					SimpleDateFormat sdFormatter = new SimpleDateFormat("HH:mm:ss:SSS");
+					String retStrFormatNowDate = sdFormatter.format(nowTime).replace(":", "").trim();
+					System.out.println(retStrFormatNowDate);
+					orderEle.setOrder_id(Integer.parseInt(retStrFormatNowDate));*/
+					System.out.println(orderEle);
+					orderEle.setOrder_status(1);
+//						orderListService.updateOrderByUser(orderEle);
+					orderListService.updateOrderByUserStuts(orderEle);
+					System.out.println("支付完成！");   
+				}
+			}
+			 
+		}else {
+//				out.println("验证签名失败！");
+			System.out.println("验证签名失败！");
+		}		
+		
+		return "redirect:/JSP/RP/index.jsp";//回话结束，从定向到主页
 		
 	}
 	

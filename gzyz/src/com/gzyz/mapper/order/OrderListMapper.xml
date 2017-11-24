@@ -141,4 +141,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update `receiver` set receiver_address = #{receiver_address}
 	where receiver_id = ${receiver_id}
 </update>
+
+<select id="queryAllOrderByUserList" parameterType="int" resultType="com.gzyz.bean.order.Order">
+	select *   
+	from `order` 
+	where user_id = #{user_id}   
+</select>
+
+<select id="queryAllOrderByUser" parameterType="int" resultType="com.gzyz.bean.order.Order">
+	select *   
+	from `order` 
+	where user_id = #{user_id}   
+</select>
+
+<update id="updateOrderByUser" parameterType="com.gzyz.bean.order.Order">
+	<!-- update order set receiver_address = #{receiver_address}
+	where receiver_id = ${receiver_id} --> 
+	update `order` set order_id = #{order_id},order_status = #{order_status} 
+	where user_id = #{user_id};       
+</update> 
+
+<update id="updateOrderByUserStuts" parameterType="com.gzyz.bean.order.Order">  
+	update `order` set order_status = #{order_status} 
+	where user_id = #{user_id};       
+</update> 
+
+<select id="queryAllOrderByUserCounts" parameterType="int" resultType="int">
+	select count(*)
+	from `order` 
+	where user_id = #{user_id} 
+</select>
 </mapper>
