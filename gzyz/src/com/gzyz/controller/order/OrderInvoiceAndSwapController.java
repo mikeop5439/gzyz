@@ -111,7 +111,6 @@ public class OrderInvoiceAndSwapController {
 	        }
 	        theorderDateAndUsernameAndOrderId.setUser_name(orderDateAndUsernameAndOrderId.getUser_name());
 	        theorderDateAndUsernameAndOrderId.setOrder_id(orderDateAndUsernameAndOrderId.getOrder_id());
-	        System.out.println("aaaaaaaaaaaaaaaaaa:"+theorderDateAndUsernameAndOrderId);
 	        List<OrderAndUserAndOrderDetails> resultOrderAndUserAndOrderDetails=orderInvoiceAndSwapService.queryTheOrder(theorderDateAndUsernameAndOrderId);
 	        TheOrderAndCount theOrderAndCount=new TheOrderAndCount();
 	        theOrderAndCount.setOrderAndUserAndOrderDetails(resultOrderAndUserAndOrderDetails);

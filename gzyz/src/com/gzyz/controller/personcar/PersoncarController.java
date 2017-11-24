@@ -2,6 +2,7 @@ package com.gzyz.controller.personcar;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gzyz.bean.goods.Goods;
+import com.gzyz.bean.order.extend.OrderAndUserAndOrderDetails;
 import com.gzyz.bean.personcar.UserNameAndUserPassword;
+import com.gzyz.bean.rpsearch.searchextend.RuslutOfOrderAndAllpage;
+import com.gzyz.bean.rpsearch.searchextend.UsernameAndNowindex;
+import com.gzyz.bean.rpsearch.searchextend.UsernameAndNowpage;
 import com.gzyz.bean.users.User;
 import com.gzyz.service.personcar.service.PersoncarService;
 import com.gzyz.service.users.service.UserListService;
@@ -65,5 +70,22 @@ public class PersoncarController {
 		personcarService.updatePassword(user);
 		session.removeAttribute("loginuser");
 		return "redirect:/JSP/RP/personcar_success.jsp";	
+	}
+	//查询用户订单（同步）
+	@RequestMapping("queryOrders.action")
+	public @ResponseBody RuslutOfOrderAndAllpage queryOrders(Model model,@RequestBody UsernameAndNowpage usernameAndNowpage){
+		int nowindex=5*(usernameAndNowpage.getNowpage()-1);
+		UsernameAndNowindex usernameAndNowindex=new UsernameAndNowindex();
+		usernameAndNowindex.setUser_name(usernameAndNowpage.getUser_name());
+		usernameAndNowindex.setNowindex(nowindex);
+		int count=personcarService.queryTheOrderCount(usernameAndNowindex);
+		double  c=count;
+		int allpage=(int) Math.ceil(c/5);
+		List<OrderAndUserAndOrderDetails> orderAndUserAndOrderDetails=personcarService.queryTheOrder(usernameAndNowindex);
+		RuslutOfOrderAndAllpage ruslutOfOrderAndAllpage=new RuslutOfOrderAndAllpage();
+		ruslutOfOrderAndAllpage.setOrderAndUserAndOrderDetails(orderAndUserAndOrderDetails);
+		ruslutOfOrderAndAllpage.setAllpage(allpage);
+		return ruslutOfOrderAndAllpage;
+		
 	}
 }

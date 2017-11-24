@@ -223,11 +223,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="long-title"><span class="all-goods">全部分类</span></div>
 			<div class="nav-cont">
 				<ul>
-					<li class="index"><a href="#">老年健身产品</a></li>
-					<li class="qc"><a href="#">老年理疗产品</a></li>
-					<li class="qc"><a href="#">老年生活用品</a></li>
-					<li class="qc"><a href="#">孝心礼品类</a></li>
-					<li class="qc last"><a href="#">大包装</a></li>
+					<li class="index"><a href="${pageContext.request.contextPath}/JSP/RP/allclass.jsp#eee">建康生活</a></li>
+					<li class="qc"><a href="${pageContext.request.contextPath}/JSP/RP/allclass.jsp#bbb">日常百货</a></li>
+					<li class="qc"><a href="${pageContext.request.contextPath}/JSP/RP/allclass.jsp#fff">夕阳潮流</a></li>
+					<li class="qc last"><a href="${pageContext.request.contextPath}/JSP/RP/allclass.jsp#ggg">延年礼品</a></li>
 				</ul>
 				<div style="float:right;margin-top:4px;">
 					
@@ -291,7 +290,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							     <c:forEach items="${result.goods}" var="good">
 							         <li>
 											<div class="i-pic limit">
-												<img src="${pageContext.request.contextPath }${good.original_img}" weidth="200px" height="280px" href="${pageContext.request.contextPath }/items/itemsIntroduction.action?goods_id=${good.goods_id}"/>											
+												<a href="${pageContext.request.contextPath }/items/itemsIntroduction.action?goods_id=${good.goods_id}"><img src="${pageContext.request.contextPath }${good.original_img}" weidth="200px" height="280px"/></a>											
 												<p class="title fl"><a href="${pageContext.request.contextPath }/items/itemsIntroduction.action?goods_id=${good.goods_id}">${good.goods_name}</a></p>
 												<p class="price fl">
 													<b>¥</b>

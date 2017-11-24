@@ -195,7 +195,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 											<div class="row">
 												<div class="multi-gd-img">
 													<ul class="multi-column-dropdown">
-														<a href="allclass.jsp#aaa">理疗产品分类</a>
+														<a href="${pageContext.request.contextPath}/JSP/RP/allclass.jsp#aaa">理疗产品分类</a>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=刮痧板">刮痧板</a></li>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=足疗粉">足疗粉</a></li>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=足疗药">足疗药</a></li>
@@ -217,7 +217,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 											<div class="row">
 												<div class="multi-gd-img">
 													<ul class="multi-column-dropdown">
-														<a href="allclass.jsp#bbb">日常用品分类</a>
+														<a href="${pageContext.request.contextPath}/JSP/RP/allclass.jsp#bbb">日常用品分类</a>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=老人手机">老人手机</a></li>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=小能伴老人平板电脑">小能伴老人平板电脑</a></li>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=足疗盆">足疗盆</a></li>
@@ -239,7 +239,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 											<div class="row">
 												<div class="multi-gd-img">
 													<ul class="multi-column-dropdown">
-														<a href="allclass.jsp#ccc">健身产品分类</a>
+														<a href="${pageContext.request.contextPath}/JSP/RP/allclass.jsp#ccc">健身产品分类</a>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=踏步机">踏步机</a></li>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=收腹机">收腹机</a></li>
 														
@@ -258,7 +258,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 											<div class="row">
 												<div class="multi-gd-img">
 													<ul class="multi-column-dropdown">
-														<a href="allclass.jsp#ddd">按摩产品分类</a>
+														<a href="${pageContext.request.contextPath}/JSP/RP/allclass.jsp#ddd">按摩产品分类</a>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=按摩椅">按摩椅</a></li>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=肩颈按摩">肩颈按摩</a></li>
 														
@@ -278,7 +278,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 											<div class="row">
 												<div class="multi-gd-img">
 													<ul class="multi-column-dropdown">
-														<a href="allclass.jsp#eee">医疗机械分类</a>
+														<a href="${pageContext.request.contextPath}/JSP/RP/allclass.jsp#eee">医疗机械分类</a>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=拐杖">拐杖</a></li>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=轮椅">轮椅</a></li>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=血压计">血压计</a></li>
@@ -296,7 +296,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 											<div class="row">
 												<div class="multi-gd-img">
 													<ul class="multi-column-dropdown">
-														<a href="allclass.jsp#fff">中老年服饰分类</a>
+														<a href="${pageContext.request.contextPath}/JSP/RP/allclass.jsp#fff">中老年服饰分类</a>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=按摩鞋">按摩鞋</a></li>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=太极服">太极服</a></li>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=背背佳">背背佳</a></li>
@@ -314,7 +314,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 											<div class="row">
 												<div class="multi-gd-img">
 													<ul class="multi-column-dropdown">
-														<a href="allclass.jsp#ggg">孝心礼品分类</a>
+														<a href="${pageContext.request.contextPath}/JSP/RP/allclass.jsp#ggg">孝心礼品分类</a>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=茶">茶</a></li>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=酒">酒</a></li>
 														<li><a href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=养生枕">养生枕</a></li>

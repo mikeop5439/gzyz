@@ -19,9 +19,11 @@ import com.gzyz.bean.goods.extend.GoodsAndCategory;
 import com.gzyz.bean.order.Order_invoice;
 import com.gzyz.bean.order.extend.DateQuery;
 import com.gzyz.bean.order.extend.OrderAndUserAndOrderDetails;
+import com.gzyz.bean.order.extend.OrderDateAndUsernameAndOrderId;
 import com.gzyz.bean.users.Manager_log;
 import com.gzyz.bean.users.manger;
 import com.gzyz.bean.users.extend.MangerAndManageRole;
+import com.gzyz.mapper.personcar.PersoncarMapper;
 import com.gzyz.service.analysis.service.DateTrafficAnalysisService;
 import com.gzyz.service.goods.service.GoodsListService;
 import com.gzyz.service.login.service.HtLoginService;
@@ -36,22 +38,16 @@ public class GoodListTest {
 	private HtLoginService htLoginService;
 	@Autowired
 	private SearchService searchService;
+	@Autowired
+	private OrderInvoiceAndSwapService orderInvoiceAndSwapService;
+	@Autowired
+	private PersoncarMapper personcarMapper;
 	@Test
 	public void test1(){
-		String searchOfKeywords="脑白金";
-		ResultOfSearch resultOfSearch=new ResultOfSearch();
-		SearchAndIndex searchAndIndex=new SearchAndIndex();
-		searchAndIndex.setKeywords(searchOfKeywords);
-		searchAndIndex.setNowindex(0);
-		int count=searchService.searchGoodsCount(searchAndIndex);
-		double  c=count;
-		int allpage=(int) Math.ceil(c/8);
-		resultOfSearch.setGoods(searchService.searchGoods(searchAndIndex));
-		resultOfSearch.setAllpage(allpage);
-		resultOfSearch.setNowpage(1);
-		resultOfSearch.setCount(count);
-		resultOfSearch.setKeywords(searchOfKeywords);
-		resultOfSearch.setBrand(searchService.brandOfTheSearch(searchAndIndex));
-		System.out.println("aaaaaaaaaaaa"+resultOfSearch);
+		UsernameAndNowindex usernameAndNowindex=new UsernameAndNowindex();
+		usernameAndNowindex.setUser_name("molei");
+		usernameAndNowindex.setNowindex(2);
+		List<OrderAndUserAndOrderDetails> orderAndUserAndOrderDetails=personcarMapper.queryTheOrder(usernameAndNowindex);
+		System.out.println(orderAndUserAndOrderDetails);
 	}
 }

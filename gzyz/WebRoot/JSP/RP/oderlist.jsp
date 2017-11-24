@@ -51,7 +51,88 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		$("#imgoflogin").css("display","inline");
 		$("#aoflogin").css("display","inline");
 		}
+		searchOrder(1);
 		}
+		
+	     function searchOrder(nowpage){
+	     var user_name = "${sessionScope.loginuser.user_name}";
+	     var nowpage1=nowpage;
+	     var params = '{"user_name":"'+user_name+'","nowpage":"'+nowpage1+'"}';
+	     $.ajax({  
+	           type:"POST",  
+	           url:"${pageContext.request.contextPath }/personcar/queryOrders.action", 
+		       contentType:'application/json;charset=utf-8',
+		       dataType:"json",
+		       data:params,
+			   success:function(data){
+			   setpage(data.allpage,nowpage);
+			   
+			     $.each(data.orderAndUserAndOrderDetails,function(index,content){
+			    var order_id=content.order_id;
+			    var order_time=content.order_time;
+			    var div=$("<div></div>").addClass("clear");
+				var div1=$("<div></div>").addClass("bundle  bundle-last ");
+				var div2=$("<div></div>").addClass("bundle-hd");
+				var div3=$("<div></div>").addClass("bd-promos");
+				var div4=$("<div></div>").append($("<p></p>").append($("<span></span>").css("margin-right","20px").append("订单号："+order_id+"")).append($("<span></span>").append("订单时间："+order_time+"")));
+				
+				var div2=div2.append(div3.append(div4));
+				div1=div1.append(div).append(div2);
+				
+				var div5=$("<div></div>").addClass("clear");
+				div1.append(div5);
+				var div6=$("<div></div>").addClass("bundle-main");
+				
+				
+				
+				
+				
+				$.each(content.order_details,function(index,contentdetil){
+				console.log("aaa");
+				var ul=$("<ul></ul>").addClass("item-content clearfix");
+			    var li1=$("<li></li>").addClass("td td-item")
+                .append($("<div></div>").addClass("item-pic").append("<a href='#' target='_blank' data-title='美康粉正品 持久' class='J_MakePoint' data-point='tbcart.8.12'><img src='../images/kouhong.jpg_80x80.jpg' class='itempic J_ItemImg'></a>"))
+                .append($("<div></div>").append($("<div></div>").addClass("item-basic-info").append("<a href='#' target='_blank' title='美康粉黛醉美唇膏 持久保湿滋润防水不掉色' class='item-title J_MakePoint' data-point='tbcart.8.11'>美康粉黛醉美唇膏 持久保湿滋润防水不掉色</a>")));
+			    var li2=$("<li></li>").addClass("td td-price")
+				.append($("<div class='item-price price-promo-promo'></div>")
+				.append($("<div class='price-content'></div>")
+				.append("<div class='price-line'><em class='price-original'>78.00</em></div>")
+				.append("<div class='price-line'><em class='J_Price price-now' tabindex='0'>39.00</em></div>")
+				)
+				);
+				var li3=$("<li></li>").addClass("td td-amount")
+				.append($("<div class='amount-wrapper'></div>"))
+				.append($("<div class='item-amount'></div>"))
+				.append($("<div class='sl'></div>"))
+				.append($("<p>3</p>"));
+				var li4=$("<li></li>").addClass("td td-sum")
+                .append("<div class='td-inner'><em tabindex='0' class='J_ItemSum number'>117.00</em></div>");
+				ul.append(li1).append(li2).append(li3).append(li4);
+			    div6.append(ul);
+				});
+
+
+
+
+                var div7=$("<div class='float-bar-wrapper' style='margin-bottom: 20px;'></div>")
+				.append("<div class='operations'> <a href='#' hidefocus='true' class='deleteAll'>订单状态：已发货</a> </div>")
+				.append($("<div class='float-bar-right'></div>")
+				.append($("<div class='amount-sum'></div>").append("<span class='txt'>已选商品</span> <em id='J_SelectedItemsCount'>2</em><span class='txt'>件</span><div class='arrow-box'> <span class='selected-items-arrow'></span> <span class='arrow'></span>"))
+				.append($("<div class='price-sum'></div>").append("<span class='txt'>合计:</span> <strong class='price'>¥<em id='J_Total'>1000.00</em></strong>"))
+				.append($("<div class='btn-area'></div>").append(" <a href='pay.html' id='J_Go' class='submit-btn submit-btn-disabled' aria-label='请注意如果没有选择宝贝，将无法结算'> <span>结&nbsp;算</span></a>"))
+				);
+			   
+			   div1.append(div6).append(div7);
+			   
+			  $("#flage").append(div1);
+			    });  
+			    
+			   
+			    
+			  } 
+			  	   
+	       });  
+     };
 		</script>
 	</head>
 
@@ -144,236 +225,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</div>
 					</div>
 					<div class="clear"></div>
-
-					<tr class="item-list">
-						<div class="bundle  bundle-last ">
-							<div class="bundle-hd">
-								<div class="bd-promos">
-									
-									<div>
-										<p><span style="margin-right: 20px;">订单号：100833333339qwwww99999999</span><span>订单时间：2017-11-23</span></p>
-										
-									</div>
-									
-								</div>
-							</div>
-							<div class="clear"></div>
-							<div class="bundle-main">
-								<ul class="item-content clearfix">
-									
-									<li class="td td-item">
-										<div class="item-pic">
-											<a href="#" target="_blank" data-title="美康粉正品 持久" class="J_MakePoint" data-point="tbcart.8.12">
-												<img src="../images/kouhong.jpg_80x80.jpg" class="itempic J_ItemImg"></a>
-										</div>
-										<div class="item-info">
-											<div class="item-basic-info">
-												<a href="#" target="_blank" title="美康粉黛醉美唇膏 持久保湿滋润防水不掉色" class="item-title J_MakePoint" data-point="tbcart.8.11">美康粉黛醉美唇膏 持久保湿滋润防水不掉色</a>
-											</div>
-										</div>
-									</li>
-									
-									<li class="td td-price">
-										<div class="item-price price-promo-promo">
-											<div class="price-content">
-												<div class="price-line">
-													<em class="price-original">78.00</em>
-												</div>
-												<div class="price-line">
-													<em class="J_Price price-now" tabindex="0">39.00</em>
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="td td-amount">
-										<div class="amount-wrapper ">
-											<div class="item-amount ">
-												<div class="sl">
-													
-													<p>3</p>
-													
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="td td-sum">
-										<div class="td-inner">
-											<em tabindex="0" class="J_ItemSum number">117.00</em>
-										</div>
-									</li>
-									
-								</ul>
-								
-								
-								
-								
-								<ul class="item-content clearfix">
-									
-									<li class="td td-item">
-										<div class="item-pic">
-											<a href="#" target="_blank" data-title="美康粉黛醉美东方唇膏口红正品 持久保湿滋润防水不掉色护唇彩妆" class="J_MakePoint" data-point="tbcart.8.12">
-												<img src="../images/kouhong.jpg_80x80.jpg" class="itempic J_ItemImg"></a>
-										</div>
-										<div class="item-info">
-											<div class="item-basic-info">
-												<a href="#" target="_blank" title="美康粉黛醉美唇膏 持久保湿滋润防水不掉色" class="item-title J_MakePoint" data-point="tbcart.8.11">美康粉黛醉美唇膏 持久保湿滋润防水不掉色</a>
-											</div>
-										</div>
-									</li>
-								
-									<li class="td td-price">
-										<div class="item-price price-promo-promo">
-											<div class="price-content">
-												<div class="price-line">
-													<em class="price-original">78.00</em>
-												</div>
-												<div class="price-line">
-													<em class="J_Price price-now" tabindex="0">39.00</em>
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="td td-amount">
-										<div class="amount-wrapper ">
-											<div class="item-amount ">
-												<div class="sl">
-													<p>4</p>
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="td td-sum">
-										<div class="td-inner">
-											<em tabindex="0" class="J_ItemSum number">117.00</em>
-										</div>
-									</li>
-									
-								</ul>
-													
-								
-								
-								
-							</div>
-						</div>
-					</tr>
-					<div class="clear"></div>
-						<div class="float-bar-wrapper" style="margin-bottom: 20px;">
-					<div class="operations">
-						<a href="#" hidefocus="true" class="deleteAll">订单状态：已发货</a>
-						
-					</div>
-					<div class="float-bar-right">
-						<div class="amount-sum">
-							<span class="txt">已选商品</span>
-							<em id="J_SelectedItemsCount">2</em><span class="txt">件</span>
-							<div class="arrow-box">
-								<span class="selected-items-arrow"></span>
-								<span class="arrow"></span>
-							</div>
-						</div>
-						<div class="price-sum">
-							<span class="txt">合计:</span>
-							<strong class="price">¥<em id="J_Total">1000.00</em></strong>
-						</div>
-						<div class="btn-area">
-							<a href="pay.html" id="J_Go" class="submit-btn submit-btn-disabled" aria-label="请注意如果没有选择宝贝，将无法结算">
-								<span>结&nbsp;算</span></a>
-						</div>
-					</div>
-
-				</div>
-
-
-					<tr class="item-list">
-						<div class="bundle  bundle-last ">
-							<div class="bundle-hd">
-								<div class="bd-promos">
-									
-									<div>
-										<p><span style="margin-right: 20px;">订单号：100833333339qwwww99999999</span><span>订单时间：2017-11-23</span></p>
-										
-									</div>
-									
-								</div>
-							</div>
-							<div class="clear"></div>
-							<div class="bundle-main">
-								<ul class="item-content clearfix">
-									
-									<li class="td td-item">
-										<div class="item-pic">
-											<a href="#" target="_blank" data-title="美康粉黛醉美东方唇膏口红正品 持久保湿滋润防水不掉色护唇彩妆" class="J_MakePoint" data-point="tbcart.8.12">
-												<img src="../images/kouhong.jpg_80x80.jpg" class="itempic J_ItemImg"></a>
-										</div>
-										<div class="item-info">
-											<div class="item-basic-info">
-												<a href="#" target="_blank" title="美康粉黛醉美唇膏 持久保湿滋润防水不掉色" class="item-title J_MakePoint" data-point="tbcart.8.11">美康粉黛醉美唇膏 持久保湿滋润防水不掉色</a>
-											</div>
-										</div>
-									</li>
-									<li class="td td-price">
-										<div class="item-price price-promo-promo">
-											<div class="price-content">
-												<div class="price-line">
-													<em class="price-original">78.00</em>
-												</div>
-												<div class="price-line">
-													<em class="J_Price price-now" tabindex="0">39.00</em>
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="td td-amount">
-										<div class="amount-wrapper ">
-											<div class="item-amount ">
-												<div class="sl">
-													<p>3</p>
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="td td-sum">
-										<div class="td-inner">
-											<em tabindex="0" class="J_ItemSum number">117.00</em>
-										</div>
-									</li>
-									
-								</ul>
-							</div>
-						</div>
-					</tr>
+					<div id="flage"></div>
+					
 				</div>
 				
-				<div class="clear"></div>
-
-				<div class="float-bar-wrapper">
-					
-					<div class="operations">
-						<a href="#" hidefocus="true" class="deleteAll">订单状态：已发货</a>
-						
-					</div>
-					<div class="float-bar-right">
-						<div class="amount-sum">
-							<span class="txt">已选商品</span>
-							<em id="J_SelectedItemsCount">0</em><span class="txt">件</span>
-							<div class="arrow-box">
-								<span class="selected-items-arrow"></span>
-								<span class="arrow"></span>
-							</div>
-						</div>
-						<div class="price-sum">
-							<span class="txt">合计:</span>
-							<strong class="price">¥<em id="J_Total">0.00</em></strong>
-						</div>
-						<div class="btn-area">
-							<a href="pay.html" id="J_Go" class="submit-btn submit-btn-disabled" aria-label="请注意如果没有选择宝贝，将无法结算">
-								<span>结&nbsp;算</span></a>
-						</div>
-					</div>
-
-				</div>
-
-			
+		
 
 			</div>
 
@@ -420,7 +276,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 		</div>
 <!-- //footer -->		
-
+<script>
+function setpage(allpage,nowpage){
+	     var i=2;
+	     var page_id="AllPage"+1;
+	     $("#pageUl").empty();
+	     $("#pageUl").append("<li><a href='javascript:searchOrder(1)'>«</a></li>");
+	     $("#pageUl").append("<li id='"+page_id+"' class='am-active'><a href='javascript:searchOrder(1)'>1</a></li>");
+	     for(i;i<=allpage;i++){
+	      page_id="AllPage";
+	      page_id=page_id+i;
+	      $("#pageUl").append("<li id='"+page_id+"'><a href='javascript:searchOrder("+i+")'>"+i+"</a></li>");
+	     }
+	     $("#pageUl").append("<li><a onclick='javascript:searchOrder("+allpage+")'>»</a></li>");
+	     page_id="AllPage"+nowpage;
+	     var id="#"+page_id;
+	     $("ul.am-pagination li").removeClass("am-active");
+	     $(id).addClass("am-active");
+	     };
+</script>
 	
 	</body>
 
