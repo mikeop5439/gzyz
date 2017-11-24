@@ -291,8 +291,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							     <c:forEach items="${result.goods}" var="good">
 							         <li>
 											<div class="i-pic limit">
-												<img src="${pageContext.request.contextPath }${good.original_img}" weidth="200px" height="280px"/>											
-												<p class="title fl">${good.goods_name}</p>
+												<img src="${pageContext.request.contextPath }${good.original_img}" weidth="200px" height="280px" href="${pageContext.request.contextPath }/items/itemsIntroduction.action?goods_id=${good.goods_id}"/>											
+												<p class="title fl"><a href="${pageContext.request.contextPath }/items/itemsIntroduction.action?goods_id=${good.goods_id}">${good.goods_name}</a></p>
 												<p class="price fl">
 													<b>¥</b>
 													<strong>${good.shop_price}</strong>
