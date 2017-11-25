@@ -1,6 +1,9 @@
 package com.gzyz.test;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,9 +24,12 @@ public class AddGoodsTest {
 	private UserListService userListService;
 	@Test
 	public void testCheckSpec_name(){
-		List<Userdate> users=userListService.queryAllUser(0);
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+users);
-		
+		Random random = new Random();
+		int rdnum=random.nextInt(50000);
+		Date time=new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMHHss");
+		int order_id=Integer.parseInt(sdf.format(time))+rdnum;
+		System.out.println(order_id);
 
 }
 	}

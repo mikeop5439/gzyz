@@ -159,7 +159,7 @@ function hideURLbar(){window.scrollTo(0,1);}
 <c:if test="${userCarts.size() == 0}">
 	<div class="item" >
 		<div  class="container nogoods">
-			<p><font color="#FF4400" size="6px">请添加商品</font></p>
+			<p><font color="#FF4400" size="6px">请添加商品购物车</font></p>
 		</div>
 	</div>
 </c:if>

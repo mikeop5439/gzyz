@@ -3,12 +3,14 @@ package com.gzyz.controller.reception;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -177,17 +179,22 @@ public class ShoppingCartController {
 			Order order=new Order();
 			//创建订单详情对象
 			Order_details details=new Order_details();
-			
+			//生成订单id
+			Random random = new Random();
+			int rdnum=random.nextInt(50000);
+			Date time=new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMHHss");
+			int order_id=Integer.parseInt(sdf.format(time))+rdnum;
+			//设置订单信息
+			order.setOrder_id(order_id);
 			order.setUser_id(user.getUser_id());
 			order.setReceiver_id(Integer.parseInt(userreceiveid));
-			
 			order.setOrder_time(new Date());
 			order.setOrder_status(0);
 			order.setGoods_id(Integer.parseInt(stringoods_id[i]));
 			//将部分信息存入订单表中
 			shoopingCartService.insertOrder(order);
-			//通过商品ID和用户ID,查询出订单ID
-			int order_id=shoopingCartService.queryOrderid(order);
+			//将ID存入订单详情
 			order.setOrder_id(order_id);
 			details.setOrder_id(order_id);
 			details.setGoods_id(Integer.parseInt(stringoods_id[i]));

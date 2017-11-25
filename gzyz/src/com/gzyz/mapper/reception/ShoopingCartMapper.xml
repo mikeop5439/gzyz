@@ -91,8 +91,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from user where user_id=#{id}
 	</select>
 	<insert id="insertorser" parameterType="order">
-		INSERT INTO `order` ( `user_id`, `receiver_id`, `order_time`,  `goods_id`)
-		VALUES (#{user_id},#{receiver_id},#{order_time},#{goods_id});
+		INSERT INTO `order` ( `order_id`,`user_id`, `receiver_id`, `order_time`,  `goods_id`)
+		VALUES (#{order_id},#{user_id},#{receiver_id},#{order_time},#{goods_id});
 	</insert>
 	<select id="selectorderid" resultType="int" parameterType="order">
 		select order_id from `order` where user_id=#{user_id} and goods_id=#{goods_id}

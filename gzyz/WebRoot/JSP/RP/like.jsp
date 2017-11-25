@@ -138,6 +138,14 @@ margin-top:10px;
 			
 		</div>
 	</div>
+	<!--如果没有收藏  -->
+	<c:if test="${collects.size() ==0 }" >
+		<div class="container" style="background-color: #F5F5F5;height: 200px;border: 1px dashed #b9f9f0;margin-bottom:30px;margin-top:10px;">
+			<div >
+				<p><font color="#FF4400" size="6px">请添加商品收藏</font></p>
+			</div>
+		</div>
+	</c:if>
 <!-- //checkout -->
 
 	<!-- //footer -->
