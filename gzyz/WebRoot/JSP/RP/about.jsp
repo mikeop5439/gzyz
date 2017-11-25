@@ -96,7 +96,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                          <h4>关于我们的故事</h4>
                          <br>
                          <h4>你说,你有酒 & 而我不仅有故事,有代码,还有狗粮。</h4>
-                    </div
+                    </div>
 			
 			<div class="about-agileinfo w3layouts">
 				<div class="col-md-8 about-wthree-grids grid-top">

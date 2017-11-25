@@ -105,10 +105,10 @@ function hideURLbar(){window.scrollTo(0,1);}
 	    		<div style="width:300px;">
 	    		  
 	    		  	<div style=" float: left;">
-	    		  		<a href=""><img width="100" height="100" src="${pageContext.request.contextPath }/${c.getGoods().getOriginal_img()}" /></a>
+	    		  		<a href="${pageContext.request.contextPath}/items/itemsIntroduction.action?goods_id=${c.getGoods().getGoods_id() }"><img width="100" height="100" src="${pageContext.request.contextPath }/${c.getGoods().getOriginal_img()}" /></a>
 	    		  	</div>
 	    		   	<div style="float: right;width:190px;">
-	    		   		<a href=""><font size="2px">${c.getGoods().getGoods_brief() }</font></a>
+	    		   		<a href="${pageContext.request.contextPath}/items/itemsIntroduction.action?goods_id=${c.getGoods().getGoods_id() }"><font size="2px">${c.getGoods().getGoods_brief() }</font></a>
 	    		   	</div>
 	    		  
 	    		</div>

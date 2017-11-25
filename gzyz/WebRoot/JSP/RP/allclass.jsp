@@ -147,7 +147,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     
                  </li>
                  <li class="floor_goods_wrap_li">
-                     <a class="floor_goods_img" href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=玉石腰带"><img src="images/401.jpg" width="200px" height="150px"</a>
+                     <a class="floor_goods_img" href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=玉石腰带"><img src="images/401.jpg" width="200px" height="150px"/></a>
                      <a class="floor_goods_tit" href="${pageContext.request.contextPath}/rpsearch/searchscategory.action?searchOfKeywords=玉石腰带">玉石腰带</a>
                      
                  </li>

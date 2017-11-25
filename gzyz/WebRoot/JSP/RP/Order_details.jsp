@@ -255,7 +255,7 @@ function hideURLbar(){window.scrollTo(0,1);}
 				<tr class="tbodytr1">
 					
 						<td style="text-align: left;">
-						  <a href="">
+						  <a href="${pageContext.request.contextPath}/items/itemsIntroduction.action?goods_id=${o.getGoods_id()}">
 							<div style=" float: left;">
 			    		  		<img width="80" height="80" src="${pageContext.request.contextPath}/${o.getOriginal_img()}">
 			    		  	</div>

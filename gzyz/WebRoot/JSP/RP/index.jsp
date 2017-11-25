@@ -121,7 +121,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 
 						<li class="uloflogin" style="display:none;"><img src="${pageContext.request.contextPath }${sessionScope.loginuser.user_image}" width="40px;" height="40px;"><a href="#">欢迎，${sessionScope.loginuser.user_name}</a></li>
 						<li class="uloflogin" style="display:none;"><a href="personcar.jsp">个人中心</a></li>		
-						<li class="uloflogin" style="display:none;"><a href="like.html">收藏夹</a></li>
+						<li class="uloflogin" style="display:none;"><a href="${pageContext.request.contextPath }/userlist/queryusercollect.action?">收藏夹</a></li>
 						<li class="uloflogin" style="display:none;"><a href="${pageContext.request.contextPath }/userlist/queryuserLoginExit.action">退出登陆</a></li>			
                         
 					    <li ><a href="contact.html">联系我们</a></li> 

@@ -208,6 +208,13 @@ public class ShoppingCartController {
 			details.setOriginal_img(goods.getOriginal_img());
 			//将订单详情存入数据库
 			shoopingCartService.insertOrder_details(details);
+			//删除购物车商品
+			if(user !=null){
+				Cartextend cartextend2=new Cartextend();
+				cartextend2.setUser_id(user.getUser_id());
+				cartextend2.setGoods_id(Integer.parseInt(stringoods_id[i]));
+				shoopingCartService.deletecartByidone(cartextend2);
+			}
 			orders.add(order);
 			order_details.add(details);
 		}

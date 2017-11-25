@@ -116,10 +116,10 @@ margin-top:10px;
 						
 					</div>
 					<div class="">
-						<div class=""><a href=""><img src="${pageContext.request.contextPath }/${g.getOriginal_img()}" width="100%" height="150px" /></a></div>
+						<div class=""><a  href="${pageContext.request.contextPath}/items/itemsIntroduction.action?goods_id=${g.getGoods_id()}"><img src="${pageContext.request.contextPath }/${g.getOriginal_img()}" width="100%" height="150px" /></a></div>
 					</div>
 					<div class="" style="height:80px;">
-						<div class=""><font size="2px" color="#777777"> ${g.getGoods_brief()}</font></div>
+						<div class=""><a  href="${pageContext.request.contextPath}/items/itemsIntroduction.action?goods_id=${g.getGoods_id()}"><font size="2px" color="#777777"> ${g.getGoods_brief()}</font></a></div>
 					</div>
 					<div class="" style="height:30px;">
 						<div class="" style="float:right"><font color="red">￥${g.getOriginal_price()}</font></div>
