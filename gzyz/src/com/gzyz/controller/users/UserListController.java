@@ -518,8 +518,11 @@ public class UserListController {
 		}
 		
 		@RequestMapping("addnewaddress_city")
-		public String addnewaddress_city(String province,HttpServletResponse response) throws Exception{
+		public String addnewaddress_city(HttpServletRequest request,HttpServletResponse response) throws Exception{
 			//查询城市
+			//String province = new String(request.getParameter("province").getBytes("ISO-8859-1"),"UTF-8");
+			String province = request.getParameter("province");
+						
 			List<ProvincesCities> provinces= shoopingCartService.querycities(province);
 			
 			ObjectMapper mapper=new ObjectMapper();
@@ -530,8 +533,13 @@ public class UserListController {
 			return null;
 		}
 		@RequestMapping("addnewaddress_areas")
-		public String addnewaddress_areas(String province,String city,HttpServletResponse response) throws Exception{
+		public String addnewaddress_areas(HttpServletRequest request,HttpServletResponse response) throws Exception{
 			//查询城市
+			/*String province = new String(request.getParameter("province").getBytes("ISO-8859-1"),"UTF-8");
+			String city = new String(request.getParameter("city").getBytes("ISO-8859-1"),"UTF-8");*/
+			String province = request.getParameter("province");
+			String city = request.getParameter("city");
+			
 			ProvinceCityUseQuery p=new ProvinceCityUseQuery();
 			p.setCity(city);
 			p.setProvince(province);

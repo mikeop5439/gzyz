@@ -56,6 +56,28 @@ margin-top:10px;
 	width:250px;
 	margin:15px;
 }
+.brief p{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	 -o-text-overflow:ellipsis;
+	white-space:nowrap;
+	width:100%;
+	color: #656464;
+}
+.brief p:hover{
+	color:red;
+}
+.goodsname p{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	 -o-text-overflow:ellipsis;
+	white-space:nowrap;
+	width:100%;
+	color: #656464;
+}
+.goodsname p:hover{
+	color:red;
+}
 </style>
 
 </head>
@@ -109,17 +131,17 @@ margin-top:10px;
 			<div class="row">
 			<c:forEach items="${collects }" var="c">
 			<c:forEach items="${c.getGoodsCollect()}" var="g" >
-				<div id="${g.getGoods_id()}" class="col-md-3" style="height:330px; border:2px dashed #F5F5F5;">
+				<div id="${g.getGoods_id()}" class="col-md-3" style="height:280px; border:2px dashed #F5F5F5;">
 					<div class="" style="height:22px;">
-						<div class=""><font size="2px">${g.getGoods_name()}</font></div>
+						<div class="goodsname"><a  href="${pageContext.request.contextPath}/items/itemsIntroduction.action?goods_id=${g.getGoods_id()}"><p>${g.getGoods_name()}</p></a></div>
 						<input type="hidden" name="goods_name" value="${g.getGoods_name()}"/>
 						
 					</div>
 					<div class="">
 						<div class=""><a  href="${pageContext.request.contextPath}/items/itemsIntroduction.action?goods_id=${g.getGoods_id()}"><img src="${pageContext.request.contextPath }/${g.getOriginal_img()}" width="100%" height="150px" /></a></div>
 					</div>
-					<div class="" style="height:80px;">
-						<div class=""><a  href="${pageContext.request.contextPath}/items/itemsIntroduction.action?goods_id=${g.getGoods_id()}"><font size="2px" color="#777777"> ${g.getGoods_brief()}</font></a></div>
+					<div class="" style="height:30px;">
+						<div class="brief"><a  href="${pageContext.request.contextPath}/items/itemsIntroduction.action?goods_id=${g.getGoods_id()}"><p> ${g.getGoods_brief()}</p></a></div>
 					</div>
 					<div class="" style="height:30px;">
 						<div class="" style="float:right"><font color="red">￥${g.getOriginal_price()}</font></div>

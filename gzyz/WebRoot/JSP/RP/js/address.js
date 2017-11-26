@@ -40,10 +40,20 @@ function setmorenaddress(id){
 }
 
 /*--------------------->设置默认地址*/
+$(function(){
+	var url="/gzyz/userlist/addnewaddress.action";
+	var args={"time":new Date()};
+	$.getJSON(url,args,function(data){
+		for(var i=0;i<data.length;i++){
+			$("#add_ads_state").append("<option>"+data[i].province+"</option>");
+		}
+	})
+})
+
 
 /*添加收货地址*/
-$(function(){//省份
-	$("#add_ads_state").click(function(){
+/*$(function(){//省份
+	$("#add_ads_state").change(function(){
 		var url="/gzyz/userlist/addnewaddress.action";
 		var args={"time":new Date()};
 		$.getJSON(url,args,function(data){
@@ -53,7 +63,7 @@ $(function(){//省份
 		})
 		
 	});
-});
+});*/
 $(function(){//城市
 	$("#add_ads_state").change(function(){
 		$("#addadsstateoption1").remove("");
