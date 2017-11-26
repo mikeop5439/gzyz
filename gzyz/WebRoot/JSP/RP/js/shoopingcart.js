@@ -270,7 +270,7 @@ $(document).ready(function(){
 	/*$("input[id='receiverid1']").trigger("click");*/
 	/*$("input[id='receiverid1']").click(function(){alert(1);*/
 	
-	$("input[name='receiverid']").change(function(){
+	$("input[name='receiverid']").click(function(){
 		$("input[id='receiverid']").each(function(){  
 			/*if($("input[id='receiverid']").prop("checked")){}else{*/
 				this.checked=false;
@@ -287,6 +287,7 @@ $(document).ready(function(){
 	receiverfunction();//将地址放到页面最后的提交订单	
 		
 });
+
 function receiverfunction(){
 	/*alert(1);*/
 	$(".receiver_top").each(function(){
@@ -350,6 +351,20 @@ function setmorenaddress(id){
 					
 				}
 			}
+			$("input[name='receiverid']").bind("click",function(){
+				$("input[id='receiverid']").each(function(){  
+					if($("input[id='receiverid']").prop("checked")){}else{
+						this.checked=false;
+					}
+			    });
+				this.checked=true;
+				
+				$("#orderaddress").html("");
+				$("#ordername").html("");
+				$("#orderphone").html("");
+				receiverfunction();
+			
+			});
 		}
 			var jqDom=$('<div id="add_address_position"></div><div class="container" style="margin:30px;"><button id="add-ads_button" class="btn btn-warning" data-am-modal="{target:'+"'"+"#add-address"+"'"+'}">+添加新地址</button></div>');
 			jqDom.appendTo("#receiver");																	
@@ -428,14 +443,15 @@ function insertcollect(id){
 
 /*添加收货地址*/
 $(function(){//省份
-	$("#add-ads_button").click(function(){
+	$("#add_ads_state").click(function(){
 		var url="shoppingcart/addnewaddress.action";
 		var args={"time":new Date()};
 		$.getJSON(url,args,function(data){
 			for(var i=0;i<data.length;i++){
 				$("#add_ads_state").append("<option>"+data[i].province+"</option>");
 			}
-		})
+		});
+		
 		
 	});
 });
@@ -492,7 +508,21 @@ function add_ads_newaddres(){
 		 	/*普通地址*/
 			var jqDom=$('<div class="receiver_top" id="'+receiver_id+'"><div class="container container_top" ><div class="receiveraddress2" ><span><input id="receiverid" name="receiverid" type="radio" value="'+receiver_id+'" /></span><span id="state">'+state+'</span><span id="city">'+city+'</span><span id="district">'+district+'</span><span id="address">'+address+'</span><span id="name">('+name+'收)</span><span id="phone">'+phone+'</span>	<span><a  href="javascript:void(0)" onclick="setmorenaddress('+receiver_id+')">设置为默认地址</a></span><span class="updateaddress"><button id="update-ads_button" onclick="return update_ads_new('+receiver_id+')" class="btn btn-primary btn-sm" data-am-modal="{target: '+"'"+"#update-address"+"'"+'}" style="width:70px;height:30px;">修改地址</button></span></div></div></div>');
 		 	jqDom.appendTo("#add_address_position");
-		
+		 	//绑定新事件
+		 	$("input[name='receiverid']").bind("click",function(){
+				$("input[id='receiverid']").each(function(){  
+					if($("input[id='receiverid']").prop("checked")){}else{
+						this.checked=false;
+					}
+			    });
+				this.checked=true;
+				
+				$("#orderaddress").html("");
+				$("#ordername").html("");
+				$("#orderphone").html("");
+				receiverfunction();
+			
+			});
 	});
 }
 $(function(){

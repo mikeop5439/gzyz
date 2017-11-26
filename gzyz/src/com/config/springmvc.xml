@@ -65,13 +65,18 @@
 	</bean>
 	
 	
-	<!--<mvc:interceptors>
+	<!-- 拦截器的配置 -->
+	<mvc:interceptors>
+		<!-- 配置具体的拦截器 -->
 		<mvc:interceptor>
+			<!-- 这个配置就是表示拦截器拦截那些请求 -->
+			<!-- <mvc:mapping path="/user/queryAllUsers.action"/> -->
+			<!-- 拦截所有的请求 -->
 			<mvc:mapping path="/**"/>
 			<bean class="com.gzyz.controller.inteceptor.LoginInterceptor"/>
 		</mvc:interceptor>
 		
-	</mvc:interceptors>-->
+	</mvc:interceptors>
 	
 	
 	
