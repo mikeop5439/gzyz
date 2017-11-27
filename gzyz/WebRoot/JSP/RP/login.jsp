@@ -91,8 +91,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				   <span class="default" id="imageErr" ></span>
 					<div class="forgot">
 						<a href="#">忘记密码?</a>
-						<a href="registered.html">&nbsp;|&nbsp;没有账号？</a>
-						<a href="index.html">&nbsp;|&nbsp;首页</a>
+						<a href="${pageContext.request.contextPath}/JSP/RP/register.jsp">&nbsp;|&nbsp;没有账号？</a>
+						<a href="${pageContext.request.contextPath}/JSP/RP/">&nbsp;|&nbsp;首页</a>
 					</div>
 					<input type="submit" value="登录" class="input_outer">
 				</form>

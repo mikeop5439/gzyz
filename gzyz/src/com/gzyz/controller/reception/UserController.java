@@ -46,6 +46,6 @@ public class UserController {
 		
 		userLoginService.insertUsername(insertInfo);
 		
-		return "/JSP/RP/login.jsp";
+		return "redirect:/JSP/RP/login.jsp";
 	}
 }
