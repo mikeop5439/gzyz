@@ -206,7 +206,7 @@ function deleteRole(manage_role_id){
 
 	
 </div>
-    <div class="am-popup am-popup-inner" id="my-popups" style="max-height:500px;">
+    <div class="am-popup am-popup-inner" id="my-popups" style="max-height:250px;">
       <div class="am-popup-hd">
         <h4 class="am-popup-title">角色选择</h4>
         <span data-am-modal-close

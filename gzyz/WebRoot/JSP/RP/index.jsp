@@ -338,23 +338,23 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 	<!-- main-slider -->
 		<ul id="demo1" >
 			<li>
-				<img src="images/005.png" alt="" />
+				<img src="images/007.png" alt="" />
 				<!--Slider Description example-->
 				<div class="slide-desc">
-					<h3>和孝商城，老人最时尚的购物商城</h3>
+					<!-- <h3>和孝商城，老人最时尚的购物商城</h3> -->
 				</div>
 			</li>
 			<li>
 				<img src="images/006.png" alt="" />
 				  <div class="slide-desc">
-					<h3>我们人老，心可一点儿都不老呢</h3>
+					<!-- <h3>我们人老，心可一点儿都不老呢</h3> -->
 				</div>
 			</li>
 			
 			<li>
-				<img src="images/007.png" alt="" />
+				<img src="images/005.png" alt="" />
 				<div class="slide-desc">
-					<h3>年轻态，新生活</h3>
+					<!-- <h3>年轻态，新生活</h3> -->
 				</div>
 			</li>
 		</ul>

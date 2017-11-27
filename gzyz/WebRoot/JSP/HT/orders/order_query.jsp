@@ -66,7 +66,8 @@ function ConvertJSONDateToJSDate(jsondate) {
 			  var count=content.order_details.length;
 			  var order_time = "/Date("+content.order_time+")/";
 			  var pay_time = "/Date("+content.pay_time+")/";
-			  
+			  var a1=$("<a></a>").addClass("am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-pencil-square-o")
+			  .attr("data-am-modal","{target: '#my-popups'}").attr("title","修改订单状态").attr("onclick","");
 			  var td1;
 			  var td2;
 			  var td3;
@@ -81,15 +82,15 @@ function ConvertJSONDateToJSDate(jsondate) {
 			  var td12;
 			  var td13;
 			  var td14;
-			      td1=$("<td></td>").attr("rowspan",""+count+"").append(content.order_id);
-			      td2=$("<td></td>").attr("rowspan",""+count+"").append(content.user.user_id);
-			      td3=$("<td></td>").attr("rowspan",""+count+"").append(content.user.user_name);
-			      td4=$("<td></td>").attr("rowspan",""+count+"").append(getDateTime(ConvertJSONDateToJSDate(order_time)));
-			      td5=$("<td></td>").attr("rowspan",""+count+"").append(content.order_status);
-			      td6=$("<td></td>").attr("rowspan",""+count+"").append(getDateTime(ConvertJSONDateToJSDate(pay_time)));
-			      td7=$("<td></td>").attr("rowspan",""+count+"").append(content.shipping_name);
-			      td8=$("<td></td>").attr("rowspan",""+count+"").append(content.shipping_code);
-
+			      td1=$("<td></td>").addClass("am-text-middle").attr("rowspan",""+count+"").append(content.order_id);
+			      td2=$("<td></td>").addClass("am-text-middle").attr("rowspan",""+count+"").append(content.user.user_id);
+			      td3=$("<td></td>").addClass("am-text-middle").attr("rowspan",""+count+"").append(content.user.user_name);
+			      td4=$("<td></td>").addClass("am-text-middle").attr("rowspan",""+count+"").append(getDateTime(ConvertJSONDateToJSDate(order_time)));
+			      td5=$("<td></td>").addClass("am-text-middle").attr("rowspan",""+count+"").append(content.order_status);
+			      td6=$("<td></td>").addClass("am-text-middle").attr("rowspan",""+count+"").append(getDateTime(ConvertJSONDateToJSDate(pay_time)));
+			      td7=$("<td></td>").addClass("am-text-middle").attr("rowspan",""+count+"").append(content.shipping_name);
+			      td8=$("<td></td>").addClass("am-text-middle").attr("rowspan",""+count+"").append(content.shipping_code);
+			      var td15=$("<td></td>").addClass("am-text-middle").attr("rowspan",""+count+"").append(a1);
 			   $.each(content.order_details,function(index,content){
 			      td9=$("<td></td>").append(content.order_details_id);
 			      td10=$("<td></td>").append(content.goods_id);
@@ -98,7 +99,7 @@ function ConvertJSONDateToJSDate(jsondate) {
 			      td13=$("<td></td>").append(content.shop_price);
 			      td14=$("<td></td>").append(content.total_fee);
 			      if(index==0){
-			       $("#logsTable").append($("<tr></tr>").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(td8).append(td9).append(td10).append(td11).append(td12).append(td13).append(td14));
+			       $("#logsTable").append($("<tr></tr>").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(td8).append(td9).append(td10).append(td11).append(td12).append(td13).append(td14).append(td15));
 			      }else{
 			       $("#logsTable").append($("<tr></tr>").append(td9).append(td10).append(td11).append(td12).append(td13).append(td14));
 			      }
@@ -291,18 +292,44 @@ function ConvertJSONDateToJSDate(jsondate) {
 </div>
     
 			
-		<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
-  <div class="am-modal-dialog">
-    <div class="am-modal-hd">你好</div>
-    <div class="am-modal-bd">
-      你，确定要同意此请求吗？
-    </div>
-    <div class="am-modal-footer">
-      <span class="am-modal-btn" data-am-modal-cancel><a>取消</a></span>
-      <a id="deletegood" href="">同意</a>
-    </div>
+<div class="am-popup am-popup-inner" id="my-popups" style="max-height:250px;">
+      <div class="am-popup-hd">
+        <h4 class="am-popup-title">更改订单状态</h4>
+        <span data-am-modal-close
+            class="am-close">&times;</span> </div>
+      <div class="am-popup-bd">
+      
+        <form class="am-form tjlanmu" action="${pageContext.request.contextPath }/manager/updateManagerRole.action" method="POST">
+          <div class="am-form-group am-cf">
+         <div class="zuo"><input id="manger_id" type="hidden" name="manage_role_id" value=""></div>
+        </div>
+
+    <div class="am-form-group">
+    
+    <label class="am-radio">
+      <input type="radio" id="role_kf" name="manage_role_type" value="1" data-am-ucheck required> <a  class="am-badge am-badge-warning am-round am-text-sm"><i class=" am-primary  am-icon-whatsapp"></i>&nbsp&nbsp客服(编辑)</a>
+    </label>
+    <label class="am-radio">
+      <input type="radio" id="role_sp" name="manage_role_type" value="2" data-am-ucheck> <a class="am-badge am-badge-success am-round am-text-sm"><i class=" am-primary  am-icon-gift"></i>&nbsp&nbsp商品管理员</a>
+    </label>
+    <label class="am-radio">
+      <input type="radio" id="role_ceo" name="manage_role_type" value="3" data-am-ucheck> <a class="am-badge am-badge-secondary am-round am-text-sm"><i class=" am-primary  am-icon-suitcase"></i>&nbsp&nbspCEO管理员</a>
+    </label>
+    <label class="am-radio">
+      <input type="radio" id="role_cj" name="manage_role_type" value="4" data-am-ucheck> <a class="am-badge am-badge-primary am-round am-text-sm"><i class=" am-primary  am-icon-gears"></i>&nbsp&nbsp超级管理员</a>
+    </label>
   </div>
-</div>
+
+          <div class="am-form-group am-cf">
+            <div class="you" >
+              <p>
+               <button type="submit" class="am-btn am-btn-success am-radius" style="margin-left:120px;">提交</button>
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>		
 									
 																		
 
@@ -360,6 +387,7 @@ function ConvertJSONDateToJSDate(jsondate) {
                 <th  class="table-main">购买数量</th>
                 <th  class="table-main">商品单价</th>
                 <th  class="table-main">总价格</th>
+                 <th  class="table-main">操作</th>
               </tr>
             </thead>
             <tbody id="logsTable">
