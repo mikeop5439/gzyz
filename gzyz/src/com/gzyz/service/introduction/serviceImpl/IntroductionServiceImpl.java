@@ -13,6 +13,7 @@ import com.gzyz.bean.introduction.extend.GetSpecInfoId;
 import com.gzyz.bean.introduction.extend.GoodsInfo;
 import com.gzyz.bean.introduction.extend.RelatedGoods;
 import com.gzyz.bean.introduction.extend.RelatedGoodsKey;
+import com.gzyz.bean.introduction.extend.UpdateGoodsDate;
 import com.gzyz.mapper.introduction.IntroductionMapper;
 import com.gzyz.service.introduction.service.IntroductionService;
 
@@ -81,6 +82,11 @@ public class IntroductionServiceImpl implements IntroductionService {
 	public int getRelatedGoodsCount(String keywords) {
 		// TODO Auto-generated method stub
 		return introductionMapper.getRelatedGoodsCount(keywords);
+	}
+	@Override
+	public void insertGoodsDate(UpdateGoodsDate updateGoodsDate) {
+		// TODO Auto-generated method stub
+		introductionMapper.insertGoodsDate(updateGoodsDate);
 	}
 
 }

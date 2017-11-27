@@ -118,4 +118,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from `comment`
 		where goods_id = ${goods_id}
 	</select>
+	
+	<insert id="insertGoodsDate" parameterType="UpdateGoodsDate">
+		insert into date_product (goods_id,visit_date) VALUES(${goods_id},#{visit_date})
+	</insert>
 </mapper>

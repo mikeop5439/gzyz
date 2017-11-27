@@ -13,6 +13,7 @@ import com.gzyz.bean.introduction.extend.GetSpecInfoId;
 import com.gzyz.bean.introduction.extend.GoodsInfo;
 import com.gzyz.bean.introduction.extend.RelatedGoods;
 import com.gzyz.bean.introduction.extend.RelatedGoodsKey;
+import com.gzyz.bean.introduction.extend.UpdateGoodsDate;
 
 public interface IntroductionMapper {
 	
@@ -28,4 +29,5 @@ public interface IntroductionMapper {
 	public String getGoodsKey(@Param("goods_id") int goods_id);
 	public List<RelatedGoods> getRelatedGoods(RelatedGoodsKey relatedGoodsKey);
 	public int getRelatedGoodsCount(@Param("keywords") String keywords);
+	public void insertGoodsDate(UpdateGoodsDate updateGoodsDate);
 }

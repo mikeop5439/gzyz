@@ -1,6 +1,9 @@
 package com.gzyz.controller.introduction;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,7 @@ import com.gzyz.bean.introduction.extend.GetSpecInfoId;
 import com.gzyz.bean.introduction.extend.GoodsInfo;
 import com.gzyz.bean.introduction.extend.RelatedGoods;
 import com.gzyz.bean.introduction.extend.RelatedGoodsKey;
+import com.gzyz.bean.introduction.extend.UpdateGoodsDate;
 import com.gzyz.service.introduction.service.IntroductionService;
 
 @Controller
@@ -30,11 +34,28 @@ public class IntroductionController {
 	@Autowired
 	private IntroductionService introductionService;
 	
+	public String GetNowDate() throws ParseException{     
+	    String temp_str="";     
+	    Date dt = new Date();     
+
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");     
+	    temp_str=sdf.format(dt);   
+	    //Date date = sdf.parse(temp_str);
+	    return temp_str;     
+	}   
+	
 	@RequestMapping("itemsIntroduction")
-	public String itemsIntroduction(Model model,@RequestParam(value="pn",defaultValue="1")int pn,@RequestParam int goods_id) {
+	public String itemsIntroduction(Model model,@RequestParam(value="pn",defaultValue="1")int pn,@RequestParam int goods_id) throws ParseException {
 		
 		//int goods_id = 1;
 		//int param = Integer.parseInt(goods_id);
+		String visit_date = GetNowDate();
+		UpdateGoodsDate updateGoodsDate = new UpdateGoodsDate();
+		updateGoodsDate.setGoods_id(goods_id);
+		updateGoodsDate.setVisit_date(visit_date);
+		
+		introductionService.insertGoodsDate(updateGoodsDate);
+		
 		List<Integer> getSpecIds = new ArrayList<Integer>();
 		List<String> getSpecNames = new ArrayList<String>();
 		List<String> getSpecInfoValues = new ArrayList<String>();
