@@ -307,7 +307,7 @@ display:none;
 		
 <!-- //footer -->
 
-	<div class="footer-botm">
+	<div class="footer-botm  navbar-fixed-bottom">
 			<div class="container">
 				<div class="w3layouts-foot">
 					<ul>

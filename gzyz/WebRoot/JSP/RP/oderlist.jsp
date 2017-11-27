@@ -259,8 +259,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				
 			</div>
 		<div class="clear"></div>
+							<div >
 							<!--分页 -->
-							<ul id="pageUl" class="am-pagination am-pagination-centered">
+							<ul id="pageUl" class="am-pagination am-pagination-centered ">
 								<li class="am-disabled"><a href="#">&laquo;</a></li>
 								<li class="am-active"><a href="#">1</a></li>
 								<li><a href="#">2</a></li>
@@ -269,11 +270,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<li><a href="#">5</a></li>
 								<li><a href="#">&raquo;</a></li>
 							</ul>
+							</div>
 
 						</div>
 		<!-- //footer -->
 
-	<div class="footer-botm">
+	<div class="footer-botm navbar-fixed-bottom">
 			<div class="container">
 				<div class="w3layouts-foot">
 					<ul>
