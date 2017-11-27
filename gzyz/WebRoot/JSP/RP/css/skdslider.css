@@ -3,7 +3,7 @@
 	 position: relative;
 	 display: block;
 	 overflow:hidden;
-	 height: 500px;
+	 height: 800px;
 }
 
 .skdslider:after {
@@ -20,6 +20,8 @@
 .skdslider ul.slides li img{
     width: 100%;
 	border:0;
+	height: 100%;
+	
 }
 
 .skdslider ul.slide-navs {

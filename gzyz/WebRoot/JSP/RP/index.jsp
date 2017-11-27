@@ -338,21 +338,21 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 	<!-- main-slider -->
 		<ul id="demo1" >
 			<li>
-				<img src="images/11.jpg" alt="" />
+				<img src="images/005.png" alt="" />
 				<!--Slider Description example-->
 				<div class="slide-desc">
 					<h3>和孝商城，老人最时尚的购物商城</h3>
 				</div>
 			</li>
 			<li>
-				<img src="images/22.jpg" alt="" />
+				<img src="images/006.png" alt="" />
 				  <div class="slide-desc">
 					<h3>我们人老，心可一点儿都不老呢</h3>
 				</div>
 			</li>
 			
 			<li>
-				<img src="images/44.jpg" alt="" />
+				<img src="images/007.png" alt="" />
 				<div class="slide-desc">
 					<h3>年轻态，新生活</h3>
 				</div>
@@ -947,8 +947,8 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
                         <div class="col-md-12">
                             <div class="gallery-menu fix text-center mb-60">
                                 <ul>
-                                    <li   style="margin-right: 260px; margin-bottom: 10px;font-size: 20px;"><a href="${pageContext.request.contextPath}/JSP/RP/yangshen.jsp">长生殿</a></li>
-                                    <li   style="margin-right: 180px;margin-bottom: 10px;font-size: 20px;"><a href="${pageContext.request.contextPath}/JSP/RP/yiliao.jsp">孝心斋</a></li>
+                                    <li   style="margin-right: 260px; margin-bottom: 10px;font-size: 20px;"><a href="${pageContext.request.contextPath}/JSP/RP/yangshen.jsp">养生斋</a></li>
+                                    <li   style="margin-right: 180px;margin-bottom: 10px;font-size: 20px;"><a href="${pageContext.request.contextPath}/JSP/RP/yiliao.jsp">孝心行动</a></li>
                                     <li   style="margin-left: 140px; margin-bottom: 10px;font-size: 20px;"><a href="${pageContext.request.contextPath}/JSP/RP/jianshen.jsp">健身坊</a></li>
                                    
                                 </ul>
@@ -956,26 +956,26 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
                             <div class="gallery-item-box row">
                                 <div class="col-md-4 col-sm-6 col-xs-12 gallery-item desert drink mb-30" >
                                     <div class="single-item-gallery" >
-                                        <a href="daily_household.html">
+                                        <a href="${pageContext.request.contextPath}/JSP/RP/yangshen.jsp">
                                             <span class="plus" ><i class="fa fa-plus"></i></span>
                                         </a>
-                                        <img src="${PageContext.request.contextPath}/JSP/RP/images/120.jpg" alt="" >
+                                        <img src="images/002.jpg" alt="" >
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-12 gallery-item coffee catering mb-30">
                                     <div class="single-item-gallery">
-                                        <a href="images/gallery/2.jpg">
+                                        <a href="${pageContext.request.contextPath}/JSP/RP/yiliao.jsp">
                                             <span class="plus"><i class="fa fa-plus"></i></span>
                                         </a>
-                                        <img src="${PageContext.request.contextPath}/JSP/RP/images/1.jpg" alt="">
+                                        <img src="images/001.jpg" alt="">
                                     </div>
                                 </div> 
                                 <div class="col-md-4 col-sm-6 col-xs-12 gallery-item desert drink mb-30">
                                     <div class="single-item-gallery">
-                                        <a href="images/gallery/3.jpg">
+                                        <a href="${pageContext.request.contextPath}/JSP/RP/jianshen.jsp">
                                             <span class="plus"><i class="fa fa-plus"></i></span>
                                         </a>	
-                                        <img src="${PageContext.request.contextPath}/JSP/RP/images/191.jpg" alt="">
+                                        <img src="images/004.jpg" alt="">
                                     </div>
                                 </div>
                               
