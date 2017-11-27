@@ -43,6 +43,13 @@ height:40px;
 margin-left:30px;
 display:none;
 }
+#add_ads_newaddres{
+	font-size:24px;
+}
+#add_ads_newaddres:hover{
+	background-color: #5cbd0de6;
+	border-color:#5cbd0de6;
+}
 </style>
 <script type="text/javascript">
 		window.onload=function(){
@@ -124,7 +131,7 @@ display:none;
 <div class="col-main" >
 <div class="main-wrap">
 			
-<div class="container" style="width:100%">
+<div class="container" style="width:100%;margin-bottom:40px;">
 <!--收货地址  -->
 	<div class="page-header"><h3 class="dib"><font color="#FF7F00" size="4px">已有收货地址</font></h3></div>
 	<div id="receiver">
@@ -228,7 +235,7 @@ display:none;
 	  
 	  <div class="form-group form-div">
 	    <div class="col-sm-offset-2 col-sm-12" style=" margin-top:20px;">
-	    	<button type="submit" id="add_ads_newaddres" onclick="return add_ads_newaddres()" class="am-btn am-btn-secondary" style="margin-right:20px;width:300px;">提交</button>
+	    	<button type="submit" id="add_ads_newaddres" onclick="return add_ads_newaddres()" class="am-btn am-btn-secondary" style="margin-right:20px;width:300px;height:50px;">提交</button>
 	    </div>
 	  </div>
 	  		
