@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 
 	<head>
-		<title>和孝 | 修改成功</title>
+		<title>和孝 | 收货成功</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -34,11 +34,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script >
 var time = 5; //时间,秒
 function Redirect() {
- window.location ="${pageContext.request.contextPath}/JSP/RP/index.jsp";
+ window.location ="${pageContext.request.contextPath}/JSP/RP/oderlist.jsp";
 }
 var i = 0;
 function dis() {
- document.all.s.innerHTML = "还剩" + (time - i) + "秒"+"  &nbsp;"+"进入个人中心";
+ document.all.s.innerHTML = "还剩" + (time - i) + "秒"+"  &nbsp;"+"进入订单列表";
  i++;
 }
 timer = setInterval('dis()', 1000); //显示时间
@@ -101,9 +101,9 @@ timer = setTimeout('Redirect()', time * 1000); //跳转
 
 <div id="btn" style="text-align: center;margin-right: 50px;margin-top:200px;">
 <p><i class="fa fa-check fa-5x" style="color: green;"></i></p>
-<p style="font-size: 30px;">您已成功更改密码，稍后将从新登录</p>
+<p style="font-size: 30px;">您已经成功收货，祝您生活愉快！</p>
 <br>
-<a id="s" href="${pageContext.request.contextPath}/JSP/RP/index.jsp" style="font-size:20px;"></a>
+<a id="s" href="${pageContext.request.contextPath}/JSP/RP/oderlist.jsp" style="font-size:20px;"></a>
 </div>
 	</div>
 	

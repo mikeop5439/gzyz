@@ -70,12 +70,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			   
 			     $.each(data.orderAndUserAndOrderDetails,function(index,content){
 			    var order_id=content.order_id;
-			    var order_time=content.order_time;
+			    var date = "/Date("+content.order_time+")/";
 			    var div=$("<div></div>").addClass("clear");
 				var div1=$("<div></div>").addClass("bundle  bundle-last ");
 				var div2=$("<div></div>").addClass("bundle-hd");
 				var div3=$("<div></div>").addClass("bd-promos");
-				var div4=$("<div></div>").append($("<p></p>").append($("<span></span>").css("margin-right","20px").append("订单号："+order_id+"")).append($("<span></span>").append("订单时间："+order_time+"")));
+				var div4=$("<div></div>").append($("<p></p>").append($("<span></span>").css("margin-right","20px").append("订单号："+order_id+"")).append($("<span></span>").append("订单时间："+getDateTime(ConvertJSONDateToJSDate(date))+"")));
 				
 				var div2=div2.append(div3.append(div4));
 				div1=div1.append(div).append(div2);
@@ -114,10 +114,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 var flage;
                 var action;
-                var pay=$("<a></a>").attr("id","J_Go").addClass("submit-btn submit-btn-disabled").attr("href","#").append("<span>结&nbsp;算</span>");
-                var queren=$("<a></a>").attr("id","J_Go").addClass("submit-btn submit-btn-disabled").attr("href","#").append("<span>确认收货</span>");
-                var tuikuan=$("<a></a>").attr("id","J_Go").addClass("submit-btn submit-btn-disabled").attr("href","#").append("<span>申请售后</span>");
-                var culi=$("<a></a>").attr("id","J_Go").addClass("submit-btn submit-btn-disabled").attr("href","#").append("<span>售后处理中</span>");
+                var pay=$("<a></a>").attr("id","J_Go").addClass("btn-area submit-btn submit-btn-disabled").attr("href","#").append("<span>结&nbsp;算</span>");
+                var queren=$("<a></a>").attr("id","J_Go").addClass("btn-area submit-btn submit-btn-disabled").attr("href","${pageContext.request.contextPath}/JSP/RP/comfirm.jsp?order_id="+order_id+"").append("<p>确认收货</p>");
+                var tuikuan=$("<a></a>").attr("id","J_Go").addClass("btn-area submit-btn submit-btn-disabled").attr("href","${pageContext.request.contextPath}/JSP/RP/tuikuan.jsp?order_id="+order_id+"").append("<span>申请售后</span>");
+                var culi=$("<a></a>").attr("id","J_Go").addClass("btn-area submit-btn submit-btn-disabled").attr("href","#").append("<span>售后处理中</span>");
                 switch(content.order_status){
                 case 0: flage="未付款"; action=pay ; break;
                 case 1: flage="已付款"; action=queren ; break;
@@ -132,7 +132,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				.append($("<div class='float-bar-right'></div>")
 				.append($("<div class='amount-sum'></div>").append("<span class='txt'>共计</span> <em id='J_SelectedItemsCount'>"+count+"</em><span class='txt'>件</span><div class='arrow-box'> <span class='selected-items-arrow'></span> <span class='arrow'></span>"))
 				.append($("<div class='price-sum'></div>").append("<span class='txt'>合计:</span> <strong class='price'>¥<em id='J_Total'>"+sum+"</em></strong>"))
-				.append($("<div class='btn-area'></div>")
+				/* .append($("<input type='button'class='btn-area' value='结算'></input>")  */
+				.append($("<div class='btn-area'></div>") 
 				.append(action))
 				);
 			   
@@ -147,6 +148,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			  	   
 	       });  
      };
+ 
+		</script>
+		<script>
+		
 		</script>
 	</head>
 
@@ -259,8 +264,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				
 			</div>
 		<div class="clear"></div>
-							<div >
-							<!--分页 -->
+							
+							 <!--分页 -->
 							<ul id="pageUl" class="am-pagination am-pagination-centered ">
 								<li class="am-disabled"><a href="#">&laquo;</a></li>
 								<li class="am-active"><a href="#">1</a></li>
@@ -270,9 +275,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<li><a href="#">5</a></li>
 								<li><a href="#">&raquo;</a></li>
 							</ul>
-							</div>
+							
 
 						</div>
+						<div style="height:100px"></div>
 		<!-- //footer -->
 
 	<div class="footer-botm navbar-fixed-bottom">
@@ -292,7 +298,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 		</div>
 <!-- //footer -->		
-<script>
+<script type="text/javascript">
 function setpage(allpage,nowpage){
 	     var i=2;
 	     var page_id="AllPage"+1;
@@ -310,6 +316,19 @@ function setpage(allpage,nowpage){
 	     $("ul.am-pagination li").removeClass("am-active");
 	     $(id).addClass("am-active");
 	     };
+function getDateTime(date) {
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var hh = date.getHours();
+    var mm = date.getMinutes();
+    var ss = date.getSeconds();
+    return year + "-" + month + "-" + day + " " + hh + ":" + mm + ":" + ss;
+};
+function ConvertJSONDateToJSDate(jsondate) {
+    var date = new Date(parseInt(jsondate.replace("/Date(", "").replace(")/", ""), 10));
+    return date;
+};
 </script>
 	
 	</body>

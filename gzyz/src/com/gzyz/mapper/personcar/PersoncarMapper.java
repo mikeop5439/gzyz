@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.gzyz.bean.order.extend.OrderAndUserAndOrderDetails;
 import com.gzyz.bean.order.extend.OrderDateAndUsernameAndOrderId;
+import com.gzyz.bean.personcar.ApplyInvoice;
+import com.gzyz.bean.personcar.ApplyInvoiceAndDate;
+import com.gzyz.bean.personcar.OrderIdAndUser;
 import com.gzyz.bean.personcar.UserNameAndUserPassword;
 import com.gzyz.bean.rpsearch.searchextend.UsernameAndNowindex;
 import com.gzyz.bean.users.User;
@@ -19,4 +22,10 @@ public interface PersoncarMapper {
 	public List<OrderAndUserAndOrderDetails> queryTheOrder(UsernameAndNowindex usernameAndNowindex);
 	//查询用户订单总数
 	public int queryTheOrderCount(UsernameAndNowindex usernameAndNowindex);
+	//确认收货
+	public void comfirm(OrderIdAndUser orderIdAndUser);
+	//申请售后
+	public void applyinvoice(ApplyInvoiceAndDate applyInvoiceAndDate);
+	//修改售后订单状态
+	public void applyinvoicestatus(int order_id);
 }

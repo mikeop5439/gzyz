@@ -2,6 +2,7 @@ package com.gzyz.controller.personcar;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.order.extend.OrderAndUserAndOrderDetails;
+import com.gzyz.bean.personcar.ApplyInvoice;
+import com.gzyz.bean.personcar.ApplyInvoiceAndDate;
+import com.gzyz.bean.personcar.OrderIdAndUser;
 import com.gzyz.bean.personcar.UserNameAndUserPassword;
 import com.gzyz.bean.rpsearch.searchextend.RuslutOfOrderAndAllpage;
 import com.gzyz.bean.rpsearch.searchextend.UsernameAndNowindex;
@@ -71,7 +75,7 @@ public class PersoncarController {
 		session.removeAttribute("loginuser");
 		return "redirect:/JSP/RP/personcar_success.jsp";	
 	}
-	//查询用户订单（同步）
+	//查询用户订单
 	@RequestMapping("queryOrders.action")
 	public @ResponseBody RuslutOfOrderAndAllpage queryOrders(Model model,@RequestBody UsernameAndNowpage usernameAndNowpage){
 		int nowindex=5*(usernameAndNowpage.getNowpage()-1);
@@ -87,5 +91,24 @@ public class PersoncarController {
 		ruslutOfOrderAndAllpage.setAllpage(allpage);
 		return ruslutOfOrderAndAllpage;
 		
+	}
+	//确认收货
+	@RequestMapping("comfirm.action")
+	public  String comfirm(OrderIdAndUser orderIdAndUser){
+		personcarService.comfirm(orderIdAndUser);
+		//personcarService.updatePassword(user);
+		return "redirect:/JSP/RP/comfirm_success.jsp";	
+	}
+	//申请退货
+	@RequestMapping("applyinvoice.action")
+	public  String applyinvoice(ApplyInvoice applyInvoice){
+		ApplyInvoiceAndDate applyInvoiceAndDate=new ApplyInvoiceAndDate();
+		applyInvoiceAndDate.setApply_reason(applyInvoice.getApply_reason());
+		applyInvoiceAndDate.setOrder_id(applyInvoice.getOrder_id());
+		Date date=new Date();
+		applyInvoiceAndDate.setApply_time(date);
+		personcarService.applyinvoice(applyInvoiceAndDate);
+		personcarService.applyinvoicestatus(applyInvoice.getOrder_id());
+		return "redirect:/JSP/RP/applyinvoice_success.jsp";	
 	}
 }

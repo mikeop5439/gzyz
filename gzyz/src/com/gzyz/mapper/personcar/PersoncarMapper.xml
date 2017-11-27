@@ -90,4 +90,21 @@ JOIN `user` u
 ON o.user_id=u.user_id
 where u.user_name=#{user_name}
 </select>
+<!-- 确认收货 -->
+<update id="comfirm" parameterType="orderIdAndUser">
+update `order`
+set 
+order_status = 3
+where user_id=#{user_id} and order_id=#{order_id}
+</update>
+<!-- 申请售后 -->
+<insert id="applyinvoice" parameterType="applyInvoiceAndDate">
+insert into order_invoice(order_id,apply_reason,apply_time) VALUES(#{order_id},#{apply_reason},#{apply_time})
+</insert>
+<update id="applyinvoicestatus" parameterType="int">
+update `order`
+set 
+order_status = 4
+where order_id=#{order_id}
+</update>
 </mapper>

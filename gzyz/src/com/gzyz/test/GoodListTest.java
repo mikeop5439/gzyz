@@ -44,10 +44,7 @@ public class GoodListTest {
 	private PersoncarMapper personcarMapper;
 	@Test
 	public void test1(){
-		UsernameAndNowindex usernameAndNowindex=new UsernameAndNowindex();
-		usernameAndNowindex.setUser_name("molei");
-		usernameAndNowindex.setNowindex(2);
-		List<OrderAndUserAndOrderDetails> orderAndUserAndOrderDetails=personcarMapper.queryTheOrder(usernameAndNowindex);
-		System.out.println(orderAndUserAndOrderDetails);
+		Date date=new Date();
+		System.out.println("aaaaaaaaaa"+date);
 	}
 }

@@ -947,9 +947,9 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
                         <div class="col-md-12">
                             <div class="gallery-menu fix text-center mb-60">
                                 <ul>
-                                    <li   style="margin-right: 260px; margin-bottom: 10px;font-size: 20px;">健身器械</li>
-                                    <li   style="margin-right: 180px;margin-bottom: 10px;font-size: 20px;">家庭医疗</li>
-                                    <li   style="margin-left: 140px; margin-bottom: 10px;font-size: 20px;">养生生活</li>
+                                    <li   style="margin-right: 260px; margin-bottom: 10px;font-size: 20px;"><a href="${pageContext.request.contextPath}/JSP/RP/yangshen.jsp">长生殿</a></li>
+                                    <li   style="margin-right: 180px;margin-bottom: 10px;font-size: 20px;"><a href="${pageContext.request.contextPath}/JSP/RP/yiliao.jsp">孝心斋</a></li>
+                                    <li   style="margin-left: 140px; margin-bottom: 10px;font-size: 20px;"><a href="${pageContext.request.contextPath}/JSP/RP/jianshen.jsp">健身坊</a></li>
                                    
                                 </ul>
                             </div>
