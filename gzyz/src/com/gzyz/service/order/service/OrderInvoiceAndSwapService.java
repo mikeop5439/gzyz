@@ -6,6 +6,9 @@ import com.gzyz.bean.order.Order_invoice;
 import com.gzyz.bean.order.extend.DateQueryNowpage;
 import com.gzyz.bean.order.extend.OrderAndUserAndOrderDetails;
 import com.gzyz.bean.order.extend.OrderDateAndUsernameAndOrderId;
+import com.gzyz.bean.order.extend.ShappingAndOrderId;
+import com.gzyz.bean.order.extend.ShappingNameAndCode;
+import com.gzyz.bean.order.extend.TheOrderStatus;
 
 public interface OrderInvoiceAndSwapService {
 	//分页查询退货表
@@ -22,4 +25,12 @@ public interface OrderInvoiceAndSwapService {
 	public List<OrderAndUserAndOrderDetails> queryTheOrder(OrderDateAndUsernameAndOrderId orderDateAndUsernameAndOrderId);
 	//订单查询详细表数量
 	public int queryTheOrderCount(OrderDateAndUsernameAndOrderId orderDateAndUsernameAndOrderId);
+	//查询订单状态
+	public int queryTheOrderStatus(int order_id);
+	//修改订单状态 
+	public void updateTheOrderStatus(TheOrderStatus theOrderStatus);
+	//查询快递信息
+	public ShappingNameAndCode queryShapping(int order_id);
+	//修改快递信息
+	public void updateShapping(ShappingAndOrderId shappingAndOrderId);
 }

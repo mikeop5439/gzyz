@@ -9,6 +9,9 @@ import com.gzyz.bean.order.Order_invoice;
 import com.gzyz.bean.order.extend.DateQueryNowpage;
 import com.gzyz.bean.order.extend.OrderAndUserAndOrderDetails;
 import com.gzyz.bean.order.extend.OrderDateAndUsernameAndOrderId;
+import com.gzyz.bean.order.extend.ShappingAndOrderId;
+import com.gzyz.bean.order.extend.ShappingNameAndCode;
+import com.gzyz.bean.order.extend.TheOrderStatus;
 import com.gzyz.mapper.order.OrderInvoiceAndSwapMapper;
 import com.gzyz.service.order.service.OrderInvoiceAndSwapService;
 @Service
@@ -58,5 +61,29 @@ public class OrderInvoiceAndSwapServiceImpl implements
 			OrderDateAndUsernameAndOrderId orderDateAndUsernameAndOrderId) {
 		// TODO Auto-generated method stub
 		return orderInvoiceAndSwapMapper.queryTheOrderCount(orderDateAndUsernameAndOrderId);
+	}
+
+	@Override
+	public int queryTheOrderStatus(int order_id) {
+		// TODO Auto-generated method stub
+		return orderInvoiceAndSwapMapper.queryTheOrderStatus(order_id);
+	}
+
+	@Override
+	public void updateTheOrderStatus(TheOrderStatus theOrderStatus) {
+		// TODO Auto-generated method stub
+		orderInvoiceAndSwapMapper.updateTheOrderStatus(theOrderStatus);
+	}
+
+	@Override
+	public ShappingNameAndCode queryShapping(int order_id) {
+		// TODO Auto-generated method stub
+		return orderInvoiceAndSwapMapper.queryShapping(order_id);
+	}
+
+	@Override
+	public void updateShapping(ShappingAndOrderId shappingAndOrderId) {
+		// TODO Auto-generated method stub
+		orderInvoiceAndSwapMapper.updateShapping(shappingAndOrderId);
 	}
 }
