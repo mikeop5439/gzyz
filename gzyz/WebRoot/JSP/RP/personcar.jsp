@@ -267,7 +267,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 		</div>
 		
-		
+<div style="height:100px;"></div>	
 <!-- //footer -->
 
 	<div class="footer-botm  navbar-fixed-bottom">

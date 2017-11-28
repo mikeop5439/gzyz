@@ -27,6 +27,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/js/move-top.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/js/easing.js"></script>
+<style>
+		.agileits_header img{
+		border-radius:50%;
+		width:40px;
+	    height:40px;
+	    margin-left:30px;
+	    display:none;
+		}
+		</style>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){		
@@ -35,6 +44,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 	});
 </script>
+	<script type="text/javascript">
+		window.onload=function(){
+		if("${sessionScope.loginuser.user_name}"==""){
+		$("#aofalogin").css("display","inline");
+		$("#aofblogin").css("display","inline");
+		}else{
+		$("#imgoflogin").css("display","inline");
+		$("#aoflogin").css("display","inline");
+		}
+		};
+		</script>
+		
 <!-- start-smoth-scrolling -->
 </head>
 	
@@ -46,21 +67,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
      </div>
 	</div>
 
+			
 <!-- header -->
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
-			<a href="index.html" ><i class="fa fa-home fa-2x" style="color: #FFFFFF;"></i></a>
+			<a href="${pageContext.request.contextPath}/JSP/RP/" ><i class="fa fa-home fa-2x" style="color: #FFFFFF;"></i></a>
 			
 			
-			<a href="login.html" style="color: #FCFCFC;margin-left: 20px;">登录</a>
+			<img id="imgoflogin" src="${pageContext.request.contextPath }${sessionScope.loginuser.user_image}" >
+			
+			<a id="aoflogin" href="#" style="color: #FCFCFC;margin-left: 20px; display:none;">欢迎，${sessionScope.loginuser.user_name}</a>
+			
+			<a id="aofalogin" href="${pageContext.request.contextPath}/JSP/RP/login.jsp" style="color: #FCFCFC;margin-left: 20px; display:none;">登录</a>
 		
-			<a href="registered.html" style="color: #FCFCFC;margin-left: 20px;">注册</a>
+			<a id="aofblogin" href="${pageContext.request.contextPath}/JSP/RP/registered.jsp" style="color: #FCFCFC;margin-left: 20px; display:none;">注册</a>
 		
 			</div>
 			<div class="w3l_search" style="margin-top: 5px;">
-			<form action="#" method="post">
-				<input type="search" name="Search" placeholder="搜索商品..." required="">
+			<form action="${pageContext.request.contextPath}/rpsearch/searchgoods.action" method="post">
+				<input type="search" name="keywords" placeholder="搜索商品..." required="">
 				<button type="submit" class="btn btn-default search" aria-label="Left Align">
 					<i class="fa fa-search" aria-hidden="true"> </i>
 				</button>
@@ -173,9 +199,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<h3>后台管理</h3>
 					<ul class="info"> 
 						
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">我的积分</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.html">登录</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">注册</a></li>
+						
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="${pageContext.request.contextPath}/JSP/HT/login.jsp">登录</a></li>
+						
 					</ul>
 				</div>
 				<div class="clearfix"> </div>

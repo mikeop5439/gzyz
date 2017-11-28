@@ -159,7 +159,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="col-md-5 col-sm-5">
 					<div class="about-image">
-						<img src="images/1010.jpg" alt="About Images">
+						<img src="images/1010.jpg" alt="About Images" height="200px;">
 					</div>
 				</div>
 			</div>
@@ -179,7 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="col-md-5 col-sm-5">
 					<div class="about-image">
-						<img src="images/2020.jpg" alt="About Images">
+						<img src="images/2020.jpg" alt="About Images" height="200px;">
 					</div>
 				</div>
 			</div>
@@ -199,7 +199,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="col-md-5 col-sm-5">
 					<div class="about-image">
-						<img src="images/3030.jpg" alt="About Images">
+						<img src="images/3030.jpg" alt="About Images" height="200px;">
 					</div>
 				</div>
 			</div>
