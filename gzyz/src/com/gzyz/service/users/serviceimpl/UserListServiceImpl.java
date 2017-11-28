@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.gzyz.bean.analysis.Date_traffic;
 import com.gzyz.bean.users.User;
 import com.gzyz.bean.users.cart;
 import com.gzyz.bean.users.collect_goods;
@@ -291,5 +292,11 @@ public class UserListServiceImpl implements UserListService {
 	public void insertUserCart(cart cart) {
 		// 添加用户购物车商品
 		userListMapper.insertUserCart(cart);
+	}
+
+	@Override
+	public void insertuserlogincount(Date_traffic date_traffic) {
+		// 用户登陆时记录人数 
+		userListMapper.insertuserlogincount(date_traffic);
 	}
 }

@@ -2,6 +2,7 @@ package com.gzyz.service.users.service;
 
 import java.util.List;
 
+import com.gzyz.bean.analysis.Date_traffic;
 import com.gzyz.bean.users.User;
 import com.gzyz.bean.users.cart;
 import com.gzyz.bean.users.collect_goods;
@@ -29,6 +30,7 @@ public interface UserListService {
 	public List<UserReceiver> queryReceiversByid(String sogo);
 	public List<UserCart> queryCartSn(String sogo);
 	public User userLogin(User user);//用户登录
+	public void insertuserlogincount(Date_traffic date_traffic);//用户登陆时记录人数  
 	public List<UserCollect> queryUserCollect(int user_id);
 	public void deleteUserCollect(collect_goods collect);
 	public List<com.gzyz.bean.users.cart> queryusercart(int user_id);

@@ -213,4 +213,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertUserCart" parameterType="cart">
 		INSERT INTO `cart` ( `user_id`, `goods_id`, `goods_sn`, `goods_name`, `goods_price`, `goods_number`) VALUES (#{user_id}, #{goods_id},#{goods_sn} ,#{goods_name} ,#{goods_price} , #{goods_number});
 	</insert>
+	<!-- 用户登陆时统计人数！ -->
+	<insert id="insertuserlogincount" parameterType="com.gzyz.bean.analysis.Date_traffic"> 
+		INSERT INTO `date_traffic` ( `user_id`, `user_accesstime`) VALUES (#{user_id}, #{user_accesstime});
+	</insert>
 </mapper>	
