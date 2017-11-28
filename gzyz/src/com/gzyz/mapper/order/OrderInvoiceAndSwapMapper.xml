@@ -112,4 +112,31 @@ ON o.order_id=d.order_id
 JOIN `user` u 
 ON o.user_id=u.user_id
 </select>
+<!-- 查询订单状态-->
+<select id="queryTheOrderStatus" resultType="int" parameterType="int">
+SELECT order_status
+FROM `order` o 
+WHERE o.order_id=#{order_id}
+</select>
+<!-- 修改订单状态 -->
+<update id="updateTheOrderStatus" parameterType="theOrderStatus">
+update `order`
+set
+order_status=#{order_status}
+where order_id=#{order_id}
+</update>
+<!-- 查询快递信息 -->
+<select id="queryShapping" resultType="shappingNameAndCode" parameterType="int">
+SELECT shipping_name,shipping_code
+FROM `order` o 
+WHERE o.order_id=#{order_id}
+</select>
+<!-- 修改快递信息 -->
+<update id="updateShapping" parameterType="shappingAndOrderId">
+update `order`
+set
+shipping_name=#{shipping_name},
+shipping_code=#{shipping_code}
+where order_id=#{order_id}
+</update>
 </mapper>

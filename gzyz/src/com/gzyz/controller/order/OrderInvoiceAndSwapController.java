@@ -16,7 +16,10 @@ import com.gzyz.bean.order.extend.DateQueryNowpage;
 import com.gzyz.bean.order.extend.OrderAndUserAndOrderDetails;
 import com.gzyz.bean.order.extend.OrderDateAndUsernameAndOrderId;
 import com.gzyz.bean.order.extend.Order_invoiceAnadAllpage;
+import com.gzyz.bean.order.extend.ShappingAndOrderId;
+import com.gzyz.bean.order.extend.ShappingNameAndCode;
 import com.gzyz.bean.order.extend.TheOrderAndCount;
+import com.gzyz.bean.order.extend.TheOrderStatus;
 import com.gzyz.bean.users.Manager_log;
 import com.gzyz.bean.users.manger;
 import com.gzyz.bean.users.extend.ManagerLogAndAllpage;
@@ -96,26 +99,48 @@ public class OrderInvoiceAndSwapController {
 		return order_invoiceAnadAllpage;
 	}
 	//按日期用户名,或ID查询订单
-		@RequestMapping("queryTheOrder.action")
-		public @ResponseBody TheOrderAndCount queryTheOrder(Model model,@RequestBody OrderDateAndUsernameAndOrderId orderDateAndUsernameAndOrderId){
-			OrderDateAndUsernameAndOrderId theorderDateAndUsernameAndOrderId=new OrderDateAndUsernameAndOrderId();
-	        if(orderDateAndUsernameAndOrderId.getEnddate()!=""){
-	        	theorderDateAndUsernameAndOrderId.setEnddate(orderDateAndUsernameAndOrderId.getEnddate()+" 23:59:59'");
-	        }else{
-	        	theorderDateAndUsernameAndOrderId.setEnddate(orderDateAndUsernameAndOrderId.getEnddate());
-	        }
-	        if(orderDateAndUsernameAndOrderId.getStartdate()!=""){
-	        	theorderDateAndUsernameAndOrderId.setStartdate(orderDateAndUsernameAndOrderId.getStartdate()+" 00:00:00'");
-	        }else{
-	        	theorderDateAndUsernameAndOrderId.setStartdate(orderDateAndUsernameAndOrderId.getStartdate());
-	        }
-	        theorderDateAndUsernameAndOrderId.setUser_name(orderDateAndUsernameAndOrderId.getUser_name());
-	        theorderDateAndUsernameAndOrderId.setOrder_id(orderDateAndUsernameAndOrderId.getOrder_id());
-	        List<OrderAndUserAndOrderDetails> resultOrderAndUserAndOrderDetails=orderInvoiceAndSwapService.queryTheOrder(theorderDateAndUsernameAndOrderId);
-	        TheOrderAndCount theOrderAndCount=new TheOrderAndCount();
-	        theOrderAndCount.setOrderAndUserAndOrderDetails(resultOrderAndUserAndOrderDetails);
-	        int thecount = orderInvoiceAndSwapService.queryTheOrderCount(theorderDateAndUsernameAndOrderId);
-	        theOrderAndCount.setThecount(thecount);
-			return theOrderAndCount;
-		}
+	@RequestMapping("queryTheOrder.action")
+	public @ResponseBody TheOrderAndCount queryTheOrder(Model model,@RequestBody OrderDateAndUsernameAndOrderId orderDateAndUsernameAndOrderId){
+		OrderDateAndUsernameAndOrderId theorderDateAndUsernameAndOrderId=new OrderDateAndUsernameAndOrderId();
+        if(orderDateAndUsernameAndOrderId.getEnddate()!=""){
+        	theorderDateAndUsernameAndOrderId.setEnddate(orderDateAndUsernameAndOrderId.getEnddate()+" 23:59:59'");
+        }else{
+        	theorderDateAndUsernameAndOrderId.setEnddate(orderDateAndUsernameAndOrderId.getEnddate());
+        }
+        if(orderDateAndUsernameAndOrderId.getStartdate()!=""){
+        	theorderDateAndUsernameAndOrderId.setStartdate(orderDateAndUsernameAndOrderId.getStartdate()+" 00:00:00'");
+        }else{
+        	theorderDateAndUsernameAndOrderId.setStartdate(orderDateAndUsernameAndOrderId.getStartdate());
+        }
+        theorderDateAndUsernameAndOrderId.setUser_name(orderDateAndUsernameAndOrderId.getUser_name());
+        theorderDateAndUsernameAndOrderId.setOrder_id(orderDateAndUsernameAndOrderId.getOrder_id());
+        List<OrderAndUserAndOrderDetails> resultOrderAndUserAndOrderDetails=orderInvoiceAndSwapService.queryTheOrder(theorderDateAndUsernameAndOrderId);
+        TheOrderAndCount theOrderAndCount=new TheOrderAndCount();
+        theOrderAndCount.setOrderAndUserAndOrderDetails(resultOrderAndUserAndOrderDetails);
+        int thecount = orderInvoiceAndSwapService.queryTheOrderCount(theorderDateAndUsernameAndOrderId);
+        theOrderAndCount.setThecount(thecount);
+		return theOrderAndCount;
+	}
+	//查询订单状态
+	@RequestMapping("queryTheOrderStatus.action")
+	public @ResponseBody int queryTheOrderStatus(int order_id){
+		return orderInvoiceAndSwapService.queryTheOrderStatus(order_id);
+	}
+	//修改订单状态
+	@RequestMapping("updateTheOrderStatus.action")
+	public String updateTheOrderStatus(TheOrderStatus theOrderStatus){
+		orderInvoiceAndSwapService.updateTheOrderStatus(theOrderStatus);
+		return "redirect:/JSP/HT/orders/order_query.jsp";
+	}
+	//查询订单状态
+	@RequestMapping("shappingNameAndCode.action")
+	public @ResponseBody ShappingNameAndCode shappingNameAndCode(int order_id){
+		return orderInvoiceAndSwapService.queryShapping(order_id);
+	}
+	//修改订单状态
+	@RequestMapping("updateShapping.action")
+	public String updateShapping(ShappingAndOrderId shappingAndOrderId){
+		orderInvoiceAndSwapService.updateShapping(shappingAndOrderId);
+		return "redirect:/JSP/HT/orders/order_query.jsp";
+	}
 }

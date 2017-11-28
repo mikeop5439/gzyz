@@ -44,7 +44,7 @@ public class GoodListTest {
 	private PersoncarMapper personcarMapper;
 	@Test
 	public void test1(){
-		Date date=new Date();
-		System.out.println("aaaaaaaaaa"+date);
+		
+		System.out.println("aaaaaaaaaa"+orderInvoiceAndSwapService.queryShapping(1));
 	}
 }

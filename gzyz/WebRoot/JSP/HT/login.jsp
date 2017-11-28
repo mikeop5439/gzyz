@@ -21,9 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--[if IE]>
 <script src="${pageContext.request.contextPath }/JSP/HT/assets/js/html5.js"></script>
 <![endif]-->
-<script type="text/javascript">
 
-</script>
 </head>
 <body>
 
@@ -38,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<form action="${pageContext.request.contextPath }/htlogin/checkLogin.action" name="f" method="post" onSubmit="return checkForm()">
 							<div id="change_margin_1" class="input_outer">
 								<span class="u_user"></span>
-								<input id="userName" name="manger_name" value=""  class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入用户名" onBlur="checkUserName()" oninput="checkUserName()" >
+								<input id="userName" name="manger_name" value=""  class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入用户名" autocomplete="off" onBlur="checkUserName()" oninput="checkUserName()" >
 								<br>
 								<span class="default" id="nameErr" ></span>
 								
