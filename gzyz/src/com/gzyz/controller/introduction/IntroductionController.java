@@ -135,6 +135,7 @@ public class IntroductionController {
 		int firstnum = (int)(Math.random()*end);
 		int secondnum = 4;
 		RelatedGoodsKey relatedGoodsKey = new RelatedGoodsKey();
+		relatedGoodsKey.setGoods_id(param);
 		relatedGoodsKey.setKeywords(goodskeywords);
 		relatedGoodsKey.setFirstnum(firstnum);
 		relatedGoodsKey.setSecondnum(secondnum);

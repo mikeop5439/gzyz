@@ -92,14 +92,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			        	$("#relatedgoosdid").empty();
 			        	$.each(data,function(index,content){
 			        		var img1 = $("<img></img>").attr("src","${pageContext.request.contextPath}"+content.original_img);
+			        		var a1 = $("<a target='_blank'></a>").attr("href","/gzyz/items/itemsIntroduction.action?goods_id="+content.goods_id).append(img1);
 			        		
-			        		var p1 = $("<p></p>").append(content.goods_name);
+			        		var a2 = $("<a target='_blank'></a>").append(content.goods_name).attr("href","/gzyz/items/itemsIntroduction.action?goods_id="+content.goods_id);
+			        		var p1 = $("<p></p>").append(a2);
 			        		
 			        		var b1 = $("<b></b>").append("¥").addClass("price fl");
 			        		var strong1 = $("<strong></strong>").append(content.shop_price);
 			        		var p2 = $("<p></p>").append(b1).append(strong1);
 			        		
-			        		var div1 = $("<div></div>").addClass("i-pic limit").append(img1).append(p1).append(p2);
+			        		var div1 = $("<div></div>").addClass("i-pic limit").append(a1).append(p1).append(p2);
 			        		
 			        		$("#relatedgoosdid").append($("<li></li>").append(div1));
 			        	});
@@ -473,10 +475,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						     	<c:forEach items="${relatedgoods }" var="relatedgoods">
 									<li class="first">
 							      		<div class="p-img">                    
-							      			<a> <img class="" src="${pageContext.request.contextPath}${relatedgoods.original_img}"> </a>               
+							      			<a href="/gzyz/items/itemsIntroduction.action?goods_id=${relatedgoods.goods_id }" target="_blank"> <img class="" src="${pageContext.request.contextPath}${relatedgoods.original_img}"> </a>               
 							      		</div>
 							      		<div class="p-name">
-							      			<a>
+							      			<a href="/gzyz/items/itemsIntroduction.action?goods_id=${relatedgoods.goods_id }" target="_blank">
 							      				${relatedgoods.goods_name }
 							      			</a>
 							      		</div>
@@ -680,9 +682,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<c:forEach items="${relatedgoods }" var="relatedgoods">
 											<li>
 												<div class="i-pic limit">
-													<img src="${pageContext.request.contextPath}${relatedgoods.original_img}" />
+													<a href="/gzyz/items/itemsIntroduction.action?goods_id=${relatedgoods.goods_id }" target="_blank"><img src="${pageContext.request.contextPath}${relatedgoods.original_img}" /></a>
 													<p>
-														${relatedgoods.goods_name }
+														<a href="/gzyz/items/itemsIntroduction.action?goods_id=${relatedgoods.goods_id }" target="_blank">${relatedgoods.goods_name }</a>
 													</p>
 													<p class="price fl">
 														<b>¥</b>
