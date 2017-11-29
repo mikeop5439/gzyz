@@ -60,13 +60,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 	
 <body>
-<!-- header -->
-	<div class="preloader">
-     <div class="sk-spinner sk-spinner-wordpress">
-          <span class="sk-inner-circle"></span>
-     </div>
+<div class="preloader">
+		<div class="loading-center">
+			<div class="loading-center-absolute">
+				<div class="object object_one"></div>
+				<div class="object object_two"></div>
+				<div class="object object_three"></div>
+			</div>
+		</div>
 	</div>
-
 			
 <!-- header -->
 	<div class="agileits_header">
@@ -297,6 +299,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         
     });
 })(jQuery);
+
+//加载页面
+
+  $(window).load(function(){
+    $('.preloader').fadeOut(1000); // set duration in brackets    
+  });
 		
 </script>	
 <!-- //main slider-banner --> 

@@ -74,6 +74,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</head>
 
 	<body>
+	<div class="preloader">
+		<div class="loading-center">
+			<div class="loading-center-absolute">
+				<div class="object object_one"></div>
+				<div class="object object_two"></div>
+				<div class="object object_three"></div>
+			</div>
+		</div>
+	</div>
 		
 <!-- header -->
 	<div class="agileits_header">
@@ -304,5 +313,11 @@ $("#thisform").attr("action","${pageContext.request.contextPath }/personcar/upda
 $("#thisform").attr("action","${pageContext.request.contextPath }/personcar/updateUserInfo.action?flage=1");
 }
 }
+
+//加载页面
+
+  $(window).load(function(){
+    $('.preloader').fadeOut(1000); // set duration in brackets    
+  });
 	</script>
 </html>

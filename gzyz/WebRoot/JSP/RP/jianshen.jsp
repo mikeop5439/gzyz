@@ -61,7 +61,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</script>
 </head>
 <body>
-			
+	<div class="preloader">
+		<div class="loading-center">
+			<div class="loading-center-absolute">
+				<div class="object object_one"></div>
+				<div class="object object_two"></div>
+				<div class="object object_three"></div>
+			</div>
+		</div>
+	</div>		
 <!-- header -->
 	<div class="agileits_header">
 		<div class="container">
@@ -330,6 +338,12 @@ $(function(){
 $(document).ready(function(){
     $('[data-toggle="popover"]').popover();   
 });
+
+//加载页面
+
+  $(window).load(function(){
+    $('.preloader').fadeOut(1000); // set duration in brackets    
+  });
 </script>
 
 <!-- 代码部分end -->

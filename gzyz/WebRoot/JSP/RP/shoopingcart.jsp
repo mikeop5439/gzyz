@@ -56,7 +56,17 @@ function hideURLbar(){window.scrollTo(0,1);}
 </head>
   
 <body>
+	<div class="preloader">
+		<div class="loading-center">
+			<div class="loading-center-absolute">
+				<div class="object object_one"></div>
+				<div class="object object_two"></div>
+				<div class="object object_three"></div>
+			</div>
+		</div>
+	</div>
 <!--header-->
+
 <div class="breadcrumbs">
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1">
@@ -180,58 +190,8 @@ function hideURLbar(){window.scrollTo(0,1);}
 </div>
 
 <!-- //底部 -->
-<div class="footer">
-		<div class="container">
-			<div class="w3_footer_grids">
-				<div class="col-md-3 w3_footer_grid">
-					<h3>联系我们</h3>
-					
-					<ul class="address">
-						<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>江苏省 南通市, 三余镇, <span>通州湾科创城.</span></li>
-						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">2350826406@qq.com</a></li>
-						<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+189 8400 1236</li>
-					</ul>
-				</div>
-				<div class="col-md-3 w3_footer_grid">
-					<h3>关于我们</h3>
-					<ul class="info"> 
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">关于我们</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="contact.html">联系我们</a></li>
-						
-					</ul>
-				</div>
-				<div class="col-md-3 w3_footer_grid">
-					<h3>热销商品</h3>
-					<ul class="info"> 
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="groceries.html">老人健身产品</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="household.html">老人按摩用品</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="personalcare.html">孝心礼品类</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="packagedfoods.html">中老年服饰</a></li>
-						
-					</ul>
-				</div>
-				<div class="col-md-3 w3_footer_grid">
-					<h3>后台管理</h3>
-					<ul class="info"> 
-						
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">我的积分</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.html">登录</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">注册</a></li>
-					</ul>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-		
-		<div class="footer-copy">
-			
-			<div class="container">
-				<p>© 2017 孝和商城. All rights reserved | Design by <a href="http://w3layouts.com/">光宗耀组</a></p>
-			</div>
-		</div>
-		
-	</div>	
-<div class="footer-botm">
+
+<div class="footer-botm navbar-fixed-bottom">
 			<div class="container">
 				<div class="w3layouts-foot">
 					<ul>
@@ -249,5 +209,12 @@ function hideURLbar(){window.scrollTo(0,1);}
 		</div>
 <!-- //底部 -->	
 
+<script >
+//加载页面
+
+  $(window).load(function(){
+    $('.preloader').fadeOut(1000); // set duration in brackets    
+  });
+</script>
 </body>
 </html>

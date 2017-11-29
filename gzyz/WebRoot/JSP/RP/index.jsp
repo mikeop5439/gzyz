@@ -97,12 +97,18 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 	
 <body>
 
-<!--header-->
 <div class="preloader">
-     <div class="sk-spinner sk-spinner-wordpress">
-          <span class="sk-inner-circle"></span>
-     </div>
+		<div class="loading-center">
+			<div class="loading-center-absolute">
+				<div class="object object_one"></div>
+				<div class="object object_two"></div>
+				<div class="object object_three"></div>
+			</div>
+		</div>
 	</div>
+
+<!--header-->
+
  
  <div class="top-wrapper">
         
@@ -612,7 +618,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 												<figure>
 													<div class="snipcart-item block">
 														<div class="snipcart-thumb">
-															<a href="products.html"><img title=" " alt=" " src="images/14.jpg" height="150px;" /></a>
+															<a href="introduction.html"><img title=" " alt=" " src="images/14.jpg" height="150px;" /></a>
 															<p>制氧机</p>
 															<div class="stars">
 																<i class="fa fa-star blue-star" aria-hidden="true"></i>
