@@ -28,5 +28,5 @@ public interface IntroductionService {
 	public List<RelatedGoods> getRelatedGoods(RelatedGoodsKey relatedGoodsKey);
 	public int getRelatedGoodsCount(@Param("keywords") String keywords);
 	public void insertGoodsDate(UpdateGoodsDate updateGoodsDate);
-
+	public int getGoodsOrderNum(@Param("goods_id") int goods_id);
 }

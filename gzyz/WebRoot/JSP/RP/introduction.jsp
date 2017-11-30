@@ -91,7 +91,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			        success:function(data){
 			        	$("#relatedgoosdid").empty();
 			        	$.each(data,function(index,content){
-			        		var img1 = $("<img></img>").attr("src","${pageContext.request.contextPath}"+content.original_img);
+			        		var img1 = $("<img height='200' width='160'></img>").attr("src","${pageContext.request.contextPath}"+content.original_img);
 			        		var a1 = $("<a target='_blank'></a>").attr("href","/gzyz/items/itemsIntroduction.action?goods_id="+content.goods_id).append(img1);
 			        		
 			        		var a2 = $("<a target='_blank'></a>").append(content.goods_name).attr("href","/gzyz/items/itemsIntroduction.action?goods_id="+content.goods_id);
@@ -318,7 +318,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</div>
 
 							<!--地址-->
-							<dl class="iteminfo_parameter freight">
+							<!-- <dl class="iteminfo_parameter freight">
 								<dt>配送至</dt>
 								<div class="iteminfo_freprice">
 									<div class="am-form-content address">
@@ -339,16 +339,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										快递<b class="sys_item_freprice">10</b>元
 									</div>
 								</div>
-							</dl>
+							</dl> -->
 							<div class="clear"></div>
 
 							<!--销量-->
 							<ul class="tm-ind-panel">
-								<li class="tm-ind-item tm-ind-sellCount canClick">
-									<div class="tm-indcon"><span class="tm-label">月销量</span><span class="tm-count">1015</span></div>
-								</li>
 								<li class="tm-ind-item tm-ind-sumCount canClick">
-									<div class="tm-indcon"><span class="tm-label">累计销量</span><span class="tm-count">6015</span></div>
+									<div class="tm-indcon">
+										<c:forEach items="${goodsorder }" var="goodsorder">
+											<span class="tm-label">累计销量</span><span class="tm-count">${goodsorder }</span>
+										</c:forEach>
+									</div>
 								</li>
 								<li class="tm-ind-item tm-ind-reviewCount canClick tm-line3">
 									<div class="tm-indcon">
@@ -404,11 +405,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 															<c:forEach items="${goodsinfo }" var="info">
 																<span id="Stock" class="tb-hidden">库存<span class="stock">${info.goods_number }</span>件</span>
 															</c:forEach>
+															
 														</dd>
 
 													</div>
 													<div class="clear"></div>
-
+												 	<span>&nbsp</span>
 													
 												</div>
 												
@@ -475,7 +477,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						     	<c:forEach items="${relatedgoods }" var="relatedgoods">
 									<li class="first">
 							      		<div class="p-img">                    
-							      			<a href="/gzyz/items/itemsIntroduction.action?goods_id=${relatedgoods.goods_id }" target="_blank"> <img class="" src="${pageContext.request.contextPath}${relatedgoods.original_img}"> </a>               
+							      			<a href="/gzyz/items/itemsIntroduction.action?goods_id=${relatedgoods.goods_id }" target="_blank"> <img class="" src="${pageContext.request.contextPath}${relatedgoods.original_img}" height="180" width="160"> </a>               
 							      		</div>
 							      		<div class="p-name">
 							      			<a href="/gzyz/items/itemsIntroduction.action?goods_id=${relatedgoods.goods_id }" target="_blank">
@@ -546,7 +548,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 								<div class="am-tab-panel am-fade">
 									
-                                    <div class="actor-new">
+                                    <!-- <div class="actor-new">
                                     	<div class="rate">                
                                     		<strong>100<span>%</span></strong><br> <span>好评度</span>            
                                     	</div>
@@ -564,9 +566,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                             			<q class="comm-tags"><span>皮很薄</span><em>(831)</em></q> 
                                             </dd>                                           
                                          </dl> 
-                                    </div>	
+                                    </div>	 -->
                                     <div class="clear"></div>
-									<div class="tb-r-filter-bar">
+									<!-- <div class="tb-r-filter-bar">
 										<ul class=" tb-taglist am-avg-sm-4">
 											<li class="tb-taglist-li tb-taglist-li-current">
 												<div class="comment-info">
@@ -596,7 +598,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												</div>
 											</li>
 										</ul>
-									</div>
+									</div> -->
 									<div class="clear"></div>
 
 									<ul class="am-comments-list am-comments-list-flip" id="comment">

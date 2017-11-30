@@ -88,5 +88,10 @@ public class IntroductionServiceImpl implements IntroductionService {
 		// TODO Auto-generated method stub
 		introductionMapper.insertGoodsDate(updateGoodsDate);
 	}
+	@Override
+	public int getGoodsOrderNum(int goods_id) {
+		// TODO Auto-generated method stub
+		return introductionMapper.getGoodsOrderNum(goods_id);
+	}
 
 }

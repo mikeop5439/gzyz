@@ -66,7 +66,10 @@ public class IntroductionController {
 		List<GoodsInfo> goodsInfos = introductionService.getGoodsInfo(goods_id);
 		
 		List<Integer> comments = new ArrayList<Integer>();
-		comments.add(introductionService.countComment(goods_id));
+		comments.add(introductionService.getCommentCount(goods_id));
+		
+		List<Integer> goodsOrderNum = new ArrayList<Integer>();
+		goodsOrderNum.add(introductionService.getGoodsOrderNum(goods_id));
 		
 		PageHelper.startPage(pn, 5);
 		List<CommentInfo> commentInfos = introductionService.getCommentInfo(goods_id);
@@ -105,6 +108,7 @@ public class IntroductionController {
 		model.addAttribute("getSpecInfoValues", getSpecInfoValues);
 		model.addAttribute("result", result);
 		model.addAttribute("comments", comments);
+		model.addAttribute("goodsorder", goodsOrderNum);
 		model.addAttribute("commentinfos", page);
 		model.addAttribute("relatedgoods", relatedGoods);
 		return "/JSP/RP/introduction.jsp";
