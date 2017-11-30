@@ -38,6 +38,7 @@ public class AddGoodsController {
 	@RequestMapping("addGoods")
 	public String addGoods(Goods goods,
 			@RequestParam("goodsphoto") MultipartFile goodsphoto,
+			@RequestParam("goods_details_img") MultipartFile goods_details_img,
 			HttpServletRequest request) {
 
 		// 文件保存路径
@@ -51,6 +52,21 @@ public class AddGoodsController {
 					// 保存文件
 					goodsphoto.transferTo(new File(filePath));
 					goods.setOriginal_img("/upload/goodsimg/"+goodsphoto.getOriginalFilename());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		if (goods_details_img != null && goods_details_img.getOriginalFilename() != null) {
+			if (!goods_details_img.isEmpty()) {
+				try {
+					// 文件保存路径
+					String filePath = request.getSession().getServletContext()
+							.getRealPath("/")
+							+ "upload/goods_details_img/" + goods_details_img.getOriginalFilename();
+					// 保存文件
+					goods_details_img.transferTo(new File(filePath));
+					goods.setDetails_img("/upload/goods_details_img/"+goods_details_img.getOriginalFilename());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

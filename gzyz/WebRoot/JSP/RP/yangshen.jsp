@@ -61,6 +61,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</script>
 </head>
 <body>
+<div class="preloader">
+		<div class="loading-center">
+			<div class="loading-center-absolute">
+				<div class="object object_one"></div>
+				<div class="object object_two"></div>
+				<div class="object object_three"></div>
+			</div>
+		</div>
+	</div>
 			
 <!-- header -->
 	<div class="agileits_header">
@@ -105,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 	<div class="row">
 			<div class="col-md-12">
 				<div class="aligncenter"><h2 class="aligncenter">中老年人如何养生？</h2>
-				<br>走遍小区、社区你就会发现，但凡长寿的人，基本上都喜欢运动健身。 
+				<br>春夏秋冬，四级轮回。但凡长寿的人，基本上对吃的都很有讲究。 
 				</div>
 				<br/>
 			</div>
@@ -303,6 +312,12 @@ $(function(){
 		$(this).find(".text").animate({left:'-300'}, {duration: 0})
 	});
 });
+
+//加载页面
+
+  $(window).load(function(){
+    $('.preloader').fadeOut(1000); // set duration in brackets    
+  });
 </script>
 <!-- 代码部分end -->
 </body>

@@ -28,9 +28,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${pageContext.request.contextPath}/JSP/HT/assets/js/additional-methods.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/JSP/HT/assets/js/jquery.validate.extend.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/JSP/HT/assets/js/addgoods.js" ></script>
+<style type="text/css">
 
-</head>
-<body>
+</style>
 <!--[if lte IE 9]><p class="browsehappy">升级你的浏览器吧！ <a href="http://se.360.cn/" target="_blank">升级浏览器</a>以获得更好的体验！</p><![endif]-->
 </head>
 
@@ -375,6 +375,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
         </div>
         <div class="am-form-group am-cf">
+          <div class="zuo"><font >商品详情图片：</font></div>
+          <div class="you" style="height: 45px;">
+            <input type="file" name="goods_details_img" id="doc-ipt-file-1">
+            <p class="am-form-help">请选择要上传的文件...</p>
+          </div>
+        </div>
+        <div class="am-form-group am-cf">
           <div class="zuo"><font color="red">商品简短描述：</font></div>
           <div class="you">
             <input type="text" name="goods_brief" class="am-input-sm" id="doc-ipt-pwd-1" placeholder="请给商品添加简短描述，长度为20~200个字符">
@@ -387,7 +394,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
         </div>
         <div class="am-form-group am-cf">
-          <div class="zuo"><font color="red">产品图片：</font></div>
+          <div class="zuo"><font color="red">商品图片：</font></div>
           <div class="you" style="height: 45px;">
             <input type="file" name="goodsphoto" id="doc-ipt-file-1">
             <p class="am-form-help">请选择要上传的文件...</p>

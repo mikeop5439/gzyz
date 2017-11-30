@@ -97,12 +97,18 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 	
 <body>
 
-<!--header-->
 <div class="preloader">
-     <div class="sk-spinner sk-spinner-wordpress">
-          <span class="sk-inner-circle"></span>
-     </div>
+		<div class="loading-center">
+			<div class="loading-center-absolute">
+				<div class="object object_one"></div>
+				<div class="object object_two"></div>
+				<div class="object object_three"></div>
+			</div>
+		</div>
 	</div>
+
+<!--header-->
+
  
  <div class="top-wrapper">
         
@@ -124,7 +130,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 						<li class="uloflogin" style="display:none;"><a href="${pageContext.request.contextPath }/userlist/queryusercollect.action?">收藏夹</a></li>
 						<li class="uloflogin" style="display:none;"><a href="${pageContext.request.contextPath }/userlist/queryuserLoginExit.action">退出登陆</a></li>			
                         
-					    <li ><a href="contact.html">联系我们</a></li> 
+					    <li ><a href="${pageContext.request.contextPath}/JSP/RP/contact.jsp">联系我们</a></li> 
 					    <li ><a href="${pageContext.request.contextPath }/shoppingcart/queryShoopingCart.action?"><i class="fa fa-cart-arrow-down fa-2x"  aria-hidden="true"></i></a></li>
 					
 				</ul>
@@ -612,7 +618,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 												<figure>
 													<div class="snipcart-item block">
 														<div class="snipcart-thumb">
-															<a href="products.html"><img title=" " alt=" " src="images/14.jpg" height="150px;" /></a>
+															<a href="introduction.html"><img title=" " alt=" " src="images/14.jpg" height="150px;" /></a>
 															<p>制氧机</p>
 															<div class="stars">
 																<i class="fa fa-star blue-star" aria-hidden="true"></i>
@@ -959,7 +965,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
                                         <a href="${pageContext.request.contextPath}/JSP/RP/yangshen.jsp">
                                             <span class="plus" ><i class="fa fa-plus"></i></span>
                                         </a>
-                                        <img src="images/002.jpg" alt="" >
+                                        <img src="images/0044.jpg" alt="" height="270px" >
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-12 gallery-item coffee catering mb-30">
@@ -967,7 +973,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
                                         <a href="${pageContext.request.contextPath}/JSP/RP/yiliao.jsp">
                                             <span class="plus"><i class="fa fa-plus"></i></span>
                                         </a>
-                                        <img src="images/001.jpg" alt="">
+                                        <img src="images/94.jpg" alt=""  height="270px">
                                     </div>
                                 </div> 
                                 <div class="col-md-4 col-sm-6 col-xs-12 gallery-item desert drink mb-30">
@@ -975,7 +981,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
                                         <a href="${pageContext.request.contextPath}/JSP/RP/jianshen.jsp">
                                             <span class="plus"><i class="fa fa-plus"></i></span>
                                         </a>	
-                                        <img src="images/004.jpg" alt="">
+                                        <img src="images/0033.jpg" alt=""  height="270px">
                                     </div>
                                 </div>
                               
@@ -1026,7 +1032,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 				<div class="col-md-3 w3_footer_grid">
 					<h3>后台管理</h3>
 					<ul class="info"> 
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">我的积分</a></li>
+						
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="${pageContext.request.contextPath }/JSP/HT/login.jsp">登录</a></li>
 					</ul>
 				</div>
@@ -1053,8 +1059,8 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 					</ul>
 				</div>
 				<div class="payment-w3ls">	
-					<img src="${PageContext.request.contextPath}/JSP/RP/images/card.png" alt=" " class="img-responsive">
-				</div>
+					<img src="${pageContext.request.contextPath}/JSP/RP/images/card.png" alt=" " class="img-responsive">
+				</div>  
 				<div class="clearfix"> </div>
 			</div>
 		</div>

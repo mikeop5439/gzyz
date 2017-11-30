@@ -1,7 +1,9 @@
 package com.gzyz.controller.users;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.gzyz.bean.address.ProvinceCityUseQuery;
 import com.gzyz.bean.address.Provinces;
 import com.gzyz.bean.address.ProvincesCities;
+import com.gzyz.bean.analysis.Date_traffic;
 import com.gzyz.bean.goods.extend.GoodsCollect;
 import com.gzyz.bean.users.Receiver;
 import com.gzyz.bean.users.User;
@@ -398,9 +401,17 @@ public class UserListController {
 				User user,String user_name,
 				String user_password,
 				String userCode
-				){
+				) throws ParseException{
 			System.out.println("23");			
+			//登陆记录
+			Date_traffic date_traffic = new Date_traffic();
 			
+			Date nowTime = new Date(System.currentTimeMillis());
+			SimpleDateFormat sdFormatter = new SimpleDateFormat("yyyy-MM-dd");
+			String retStrFormatNowDate = sdFormatter.format(nowTime);
+			Date logindate = sdFormatter.parse(retStrFormatNowDate);
+			
+			//登陆
 			HttpSession session = request.getSession();
 			
 			user_name = request.getParameter("username");
@@ -440,13 +451,19 @@ public class UserListController {
 							System.out.println("验证码为空！！"); 
 							session.setAttribute("loginError", "验证码不能为空！");
 							return "redirect:/JSP/RP/login.jsp";
-						}else{
+						}else{ 
 							if(userCode.equals(verificationCode)){
 								System.out.println("登录成功！");
 								session.setAttribute("loginuser", user2);
 								session.setAttribute("user", user2);
 								String st2 = session.getId();
 								System.out.println(st2);
+								
+								date_traffic.setUser_id(user2.getUser_id());
+								date_traffic.setUser_accesstime(logindate);
+								  
+								userListService.insertuserlogincount(date_traffic);
+								
 								return "redirect:/JSP/RP/index.jsp";					
 							}else{
 								session.setAttribute("loginError", "验证码错误");

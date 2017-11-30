@@ -21,4 +21,12 @@ public interface OrderInvoiceAndSwapMapper {
 	public List<OrderAndUserAndOrderDetails> queryTheOrder(OrderDateAndUsernameAndOrderId orderDateAndUsernameAndOrderId);
     //订单查询详细表数量
 	public int queryTheOrderCount(OrderDateAndUsernameAndOrderId orderDateAndUsernameAndOrderId);
+	//查询订单状态
+	public int queryTheOrderStatus(int order_id);
+	//修改订单状态 
+	public void updateTheOrderStatus(TheOrderStatus theOrderStatus);
+	//查询快递信息
+	public ShappingNameAndCode queryShapping(int order_id);
+	//修改快递信息
+	public void updateShapping(ShappingAndOrderId shappingAndOrderId);
 }

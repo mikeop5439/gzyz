@@ -66,8 +66,11 @@ function ConvertJSONDateToJSDate(jsondate) {
 			  var count=content.order_details.length;
 			  var order_time = "/Date("+content.order_time+")/";
 			  var pay_time = "/Date("+content.pay_time+")/";
-			  var a1=$("<a></a>").addClass("am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-pencil-square-o")
-			  .attr("data-am-modal","{target: '#my-popups'}").attr("title","修改订单状态").attr("onclick","");
+			  var a1=$("<a></a>").addClass("am-btn  am-btn-default am-btn-xs am-text-success am-round am-icon-pencil-square-o")
+			  .attr("data-am-modal","{target: '#my-popups'}").attr("title","修改订单状态").attr("onclick","javascript:queryTheOrderStatus("+content.order_id+")");
+			  var a2=$("<a></a>").addClass("am-btn  am-btn-default am-btn-xs am-text-danger am-round am-icon-pencil-square-o")
+			  .attr("data-am-modal","{target: '#my-popup'}").attr("title","修改快递信息").attr("onclick","javascript:queryTheKdInfo("+content.order_id+")");
+			  var div111=$("<div></div>").addClass("am-btn-group am-btn-group-xs");
 			  var td1;
 			  var td2;
 			  var td3;
@@ -90,7 +93,7 @@ function ConvertJSONDateToJSDate(jsondate) {
 			      td6=$("<td></td>").addClass("am-text-middle").attr("rowspan",""+count+"").append(getDateTime(ConvertJSONDateToJSDate(pay_time)));
 			      td7=$("<td></td>").addClass("am-text-middle").attr("rowspan",""+count+"").append(content.shipping_name);
 			      td8=$("<td></td>").addClass("am-text-middle").attr("rowspan",""+count+"").append(content.shipping_code);
-			      var td15=$("<td></td>").addClass("am-text-middle").attr("rowspan",""+count+"").append(a1);
+			      var td15=$("<td></td>").addClass("am-text-middle").attr("rowspan",""+count+"").append(div111.append(a1).append(a2));
 			   $.each(content.order_details,function(index,content){
 			      td9=$("<td></td>").append(content.order_details_id);
 			      td10=$("<td></td>").append(content.goods_id);
@@ -108,6 +111,80 @@ function ConvertJSONDateToJSDate(jsondate) {
 			 });
   			}
   			
+  		});
+  	};
+  	function queryTheOrderStatus(orderid){
+  	var order_id=orderid;
+  		$.ajax({
+  			url:"${pageContext.request.contextPath }/orderiands/queryTheOrderStatus.action?order_id="+order_id,
+  			type:"POST",
+  			contentType:'application/json;charset=utf-8',
+  			dataType:"json",
+  			success:function(data){
+  			$("#inoforder_id").val(order_id);
+  			if(data==0){
+  			$("#status_0").attr("checked","");
+  			}else if(data==1){
+  			$("#status_1").attr("checked","");
+  			}else if(data==2){
+  			$("#status_2").attr("checked","");
+  			}else if(data==3){
+  			$("#status_3").attr("checked","");
+  			}else if(data==4){
+  			$("#status_4").attr("checked","");
+  			}else if(data==5){
+  			$("#status_5").attr("checked","");
+  			}
+  			}
+  			
+  		});
+  	};
+  	function updateTheOrderStatus(){
+  	var order_id=$("#inoforder_id").val();
+  	var order_status=$('input:radio:checked').val();
+  	var parms='{"order_id":"'+order_id+'","order_status":"'+order_status+'"}'
+  	console.log(order_status);
+  		$.ajax({
+  			url:"${pageContext.request.contextPath }/orderiands/updateTheOrderStatus.action",
+  			type:"POST",
+  			contentType:'application/json;charset=utf-8',
+  			dataType:"json",
+  			data:parms,
+  			success:function(data){
+  			
+  			}
+  		});
+  	};
+  	function queryTheKdInfo(orderid){
+  	var order_id=orderid;
+  		$.ajax({
+  			url:"${pageContext.request.contextPath }/orderiands/shappingNameAndCode.action?order_id="+order_id,
+  			type:"POST",
+  			contentType:'application/json;charset=utf-8',
+  			dataType:"json",
+  			success:function(data){
+  			$("#kdoforder_id").val(order_id);
+  			$("#shipping_name").val(data.shipping_name);
+  			$("#shipping_code").val(data.shipping_code);
+  			}
+  			
+  		});
+  	};
+  	function updateShapping(){
+  	var order_id=$("#kdoforder_id").val();
+  	var shipping_name=$("#shipping_name").val();
+  	var shipping_code=$("#shipping_code").val();
+  	var parms='{"order_id":"'+order_id+'","shipping_name":"'+shipping_name+'","shipping_code":"'+shipping_code+'"}'
+  	console.log(order_status);
+  		$.ajax({
+  			url:"${pageContext.request.contextPath }/orderiands/updateShapping.action",
+  			type:"POST",
+  			contentType:'application/json;charset=utf-8',
+  			dataType:"json",
+  			data:parms,
+  			success:function(data){
+  			
+  			}
   		});
   	};
   	function checkUsernameAndDate(){
@@ -292,45 +369,89 @@ function ConvertJSONDateToJSDate(jsondate) {
 </div>
     
 			
-<div class="am-popup am-popup-inner" id="my-popups" style="max-height:250px;">
+<div class="am-popup am-popup-inner" id="my-popups" style="max-height:300px;">
       <div class="am-popup-hd">
         <h4 class="am-popup-title">更改订单状态</h4>
         <span data-am-modal-close
             class="am-close">&times;</span> </div>
       <div class="am-popup-bd">
       
-        <form class="am-form tjlanmu" action="${pageContext.request.contextPath }/manager/updateManagerRole.action" method="POST">
+        <form class="am-form tjlanmu" action="${pageContext.request.contextPath }/orderiands/updateTheOrderStatus.action" method="POST">
           <div class="am-form-group am-cf">
          <div class="zuo"><input id="manger_id" type="hidden" name="manage_role_id" value=""></div>
         </div>
 
     <div class="am-form-group">
-    
     <label class="am-radio">
-      <input type="radio" id="role_kf" name="manage_role_type" value="1" data-am-ucheck required> <a  class="am-badge am-badge-warning am-round am-text-sm"><i class=" am-primary  am-icon-whatsapp"></i>&nbsp&nbsp客服(编辑)</a>
+    <input id="inoforder_id" type="hidden" name="order_id">
+      <input class="flageradio" type="radio" id="status_0" name="order_status" value="0" data-am-ucheck required> 未付款
     </label>
     <label class="am-radio">
-      <input type="radio" id="role_sp" name="manage_role_type" value="2" data-am-ucheck> <a class="am-badge am-badge-success am-round am-text-sm"><i class=" am-primary  am-icon-gift"></i>&nbsp&nbsp商品管理员</a>
+      <input class="flageradio" type="radio" id="status_1" name="order_status" value="1" data-am-ucheck required> 已付款
     </label>
     <label class="am-radio">
-      <input type="radio" id="role_ceo" name="manage_role_type" value="3" data-am-ucheck> <a class="am-badge am-badge-secondary am-round am-text-sm"><i class=" am-primary  am-icon-suitcase"></i>&nbsp&nbspCEO管理员</a>
+      <input class="flageradio" type="radio" id="status_2" name="order_status" value="2" data-am-ucheck> 已发货
     </label>
     <label class="am-radio">
-      <input type="radio" id="role_cj" name="manage_role_type" value="4" data-am-ucheck> <a class="am-badge am-badge-primary am-round am-text-sm"><i class=" am-primary  am-icon-gears"></i>&nbsp&nbsp超级管理员</a>
+      <input class="flageradio" type="radio" id="status_3" name="order_status" value="3" data-am-ucheck> 已收货
+    </label>
+    <label class="am-radio">
+      <input class="flageradio" type="radio" id="status_4" name="order_status" value="4" data-am-ucheck>售后处理中
+    </label>
+    <label class="am-radio">
+      <input class="flageradio" type="radio" id="status_5" name="order_status" value="5" data-am-ucheck> 交易完成
     </label>
   </div>
 
           <div class="am-form-group am-cf">
             <div class="you" >
               <p>
-               <button type="submit" class="am-btn am-btn-success am-radius" style="margin-left:120px;">提交</button>
+               <button type="submit" class="am-btn am-btn-success am-radius" style="margin-left:120px;" onclick="javascript:updateTheOrderStatus()">提交</button>
               </p>
             </div>
           </div>
         </form>
       </div>
     </div>		
-									
+    
+    
+    
+<div class="am-popup am-popup-inner" id="my-popup" style="max-height:300px;">
+        <div class="am-popup-hd">
+          <h4 class="am-popup-title">修改快递信息</h4>
+          <span data-am-modal-close class="am-close">&times;</span> </div>
+        <div class="am-popup-bd">
+          <form class="am-form tjlanmu" action="${pageContext.request.contextPath }/orderiands/updateShapping.action" method="POST">
+          <table>
+          	<thead>
+          		<tr>
+          			<th>收货信息编号</th>
+          		</tr>
+          	</thead>
+          </table>
+            <div class="am-form-group">
+              <div class="zuo">快递名称：</div>
+              <div class="you" id="div1">
+              <input type="hidden" id="kdoforder_id" name="order_id">
+                <input type="text" class="am-input-sm" id="shipping_name" name="shipping_name" placeholder="请输入快递公司名称">
+              </div>
+            </div>
+            <div class="am-form-group">
+              <div class="zuo">快递单号：</div>
+              <div class="you" id="div2">
+                <input type="text" class="am-input-sm" id="shipping_code" name="shipping_code" placeholder="请输入快递单号">
+              </div>
+            </div>
+            <div class="am-form-group am-cf">
+              <div class="you">
+                <p>
+                  <input type="submit" class="am-btn am-btn-success am-radius" value="提交" ></input>
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>									
 																		
 
 
@@ -387,7 +508,7 @@ function ConvertJSONDateToJSDate(jsondate) {
                 <th  class="table-main">购买数量</th>
                 <th  class="table-main">商品单价</th>
                 <th  class="table-main">总价格</th>
-                 <th  class="table-main">操作</th>
+                 <th  class="table-main">操作（状态/物流）</th>
               </tr>
             </thead>
             <tbody id="logsTable">

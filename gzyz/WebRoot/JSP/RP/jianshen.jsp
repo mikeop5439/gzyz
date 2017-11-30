@@ -18,10 +18,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- font-awesome icons -->
 <link href="${pageContext.request.contextPath}/JSP/RP/css/font-awesome.css" rel="stylesheet"> 
 <!-- //font-awesome icons -->
-<!-- js -->
+
 <link href="${pageContext.request.contextPath}/JSP/RP/css/style-yangshen.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/JSP/RP/css/style.css" rel="stylesheet" type="text/css" media="all" />
- 
+<script ></script>
 <style>
 .clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
 .clearfix{display:inline-table;}/* Hides from IE-mac \*/
@@ -61,7 +61,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</script>
 </head>
 <body>
-			
+	<div class="preloader">
+		<div class="loading-center">
+			<div class="loading-center-absolute">
+				<div class="object object_one"></div>
+				<div class="object object_two"></div>
+				<div class="object object_three"></div>
+			</div>
+		</div>
+	</div>		
 <!-- header -->
 	<div class="agileits_header">
 		<div class="container">
@@ -105,7 +113,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 	<div class="row">
 			<div class="col-md-12">
 				<div class="aligncenter"><h2 class="aligncenter">中老年人如何健身？</h2>
-				<br>走遍小区、社区你就会发现，但凡长寿的人，基本上都喜欢运动健身。 
+				<br>对于老年人来说应该如何进行锻炼呢？有最适合老年人的健身方法吗？
+			哪些方式更加适合老人呢？下面小编来介绍一下最适合老年人的健身方法。 
 				</div>
 				<br/>
 			</div>
@@ -150,7 +159,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<li>
 			<div class="photo"><img src="images/a8.jpg" width="300" height="200" /></div>
 			<div class="rsp"></div>
-			<div class="text"><a href=""><h3>球类</h3></a></div>
+			<div class="text"><a href="" data-toggle="popover" title="弹出框标题" data-content="弹出框内容"><h3>球类</h3></a></div>
 		</li>
 		
 		
@@ -227,7 +236,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="col-md-5 col-sm-5">
 					<div class="about-image">
-						<img src="images/1.jpg" alt="About Images">
+						<img src="images/120.jpg" alt="About Images">
 					</div>
 				</div>
 			</div>
@@ -309,6 +318,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- //footer -->
 <a href="#" class="scrollup waves-effect waves-dark"><i class="fa fa-angle-up active"></i></a>
 <script src="${pageContext.request.contextPath}/JSP/RP/js/jquery-1.11.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/JSP/RP/js/bootstrap.min.js"></script>
 <script>
 $(function(){
 	$(".lanrenzhijia ul li .rsp").hide();	
@@ -323,6 +333,19 @@ $(function(){
 	});
 });
 </script>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+
+//加载页面
+
+  $(window).load(function(){
+    $('.preloader').fadeOut(1000); // set duration in brackets    
+  });
+</script>
+
 <!-- 代码部分end -->
 </body>
 </html>

@@ -178,6 +178,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</head>
 
 	<body>
+	<div class="preloader">
+		<div class="loading-center">
+			<div class="loading-center-absolute">
+				<div class="object object_one"></div>
+				<div class="object object_two"></div>
+				<div class="object object_three"></div>
+			</div>
+		</div>
+	</div>
 		
 <!-- header -->
 	<div class="agileits_header">
@@ -723,8 +732,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 
 				</div>
-			
+						
+<div style="clear: both;"></div>
+	<div class="footer-botm">
+			<div class="container">
+				<div class="w3layouts-foot">
+					<ul>
+						<li><a href="#" class="w3_agile_facebook"><i class="fa fa-qq" aria-hidden="true"></i></a></li>
+						<li><a href="#" class="agile_twitter"><i class="fa fa-weixin" aria-hidden="true"></i></a></li>
+						<li><a href="#" class="w3_agile_dribble"><i class="fa fa-weibo" aria-hidden="true"></i></a></li>
+						
+					</ul>
+				</div>
+				<div class="payment-w3ls">	
+					<img src="images/card.png" alt=" " class="img-responsive">
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div> 
+<script >
+//加载页面
 
+  $(window).load(function(){
+    $('.preloader').fadeOut(1000); // set duration in brackets    
+  });
+
+</script>
 	</body>
 
 </html>

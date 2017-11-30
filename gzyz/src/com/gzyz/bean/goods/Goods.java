@@ -22,6 +22,7 @@ public class Goods {
 	private String original_img;
 	private int show_in_recyc;
 	private int is_shelves;
+	private String details_img;
 	public int getGoods_id() {
 		return goods_id;
 	}
@@ -112,6 +113,12 @@ public class Goods {
 	public void setIs_shelves(int is_shelves) {
 		this.is_shelves = is_shelves;
 	}
+	public String getDetails_img() {
+		return details_img;
+	}
+	public void setDetails_img(String details_img) {
+		this.details_img = details_img;
+	}
 	@Override
 	public String toString() {
 		return "Goods [goods_id=" + goods_id + ", cat_id=" + cat_id
@@ -122,8 +129,9 @@ public class Goods {
 				+ keywords + ", goods_brief=" + goods_brief + ", goods_desc="
 				+ goods_desc + ", original_img=" + original_img
 				+ ", show_in_recyc=" + show_in_recyc + ", is_shelves="
-				+ is_shelves + "]";
+				+ is_shelves + ", details_img=" + details_img + "]";
 	}
+	
 	
 	
 	

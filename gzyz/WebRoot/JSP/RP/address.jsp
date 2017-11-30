@@ -325,7 +325,7 @@ display:none;
 					</ul>
 				</div>
 				<div class="payment-w3ls">	
-					<img src="images/card.png" alt=" " class="img-responsive">
+					<img src="${pageContext.request.contextPath}/JSP/RP/images/card.png" alt=" " class="img-responsive">
 				</div>
 				<div class="clearfix"> </div>
 			</div>

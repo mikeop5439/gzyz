@@ -61,6 +61,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</script>
 </head>
 <body>
+<div class="preloader">
+		<div class="loading-center">
+			<div class="loading-center-absolute">
+				<div class="object object_one"></div>
+				<div class="object object_two"></div>
+				<div class="object object_three"></div>
+			</div>
+		</div>
+	</div>
 			
 <!-- header -->
 	<div class="agileits_header">
@@ -159,7 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="col-md-5 col-sm-5">
 					<div class="about-image">
-						<img src="images/1010.jpg" alt="About Images">
+						<img src="images/1010.jpg" alt="About Images" height="200px;">
 					</div>
 				</div>
 			</div>
@@ -179,7 +188,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="col-md-5 col-sm-5">
 					<div class="about-image">
-						<img src="images/2020.jpg" alt="About Images">
+						<img src="images/2020.jpg" alt="About Images" height="200px;">
 					</div>
 				</div>
 			</div>
@@ -199,7 +208,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="col-md-5 col-sm-5">
 					<div class="about-image">
-						<img src="images/3030.jpg" alt="About Images">
+						<img src="images/3030.jpg" alt="About Images" height="200px;">
 					</div>
 				</div>
 			</div>
@@ -294,6 +303,12 @@ $(function(){
 		$(this).find(".text").animate({left:'-300'}, {duration: 0})
 	});
 });
+
+//加载页面
+
+  $(window).load(function(){
+    $('.preloader').fadeOut(1000); // set duration in brackets    
+  });
 </script>
 <!-- 代码部分end -->
 </body>
