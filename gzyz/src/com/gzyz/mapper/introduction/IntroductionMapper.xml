@@ -46,11 +46,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<result column="sp" property="shop_price" />
 	<result column="gd" property="goods_desc" />
 	<result column="oi" property="original_img" />
+	<result column="di" property="details_img" />
 </resultMap>
 	
 	<select id="getGoodsInfo" parameterType="int" resultMap="getGoodsInfo">
 		select goods_name gname,goods_number gnum,original_price op,shop_price sp,
-			   goods_desc gd,original_img oi,goods_id gid
+			   goods_desc gd,original_img oi,goods_id gid,details_img di
 		from `goods`
 		where goods_id = ${goods_id}
 	</select>

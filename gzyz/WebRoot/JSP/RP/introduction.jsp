@@ -545,6 +545,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<div class="clear"></div>
 										<c:forEach items="${goodsinfo }" var="info">
 											<span style="float:left;">${info.goods_desc }</span>
+											<img src="${pageContext.request.contextPath}${info.details_img}" />
 										</c:forEach>	
 									</div>
 
