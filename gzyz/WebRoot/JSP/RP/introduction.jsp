@@ -192,12 +192,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
-			<a href="index.html" ><i class="fa fa-home fa-2x" style="color: #FFFFFF;"></i></a>
+			<a href="${pageContext.request.contextPath}/JSP/RP/index.jsp" ><i class="fa fa-home fa-2x" style="color: #FFFFFF;"></i></a>
 			
 			
-			<a href="login.html" style="color: #FCFCFC;margin-left: 20px;">登录</a>
+			<a href="${pageContext.request.contextPath}/JSP/RP/login.jsp" style="color: #FCFCFC;margin-left: 20px;">登录</a>
 		
-			<a href="registered.html" style="color: #FCFCFC;margin-left: 20px;">注册</a>
+			<a href="${pageContext.request.contextPath}/JSP/RP/registered.jsp" style="color: #FCFCFC;margin-left: 20px;">注册</a>
 		
 			</div>
 			<div class="w3l_search" style="margin-top: 5px;">
