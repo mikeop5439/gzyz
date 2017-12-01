@@ -3,6 +3,7 @@ package com.gzyz.service.users.service;
 import java.util.List;
 
 import com.gzyz.bean.analysis.Date_traffic;
+import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.users.User;
 import com.gzyz.bean.users.cart;
 import com.gzyz.bean.users.collect_goods;
@@ -36,4 +37,7 @@ public interface UserListService {
 	public List<com.gzyz.bean.users.cart> queryusercart(int user_id);
 	public void updateUserCart(cart cart2);
 	public void insertUserCart(cart cart);
+	public List<Goods> queryrecommend(int user_id);
+	public List<Integer> selectweekranking();
+	public Goods queryweekrankinggoods(int id);
 }

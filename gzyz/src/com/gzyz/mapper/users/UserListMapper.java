@@ -3,6 +3,7 @@ package com.gzyz.mapper.users;
 import java.util.List;
 
 import com.gzyz.bean.analysis.Date_traffic;
+import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.users.User;
 import com.gzyz.bean.users.cart;
 import com.gzyz.bean.users.collect_goods;
@@ -57,5 +58,11 @@ public interface UserListMapper {
 
 		public void insertUserCart(cart cart);
 		//用户登陆时统计人数！ 
-		public void insertuserlogincount(Date_traffic date_traffic); 
+		public void insertuserlogincount(Date_traffic date_traffic);
+
+		public List<Goods> selectUserRecommend(int user_id);
+
+		public List<Integer> selectweekranking();
+
+		public Goods selectweekrankinggoods(int id); 
 }

@@ -1,6 +1,7 @@
 package com.gzyz.test;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.goods.extend.GoodsCollect;
 import com.gzyz.bean.users.extend.UserCollect;
 import com.gzyz.bean.users.extend.Userdate;
@@ -24,12 +26,12 @@ public class AddGoodsTest {
 	private UserListService userListService;
 	@Test
 	public void testCheckSpec_name(){
-		Random random = new Random();
-		int rdnum=random.nextInt(50000);
-		Date time=new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMHHss");
-		int order_id=Integer.parseInt(sdf.format(time))+rdnum;
-		System.out.println(order_id);
+		List<Integer>weekranking_goodsid=userListService.selectweekranking();
+		List<Goods>weekrankinggoodslist=new ArrayList<>();
+		for (int id:weekranking_goodsid){
+			Goods goods=userListService.queryweekrankinggoods(id);
+			weekrankinggoodslist.add(goods);
+		}
 
 }
 	}

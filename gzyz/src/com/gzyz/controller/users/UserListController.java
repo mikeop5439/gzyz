@@ -3,6 +3,7 @@ package com.gzyz.controller.users;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import com.gzyz.bean.address.ProvinceCityUseQuery;
 import com.gzyz.bean.address.Provinces;
 import com.gzyz.bean.address.ProvincesCities;
 import com.gzyz.bean.analysis.Date_traffic;
+import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.goods.extend.GoodsCollect;
 import com.gzyz.bean.users.Receiver;
 import com.gzyz.bean.users.User;
@@ -456,6 +458,7 @@ public class UserListController {
 								System.out.println("登录成功！");
 								session.setAttribute("loginuser", user2);
 								session.setAttribute("user", user2);
+								
 								String st2 = session.getId();
 								System.out.println(st2);
 								
@@ -464,7 +467,7 @@ public class UserListController {
 								  
 								userListService.insertuserlogincount(date_traffic);
 								
-								return "redirect:/JSP/RP/index.jsp";					
+								return "redirect:/userlist/indeximasion.action";					
 							}else{
 								session.setAttribute("loginError", "验证码错误");
 								return "redirect:/JSP/RP/login.jsp";
@@ -490,6 +493,27 @@ public class UserListController {
 			System.out.println(st1);
 			return "redirect:/JSP/RP/index.jsp";
 		}
+		@RequestMapping("indeximasion")
+		public String indeximasion(HttpSession session,HttpServletRequest request){
+			User user2=(User) session.getAttribute("user");
+			//查询商品推荐
+			List<Goods>UserRecommend=userListService.queryrecommend(user2.getUser_id());
+			session.setAttribute("UserRecommend", UserRecommend);
+			//查询周排行
+			List<Integer>weekranking_goodsid=userListService.selectweekranking();
+			List<Goods>weekrankinggoodslist=new ArrayList<>();
+			for (int id:weekranking_goodsid){
+				Goods goods=userListService.queryweekrankinggoods(id);
+				weekrankinggoodslist.add(goods);
+			}
+			session.setAttribute("weekrankinggoodslist", weekrankinggoodslist);
+			
+			
+			return "redirect:/JSP/RP/index.jsp";
+		}
+		
+		
+		
 		//查询用户地址——个人中心
 		@RequestMapping("useraddress")
 		public String useraddress(HttpSession session,HttpServletRequest request){

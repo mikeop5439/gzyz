@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.gzyz.bean.analysis.Date_traffic;
+import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.users.User;
 import com.gzyz.bean.users.cart;
 import com.gzyz.bean.users.collect_goods;
@@ -298,5 +299,23 @@ public class UserListServiceImpl implements UserListService {
 	public void insertuserlogincount(Date_traffic date_traffic) {
 		// 用户登陆时记录人数 
 		userListMapper.insertuserlogincount(date_traffic);
+	}
+
+	@Override
+	public List<Goods> queryrecommend(int user_id) {
+		// 基于用户推荐商品
+		return userListMapper.selectUserRecommend(user_id);
+	}
+
+	@Override
+	public List<Integer> selectweekranking() {
+		// 查询周排行商品
+		return userListMapper.selectweekranking();
+	}
+
+	@Override
+	public Goods queryweekrankinggoods(int id) {
+		// 查询周排行商品详情
+		return userListMapper.selectweekrankinggoods(id);
 	}
 }

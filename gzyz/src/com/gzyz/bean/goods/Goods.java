@@ -1,11 +1,5 @@
 package com.gzyz.bean.goods;
 
-import java.util.List;
-
-import javax.inject.Qualifier;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 public class Goods {
 	private int goods_id;
 	private int cat_id;
