@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.gzyz.bean.comment.extend.CommentPageKeywords;
 import com.gzyz.bean.comment.extend.CommentVo;
+import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.introduction.extend.CommentInfo;
 import com.gzyz.bean.introduction.extend.CommentInfoByPage;
 import com.gzyz.bean.introduction.extend.GetSpecId;
@@ -31,4 +32,6 @@ public interface IntroductionMapper {
 	public int getRelatedGoodsCount(@Param("keywords") String keywords);
 	public void insertGoodsDate(UpdateGoodsDate updateGoodsDate);
 	public int getGoodsOrderNum(@Param("goods_id") int goods_id);
+	public List<Goods> selectgoodsrecommend(int user_id);
+	public List<Goods> selectgoodsRelation(int goods_id);
 }

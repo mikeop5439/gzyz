@@ -129,4 +129,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertGoodsDate" parameterType="UpdateGoodsDate">
 		insert into date_product (goods_id,visit_date) VALUES(${goods_id},#{visit_date})
 	</insert>
+	<select id="selectgoodsrecommend" resultType="goods" parameterType="int">
+		SELECT * FROM `goods` WHERE goods_id IN (SELECT goodsid from `user_goods_recommendItemCF` where userid=#{id})
+	</select>
+	<select id="selectgoodsRelation" resultType="goods" parameterType="int">
+		SELECT * FROM `goods` WHERE goods_id IN (SELECT tgoods_id from `goodsRelationgoods` where goods_id=#{id})
+	</select>
 </mapper>

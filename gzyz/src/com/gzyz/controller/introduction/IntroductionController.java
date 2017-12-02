@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.gzyz.bean.comment.extend.CommentPageKeywords;
 import com.gzyz.bean.comment.extend.CommentVo;
+import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.introduction.extend.CommentInfo;
 import com.gzyz.bean.introduction.extend.CommentInfoByPage;
 import com.gzyz.bean.introduction.extend.CommentListQuery;
@@ -25,6 +28,7 @@ import com.gzyz.bean.introduction.extend.GoodsInfo;
 import com.gzyz.bean.introduction.extend.RelatedGoods;
 import com.gzyz.bean.introduction.extend.RelatedGoodsKey;
 import com.gzyz.bean.introduction.extend.UpdateGoodsDate;
+import com.gzyz.bean.users.User;
 import com.gzyz.service.introduction.service.IntroductionService;
 
 @Controller
@@ -45,7 +49,7 @@ public class IntroductionController {
 	}   
 	
 	@RequestMapping("itemsIntroduction")
-	public String itemsIntroduction(Model model,@RequestParam(value="pn",defaultValue="1")int pn,@RequestParam int goods_id) throws ParseException {
+	public String itemsIntroduction(Model model,HttpSession session,@RequestParam(value="pn",defaultValue="1")int pn,@RequestParam int goods_id) throws ParseException {
 		
 		//int goods_id = 1;
 		//int param = Integer.parseInt(goods_id);
@@ -100,6 +104,14 @@ public class IntroductionController {
 		relatedGoodsKey.setKeywords(goodskeywords);
 		relatedGoodsKey.setFirstnum(firstnum);
 		relatedGoodsKey.setSecondnum(secondnum);
+		//推荐商品
+		User user=(User) session.getAttribute("user");
+		List<Goods> goodsrecommend=new ArrayList<>();
+		if(user != null){
+			goodsrecommend=introductionService.querytgoodsrecommend(user.getUser_id());
+		}else {
+		    goodsrecommend=introductionService.querygoodsRelation(goods_id);	
+		}
 		List<RelatedGoods> relatedGoods = introductionService.getRelatedGoods(relatedGoodsKey);
 		
 		model.addAttribute("goodsid", goods_id);
@@ -111,6 +123,8 @@ public class IntroductionController {
 		model.addAttribute("goodsorder", goodsOrderNum);
 		model.addAttribute("commentinfos", page);
 		model.addAttribute("relatedgoods", relatedGoods);
+		//商品推荐
+		model.addAttribute("goodsrecommend",goodsrecommend);
 		return "/JSP/RP/introduction.jsp";
 	}
 	

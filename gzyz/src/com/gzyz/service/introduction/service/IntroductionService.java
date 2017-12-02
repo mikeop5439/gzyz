@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.gzyz.bean.comment.extend.CommentPageKeywords;
+import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.introduction.extend.CommentInfo;
 import com.gzyz.bean.introduction.extend.CommentInfoByPage;
 import com.gzyz.bean.introduction.extend.GetSpecId;
@@ -29,4 +30,6 @@ public interface IntroductionService {
 	public int getRelatedGoodsCount(@Param("keywords") String keywords);
 	public void insertGoodsDate(UpdateGoodsDate updateGoodsDate);
 	public int getGoodsOrderNum(@Param("goods_id") int goods_id);
+	public List<Goods> querytgoodsrecommend(int user_id);
+	public List<Goods> querygoodsRelation(int goods_id);
 }

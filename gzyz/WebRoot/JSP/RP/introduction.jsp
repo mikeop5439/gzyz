@@ -80,7 +80,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		       });
 		     };
 		     
-		     function getrelategoods(){
+		     /* function getrelategoods(){
 				 var goods_id = showTableContent("keylist");
 				$.ajax({
 					type:"POST",
@@ -90,7 +90,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			        
 			        success:function(data){
 			        	$("#relatedgoosdid").empty();
-			        	$.each(data,function(index,content){
+			        	$.each(data,function(index,content){alert(content.goods_id);
 			        		var img1 = $("<img height='200' width='160'></img>").attr("src","${pageContext.request.contextPath}"+content.original_img);
 			        		var a1 = $("<a target='_blank'></a>").attr("href","/gzyz/items/itemsIntroduction.action?goods_id="+content.goods_id).append(img1);
 			        		
@@ -107,7 +107,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			        	});
 			        }
 				});
-		     }
+		     } */
 		     
 		     function setpage(allpage,nowpage){
 			     var i=2;
@@ -507,7 +507,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						     	<div class="mt">            
 						            <h2>看了又看</h2>        
 					            </div>
-						     	<c:forEach items="${relatedgoods }" var="relatedgoods">
+						     	<c:forEach items="${goodsrecommend }" var="relatedgoods">
 									<li class="first">
 							      		<div class="p-img">                    
 							      			<a href="/gzyz/items/itemsIntroduction.action?goods_id=${relatedgoods.goods_id }" target="_blank"> <img class="" src="${pageContext.request.contextPath}${relatedgoods.original_img}" height="180" width="160"> </a>               
@@ -714,17 +714,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 								<div class="am-tab-panel am-fade">
 									<div class="like">
-										<ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes" id="relatedgoosdid">
-										<c:forEach items="${relatedgoods }" var="relatedgoods">
+										<ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes" id="">
+										<c:forEach items="${goodsrecommend }" var="g">
 											<li>
 												<div class="i-pic limit">
-													<a href="/gzyz/items/itemsIntroduction.action?goods_id=${relatedgoods.goods_id }" target="_blank"><img src="${pageContext.request.contextPath}${relatedgoods.original_img}" /></a>
+													<a href="/gzyz/items/itemsIntroduction.action?goods_id=${g.goods_id }" target="_blank"><img src="${pageContext.request.contextPath}${g.original_img}" /></a>
 													<p>
-														<a href="/gzyz/items/itemsIntroduction.action?goods_id=${relatedgoods.goods_id }" target="_blank">${relatedgoods.goods_name }</a>
+														<a href="/gzyz/items/itemsIntroduction.action?goods_id=${g.goods_id }" target="_blank">${g.goods_name }</a>
 													</p>
 													<p class="price fl">
 														<b>¥</b>
-														<strong>${relatedgoods.shop_price }</strong>
+														<strong>${g.shop_price }</strong>
 													</p>
 												</div>
 											</li>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gzyz.bean.comment.extend.CommentPageKeywords;
+import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.introduction.extend.CommentInfo;
 import com.gzyz.bean.introduction.extend.CommentInfoByPage;
 import com.gzyz.bean.introduction.extend.GetSpecId;
@@ -92,6 +93,16 @@ public class IntroductionServiceImpl implements IntroductionService {
 	public int getGoodsOrderNum(int goods_id) {
 		// TODO Auto-generated method stub
 		return introductionMapper.getGoodsOrderNum(goods_id);
+	}
+	@Override
+	public List<Goods> querytgoodsrecommend(int user_id) {
+		// 推荐商品
+		return introductionMapper.selectgoodsrecommend(user_id);
+	}
+	@Override
+	public List<Goods> querygoodsRelation(int goods_id) {
+		//通过商品推荐商品 
+		return introductionMapper.selectgoodsRelation(goods_id);
 	}
 
 }
