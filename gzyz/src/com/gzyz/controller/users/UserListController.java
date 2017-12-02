@@ -493,22 +493,46 @@ public class UserListController {
 			System.out.println(st1);
 			return "redirect:/JSP/RP/index.jsp";
 		}
-		@RequestMapping("indeximasion")
-		public String indeximasion(HttpSession session,HttpServletRequest request){
-			User user2=(User) session.getAttribute("user");
-			//查询商品推荐
-			List<Goods>UserRecommend=userListService.queryrecommend(user2.getUser_id());
-			session.setAttribute("UserRecommend", UserRecommend);
-			//查询周排行
+		//查询周排行
+		@RequestMapping("weekranking")
+		public String weekranking(HttpSession session,HttpServletResponse response) throws Exception, JsonMappingException, IOException{
+			
 			List<Integer>weekranking_goodsid=userListService.selectweekranking();
 			List<Goods>weekrankinggoodslist=new ArrayList<>();
 			for (int id:weekranking_goodsid){
 				Goods goods=userListService.queryweekrankinggoods(id);
 				weekrankinggoodslist.add(goods);
 			}
-			session.setAttribute("weekrankinggoodslist", weekrankinggoodslist);
+			ObjectMapper mapper=new ObjectMapper();
+			String result=mapper.writeValueAsString(weekrankinggoodslist);
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/Javascript;charse=UTF-8");
+			response.getWriter().print(result);
 			
+			return null;
+		}
+		//查询新上架的商品
+		@RequestMapping("newgoods")
+		public String newgoods(HttpSession session,HttpServletResponse response) throws Exception, JsonMappingException, IOException{
 			
+			List<Goods>newgoods=userListService.quernewgoods();
+			
+			ObjectMapper mapper=new ObjectMapper();
+			String result=mapper.writeValueAsString(newgoods);
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/Javascript;charse=UTF-8");
+			response.getWriter().print(result);
+			
+			return null;
+		}
+		
+		@RequestMapping("indeximasion")
+		public String indeximasion(HttpSession session,HttpServletRequest request){
+			User user2=(User) session.getAttribute("user");
+			//查询商品推荐
+			List<Goods>UserRecommend=userListService.queryrecommend(user2.getUser_id());
+			session.setAttribute("UserRecommend", UserRecommend);
+						
 			return "redirect:/JSP/RP/index.jsp";
 		}
 		

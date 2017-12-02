@@ -40,4 +40,5 @@ public interface UserListService {
 	public List<Goods> queryrecommend(int user_id);
 	public List<Integer> selectweekranking();
 	public Goods queryweekrankinggoods(int id);
+	public List<Goods> quernewgoods();
 }

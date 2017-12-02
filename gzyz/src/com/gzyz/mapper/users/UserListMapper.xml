@@ -235,4 +235,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectweekrankinggoods" resultType="com.gzyz.bean.goods.Goods" parameterType="int">
 		select * from goods where goods_id=#{id}
 	</select>
+	<select id="selectnewgoods" resultType="com.gzyz.bean.goods.Goods">
+		select * from goods  ORDER BY goods_id  DESC limit 0,6 
+	</select>
 </mapper>	
