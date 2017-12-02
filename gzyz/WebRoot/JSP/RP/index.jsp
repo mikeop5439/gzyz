@@ -24,8 +24,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="${pageContext.request.contextPath}/JSP/RP/css/font-awesome.css" rel="stylesheet"> 
 <!-- //font-awesome icons -->
 <!-- js -->
-<script src="${pageContext.request.contextPath}/JSP/RP/js/jquery-1.11.1.min.js"></script>
 
+<script src="${pageContext.request.contextPath}/JSP/RP/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/js/index.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/js/move-top.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/js/easing.js"></script>
 <style>
@@ -42,17 +43,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   
 </style>
 <script type="text/javascript">
-function addUserCart(id){
-	var goods_name = $("#"+id).find("input[name='goods_name']").val();
-	var goods_sn = $("#"+id).find("input[name='goods_sn']").val();
-	var goods_price = $("#"+id).find("input[name='goods_price']").val();
-	var url="${pageContext.request.contextPath}/userlist/addUserCart.action";
-	var args={"goods_id":id,"goods_name":goods_name,"goods_sn":goods_sn,"goods_price":goods_price,"time":new Date()};
-	$.getJSON(url,args,function(){
-		alert("添加成功");
-	});
-}
-
 
 jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){		
@@ -400,11 +390,11 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 	<div class="top-brands">
 	
 		<div   class="container">
-		<h2>商品推荐</h2>
+		<div class="page-header"><h2>商品推荐</h2></div>
 	        <div class=" grid_3 grid_5 " >
 				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 					<ul id="myTab" class="nav nav-tabs" role="tablist">
-						<li role="presentation" class="active"><a href="#expeditions" id="expeditions-tab" role="tab" data-toggle="tab" aria-controls="expeditions" aria-expanded="true">周推荐榜</a></li>
+						<li role="presentation" class="active"><a href="#expeditions" id="expeditions-tab" role="tab" data-toggle="tab" aria-controls="expeditions" aria-expanded="true">推荐排行</a></li>
 						
 					</ul>
 					<div id="myTabContent" class="tab-content">
@@ -429,8 +419,8 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 												<figure>
 													<div class="snipcart-item block">
 														<div class="snipcart-thumb">
-															<a href="products.html"><img title=" " alt=" " src="${pageContext.request.contextPath}/${g.getOriginal_img()}" height="150px;" /></a>
-															<div class="goodsname"><p>${g.getGoods_name() }</p></div>
+															<a href="${pageContext.request.contextPath}/items/itemsIntroduction.action?goods_id=${g.getGoods_id()}"><img title=" " alt=" " src="${pageContext.request.contextPath}/${g.getOriginal_img()}" height="150px;" /></a>
+															<div class="goodsname"><a href="${pageContext.request.contextPath}/items/itemsIntroduction.action?goods_id=${g.getGoods_id()}"><p>${g.getGoods_name() }</p></a></div>
 															<div class="stars">
 																<i class="fa fa-star blue-star" aria-hidden="true"></i>
 																<i class="fa fa-star blue-star" aria-hidden="true"></i>
@@ -442,7 +432,7 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 														</div>
 														<div class="snipcart-details top_brand_home_details">
 																<fieldset>
-																	<button type="button" onclick="return addUserCart(${g.getGoods_id()} )" class="btn btn-warning btn-sm" style="width:85%;height:40px;color:#FFFFFF;">加入购物车</button>
+																	<button type="button" onclick="return addUserCart(${g.getGoods_id()} )" class="btn btn-warning btn-sm" style="width:100%;height:40px;color:#FFFFFF;">加入购物车</button>
 																</fieldset>
 															
 														</div>
@@ -471,13 +461,12 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 	
 	<div class="top-brands">
 	
-		<div   class="container">
-		<h2>热卖区</h2>
+		<div class="container">
+		    <div class="page-header"><h2>热卖区</h2></div>
 	        <div class=" grid_3 grid_5 " >
 				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 					<ul id="myTab" class="nav nav-tabs" role="tablist">
-						<li role="presentation" class="active"><a href="#expeditions" id="expeditions-tab" role="tab" data-toggle="tab" aria-controls="expeditions" aria-expanded="true">周热榜</a></li>
-						<li role="presentation"><a href="#tours" role="tab" id="tours-tab" data-toggle="tab" aria-controls="tours">本期上新</a></li>
+						<li role="presentation" class="active"><a href="#expeditions" id="expeditions-tab" role="tab" data-toggle="tab" aria-controls="expeditions" aria-expanded="true">周销售榜</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
 						<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
@@ -485,332 +474,52 @@ $("#audioBtn").removeClass("play").addClass("pause");}});
 								<center><p>当周热销好货，赶紧带回家吧。</p></center>
 							</div>
 							<div class="agile_top_brands_grids">
-								<div class="agile_top_brands_grids">
+							<div id="weekranking"class="agile_top_brands_grids">
 								
-								<c:forEach items="${weekrankinggoodslist }" var="g">
-								<div class="col-md-4 top_brand_left" id="${g.getGoods_id()}">
-									<input type="hidden" name="goods_sn" value="${g.getGoods_sn() }"/>
-									<input type="hidden" name="goods_name" value="${g.getGoods_name() }"/>
-									<input type="hidden" name="goods_price" value="${g.getShop_price()}"/>
-									<div class="hover14 column">
-										<div class="agile_top_brand_left_grid">
-											<div class="agile_top_brand_left_grid_pos">
-												<!-- <img src="images/offer.png" alt=" " class="img-responsive" /> -->
-											</div>
-											<div class="agile_top_brand_left_grid1">
-												<figure>
-													<div class="snipcart-item block">
-														<div class="snipcart-thumb">
-															<a href="products.html"><img title=" " alt=" " src="${pageContext.request.contextPath}/${g.getOriginal_img()}" height="150px;" /></a>
-															<div class="goodsname"><p>${g.getGoods_name() }</p></div>
-															<div class="stars">
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star gray-star" aria-hidden="true"></i>
-															</div>
-															<h4>￥${g.getOriginal_price() } <span>￥${g.getShop_price() }</span></h4>
-														</div>
-														<div class="snipcart-details top_brand_home_details">
-																<fieldset>
-																	<button type="button" onclick="return addUserCart(${g.getGoods_id()} )" class="btn btn-warning btn-sm" style="width:85%;height:40px;color:#FFFFFF;">加入购物车</button>
-																</fieldset>
-															
-														</div>
-													</div>
-												</figure>
-											</div>
-										</div>
-									</div>
-								</div>
-								</c:forEach>
-								<div class="clearfix"> </div>
+								
 							</div>
 							</div>
 						</div>
 							
 						</div>
-						<div role="tabpanel" class="tab-pane fade" id="tours" aria-labelledby="tours-tab">
-							<div class="agile-tp">
-								
-								<center><p>我们从未止步，和孝一直前行为中老年人提供更优质的产品，让中老年人生活更有品质。</p></center>
-							</div>
-								<div class="agile_top_brands_grids">
-								<div class="col-md-4 top_brand_left">
-									<div class="hover14 column">
-										<div class="agile_top_brand_left_grid">
-											<div class="agile_top_brand_left_grid_pos">
-												<img src="images/offer.png" alt=" " class="img-responsive" />
-											</div>
-											<div class="agile_top_brand_left_grid1">
-												<figure>
-													<div class="snipcart-item block" >
-														<div class="snipcart-thumb">
-															<a href="products.html"><img title=" " alt=" " src="images/17.jpg" height="150px;" /></a>		
-															<p>养生枕</p>
-															<div class="stars">
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star gray-star" aria-hidden="true"></i>
-															</div>
-															<h4>￥2000.99 <span>￥3500.00</span></h4>
-														</div>
-														<div class="snipcart-details top_brand_home_details">
-															<form action="#" method="post">
-																<fieldset>
-																	<input type="hidden" name="cmd" value="_cart" />
-																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
-																	<input type="hidden" name="item_name" value="Fortune Sunflower Oil" />
-																	<input type="hidden" name="amount" value="20.99" />
-																	<input type="hidden" name="discount_amount" value="1.00" />
-																	<input type="hidden" name="currency_code" value="USD" />
-																	<input type="hidden" name="return" value=" " />
-																	<input type="hidden" name="cancel_return" value=" " />
-																	<input type="submit" name="submit" value="加入购物车" class="button" />
-																</fieldset>
-															</form>
-														</div>
-													</div>
-												</figure>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-4 top_brand_left">
-									<div class="hover14 column">
-										<div class="agile_top_brand_left_grid">
-											<div class="agile_top_brand_left_grid_pos">
-												<img src="images/offer.png" alt=" " class="img-responsive" />
-											</div>
-											<div class="agile_top_brand_left_grid1">
-												<figure>
-													<div class="snipcart-item block" >
-														<div class="snipcart-thumb">
-															<a href="products.html"><img title=" " alt=" " src="images/17.png" /></a>		
-															<p>五谷杂粮</p>
-															<div class="stars">
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star gray-star" aria-hidden="true"></i>
-															</div>
-															<h4>￥200.99 <span>￥350.00</span></h4>
-														</div>
-														<div class="snipcart-details top_brand_home_details">
-															<form action="#" method="post">
-																<fieldset>
-																	<input type="hidden" name="cmd" value="_cart" />
-																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
-																	<input type="hidden" name="item_name" value="basmati rise" />
-																	<input type="hidden" name="amount" value="20.99" />
-																	<input type="hidden" name="discount_amount" value="1.00" />
-																	<input type="hidden" name="currency_code" value="USD" />
-																	<input type="hidden" name="return" value=" " />
-																	<input type="hidden" name="cancel_return" value=" " />
-																	<input type="submit" name="submit" value="加入购物车" class="button" />
-																</fieldset>
-															</form>
-														</div>
-													</div>
-												</figure>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-4 top_brand_left">
-									<div class="hover14 column">
-										<div class="agile_top_brand_left_grid">
-											<div class="agile_top_brand_left_grid_pos">
-												<img src="images/offer.png" alt=" " class="img-responsive" />
-											</div>
-											<div class="agile_top_brand_left_grid1">
-												<figure>
-													<div class="snipcart-item block">
-														<div class="snipcart-thumb">
-															<a href="products.html"><img src="images/23.jpg" alt=" "   height="150px;" /></a>
-															<p>时尚老花镜</p>
-															<div class="stars">
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star gray-star" aria-hidden="true"></i>
-															</div>
-															<h4>￥40.99 <span>￥65.00</span></h4>
-														</div>
-														<div class="snipcart-details top_brand_home_details">
-															<form action="#" method="post">
-																<fieldset>
-																	<input type="hidden" name="cmd" value="_cart" />
-																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
-																	<input type="hidden" name="item_name" value="Pepsi soft drink" />
-																	<input type="hidden" name="amount" value="40.00" />
-																	<input type="hidden" name="discount_amount" value="1.00" />
-																	<input type="hidden" name="currency_code" value="USD" />
-																	<input type="hidden" name="return" value=" " />
-																	<input type="hidden" name="cancel_return" value=" " />
-																	<input type="submit" name="submit" value="加入购物车" class="button" />
-																</fieldset>
-															</form>
-														</div>
-													</div>
-												</figure>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="clearfix"> </div>
-							<div class="agile_top_brands_grids">
-								<div class="col-md-4 top_brand_left">
-									<div class="hover14 column">
-										<div class="agile_top_brand_left_grid">
-											<div class="agile_top_brand_left_grid_pos">
-												<img src="images/offer.png" alt=" " class="img-responsive" />
-											</div>
-											<div class="agile_top_brand_left_grid1">
-												<figure>
-													<div class="snipcart-item block" >
-														<div class="snipcart-thumb">
-															<a href="products.html"><img title=" " alt=" " src="images/13.jpg" height="150px;" /></a>		
-															<p>血压计</p>
-															<div class="stars">
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star gray-star" aria-hidden="true"></i>
-															</div>
-															<h4>￥350.99 <span>￥550.00</span></h4>
-														</div>
-														<div class="snipcart-details top_brand_home_details">
-															<form action="#" method="post">
-																<fieldset>
-																	<input type="hidden" name="cmd" value="_cart" />
-																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
-																	<input type="hidden" name="item_name" value="Fortune Sunflower Oil" />
-																	<input type="hidden" name="amount" value="35.99" />
-																	<input type="hidden" name="discount_amount" value="1.00" />
-																	<input type="hidden" name="currency_code" value="USD" />
-																	<input type="hidden" name="return" value=" " />
-																	<input type="hidden" name="cancel_return" value=" " />
-																	<input type="submit" name="submit" value="加入购物车" class="button" />
-																</fieldset>
-															</form>
-														</div>
-													</div>
-												</figure>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-4 top_brand_left">
-									<div class="hover14 column">
-										<div class="agile_top_brand_left_grid">
-											<div class="agile_top_brand_left_grid_pos">
-												<img src="images/offer.png" alt=" " class="img-responsive" />
-											</div>
-											<div class="agile_top_brand_left_grid1">
-												<figure>
-													<div class="snipcart-item block" >
-														<div class="snipcart-thumb">
-															<a href="products.html"><img title=" " alt=" " src="images/21.jpg" height="150px;"/></a>		
-															<p>中老年人高端踏步机</p>
-															<div class="stars">
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star gray-star" aria-hidden="true"></i>
-															</div>
-															<h4>￥3000.99 <span>￥4500.00</span></h4>
-														</div>
-														<div class="snipcart-details top_brand_home_details">
-															<form action="#" method="post">
-																<fieldset>
-																	<input type="hidden" name="cmd" value="_cart" />
-																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
-																	<input type="hidden" name="item_name" value="basmati rise" />
-																	<input type="hidden" name="amount" value="30.99" />
-																	<input type="hidden" name="discount_amount" value="1.00" />
-																	<input type="hidden" name="currency_code" value="USD" />
-																	<input type="hidden" name="return" value=" " />
-																	<input type="hidden" name="cancel_return" value=" " />
-																	<input type="submit" name="submit" value="加入购物车" class="button" />
-																</fieldset>
-															</form>
-														</div>
-													</div>
-												</figure>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-4 top_brand_left">
-									<div class="hover14 column">
-										<div class="agile_top_brand_left_grid">
-											<div class="agile_top_brand_left_grid_pos">
-												<img src="images/offer.png" alt=" " class="img-responsive" />
-											</div>
-											<div class="agile_top_brand_left_grid_pos">
-												<img src="images/offer.png" alt=" " class="img-responsive" />
-											</div>
-											<div class="agile_top_brand_left_grid1">
-												<figure>
-													<div class="snipcart-item block">
-														<div class="snipcart-thumb">
-															<a href="products.html"><img title=" " alt=" " src="images/4.jpg" height="150px;"/></a>
-															<p>收音机</p>
-															<div class="stars">
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star blue-star" aria-hidden="true"></i>
-																<i class="fa fa-star gray-star" aria-hidden="true"></i>
-															</div>
-															<h4>￥800.99 <span>￥1050.00</span></h4>
-														</div>
-														<div class="snipcart-details top_brand_home_details">
-															<form action="#" method="post">
-																<fieldset>
-																	<input type="hidden" name="cmd" value="_cart" />
-																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
-																	<input type="hidden" name="item_name" value="Pepsi soft drink" />
-																	<input type="hidden" name="amount" value="80.00" />
-																	<input type="hidden" name="discount_amount" value="1.00" />
-																	<input type="hidden" name="currency_code" value="USD" />
-																	<input type="hidden" name="return" value=" " />
-																	<input type="hidden" name="cancel_return" value=" " />
-																	<input type="submit" name="submit" value="加入购物车" class="button" />
-																</fieldset>
-															</form>
-														</div>
-													</div>
-												</figure>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="clearfix"> </div>
-							</div>
 						
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+<!-- 新品 -->
+<div class="fix-right-sub">
+	
+	<div class="top-brands">
+	
+		<div class="container">
+	        <div class=" grid_3 grid_5 " style="margin-top:-100px;" >
+				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+					<ul id="myTab" class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#expeditions" id="expeditions-tab" role="tab" data-toggle="tab" aria-controls="expeditions" aria-expanded="true">新品热卖</a></li>
+					</ul>
+					<div id="myTabContent" class="tab-content">
+						<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
+							<div class="agile-tp">
+								<center><p>新品好货，赶紧带回家吧。</p></center>
+							</div>
+							<div class="agile_top_brands_grids">
+							<div id="newgoods"class="agile_top_brands_grids">
+								
+								
+							</div>
+							</div>
+						</div>
+							
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+<!-- 新品 -->	
 <!-- //top-brands -->
 
 

@@ -318,4 +318,11 @@ public class UserListServiceImpl implements UserListService {
 		// 查询周排行商品详情
 		return userListMapper.selectweekrankinggoods(id);
 	}
+
+	@Override
+	public List<Goods> quernewgoods() {
+		//查询新商品
+		
+		return userListMapper.selectnewgoods();
+	}
 }

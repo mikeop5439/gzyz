@@ -165,7 +165,7 @@ function hideURLbar(){window.scrollTo(0,1);}
 	  </div>
   </c:forEach>
   </c:forEach>
-  <!--如果购物车没有商品  --> 
+<!--如果购物车没有商品  --> 
 <c:if test="${userCarts.size() == 0}">
 	<div class="item" >
 		<div  class="container nogoods">
@@ -174,7 +174,7 @@ function hideURLbar(){window.scrollTo(0,1);}
 	</div>
 </c:if>
 <!----------如果购物车没有商品  --> 
-  <div style="background-color: #E5E5E5;margin-top:20px;width:100%;height:50px;clear:both;">
+  <div style="background-color: #E5E5E5; margin-top:20px; margin-bottom:20px;width:100%;height:50px;clear:both;">
   		<div >
   		<ul class="top-bottom">
 	  	<li class="td1"><input id="allselect2" name="allselect2" type="checkbox" >&nbsp;&nbsp;全选</li>
@@ -191,9 +191,9 @@ function hideURLbar(){window.scrollTo(0,1);}
 
 <!-- //底部 -->
 
-<div class="footer-botm navbar-fixed-bottom">
+<div style="background-color: #2d2b2b;">
 			<div class="container">
-				<div class="w3layouts-foot">
+				<div class="w3layouts-foot" style="padding-top:20px;">
 					<ul>
 						<li><a href="#" class="w3_agile_facebook"><i class="fa fa-qq" aria-hidden="true"></i></a></li>
 						<li><a href="#" class="agile_twitter"><i class="fa fa-weixin" aria-hidden="true"></i></a></li>
@@ -201,7 +201,7 @@ function hideURLbar(){window.scrollTo(0,1);}
 						
 					</ul>
 				</div>
-				<div class="payment-w3ls">	
+				<div class="payment-w3ls" style="padding-top:26px;">	
 					<img src="${pageContext.request.contextPath}/JSP/RP/images/card.png" alt=" " class="img-responsive">
 				</div>
 				<div class="clearfix"> </div>

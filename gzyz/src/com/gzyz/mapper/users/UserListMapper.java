@@ -64,5 +64,7 @@ public interface UserListMapper {
 
 		public List<Integer> selectweekranking();
 
-		public Goods selectweekrankinggoods(int id); 
+		public Goods selectweekrankinggoods(int id);
+
+		public List<Goods> selectnewgoods(); 
 }
