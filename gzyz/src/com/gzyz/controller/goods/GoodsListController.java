@@ -83,7 +83,7 @@ public class GoodsListController {
 	}
 	//修改商品信息
 	@RequestMapping("updateTheGood.action")
-	public String updateTheGood(Goods goods,MultipartFile goodphoto,HttpSession session,int flage) throws IllegalStateException, IOException{
+	public String updateTheGood(Goods goods,MultipartFile goodphoto,MultipartFile details_imgphoto,HttpSession session,int flage) throws IllegalStateException, IOException{
 		if(flage==1){
 			//在这里进行文件保存操作
 			//传进去的是一个路径，返回的也是一个路径
@@ -102,6 +102,55 @@ public class GoodsListController {
 			
 			
 			goods.setOriginal_img(saveFilePath);
+		}else if(flage==2){
+            String path = session.getServletContext().getRealPath("/upload/goods_details_img");
+			
+			String realName="";
+			
+			realName = realName+goods.getGoods_id()+".jpg";
+			
+			String realFilePath = path+File.separator+realName;
+			
+			String saveFilePath = File.separator+"upload"+File.separator+"goods_details_img"+File.separator+realName;
+			
+			File file = new File(realFilePath);
+			details_imgphoto.transferTo(file);
+			
+			
+			goods.setDetails_img(saveFilePath);
+		}else if(flage==3){
+			//商品描述图片
+            String path = session.getServletContext().getRealPath("/upload/goods_details_img");
+			
+			String realName="";
+			
+			realName = realName+goods.getGoods_id()+".jpg";
+			
+			String realFilePath = path+File.separator+realName;
+			
+			String saveFilePath = File.separator+"upload"+File.separator+"goods_details_img"+File.separator+realName;
+			
+			File file = new File(realFilePath);
+			
+			details_imgphoto.transferTo(file);
+			
+			goods.setDetails_img(saveFilePath);
+			//商品图片
+            String pathg = session.getServletContext().getRealPath("/upload/goodsimg");
+			
+			String realNameg="";
+			
+			realNameg = realName+goods.getGoods_id()+".jpg";
+			
+			String realFilePathg = pathg+File.separator+realNameg;
+			
+			String saveFilePathg = File.separator+"upload"+File.separator+"goodsimg"+File.separator+realNameg;
+			
+			File fileg = new File(realFilePathg);
+			
+			goodphoto.transferTo(fileg);
+			
+			goods.setOriginal_img(saveFilePathg);
 		}
 		 goodsListService.updateTheGood(goods);
 		 System.out.println(goods);

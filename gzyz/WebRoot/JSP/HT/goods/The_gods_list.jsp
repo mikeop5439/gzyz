@@ -53,6 +53,7 @@ function updategood(id){
 			   $("#goods_brief").val(data.goods_brief);
 			   $("#goods_desc").val(data.goods_desc);
 			   $("#imgofgood").attr("src","${pageContext.request.contextPath}"+data.original_img+"");
+			   $("#imgofdetails_img").attr("src","${pageContext.request.contextPath}"+data.details_img+"");
 			   /* 设置显示状态和上架状态的标识 */
 			  if(data.show_in_recyc==1){
 			     $("#onshow").attr("checked","checked");
@@ -419,7 +420,7 @@ function updategood(id){
 
 
 	
- <div class="am-popup am-popup-inner" id="my-popup">
+ <div class="am-popup am-popup-inner" id="my-popup" style="max-height:650px;">
       <div class="am-popup-hd">
         <h4 class="am-popup-title">修改</h4>
         <span data-am-modal-close
@@ -503,7 +504,7 @@ function updategood(id){
             <div class="clear"></div>
           </div>
           <div class="am-form-group am-cf">
-            <div class="zuo">图片：</div>
+            <div class="zuo">商品图片：</div>
             <img id="imgofgood" src="${pageContext.request.contextPath }" width=80px height=100px/>
             <div class="you" style="height: 45px;">
               <input id="goodphoto" type="file" id="doc-ipt-file-1" name="goodphoto">
@@ -511,7 +512,15 @@ function updategood(id){
             </div>
             <div class="clear"></div>
           </div>
-          
+          <div class="am-form-group am-cf">
+            <div class="zuo">详细描述图片：</div>
+            <img id="imgofdetails_img" src="${pageContext.request.contextPath }" width=80px height=100px/>
+            <div class="you" style="height: 45px;">
+              <input id="details_imgphoto" type="file" id="doc-ipt-file-1" name="details_imgphoto">
+              <p class="am-form-help">请选择要上传的文件...</p>
+            </div>
+            <div class="clear"></div>
+          </div>
           <div class="am-form-group am-cf">
             <div class="zuo">显示状态：</div>
             <div class="you" style="margin-top: 3px;">
@@ -726,10 +735,14 @@ function selectNull(){
 </script>   
 <script type="text/javascript">
 function isNull(){
-if($("#goodphoto").val()==""){
+if($("#goodphoto").val()==""&&$("#details_imgphoto").val()==""){
 $("#thisform").attr("action","${pageContext.request.contextPath }/good/updateTheGood.action?flage=0");
-}else{
+}else if($("#goodphoto").val()!=""&&$("#details_imgphoto").val()==""){
 $("#thisform").attr("action","${pageContext.request.contextPath }/good/updateTheGood.action?flage=1");
+}else if($("#goodphoto").val()==""&&$("#details_imgphoto").val()!=""){
+$("#thisform").attr("action","${pageContext.request.contextPath }/good/updateTheGood.action?flage=2");
+}else if($("#goodphoto").val()!=""&&$("#details_imgphoto").val()!=""){
+$("#thisform").attr("action","${pageContext.request.contextPath }/good/updateTheGood.action?flage=3");
 }
 }
 </script>
