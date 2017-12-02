@@ -20,7 +20,7 @@
 		<property name="user" value="root"/>
 		<property name="password" value="root"/>  
 	</bean>
-	
+	 
 	<!-- mybatis的运行过程
 		 sqlSessionFactory sqlSession  Mapper接口实现类
 		
