@@ -33,4 +33,7 @@ public interface OrderListService {
 	public Order_details queryOrderDetailsById(int order_id);
 	public void updateOrderDetailsByIdStart(); 
 	public void updateOrderDetailsByIdEnd(); 
+	
+	public void updateOrderByOrder(Order order);
+	public Order queryOrderById(int order_id);
 }

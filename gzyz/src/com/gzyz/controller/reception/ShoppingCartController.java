@@ -351,6 +351,69 @@ public class ShoppingCartController {
 		
 	}
 	
+	//查询用户未支付的订单到——>显示到付款页面->主页
+	@RequestMapping("playorderpay2")
+	public String playorderpay2(HttpServletRequest request,HttpSession session) throws UnsupportedEncodingException, AlipayApiException{
+		//获取订单返回来的信息
+//			User user=(User) session.getAttribute("user");
+		Order order = new Order();
+		
+		//获取支付宝GET过来的信息
+		Map<String,String> params = new HashMap<String,String>();
+		Map<String,String[]> requestParams = request.getParameterMap();
+		for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext();) {
+			String name = (String) iter.next();
+			String[] values = (String[]) requestParams.get(name);
+			String valueStr = "";
+			for (int i = 0; i < values.length; i++) {
+				valueStr = (i == values.length - 1) ? valueStr + values[i]
+						: valueStr + values[i] + ",";
+			}
+			//解决乱码
+			valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
+			params.put(name, valueStr);
+		}
+		
+		System.out.println("123");
+		//验证签名
+		boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type); 
+
+		//处理返回的信息
+		if(signVerified) {
+			
+			//商品订单号
+			String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"),"UTF-8");
+			
+			//支付宝交易号
+			String trade_no = new String(request.getParameter("trade_no").getBytes("ISO-8859-1"),"UTF-8");
+			     
+			//支付金额
+			String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
+			
+			System.out.println(out_trade_no);
+			System.out.println(trade_no);
+			System.out.println(total_amount);
+			
+			System.out.println("123");
+			int order_no = Integer.parseInt(out_trade_no.trim());
+			
+			order = orderListService.queryOrderById(order_no);
+						 
+			order.setOrder_status(1);
+			
+			orderListService.updateOrderDetailsByIdStart();
+			
+			orderListService.updateOrderByOrder(order);
+			
+			orderListService.updateOrderDetailsByIdEnd();
+		}else {
+			System.out.println("验证签名失败！");
+		}		
+		
+		return "redirect:/JSP/RP/index.jsp";//回话结束，从定向到主页
+		
+	}
+	
 	@RequestMapping("delectselectcart")
 	public String delectselectcart(HttpServletRequest request,HttpSession session,HttpServletResponse response) throws Exception{
 		//删除多个选择的购物车商品

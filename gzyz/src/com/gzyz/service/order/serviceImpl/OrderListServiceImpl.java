@@ -135,5 +135,15 @@ public class OrderListServiceImpl implements OrderListService {
 	public void updateOrderDetailsByIdEnd() {
 		orderListMapper.updateOrderDetailsByIdEnd(); 
 	}
+	
+	@Override
+	public void updateOrderByOrder(Order order) {
+		orderListMapper.updateOrderByOrder(order);
+	}
+
+	@Override
+	public Order queryOrderById(int order_id) {
+		return orderListMapper.queryOrderById(order_id);
+	}
 
 }

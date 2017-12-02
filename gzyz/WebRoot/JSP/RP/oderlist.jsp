@@ -120,7 +120,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 var flage;
                 var action;
-                var pay=$("<a></a>").attr("id","J_Go").addClass("btn-area submit-btn submit-btn-disabled").attr("href","${pageContext.request.contextPath}/JSP/PAY/alipay.trade.page.pay.jsp?WIDtotal_amount="+sum+"&WIDout_trade_no="+sNow+"&WIDsubject=tre&WIDbody=商品描述").append("<span>结&nbsp;算</span>");
+                var pay=$("<a></a>").attr("id","J_Go").addClass("btn-area submit-btn submit-btn-disabled").attr("href","${pageContext.request.contextPath}/JSP/PAY/alipay.trade.page.pay2.jsp?WIDtotal_amount="+sum+"&WIDout_trade_no="+order_id+"&WIDsubject=tre&WIDbody=商品描述").append("<span>结&nbsp;算</span>");
                 var queren=$("<a></a>").attr("id","J_Go").addClass("btn-area submit-btn submit-btn-disabled").attr("href","${pageContext.request.contextPath}/JSP/RP/comfirm.jsp?order_id="+order_id+"").append("<p>确认收货</p>");
                 var tuikuan=$("<a></a>").attr("id","J_Go").addClass("btn-area submit-btn submit-btn-disabled").attr("href","${pageContext.request.contextPath}/JSP/RP/tuikuan.jsp?order_id="+order_id+"").append("<span>申请售后</span>");
                 var culi=$("<a></a>").attr("id","J_Go").addClass("btn-area submit-btn submit-btn-disabled").attr("href","#").append("<span>售后处理中</span>");
