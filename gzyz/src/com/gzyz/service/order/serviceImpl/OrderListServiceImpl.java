@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gzyz.bean.order.Order;
+import com.gzyz.bean.order.Order_details;
 import com.gzyz.bean.order.extend.OrderInfo;
 import com.gzyz.bean.order.extend.OrderKeywords;
 import com.gzyz.bean.order.extend.OrderVo;
@@ -108,4 +109,31 @@ public class OrderListServiceImpl implements OrderListService {
 	public void updateOrderByUserStuts(Order order) {
 		orderListMapper.updateOrderByUserStuts(order);  
 	}
+	
+	//订单号合并
+	@Override
+	public void deleteOrderByUserId(int order_id) {
+		orderListMapper.deleteOrderByUserId(order_id); 
+	}
+	 
+	@Override
+	public void updateOrderDetailsById(Order_details order_details) {
+		orderListMapper.updateOrderDetailsById(order_details);
+	}
+   
+	@Override
+	public Order_details queryOrderDetailsById(int order_id) {
+		return orderListMapper.queryOrderDetailsById(order_id);   
+	}
+
+	@Override
+	public void updateOrderDetailsByIdStart() {
+		orderListMapper.updateOrderDetailsByIdStart();
+	}
+
+	@Override
+	public void updateOrderDetailsByIdEnd() {
+		orderListMapper.updateOrderDetailsByIdEnd(); 
+	}
+
 }

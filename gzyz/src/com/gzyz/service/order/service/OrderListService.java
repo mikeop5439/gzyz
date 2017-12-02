@@ -3,6 +3,7 @@ package com.gzyz.service.order.service;
 import java.util.List;
 
 import com.gzyz.bean.order.Order;
+import com.gzyz.bean.order.Order_details;
 import com.gzyz.bean.order.extend.OrderInfo;
 import com.gzyz.bean.order.extend.OrderKeywords;
 import com.gzyz.bean.order.extend.OrderVo;
@@ -26,4 +27,10 @@ public interface OrderListService {
 	public void updateOrderByUser(Order order);//通过用户id设置支付状态和订单号
 	public int queryAllOrderByUserCounts(int user_id);//通过用户id查询用户订单的记录数	
 	public void updateOrderByUserStuts(Order order);//通过用户id设置支付状态和订单号
+	//订单号合并
+	public void deleteOrderByUserId(int order_id);
+	public void updateOrderDetailsById(Order_details order_details);
+	public Order_details queryOrderDetailsById(int order_id);
+	public void updateOrderDetailsByIdStart(); 
+	public void updateOrderDetailsByIdEnd(); 
 }

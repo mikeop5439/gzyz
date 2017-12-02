@@ -239,6 +239,9 @@ public class ShoppingCartController {
 		Order order = new Order();
 		int userid = user.getUser_id();
 		
+		//订单号合并
+//		List<Order_details> order_detailslist = new ArrayList<>();  
+		
 		//获取支付宝GET过来的信息
 		Map<String,String> params = new HashMap<String,String>();
 		Map<String,String[]> requestParams = request.getParameterMap();
@@ -261,20 +264,29 @@ public class ShoppingCartController {
 
 		//处理返回的信息
 		if(signVerified) {
+			
+			//生成订单id
+			Random random = new Random();
+			int rdnum=random.nextInt(50000);
+			Date time=new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMHHss");
+			int order_id = Integer.parseInt(sdf.format(time))+rdnum;
+			String order_idtostring = Integer.toString(order_id);
+			
 			//商品订单号
-			String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"),"UTF-8");
-		
+//				String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"),"UTF-8");
+			String out_trade_no = new String(order_idtostring);
+			
 			//支付宝交易号
 			String trade_no = new String(request.getParameter("trade_no").getBytes("ISO-8859-1"),"UTF-8");
-		
+			
+		        
 			//支付金额
 			String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
 			
 			System.out.println(out_trade_no);
 			System.out.println(trade_no);
 			System.out.println(total_amount);
-			System.out.println("123");
-//				out.println("trade_no:"+trade_no+"<br/>out_trade_no:"+out_trade_no+"<br/>total_amount:"+total_amount);
 			
 			int a = orderListService.queryAllOrderByUserCounts(userid);
 			System.out.println(a);
@@ -290,22 +302,48 @@ public class ShoppingCartController {
 				int b = orderListService.queryAllOrderByUserCounts(userid);
 				System.out.println(b);
 				orderlist = orderListService.queryAllOrderByUserList(userid);
+				
+				//order_details合并修改  
 				for (Order orderEle: orderlist) {
-					/*Date nowTime = new Date(System.currentTimeMillis());
-					SimpleDateFormat sdFormatter = new SimpleDateFormat("HH:mm:ss:SSS");
-					String retStrFormatNowDate = sdFormatter.format(nowTime).replace(":", "").trim();
-					System.out.println(retStrFormatNowDate);
-					orderEle.setOrder_id(Integer.parseInt(retStrFormatNowDate));*/
 					System.out.println(orderEle);
-					orderEle.setOrder_status(1);
-//						orderListService.updateOrderByUser(orderEle);
-					orderListService.updateOrderByUserStuts(orderEle);
-					System.out.println("支付完成！");   
+					Order_details order_details = orderListService.queryOrderDetailsById(orderEle.getOrder_id());
+					
+					orderListService.updateOrderDetailsByIdStart();
+					
+					order_details.setOrder_id(order_no);
+					
+					orderListService.updateOrderDetailsById(order_details);
+					
+//						orderListService.deleteOrderByUserId(orderEle.getOrder_id());
+					
+					orderListService.updateOrderDetailsByIdEnd();
+					  
+					System.out.println("支付完成！");    
 				}
+				
+				Order[] orderFinaly = orderlist.toArray(new Order[0]);
+				
+				for(int i = 0; i < orderFinaly.length-1; i++){
+					
+					orderListService.deleteOrderByUserId(orderFinaly[i].getOrder_id());
+					
+				} 
+				
+				Order orderEleFinaly = orderFinaly[orderFinaly.length-1]; 
+				
+				orderEleFinaly.setOrder_status(1);
+				orderEleFinaly.setOrder_id(order_no);      
+				
+				orderListService.updateOrderDetailsByIdStart();
+				
+				orderListService.updateOrderByUser(orderEleFinaly);
+				
+				orderListService.updateOrderDetailsByIdEnd();
+				
+				System.out.println("支付完成！");  
 			}
 			 
 		}else {
-//				out.println("验证签名失败！");
 			System.out.println("验证签名失败！");
 		}		
 		
