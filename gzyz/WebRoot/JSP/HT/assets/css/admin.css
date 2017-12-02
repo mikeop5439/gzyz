@@ -231,7 +231,7 @@ gallery.html css
 .tjlanmu .am-form-group{margin: 2px auto}
 .clear{clear:both}
 
-.admin-content .am-popup{ max-height:1000px; border-radius: 4px; overflow: hidden;}
+.admin-content .am-popup{ max-height:1000px; border-radius: 4px; }
 
 
 .am-kg{ margin:0}

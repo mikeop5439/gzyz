@@ -73,6 +73,9 @@ update goods
       <if test="is_shelves != null" >
         is_shelves = #{is_shelves,jdbcType=INTEGER},
       </if>
+      <if test="details_img != null" >
+        details_img = #{details_img,jdbcType=INTEGER},
+      </if>
     </set>
 where goods_id=#{goods_id}  
 </update>

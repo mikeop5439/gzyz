@@ -113,11 +113,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			   $.each(data.goods,function(index,content){
 			   var li=$("<li></li>");
 			   var div=$("<div></div>").addClass("i-pic limit");
+			   var a1=$("<a></a>").attr("href","${pageContext.request.contextPath }/items/itemsIntroduction.action?goods_id="+content.goods_id);
 			   var img=$("<img></img>").attr("weidth","200px").attr("height","280px").attr("src","${pageContext.request.contextPath }/"+content.original_img);
 			   var p1=$("<p></p>").addClass("title fl").append(content.goods_name);
 			   var p2=$("<p></p>").addClass("price fl").append($("<b></b>").append("¥")).append($("<strong></strong>").append(content.shop_price));
 			   var p3=$("<p></p>").addClass("number fl").append("销量").append($("<span></span>").append(content.sales));
-			   div.append(img).append(p1).append(p2).append(p3);
+			   div.append(a1.append(img)).append(a1.append(p1)).append(p2).append(p3);
 			   $("#searchGoodsUl").append(li.append(div));
 			   });
 			  } 
@@ -146,11 +147,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			   $.each(data.goods,function(index,content){
 			   var li=$("<li></li>");
 			   var div=$("<div></div>").addClass("i-pic limit");
+			   var a1=$("<a></a>").attr("href","${pageContext.request.contextPath }/items/itemsIntroduction.action?goods_id="+content.goods_id);
 			   var img=$("<img></img>").attr("weidth","200px").attr("height","280px").attr("src","${pageContext.request.contextPath }/"+content.original_img);
 			   var p1=$("<p></p>").addClass("title fl").append(content.goods_name);
 			   var p2=$("<p></p>").addClass("price fl").append($("<b></b>").append("¥")).append($("<strong></strong>").append(content.shop_price));
 			   var p3=$("<p></p>").addClass("number fl").append("销量").append($("<span></span>").append(content.sales));
-			   div.append(img).append(p1).append(p2).append(p3);
+			   div.append(a1.append(img)).append(a1.append(p1)).append(p2).append(p3);
 			   $("#searchGoodsUl").append(li.append(div));
 			   }); 
 			  } 
@@ -183,9 +185,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			
 			<a id="aoflogin" href="#" style="color: #FCFCFC;margin-left: 20px; display:none;">欢迎，${sessionScope.loginuser.user_name}</a>
 			
-			<a id="aofalogin" href="login.html" style="color: #FCFCFC;margin-left: 20px; display:none;">登录</a>
+			<a id="aofalogin" href="${pageContext.request.contextPath}/JSP/RP/login.jsp" style="color: #FCFCFC;margin-left: 20px; display:none;">登录</a>
 		
-			<a id="aofblogin" href="registered.html" style="color: #FCFCFC;margin-left: 20px; display:none;">注册</a>
+			<a id="aofblogin" href="${pageContext.request.contextPath}/JSP/RP/registered.jsp" style="color: #FCFCFC;margin-left: 20px; display:none;">注册</a>
 		
 			</div>
 			<div class="w3l_search" style="margin-top: 5px;">
@@ -223,7 +225,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="long-title"><span class="all-goods">全部分类</span></div>
 			<div class="nav-cont">
 				<ul>
-					<li class="index"><a href="${pageContext.request.contextPath}/JSP/RP/allclass.jsp#eee">建康生活</a></li>
+					<li class="index"><a href="${pageContext.request.contextPath}/JSP/RP/allclass.jsp#eee">健康生活</a></li>
 					<li class="qc"><a href="${pageContext.request.contextPath}/JSP/RP/allclass.jsp#bbb">日常百货</a></li>
 					<li class="qc"><a href="${pageContext.request.contextPath}/JSP/RP/allclass.jsp#fff">夕阳潮流</a></li>
 					<li class="qc last"><a href="${pageContext.request.contextPath}/JSP/RP/allclass.jsp#ggg">延年礼品</a></li>
@@ -389,11 +391,12 @@ function searchGoodsLimtBySales(nowpage){
 			   $.each(data.goods,function(index,content){
 			   var li=$("<li></li>");
 			   var div=$("<div></div>").addClass("i-pic limit");
+			   var a1=$("<a></a>").attr("href","${pageContext.request.contextPath }/items/itemsIntroduction.action?goods_id="+content.goods_id);
 			   var img=$("<img></img>").attr("weidth","200px").attr("height","280px").attr("src","${pageContext.request.contextPath }/"+content.original_img);
 			   var p1=$("<p></p>").addClass("title fl").append(content.goods_name);
 			   var p2=$("<p></p>").addClass("price fl").append($("<b></b>").append("¥")).append($("<strong></strong>").append(content.shop_price));
 			   var p3=$("<p></p>").addClass("number fl").append("销量").append($("<span></span>").append(content.sales));
-			   div.append(img).append(p1).append(p2).append(p3);
+			   div.append(a1.append(img)).append(a1.append(p1)).append(p2).append(p3);
 			   $("#searchGoodsUl").append(li.append(div));
 			   });
 			  } 
@@ -437,11 +440,12 @@ function searchGoodsLimtByPrice(nowpage){
 			   $.each(data.goods,function(index,content){
 			   var li=$("<li></li>");
 			   var div=$("<div></div>").addClass("i-pic limit");
+			   var a1=$("<a></a>").attr("href","${pageContext.request.contextPath }/items/itemsIntroduction.action?goods_id="+content.goods_id);
 			   var img=$("<img></img>").attr("weidth","200px").attr("height","280px").attr("src","${pageContext.request.contextPath }/"+content.original_img);
 			   var p1=$("<p></p>").addClass("title fl").append(content.goods_name);
 			   var p2=$("<p></p>").addClass("price fl").append($("<b></b>").append("¥")).append($("<strong></strong>").append(content.shop_price));
 			   var p3=$("<p></p>").addClass("number fl").append("销量").append($("<span></span>").append(content.sales));
-			   div.append(img).append(p1).append(p2).append(p3);
+			   div.append(a1.append(img)).append(a1.append(p1)).append(p2).append(p3);
 			   $("#searchGoodsUl").append(li.append(div));
 			   });
 			  } 
@@ -486,11 +490,12 @@ function searchGoodsBrandBySales(nowpage,brand_name){
 			   $.each(data.goods,function(index,content){
 			   var li=$("<li></li>");
 			   var div=$("<div></div>").addClass("i-pic limit");
+			   var a1=$("<a></a>").attr("href","${pageContext.request.contextPath }/items/itemsIntroduction.action?goods_id="+content.goods_id);
 			   var img=$("<img></img>").attr("weidth","200px").attr("height","280px").attr("src","${pageContext.request.contextPath }/"+content.original_img);
 			   var p1=$("<p></p>").addClass("title fl").append(content.goods_name);
 			   var p2=$("<p></p>").addClass("price fl").append($("<b></b>").append("¥")).append($("<strong></strong>").append(content.shop_price));
 			   var p3=$("<p></p>").addClass("number fl").append("销量").append($("<span></span>").append(content.sales));
-			   div.append(img).append(p1).append(p2).append(p3);
+			   div.append(a1.append(img)).append(a1.append(p1)).append(p2).append(p3);
 			   $("#searchGoodsUl").append(li.append(div));
 			   }); 
 			  } 
@@ -535,11 +540,12 @@ function searchGoodsBrandByPrice(nowpage,brand_name){
 			   $.each(data.goods,function(index,content){
 			   var li=$("<li></li>");
 			   var div=$("<div></div>").addClass("i-pic limit");
+			   var a1=$("<a></a>").attr("href","${pageContext.request.contextPath }/items/itemsIntroduction.action?goods_id="+content.goods_id);
 			   var img=$("<img></img>").attr("weidth","200px").attr("height","280px").attr("src","${pageContext.request.contextPath }/"+content.original_img);
 			   var p1=$("<p></p>").addClass("title fl").append(content.goods_name);
 			   var p2=$("<p></p>").addClass("price fl").append($("<b></b>").append("¥")).append($("<strong></strong>").append(content.shop_price));
 			   var p3=$("<p></p>").addClass("number fl").append("销量").append($("<span></span>").append(content.sales));
-			   div.append(img).append(p1).append(p2).append(p3);
+			   div.append(a1.append(img)).append(a1.append(p1)).append(p2).append(p3);
 			   $("#searchGoodsUl").append(li.append(div));
 			   }); 
 			  } 
