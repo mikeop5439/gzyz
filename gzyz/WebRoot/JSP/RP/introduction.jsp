@@ -107,7 +107,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			        	});
 			        }
 				});
-		     } */
+		     }  */
 		     
 		     function setpage(allpage,nowpage){
 			     var i=2;
@@ -350,29 +350,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="clear"></div>
 							</div>
 
-							<!--地址-->
-							<!-- <dl class="iteminfo_parameter freight">
-								<dt>配送至</dt>
-								<div class="iteminfo_freprice">
-									<div class="am-form-content address">
-										<select data-am-selected>
-											<option value="a">浙江省</option>
-											<option value="b">湖北省</option>
-										</select>
-										<select data-am-selected>
-											<option value="a">温州市</option>
-											<option value="b">武汉市</option>
-										</select>
-										<select data-am-selected>
-											<option value="a">瑞安区</option>
-											<option value="b">洪山区</option>
-										</select>
-									</div>
-									<div class="pay-logis">
-										快递<b class="sys_item_freprice">10</b>元
-									</div>
-								</div>
-							</dl> -->
 							<div class="clear"></div>
 
 							<!--销量-->
@@ -413,22 +390,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												<div class="theme-signin-left">
 
 													<div class="theme-options">
-														<div class="cart-title">颜色</div>
-														<ul>
-															<li class="sku-line selected">粉色<i></i></li>
-															<li class="sku-line">绿色<i></i></li>
-															<li class="sku-line">白色<i></i></li>
-															<li class="sku-line">黑色<i></i></li>
-														</ul>
-													</div>
-													<div class="theme-options">
-														<div class="cart-title">尺寸</div>
-														<ul>
-															<li class="sku-line selected">大屏<i></i></li>
-															<li class="sku-line">中屏<i></i></li>
-															<li class="sku-line">小屏<i></i></li>
-														</ul>
-													</div>
 													<div class="theme-options">
 														<div class="cart-title number">数量</div>
 														<dd>
