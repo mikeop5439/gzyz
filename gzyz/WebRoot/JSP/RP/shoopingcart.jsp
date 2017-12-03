@@ -197,8 +197,7 @@ function hideURLbar(){window.scrollTo(0,1);}
 					<ul>
 						<li><a href="#" class="w3_agile_facebook"><i class="fa fa-qq" aria-hidden="true"></i></a></li>
 						<li><a href="#" class="agile_twitter"><i class="fa fa-weixin" aria-hidden="true"></i></a></li>
-						<li><a href="#" class="w3_agile_dribble"><i class="fa fa-weibo" aria-hidden="true"></i></a></li>
-						
+						<li><a href="#" class="w3_agile_dribble"><i class="fa fa-weibo" aria-hidden="true"></i></a></li>						
 					</ul>
 				</div>
 				<div class="payment-w3ls" style="padding-top:26px;">	
