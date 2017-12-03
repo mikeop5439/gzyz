@@ -215,10 +215,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<a href="${pageContext.request.contextPath}/JSP/RP/" ><i class="fa fa-home fa-2x" style="color: #FFFFFF;"></i></a>
 			
 			
-			<img id="imgoflogin" src="${pageContext.request.contextPath }${sessionScope.loginuser.user_image}" >
+			<a href="${pageContext.request.contextPath }/JSP/RP/personcar.jsp"><img id="imgoflogin" src="${pageContext.request.contextPath }${sessionScope.loginuser.user_image}" ></a>
 			
-			<a id="aoflogin" href="#" style="color: #FCFCFC;margin-left: 20px; display:none;">欢迎，${sessionScope.loginuser.user_name}</a>
-			
+			<a id="aoflogin" href="${pageContext.request.contextPath }/JSP/RP/personcar.jsp" style="color: #FCFCFC;margin-left: 20px; display:none;">欢迎，${sessionScope.loginuser.user_name}</a>
+			<!-- <a href="personcar.jsp">个人中心</a> -->
 			<a id="aofalogin" href="${pageContext.request.contextPath}/JSP/RP/login.jsp" style="color: #FCFCFC;margin-left: 20px; display:none;">登录</a>
 		
 			<a id="aofblogin" href="${pageContext.request.contextPath}/JSP/RP/registered.jsp" style="color: #FCFCFC;margin-left: 20px; display:none;">注册</a>
