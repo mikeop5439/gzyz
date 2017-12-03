@@ -444,6 +444,7 @@ var music = document.getElementById('bg-music');
 									</div>
 								</div>
 								</c:forEach>
+								<div><input type="hidden" id="iflogin" value="${sessionScope.loginuser.user_name}"></div>
 								<div class="clearfix"> </div>
 							</div>
 							</div>

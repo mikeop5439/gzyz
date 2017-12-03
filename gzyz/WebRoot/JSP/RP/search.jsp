@@ -232,7 +232,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</ul>
 				<div style="float:right;margin-top:4px;">
 					
-					<a href="#" style="font-size:16px;font-weight:700;"><i class="fa fa-cart-arrow-down fa-2x" style="margin-right:10px;"></i> 购物车</a>
+					<a href="${pageContext.request.contextPath }/shoppingcart/queryShoopingCart.action" style="font-size:16px;font-weight:700;"><i class="fa fa-cart-arrow-down fa-2x" style="margin-right:10px;"></i> 购物车</a>
 					<i class="am-icon-angle-right" style="padding-left: 10px;"></i>
 				</div>
 			</div>

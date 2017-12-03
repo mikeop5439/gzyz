@@ -33,6 +33,8 @@ $(document).ready(function(){
 });
 //添加购物车
 function addUserCart(id){
+	var login=$("#iflogin").val();
+	if(login !=null && login != "" && login != ''){
 	var goods_name = $("#"+id).find("input[name='goods_name']").val();
 	var goods_sn = $("#"+id).find("input[name='goods_sn']").val();
 	var goods_price = $("#"+id).find("input[name='goods_price']").val();
@@ -41,4 +43,7 @@ function addUserCart(id){
 	$.post(url,args,function(){
 		alert("添加成功");
 	});
+	}else{
+		alert("请先登录")
+	}
 }
