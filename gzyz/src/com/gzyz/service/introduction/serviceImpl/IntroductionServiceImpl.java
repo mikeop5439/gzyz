@@ -15,6 +15,7 @@ import com.gzyz.bean.introduction.extend.GoodsInfo;
 import com.gzyz.bean.introduction.extend.RelatedGoods;
 import com.gzyz.bean.introduction.extend.RelatedGoodsKey;
 import com.gzyz.bean.introduction.extend.UpdateGoodsDate;
+import com.gzyz.bean.users.Receiver;
 import com.gzyz.mapper.introduction.IntroductionMapper;
 import com.gzyz.service.introduction.service.IntroductionService;
 
@@ -103,6 +104,16 @@ public class IntroductionServiceImpl implements IntroductionService {
 	public List<Goods> querygoodsRelation(int goods_id) {
 		//通过商品推荐商品 
 		return introductionMapper.selectgoodsRelation(goods_id);
+	}
+	@Override
+	public Goods querygoods(int goods_id) {
+		// 查询商品
+		return introductionMapper.selectgoods(goods_id);
+	}
+	@Override
+	public List<Receiver> selectuserreceiver(int user_id) {
+		// 查询用户收货地址
+		return introductionMapper.selectuserreceiver(user_id);
 	}
 
 }

@@ -15,8 +15,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 
 	
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<script type="application/x-javascript"> 
+addEventListener("load", function() {setTimeout(hideURLbar, 0); }, false);
+function hideURLbar(){ window.scrollTo(0,1); } 
+</script>
 <!-- //for-mobile-apps -->
 <link href="${pageContext.request.contextPath}/JSP/RP/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="${pageContext.request.contextPath}/JSP/RP/css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -30,21 +32,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/js/move-top.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/JSP/RP/js/easing.js"></script>
 <style>
-	
-   .mscBtn {
+.mscBtn {
 	   height: 50px;
 	   float: left;
        display:inline;
 	}
-	.agile-login img{
+.agile-login img{
 	   border-radius:50%;
 	   margin-right:15px;
 	}
   
 </style>
 <script type="text/javascript">
-
-jQuery(document).ready(function($) {
+  jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){		
 			event.preventDefault();
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
@@ -72,13 +72,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 $(function(){
 var music = document.getElementById('bg-music');
-$("#audioBtn").click(function(){
-if(music.paused){music.play();
-$("#iconOfPlayer").removeClass("fa fa-close fa-2x").addClass("fa fa-music fa-2x");
-$("#audioBtn").removeClass("pause").addClass("play");
-}else{music.pause();
-$("#iconOfPlayer").removeClass("fa fa-music fa-2x").addClass("fa fa-close fa-2x");
-$("#audioBtn").removeClass("play").addClass("pause");}});
+		$("#audioBtn").click(function(){
+			if(music.paused){music.play();
+			$("#iconOfPlayer").removeClass("fa fa-close fa-2x").addClass("fa fa-music fa-2x");
+			$("#audioBtn").removeClass("pause").addClass("play");
+			}else{music.pause();
+			$("#iconOfPlayer").removeClass("fa fa-music fa-2x").addClass("fa fa-close fa-2x");
+			$("#audioBtn").removeClass("play").addClass("pause");}
+		});
 });
 
 /* $(function(){

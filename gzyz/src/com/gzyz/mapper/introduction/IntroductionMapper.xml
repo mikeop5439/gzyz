@@ -135,4 +135,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectgoodsRelation" resultType="goods" parameterType="int">
 		SELECT * FROM `goods` WHERE goods_id IN (SELECT tgoods_id from `goodsRelationgoods` where goods_id=#{id})
 	</select>
+	<select id="selectgoods" resultType="goods" parameterType="int">
+		SELECT * FROM `goods` WHERE goods_id=#{id}
+	</select>
+	<select id="selectuserreceiver" resultType="Receiver" parameterType="int">
+			select * from receiver where user_id=#{user_id}
+	</select>
 </mapper>

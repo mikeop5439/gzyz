@@ -15,6 +15,7 @@ import com.gzyz.bean.introduction.extend.GoodsInfo;
 import com.gzyz.bean.introduction.extend.RelatedGoods;
 import com.gzyz.bean.introduction.extend.RelatedGoodsKey;
 import com.gzyz.bean.introduction.extend.UpdateGoodsDate;
+import com.gzyz.bean.users.Receiver;
 
 public interface IntroductionMapper {
 	
@@ -34,4 +35,6 @@ public interface IntroductionMapper {
 	public int getGoodsOrderNum(@Param("goods_id") int goods_id);
 	public List<Goods> selectgoodsrecommend(int user_id);
 	public List<Goods> selectgoodsRelation(int goods_id);
+	public Goods selectgoods(int goods_id);
+	public List<Receiver> selectuserreceiver(int user_id);
 }

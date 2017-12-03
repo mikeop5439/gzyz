@@ -38,7 +38,7 @@ function addUserCart(id){
 	var goods_price = $("#"+id).find("input[name='goods_price']").val();
 	var url="/gzyz/userlist/addUserCart.action";
 	var args={"goods_id":id,"goods_name":goods_name,"goods_sn":goods_sn,"goods_price":goods_price,"time":new Date()};
-	$.getJSON(url,args,function(){
+	$.post(url,args,function(){
 		alert("添加成功");
 	});
 }

@@ -46,7 +46,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		}
 		</style>
 		
-		<script type="text/javascript">
+<script type="text/javascript">
 		 function sub(nowpage){
 			 var goods_id = showTableContent("keylist");
 		       $.ajax({
@@ -174,9 +174,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			         //document.getElementById('result').innerHTML = tmp;
 			     	return tmp;
 			     }
-		</script>
-		<script type="text/javascript">
-		window.onload=function(){
+			     
+//添加购物车
+function addUserCart(id){
+	var goods_name = $("#"+id).find("input[name='goods_name']").val();
+	var goods_sn = $("#"+id).find("input[name='goods_sn']").val();
+	var goods_price = $("#"+id).find("input[name='goods_price']").val();
+	var url="/gzyz/userlist/addUserCart.action";
+	var args={"goods_id":id,"goods_name":goods_name,"goods_sn":goods_sn,"goods_price":goods_price,"time":new Date()};
+	$.getJSON(url,args,function(){
+		alert("添加成功");
+	});
+}
+		     
+</script>
+<script type="text/javascript">
+window.onload=function(){
 		if("${sessionScope.loginuser.user_name}"==""){
 		$("#aofalogin").css("display","inline");
 		$("#aofblogin").css("display","inline");
@@ -185,17 +198,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		$("#aoflogin").css("display","inline");
 		}
 		};
-		</script>
-		<style>
-		.agileits_header img{
+</script>
+<style>
+.agileits_header img{
 		border-radius:50%;
 		width:40px;
 	    height:40px;
 	    margin-left:30px;
 	    display:none;
 		}
-		</style>
-	</head>
+</style>
+</head>
 
 	<body>
 	<div class="preloader">
@@ -254,17 +267,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 <!-- //breadcrumbs -->
 			
-				<script type="text/javascript">
-					$(function() {});
-					$(window).load(function() {
-						$('.flexslider').flexslider({
-							animation: "slide",
-							start: function(slider) {
-								$('body').removeClass('loading');
-							}
-						});
-					});
-				</script>
+<script type="text/javascript">
+	$(function() {});
+		$(window).load(function() {
+			$('.flexslider').flexslider({
+					animation: "slide",
+					start: function(slider) {
+						$('body').removeClass('loading');
+						}
+				});
+			});
+$(function(){
+	var num=$("#text_box").val();
+	$("#goodsnum").val(num);
+	$("#min").click(function(){
+		var num=$("#text_box").val();
+		$("#goodsnum").val(num);
+		
+	});
+	$("#add").click(function(){
+		var num=$("#text_box").val();
+		$("#goodsnum").val(num);
+		
+	});
+});
+</script>
 				<div class="scoll">
 					<section class="slider">
 						<div class="flexslider">
@@ -394,7 +421,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														<div class="cart-title number">数量</div>
 														<dd>
 															<input id="min" class="am-btn am-btn-default" name="" type="button" value="-" />
-															<input id="text_box" name="" type="text" value="1" style="width:30px;" />
+															<input id="text_box" name="num" type="text" value="1" style="width: 40px;height: 27px;text-align: center;" />
 															<input id="add" class="am-btn am-btn-default" name="" type="button" value="+" />
 															<c:forEach items="${goodsinfo }" var="info">
 																<span id="Stock" class="tb-hidden">库存<span class="stock">${info.goods_number }</span>件</span>
@@ -422,33 +449,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="pay" style="margin-top: 5px;">
 							
 							<div class="col-md-4  snipcart-details agileinfo_single_right_details">
-							<form action="#" method="post">
-								<fieldset>
-									<input type="hidden" name="cmd" value="_cart">
-									<input type="hidden" name="add" value="1">
-									<input type="hidden" name="business" value=" ">
-									<input type="hidden" name="item_name" value="pulao basmati rice">
-									<input type="hidden" name="amount" value="21.00">
-									<input type="hidden" name="discount_amount" value="1.00">
-									<input type="hidden" name="currency_code" value="USD">
-									<input type="hidden" name="return" value=" ">
-									<input type="hidden" name="cancel_return" value=" ">
-									<input type="submit" name="submit" value="加入购物车" class="button">
-									
-									
+							<div action="#" method="post">
+							<c:forEach items="${goodsinfo }" var="g">
+								<fieldset id="${g.getGoods_id()}">
+									<input type="hidden" name="goods_name" value="${g.getGoods_name()}">
+									<input type="hidden" name="goods_sn" value="${g.getGoods_sn()}">
+									<input type="hidden" name="goods_price" value="${g.getShop_price()}">
+									<input type="button" class="button" onclick="return addUserCart(${g.getGoods_id()})" class="button" value="加入购物车">						
 								</fieldset>
-							</form>
+							</c:forEach>	
+							 </div>
+							
 						</div>
 							<div class="col-md-4 snipcart-details agileinfo_single_right_details">
-							<input type="button"  value="立即购买" class="button" onClick="" >
-							<c:forEach items="${goodsinfo }" var="info">
-							<table id="keylist">
-								<tr>
-									<td id="goods_Id" name="goods_id" style="display: none;">${info.goods_id }</td>
-								</tr>
-							</table>
-							</c:forEach>
-						</div>
+								<form action="${pageContext.request.contextPath}/items/addcartorder_details.action" method="post">
+								
+								<input type="submit"  value="立即购买" class="button">
+								<c:forEach items="${goodsinfo }" var="g">
+								<input type="hidden" name="total" value="${g.getShop_price()}">
+								<input type="hidden" name="goods_id" value="${g.getGoods_id()}">
+								<input id="goodsnum" type="hidden" name="num" />
+								<table id="keylist">
+									<tr>
+										<td id="goods_Id" name="goods_id" style="display: none;">${info.goods_id }</td>
+									</tr>
+								</table>
+								</c:forEach>
+								</form>
+						    </div>
 						</div>
 
 					</div>

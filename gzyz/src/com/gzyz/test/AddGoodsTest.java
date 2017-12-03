@@ -16,6 +16,7 @@ import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.goods.extend.GoodsCollect;
 import com.gzyz.bean.users.extend.UserCollect;
 import com.gzyz.bean.users.extend.Userdate;
+import com.gzyz.service.reception.service.ShoopingCartService;
 import com.gzyz.service.users.service.UserListService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,15 +24,11 @@ import com.gzyz.service.users.service.UserListService;
 
 public class AddGoodsTest {
 	@Autowired
-	private UserListService userListService;
+	private ShoopingCartService shoopingCartService;
 	@Test
 	public void testCheckSpec_name(){
-		List<Integer>weekranking_goodsid=userListService.selectweekranking();
-		List<Goods>weekrankinggoodslist=new ArrayList<>();
-		for (int id:weekranking_goodsid){
-			Goods goods=userListService.queryweekrankinggoods(id);
-			weekrankinggoodslist.add(goods);
-		}
-
-}
+		Goods goods =shoopingCartService.querygoods(Integer.parseInt("24"));
+		System.out.println(goods);
+	
+	}
 	}

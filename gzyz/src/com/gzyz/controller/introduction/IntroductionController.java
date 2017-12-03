@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.gzyz.bean.comment.extend.CommentPageKeywords;
-import com.gzyz.bean.comment.extend.CommentVo;
 import com.gzyz.bean.goods.Goods;
 import com.gzyz.bean.introduction.extend.CommentInfo;
 import com.gzyz.bean.introduction.extend.CommentInfoByPage;
@@ -28,8 +27,12 @@ import com.gzyz.bean.introduction.extend.GoodsInfo;
 import com.gzyz.bean.introduction.extend.RelatedGoods;
 import com.gzyz.bean.introduction.extend.RelatedGoodsKey;
 import com.gzyz.bean.introduction.extend.UpdateGoodsDate;
+import com.gzyz.bean.order.Order_details;
+import com.gzyz.bean.users.Receiver;
 import com.gzyz.bean.users.User;
+import com.gzyz.bean.users.extend.Cartextend;
 import com.gzyz.service.introduction.service.IntroductionService;
+import com.gzyz.service.reception.service.ShoopingCartService;
 
 @Controller
 @RequestMapping("items")
@@ -37,7 +40,7 @@ public class IntroductionController {
 	
 	@Autowired
 	private IntroductionService introductionService;
-	
+	private ShoopingCartService shoopingCartService;
 	public String GetNowDate() throws ParseException{     
 	    String temp_str="";     
 	    Date dt = new Date();     
@@ -160,4 +163,48 @@ public class IntroductionController {
 		List<RelatedGoods> relatedGoods = introductionService.getRelatedGoods(relatedGoodsKey);
 		return relatedGoods;
 	}
+	
+	@RequestMapping("addcartorder_details")
+	public String addcartorder_details(HttpServletRequest request,HttpSession session){
+		//购物车提交上来的订单
+		String stringoods_id=request.getParameter("goods_id");
+		int goods_id=Integer.parseInt(stringoods_id);
+		String total=request.getParameter("total");
+		double to=new Double(total);
+		int zong=(int)to;
+		String number=request.getParameter("num");
+		User user=(User) session.getAttribute("user");
+		String result=null;
+		List<Order_details> order_details=new ArrayList<>();
+		if(user != null){//判断是否登录
+			Order_details details=new Order_details();
+			details.setGoods_id(goods_id);
+			details.setQuantity(Integer.parseInt(number));
+			details.setShop_price(zong);
+			
+			//查询商品的商品名
+			Goods goods =introductionService.querygoods(goods_id);
+			
+			details.setGoods_name(goods.getGoods_name());
+			details.setTotal_fee(Integer.parseInt(number) * zong);
+			details.setOriginal_img(goods.getOriginal_img());
+			
+			order_details.add(details);
+		//查询用户收货地址
+		List<Receiver> receiver=introductionService.selectuserreceiver(user.getUser_id());
+		//查询用户默认收货地址
+		//User user2=shoopingCartService.queryuserservice(user.getUser_id());
+		session.setAttribute("user", user);
+		
+		request.setAttribute("receiver", receiver);
+		request.setAttribute("order_details", order_details);
+		request.setAttribute("total", Integer.parseInt(number) * zong);
+		result= "/JSP/RP/Order_details.jsp";
+		}else{
+			result = "redirect:/JSP/RP/login.jsp";
+		}
+		
+		return result;
+	}
+	
 }
