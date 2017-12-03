@@ -145,7 +145,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="queryAllOrderByUserList" parameterType="int" resultType="com.gzyz.bean.order.Order">
 	select *   
 	from `order` 
-	where user_id = #{user_id}   
+	where user_id = #{user_id} and order_status = 0   
 </select>
 
 <select id="queryAllOrderByUser" parameterType="int" resultType="com.gzyz.bean.order.Order">
