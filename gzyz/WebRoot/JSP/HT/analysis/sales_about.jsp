@@ -100,7 +100,7 @@ $.ajax({
   			}
   			}
   			ie=ie+content.count;
-  			eval("components."+content.goods_name+"="+content.count);
+  			eval("components."+""+content.goods_name+""+"="+content.count);
   			});
   			$.each(data.categotyTopSales,function(index,content){
   			eval("downloadJson."+content.goods_name+"="+content.count);

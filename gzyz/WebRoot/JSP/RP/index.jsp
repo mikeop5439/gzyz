@@ -469,6 +469,7 @@ var music = document.getElementById('bg-music');
 				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 					<ul id="myTab" class="nav nav-tabs" role="tablist">
 						<li role="presentation" class="active"><a href="#expeditions" id="expeditions-tab" role="tab" data-toggle="tab" aria-controls="expeditions" aria-expanded="true">周销售榜</a></li>
+						<li role="presentation"><a href="#tours" role="tab" id="tours-tab" data-toggle="tab" aria-controls="tours">今日上新</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
 						<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
@@ -482,27 +483,8 @@ var music = document.getElementById('bg-music');
 							</div>
 							</div>
 						</div>
-							
-						</div>
 						
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-<!-- 新品 -->
-<div class="fix-right-sub">
-	
-	<div class="top-brands">
-	
-		<div class="container">
-	        <div class=" grid_3 grid_5 " style="margin-top:-100px;" >
-				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
-					<ul id="myTab" class="nav nav-tabs" role="tablist">
-						<li role="presentation" class="active"><a href="#expeditions" id="expeditions-tab" role="tab" data-toggle="tab" aria-controls="expeditions" aria-expanded="true">新品热卖</a></li>
-					</ul>
-					<div id="myTabContent" class="tab-content">
-						<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
+						<div role="tabpanel" class="tab-pane fade" id="tours" aria-labelledby="tours-tab">
 							<div class="agile-tp">
 								<center><p>新品好货，赶紧带回家吧。</p></center>
 							</div>
@@ -512,16 +494,16 @@ var music = document.getElementById('bg-music');
 								
 							</div>
 							</div>
-						</div>
-							
+						</div>	
 						</div>
 						
 					</div>
 				</div>
 			</div>
 		</div>
+		</div>
 	</div>
-<!-- 新品 -->	
+
 <!-- //top-brands -->
 
 
