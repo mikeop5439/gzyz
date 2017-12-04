@@ -88,7 +88,7 @@ $.ajax({
   			builderJson.all=all;
   			builderJson.maxc=maxc;
   			$.each(data.goodsAllSales,function(index,content){
-  			eval("keywords."+content.goods_name+"="+content.count);
+  			eval("keywords."+""+content.goods_name+""+"="+content.count);
   			});
   			 var chart = echarts.init(document.getElementById('main'));
   			 var mychart=echarts.init(document.getElementById('min'),'vintage');

@@ -167,7 +167,7 @@ var music = document.getElementById('bg-music');
 		<div class="container">
 		
 		   <a class="mscBtn" id="audioBtn"  style="cursor:pointer;"><i id="iconOfPlayer" class="fa fa-music fa-2x" style="color: black;"></i></a>
-        <audio style="display:none; " id="bg-music" preload="auto" src="王筝-我们都是好孩子 - 铃声.mp3" loop></audio>
+        <audio style="display:none; " id="bg-music" preload="auto" src="羽肿 - 花火が瞬く夜に.mp3" loop></audio>
 		<div class="w3ls_logo_products_left1"  >
 				<ul class="phone_email">
 					<li style="margin-left: 100px;"><i class="fa fa-phone" aria-hidden="true"></i>客服 : (+0123) 234 567</li>
