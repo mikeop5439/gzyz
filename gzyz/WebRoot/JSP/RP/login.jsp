@@ -164,7 +164,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   function checkUserName(){ 
   var username = document.getElementById('userName'); 
   var errname = document.getElementById('nameErr'); 
-  var pattern = /([\u4e00-\u9fa5]|[a-zA-Z]|[0-9]){3,8}/;  //用户名格式正则表达式：用户名要至少三位 
+  var pattern = /([\u4e00-\u9fa5]|[a-zA-Z]|[0-9]){3,16}/;  //用户名格式正则表达式：用户名要至少三位 
   
   if(username.value.length == 0){ 
     errname.innerHTML="用户名不能为空"
@@ -172,7 +172,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     return false; 
     } 
   if(!pattern.test(username.value)){ 
-    errname.innerHTML="用户长度至少为3，最多为8"
+    errname.innerHTML="用户长度至少为3，最多为16"
     errname.className="error"
     return false; 
     } 
@@ -186,7 +186,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 function checkPassword(){ 
   var userpasswd = document.getElementById('userPasword'); 
   var errPasswd = document.getElementById('passwordErr'); 
-  var pattern = /^\w{4,8}$/; //密码要在4-8位
+  var pattern = /^\w{8,16}$/; //密码要在4-8位
 
 if(userpasswd.value.length == 0){ 
     errPasswd.innerHTML="密码不能为空"
@@ -194,7 +194,7 @@ if(userpasswd.value.length == 0){
     return false; 
     } 
   if(!pattern.test(userpasswd.value)){ 
-    errPasswd.innerHTML="密码要在4-8位"
+    errPasswd.innerHTML="密码要在8-16位"
     errPasswd.className="error"
     return false; 
     } 
