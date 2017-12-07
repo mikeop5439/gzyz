@@ -329,7 +329,7 @@ $(function(){
 
 							<div class="tb-booth tb-pic tb-s310">
 							<c:forEach items="${goodsinfo }" var="info">
-								<a href="${pageContext.request.contextPath}${info.original_img}"><img src="${pageContext.request.contextPath}${info.original_img}" alt="细节展示放大镜特效" rel="${pageContext.request.contextPath}${info.original_img}" class="jqzoom" /></a>
+								<a href="${pageContext.request.contextPath}${info.original_img}"><img src="${pageContext.request.contextPath}${info.original_img}" alt="细节展示放大镜特效" rel="${pageContext.request.contextPath}${info.original_img}" class="jqzoom" height="320px" width="320px"/></a>
 							</c:forEach>
 							</div>
 							<ul class="tb-thumb" id="thumblist">
