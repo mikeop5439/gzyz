@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=src/main/webapp/JSP/RP/js,src/main/webapp/JSP/HT/js,src/main/webapp/JSP/RP/personal,src/main/webapp/JSP/HT/assets
+validator.Unchecked=
