@@ -290,7 +290,7 @@ else{
   function rcheckPassword(){ 
   var userpasswd = document.getElementById('apswd').value; 
   
-  var pattern = /^[0-9A-Za-z_]\w{5,11}$/; //密码长度在8个字符到16个字符，由字母、数字和"_"组成
+  var pattern = /^[0-9A-Za-z_]\w{7,15}$/; //密码长度在8个字符到16个字符，由字母、数字和"_"组成
 
   if(!pattern.test(userpasswd)){ 
     $("#errstring3").css("display","block");

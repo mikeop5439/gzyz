@@ -81,7 +81,7 @@ window.onload =function(){
 			            name: '项目完成率',
 			            type: 'gauge',
 			            detail: {formatter:'{value}%'},
-			            data: [{value: 70, name: '项目完成率'}]
+			            data: [{value: 95, name: '项目完成率'}]
 			        }
 			    ]
 			};
