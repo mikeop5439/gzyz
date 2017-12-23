@@ -218,7 +218,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO `date_traffic` ( `user_id`, `user_accesstime`) VALUES (#{user_id}, #{user_accesstime});
 	</insert>
 	<select id="selectUserRecommend" resultType="com.gzyz.bean.goods.Goods" parameterType="int">
-		select * from goods where goods_id in(select goods_id from user_goods_recommend where user_id=#{id})
+		select * from goods 
+		where goods_id in(
+		select goods_id from user_goods_recommend 
+		where user_id=#{id}
+		)
+		LIMIT 0,6
 	</select>
 	<select id="selectweekranking" resultType="int">
 		SELECT goods_id 

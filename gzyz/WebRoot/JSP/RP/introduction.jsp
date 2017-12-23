@@ -704,7 +704,7 @@ $(function(){
 								<div class="am-tab-panel am-fade">
 									<div class="like">
 										<ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes" id="">
-										<c:forEach items="${goodsrecommend }" var="g">
+										<c:forEach items="${recommend }" var="g">
 											<li>
 												<div class="i-pic limit">
 													<a href="/gzyz/items/itemsIntroduction.action?goods_id=${g.goods_id }" target="_blank"><img src="${pageContext.request.contextPath}${g.original_img}" /></a>

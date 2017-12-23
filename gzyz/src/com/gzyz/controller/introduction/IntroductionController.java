@@ -109,12 +109,13 @@ public class IntroductionController {
 		relatedGoodsKey.setSecondnum(secondnum);
 		//推荐商品
 		User user=(User) session.getAttribute("user");
-		List<Goods> goodsrecommend=new ArrayList<>();
+		List<Goods>recommend=new ArrayList<>();
 		if(user != null){
-			goodsrecommend=introductionService.querytgoodsrecommend(user.getUser_id());
+			recommend=introductionService.querytgoodsrecommend(user.getUser_id());
 		}else {
-		    goodsrecommend=introductionService.querygoodsRelation(goods_id);	
+			recommend=introductionService.querygoodsRelation(goods_id);	
 		}
+		List<Goods> goodsrecommend=introductionService.querygoodsRelation(goods_id);
 		List<RelatedGoods> relatedGoods = introductionService.getRelatedGoods(relatedGoodsKey);
 		
 		model.addAttribute("goodsid", goods_id);
@@ -127,6 +128,7 @@ public class IntroductionController {
 		model.addAttribute("commentinfos", page);
 		model.addAttribute("relatedgoods", relatedGoods);
 		//商品推荐
+		model.addAttribute("recommend",recommend);
 		model.addAttribute("goodsrecommend",goodsrecommend);
 		return "/JSP/RP/introduction.jsp";
 	}
